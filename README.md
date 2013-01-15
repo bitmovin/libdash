@@ -62,6 +62,6 @@ You can find the latest sources and binaries in our [download section] (http://w
 9. The library and a simple test of the network part of the library should be available now. You can test the network part of the library with
 10. ./libdash_networpart_test
 
-## Acknowledgements:
+## Acknowledgements
 
 We specially want to thank our passionate developers at bitmovin as well as the researchers at the Institute for Information Technology (ITEC) of the Alpen Adria Universität Klagenfurt (AAU)!
