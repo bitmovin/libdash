@@ -11,3 +11,40 @@
 *.lai
 *.la
 *.a
+
+# /libdash/
+/libdash/Debug
+/libdash/intermediate
+/libdash/ipch
+/libdash/libdash.sdf
+/libdash/libdash.suo
+/libdash/*.opensdf
+
+# /libdash/bin/
+/libdash/bin/*.dll
+/libdash/bin/*.exe
+/libdash/bin/*.exp
+/libdash/bin/*.ilk
+/libdash/bin/*.lib
+/libdash/bin/*.pdb
+/libdash/bin/*.vh4
+/libdash/bin/*.txt
+
+# /libdash/libdash/
+/libdash/libdash/libdash.vcxproj.user
+
+# /libdash/libdash/source/
+/libdash/libdash/source/libs
+
+# /libdash/sampleplayer/
+/libdash/sampleplayer/log.txt
+/libdash/sampleplayer/sampleplayer.vcxproj.user
+
+# /libdash/libdash_memoryleak_test
+/libdash/libdash_memoryleak_test/libdash_memoryleak_test.vcxproj.user
+
+# /libdash/libdash_networkpart_test
+/libdash/libdash_networkpart_test/libdash_networkpart_test.vcxproj.user
+
+.metadata
+build
