@@ -1,0 +1,9 @@
+ *****************************************************************************
+ * Copyright (C) 2012, bitmovin Softwareentwicklung OG, All Rights Reserved
+ *
+ * Author:
+ *     Christopher Mueller  <christopher.mueller@bitmovin.net>
+ *
+ * This source code and its use and distribution, is subject to the terms
+ * and conditions of the applicable license agreement.
+ ******************************************************************************

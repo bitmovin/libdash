@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MPD xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xmlns="urn:mpeg:DASH:schema:MPD:2011"
+     xsi:schemaLocation="urn:mpeg:DASH:schema:MPD:2011"
+     profiles="urn:mpeg:dash:profile:isoff-main:2011"
+     type="static"
+     mediaPresentationDuration="PT0H9M56.46S"
+     minBufferTime="PT2.0S"
+     myMDPAttribute="mpd">
+  <ProgramInformation lang="en" myProgramInformationAttribute="programinformation">
+    <Title>### Title ###</Title>
+    <Source>### Source ###</Source>
+    <Copyright>### Copyright ###</Copyright>
+    <ProgramInformationElement>### ProgramInformationTestText ###</ProgramInformationElement>
+  </ProgramInformation>
+  <BaseURL>http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s/</BaseURL>
+  <Period start="PT0S" myPeriodAttribute="period">
+    <BaseURL myBaseURLAttribute="baseurl">folder/</BaseURL>
+    <SegmentBase indexRange="0-4332" mySegmentBaseAttribute="segmentbase">
+      <Initialization sourceURL="seg-m-init.mp4"/>
+      <segmentBaseElement>### PeriodTestText ###</segmentBaseElement>
+    </SegmentBase>
+    <SegmentList duration="2" mySegmentListAttribute="segmentList">
+      <SegmentURL media="bunny_2s_50kbit/bunny_50kbit_dashNonSeg.mp4" mediaRange="863-13826" mySegmentURLAttribute="segmenturl">
+        <SegmentURLElement>### SegmentURLTestText ###</SegmentURLElement>
+      </SegmentURL>
+      <SegmentURL media="bunny_2s_50kbit/bunny_50kbit_dashNonSeg.mp4" mediaRange="13827-22232" />
+      <SegmentURL media="bunny_2s_50kbit/bunny_50kbit_dashNonSeg.mp4" mediaRange="22233-33819" />
+      <SegmentListElement>### PeriodTestText ###</SegmentListElement>
+    </SegmentList>
+    <SegmentTemplate timescale="90000" initialization="$Bandwidth%/init.mp4v" media="$Bandwidth%/$Time$.mp4v" mySegmentTemplateAttribute="segmenttemplate">
+      <SegmentTimeline mySegmentTimelineAttribute="segmenttimeline">
+        <S t="0" d="180180" r="1" myTimelineAttribute="Timeline1"/>
+        <S t="360360" d="180180" r="1"/>
+        <S t="720720" d="180180" r="1"/>
+        <SegmentTimelineElement>### SegmentTimelineTestText ###</SegmentTimelineElement>
+      </SegmentTimeline>
+    </SegmentTemplate>
+    <AdaptationSet mimeType="video/mp4" codecs="avc1.4D401F" frameRate="30000/1001" segmentAlignment="true" startWithSAP="1" myAdaptationSetAttribute="adaptationset">
+      <ContentComponent id="0"  contentType="video" myContentComponentAttriubute="contentcomponent">
+        <Accessibility>
+          <NestedDescriptorElement>### Nested DescriptorTestText ###</NestedDescriptorElement>
+        </Accessibility>
+        <Role></Role>
+        <Rating></Rating>
+        <Viewpoint></Viewpoint>
+        <ContentComponentElement>### ContentComponentTestText ###</ContentComponentElement>
+      </ContentComponent>
+      <ContentProtection schemeIdUri="http://example.net/052011/drm">
+        <License>http://MoviesSP.example.com/protect?license=jfjhwlsdkfiowkl</License>
+        <Content>http://MoviesSP.example.com/protect?content=mslkfjsfiowelkfl</Content>
+      </ContentProtection>
+      <BaseURL>video/</BaseURL>
+      <SegmentBase indexRange="0-4332" mySegmentBaseAttribute="segmentbase">
+        <Initialization sourceURL="seg-m-init.mp4"/>
+        <segmentBaseElement>### SegmentBaseTestText ###</segmentBaseElement>
+      </SegmentBase>
+      <SegmentList duration="2" mySegmentListAttribute="segmentList">
+        <SegmentURL media="bunny_2s_50kbit/bunny_50kbit_dashNonSeg.mp4" mediaRange="863-13826" />
+        <SegmentURL media="bunny_2s_50kbit/bunny_50kbit_dashNonSeg.mp4" mediaRange="13827-22232" />
+        <SegmentURL media="bunny_2s_50kbit/bunny_50kbit_dashNonSeg.mp4" mediaRange="22233-33819" />
+        <SegmentListElement>### SegmentListTestText ###</SegmentListElement>
+      </SegmentList>
+      <SegmentTemplate timescale="90000" initialization="$Bandwidth%/init.mp4v" media="$Bandwidth%/$Time$.mp4v" mySegmentTemplateAttribute="segmenttemplate">
+        <SegmentTimeline mySegmentTimelineAttribute="segmenttimeline">
+          <S t="0" d="180180" r="1" myTimelineAttribute="Timeline1"/>
+          <S t="360360" d="180180" r="1"/>
+          <S t="720720" d="180180" r="1"/>
+          <SegmentTimelineElement>### SegmentTimelineTestText ###</SegmentTimelineElement>
+        </SegmentTimeline>
+      </SegmentTemplate>
+      <Representation id="v0" width="320" height="240" bandwidth="250000" myRepresentationAttribute="representation">
+        <BaseURL myBaseURLAttribute="baseurl">folderForRep/</BaseURL>
+        <SubRepresentation mySubRepresentationAttribute="subrepresentation">
+          <ContentProtection schemeIdUri="http://example.net/052011/drm">
+            <License>http://MoviesSP.example.com/protect?license=jfjhwlsdkfiowkl</License>
+            <Content>http://MoviesSP.example.com/protect?content=mslkfjsfiowelkfl</Content>
+          </ContentProtection>
+          <SubRepresentationElement>### SubRepTestText ###</SubRepresentationElement>
+        </SubRepresentation>
+        <SegmentBase indexRange="0-4332" mySegmentBaseAttribute="segmentbase">
+          <Initialization sourceURL="seg-m-init.mp4"/>
+          <segmentBaseElement>### SegmentBaseTestText ###</segmentBaseElement>
+        </SegmentBase>
+        <SegmentList duration="2" mySegmentListAttribute="segmentList">
+          <SegmentURL media="bunny_2s_50kbit/bunny_50kbit_dashNonSeg.mp4" mediaRange="863-13826" />
+          <SegmentURL media="bunny_2s_50kbit/bunny_50kbit_dashNonSeg.mp4" mediaRange="13827-22232" />
+          <SegmentURL media="bunny_2s_50kbit/bunny_50kbit_dashNonSeg.mp4" mediaRange="22233-33819" />
+          <SegmentListElement>### SegmentListTestText ###</SegmentListElement>
+        </SegmentList>
+        <SegmentTemplate timescale="90000" initialization="$Bandwidth%/init.mp4v" media="$Bandwidth%/$Time$.mp4v" mySegmentTemplateAttribute="segmenttemplate">
+          <SegmentTimeline mySegmentTimelineAttribute="segmenttimeline">
+            <S t="0" d="180180" r="1" myTimelineAttribute="Timeline1"/>
+            <S t="360360" d="180180" r="1"/>
+            <S t="720720" d="180180" r="1"/>
+            <SegmentTimelineElement>### SegmentTimelineTestText ###</SegmentTimelineElement>
+          </SegmentTimeline>
+        </SegmentTemplate>
+        <RepresentationElement>### RepresentationTestText ###</RepresentationElement>
+      </Representation> 
+      <Representation id="v1" width="640" height="480" bandwidth="500000"/> 
+      <Representation id="v2" width="960" height="720" bandwidth="1000000"/>
+      <AdaptationSetElement>### AdaptationSetTestText ###</AdaptationSetElement>
+    </AdaptationSet>
+    <Subset contains="1 4 5 6 7" mySubsetAttriubte="subset">### SubsetTestText ###</Subset>
+    <PeriodElement>### PeriodTestText ###</PeriodElement>
+  </Period>
+  <Metrics myMetricsAttribute="metrics">
+    <Reporting value="bla">
+      <NestedDescriptorElement>### Nested DescriptorTestText ###</NestedDescriptorElement>
+    </Reporting>
+    <MetricsElement>### Metrics TestText ###</MetricsElement>
+  </Metrics>
+  <MPDElement>### MPDTestText ###</MPDElement>
+</MPD>

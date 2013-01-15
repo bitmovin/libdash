@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\helpers\BlockStream.cpp" />
+    <ClCompile Include="source\helpers\Path.cpp" />
+    <ClCompile Include="source\helpers\String.cpp" />
+    <ClCompile Include="source\helpers\SyncedBlockStream.cpp" />
+    <ClCompile Include="source\mpd\AbstractMPDElement.cpp" />
+    <ClCompile Include="source\mpd\BaseUrl.cpp" />
+    <ClCompile Include="source\mpd\ContentComponent.cpp" />
+    <ClCompile Include="source\mpd\Descriptor.cpp" />
+    <ClCompile Include="source\mpd\Metrics.cpp" />
+    <ClCompile Include="source\mpd\MultipleSegmentBase.cpp" />
+    <ClCompile Include="source\mpd\ProgramInformation.cpp" />
+    <ClCompile Include="source\mpd\Range.cpp" />
+    <ClCompile Include="source\mpd\RepresentationBase.cpp" />
+    <ClCompile Include="source\mpd\Segment.cpp" />
+    <ClCompile Include="source\mpd\SegmentBase.cpp" />
+    <ClCompile Include="source\mpd\SegmentList.cpp" />
+    <ClCompile Include="source\mpd\AdaptationSet.cpp" />
+    <ClCompile Include="Source\dllmain.cpp" />
+    <ClCompile Include="Source\libdash.cpp" />
+    <ClCompile Include="Source\manager\DASHManager.cpp" />
+    <ClCompile Include="Source\mpd\MPD.cpp" />
+    <ClCompile Include="Source\mpd\Period.cpp" />
+    <ClCompile Include="Source\mpd\Representation.cpp" />
+    <ClCompile Include="source\mpd\SegmentTemplate.cpp" />
+    <ClCompile Include="source\mpd\SegmentTimeline.cpp" />
+    <ClCompile Include="source\mpd\SegmentURL.cpp" />
+    <ClCompile Include="source\mpd\SubRepresentation.cpp" />
+    <ClCompile Include="source\mpd\Subset.cpp" />
+    <ClCompile Include="source\mpd\Timeline.cpp" />
+    <ClCompile Include="source\mpd\URLType.cpp" />
+    <ClCompile Include="source\network\AbstractChunk.cpp" />
+    <ClCompile Include="source\network\DownloadStateManager.cpp" />
+    <ClCompile Include="source\portable\MultiThreading.cpp" />
+    <ClCompile Include="Source\xml\DOMHelper.cpp" />
+    <ClCompile Include="Source\xml\DOMParser.cpp" />
+    <ClCompile Include="Source\xml\Node.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\IAdaptationSet.h" />
+    <ClInclude Include="include\IBaseUrl.h" />
+    <ClInclude Include="include\IConnection.h" />
+    <ClInclude Include="include\IContentComponent.h" />
+    <ClInclude Include="include\IDescriptor.h" />
+    <ClInclude Include="include\IDownloadableChunk.h" />
+    <ClInclude Include="include\IDownloadObserver.h" />
+    <ClInclude Include="include\IMetrics.h" />
+    <ClInclude Include="include\IMPD.h" />
+    <ClInclude Include="include\IMultipleSegmentBase.h" />
+    <ClInclude Include="include\INode.h" />
+    <ClInclude Include="include\IPeriod.h" />
+    <ClInclude Include="include\IProgramInformation.h" />
+    <ClInclude Include="include\IRange.h" />
+    <ClInclude Include="include\IRepresentation.h" />
+    <ClInclude Include="include\IRepresentationBase.h" />
+    <ClInclude Include="include\ISegment.h" />
+    <ClInclude Include="include\ISegmentBase.h" />
+    <ClInclude Include="include\ISegmentList.h" />
+    <ClInclude Include="include\ISegmentTemplate.h" />
+    <ClInclude Include="include\ISegmentTimeline.h" />
+    <ClInclude Include="include\ISegmentURL.h" />
+    <ClInclude Include="include\ISubRepresentation.h" />
+    <ClInclude Include="include\ISubset.h" />
+    <ClInclude Include="include\ITimeline.h" />
+    <ClInclude Include="include\IURLType.h" />
+    <ClInclude Include="include\IMPDElement.h" />
+    <ClInclude Include="include\config.h" />
+    <ClInclude Include="source\helpers\BlockStream.h" />
+    <ClInclude Include="source\helpers\Path.h" />
+    <ClInclude Include="include\IChunk.h" />
+    <ClInclude Include="source\helpers\String.h" />
+    <ClInclude Include="source\helpers\SyncedBlockStream.h" />
+    <ClInclude Include="source\mpd\AbstractMPDElement.h" />
+    <ClInclude Include="source\mpd\ContentComponent.h" />
+    <ClInclude Include="source\mpd\Descriptor.h" />
+    <ClInclude Include="source\mpd\Metrics.h" />
+    <ClInclude Include="source\mpd\MultipleSegmentBase.h" />
+    <ClInclude Include="source\mpd\ProgramInformation.h" />
+    <ClInclude Include="source\mpd\Range.h" />
+    <ClInclude Include="source\mpd\RepresentationBase.h" />
+    <ClInclude Include="source\mpd\Segment.h" />
+    <ClInclude Include="source\mpd\SegmentBase.h" />
+    <ClInclude Include="source\mpd\SegmentList.h" />
+    <ClInclude Include="source\mpd\AdaptationSet.h" />
+    <ClInclude Include="include\libdash.h" />
+    <ClInclude Include="source\helpers\Block.h" />
+    <ClInclude Include="Source\manager\DASHManager.h" />
+    <ClInclude Include="include\IDASHManager.h" />
+    <ClInclude Include="Source\mpd\BaseUrl.h" />
+    <ClInclude Include="Source\mpd\MPD.h" />
+    <ClInclude Include="Source\mpd\Period.h" />
+    <ClInclude Include="Source\mpd\Representation.h" />
+    <ClInclude Include="source\mpd\SegmentTemplate.h" />
+    <ClInclude Include="source\mpd\SegmentTimeline.h" />
+    <ClInclude Include="source\mpd\SegmentURL.h" />
+    <ClInclude Include="source\mpd\SubRepresentation.h" />
+    <ClInclude Include="source\mpd\Subset.h" />
+    <ClInclude Include="source\mpd\Timeline.h" />
+    <ClInclude Include="source\mpd\URLType.h" />
+    <ClInclude Include="source\network\AbstractChunk.h" />
+    <ClInclude Include="source\network\DownloadStateManager.h" />
+    <ClInclude Include="source\portable\MultiThreading.h" />
+    <ClInclude Include="source\portable\Networking.h" />
+    <ClInclude Include="Source\targetver.h" />
+    <ClInclude Include="Source\xml\DOMHelper.h" />
+    <ClInclude Include="Source\xml\DOMParser.h" />
+    <ClInclude Include="Source\xml\Node.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="authors.txt" />
+    <None Include="license.txt" />
+    <None Include="Makefile" />
+    <None Include="source\defaults.mk" />
+    <None Include="source\Makefile" />
+    <None Include="source\manager\Makefile" />
+    <None Include="source\mpd\Makefile" />
+    <None Include="source\portable\Makefile" />
+    <None Include="source\sublibs.mk" />
+    <None Include="source\xml\Makefile" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{CB8F90F3-3666-43E1-9C51-502337569FEF}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>libdash</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(ProjectDir)include;$(ProjectDir)..\zlib\include;$(ProjectDir)..\iconv\include;$(ProjectDir)..\libxml2\include;$(ProjectDir)..\libcurl\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)..\iconv\lib;$(ProjectDir)..\zlib\lib;$(ProjectDir)..\libcurl\lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)bin\</OutDir>
+    <IntDir>$(SolutionDir)intermediate\$(ProjectName)\$(Configuration)$(Platform)\</IntDir>
+    <TargetName>$(ProjectName)d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\</OutDir>
+    <IntDir>$(SolutionDir)intermediate\$(ProjectName)\$(Configuration)$(Platform)\</IntDir>
+    <IncludePath>$(ProjectDir)include;$(ProjectDir)..\zlib\include;$(ProjectDir)..\iconv\include;$(ProjectDir)..\libxml2\include;$(ProjectDir)..\libcurl\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)..\iconv\lib;$(ProjectDir)..\zlib\lib;$(ProjectDir)..\libcurl\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBDASH_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>ws2_32.lib;wsock32.lib;$(SolutionDir)libxml2\lib\libxml2.lib;$(SolutionDir)iconv\lib\iconv.lib;$(SolutionDir)zlib\lib\zlib.lib;$(SolutionDir)libcurl\lib\libcurld_imp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBDASH_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>ws2_32.lib;wsock32.lib;$(SolutionDir)libxml2\lib\libxml2.lib;$(SolutionDir)iconv\lib\iconv.lib;$(SolutionDir)zlib\lib\zlib.lib;$(SolutionDir)libcurl\lib\libcurl_imp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
