@@ -25,14 +25,14 @@ There are a lot of things to do! So everybody is invited to contribute, to get i
 Roadmap
 ======
 * Next release is scheduled at the end of February.
- * Doxygen Documentation.
- * Cross platform build system for the ffmpeg based sample player.
- * QT based sample player, which is cross platform buildable through cmake.
- * Further Tests & Bugfixes.
+* Doxygen Documentation.
+    * Cross platform build system for the ffmpeg based sample player.
+    * QT based sample player, which is cross platform buildable through cmake.
+    * Further Tests & Bugfixes.
 * Ongoing development during 2013
- * Implementation of a middleware for libdash.
-  * Will provide buffering mechanisms and build-in adaptation logics.
-  * Extends the functionality to extract, e.g., mp4, mp2ts, etc. information of the media stream.
-  * Will provide further access methods which should provide a simplified interface to the library.
- * Extending the QT based sample player.
- * Testing & Bugfixing
+    * Implementation of a middleware for libdash.
+        * Will provide buffering mechanisms and build-in adaptation logics.
+        * Extends the functionality to extract, e.g., mp4, mp2ts, etc. information of the media stream.
+        * Will provide further access methods which should provide a simplified interface to the library.
+    * Extending the QT based sample player.
+    * Testing & Bugfixing
