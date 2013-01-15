@@ -18,7 +18,7 @@ Mailinglist
 ======
 We offer a public accessible mailing list for discussions, questions, announcements, bug-reports, etc. around libdash. Everybody is invited to join, you can find the registration at:
 
-http://vicky.bitmovin.net/mailman/listinfo/libdash-dev
+[libdash-dev] (http://vicky.bitmovin.net/mailman/listinfo/libdash-dev)
 
 There are a lot of things to do! So everybody is invited to contribute, to get involved in and exited about DASH!
 
@@ -36,3 +36,34 @@ Roadmap
         * Will provide further access methods which should provide a simplified interface to the library.
     * Extending the QT based sample player.
     * Testing & Bugfixing
+
+Sources and Binaries
+======
+You can find the latest sources and binaries in our [download section] (http://www.bitmovin.net/?page_id=851) and on github.
+
+How to use
+======
+Windows
+=====
+1. Download the tarball or clone the repository from gitlab (git://github.com/bitmovin/libdash.git)
+2. Open the libdash.sln with Visual Studio 2010
+3. Build the solution
+4. After that all files will be provided in the bin folder
+5. You can test the library with the sampleplayer.exe. This application simply downloads the lowest representation of one of our dataset MPD’s.
+
+Ubuntu 12.04
+=====
+1. sudo apt-get install git-core build-essential cmake libxml2-dev libcurl4-openssl-dev
+2. git clone git://github.com/bitmovin/libdash.git
+3. cd libdash/libdash
+4. mkdir build
+5. cd build
+6. cmake ../
+7. make
+8. cd bin
+9. The library and a simple test of the network part of the library should be available now. You can test the network part of the library with
+10. ./libdash_networpart_test
+
+Acknowledgements:
+======
+We specially want to thank our passionate developers at bitmovin as well as the researchers at the Institute for Information Technology (ITEC) of the Alpen Adria Universität Klagenfurt (AAU)!
