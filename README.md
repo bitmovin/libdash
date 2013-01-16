@@ -96,6 +96,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 We specially want to thank our passionate developers at bitmovin as well as the researchers at the Institute for Information Technology (ITEC) of the Alpen Adria Universitaet Klagenfurt (AAU)!
 
+Furthermore we want to thank the [Netidee](http://www.netidee.at) initiative from the [Internet Foundation Austria](http://www.nic.at/ipa) for partially funding the open source development of libdash.
+
 ## Citation of libdash
 We kindly ask you to refer the following paper in any publication mentioning libdash:
 
