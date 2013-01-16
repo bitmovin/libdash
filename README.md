@@ -26,7 +26,7 @@ In a typical deployment, a DASH server provides segments in several bitrates and
 </p>
 
 
-![libdash architecture](http://www.bitmovin.net/wp-content/uploads/2013/01/libdash_arch-1024x485.png "libdash arch")
+![libdash architecture](http://www.bitmovin.net/wp-content/uploads/2013/01/libdash_arch-1024x483.png "libdash arch")
 
 ## Mailinglist
 
