@@ -95,3 +95,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 ## Acknowledgements
 
 We specially want to thank our passionate developers at bitmovin as well as the researchers at the Institute for Information Technology (ITEC) of the Alpen Adria Universitaet Klagenfurt (AAU)!
+
+## Citation of libdash
+We kindly ask you to refer the following paper in any publication mentioning libdash:
+
+Christopher Mueller and Christian Timmerer, A VLC Media Player Plugin enabling Dynamic Adaptive Streaming over HTTP, In Proceedings of the ACM Multimedia 2011 , Scottsdale, Arizona, November 28, 2011.
