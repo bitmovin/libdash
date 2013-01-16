@@ -99,4 +99,4 @@ We specially want to thank our passionate developers at bitmovin as well as the 
 ## Citation of libdash
 We kindly ask you to refer the following paper in any publication mentioning libdash:
 
-Christopher Mueller and Christian Timmerer, A VLC Media Player Plugin enabling Dynamic Adaptive Streaming over HTTP, In Proceedings of the ACM Multimedia 2011 , Scottsdale, Arizona, November 28, 2011.
+Christopher Mueller and Christian Timmerer. 2011. A VLC media player plugin enabling dynamic adaptive streaming over HTTP. In Proceedings of the 19th ACM international conference on Multimedia (MM '11). ACM, New York, NY, USA, 723-726. DOI=10.1145/2072298.2072429 [[pdf]](http://doi.acm.org/10.1145/2072298.2072429)
