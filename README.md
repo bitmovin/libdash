@@ -39,7 +39,7 @@ There are a lot of things to do! So everybody is invited to contribute, to get i
 ## Roadmap
 
 * Next release is scheduled at the end of February.
-* Doxygen Documentation.
+    * Doxygen Documentation.
     * Cross platform build system for the ffmpeg based sample player.
     * QT based sample player, which is cross platform buildable through cmake.
     * Further Tests & Bugfixes.
