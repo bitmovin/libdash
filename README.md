@@ -9,13 +9,13 @@ libdash is a library that provides an object orient (OO) interface to the MPEG-D
 
 * Cross platform build system based on cmake that includes Windows, Linux and Mac.
 * Open source available and licensed under the LGPL.
-* Implements the full MPEG-DASH standard according to ISO/IEC 23009-1, Information Technology � Dynamic Adaptive Streaming over HTTP (DASH) � Part 1: Media Presentation Description and Segment Formats
+* Implements the full MPEG-DASH standard according to ISO/IEC 23009-1, Information Technology Dynamic Adaptive Streaming over HTTP (DASH) Part 1: Media Presentation Description and Segment Formats
 * Handles the download and xml parsing of the MPD. Based on that it provides an OO based interface to the MPD.
 * Media elements, e.g., SegmentURL, SegmentTemplate, etc., are downloadable in that OO based structure and can be downloaded through libdash, which internally uses libcurl.
 * Therefore basically all protocols that libcurl supports, e.g., HTTP, FTP, etc. are supported by libdash.
 * However it also provides a configurable download interface, which enables the use of external connections that can be implemented by the user of the library for the download of media segments.
 * The use of such external connections will be shown in the libdash_networkpart_test project which is part of libdash solution and also part of the cross platform cmake system and therefore usable on Windows, Linux and Mac.
-* The project contains a sample multimedia player that is based on ffmpeg which uses libdash for the playback of one of our dataset MPD�s.
+* The project contains a sample multimedia player that is based on ffmpeg which uses libdash for the playback of one of our dataset MPDs.
 * The development is based on Windows, therefore the code contains a VS10 solution with additional tests and the sample multimedia player.
 
 ## Mailinglist
@@ -52,7 +52,7 @@ You can find the latest sources and binaries in our [download section] (http://w
 2. Open the libdash.sln with Visual Studio 2010
 3. Build the solution
 4. After that all files will be provided in the bin folder
-5. You can test the library with the sampleplayer.exe. This application simply downloads the lowest representation of one of our dataset MPD�s.
+5. You can test the library with the sampleplayer.exe. This application simply downloads the lowest representation of one of our dataset MPDs.
 
 ### Ubuntu 12.04
 1. sudo apt-get install git-core build-essential cmake libxml2-dev libcurl4-openssl-dev
@@ -84,4 +84,4 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 ## Acknowledgements
 
-We specially want to thank our passionate developers at bitmovin as well as the researchers at the Institute for Information Technology (ITEC) of the Alpen Adria Universit�t Klagenfurt (AAU)!
+We specially want to thank our passionate developers at bitmovin as well as the researchers at the Institute for Information Technology (ITEC) of the Alpen Adria Universitaet Klagenfurt (AAU)!
