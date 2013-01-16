@@ -20,7 +20,6 @@ Descriptor::Descriptor  () :
 }
 Descriptor::~Descriptor ()
 {
-    delete(this);
 }
 const std::string&  Descriptor::GetSchemeIdUri  ()  const
 {

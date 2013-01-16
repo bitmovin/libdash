@@ -21,7 +21,7 @@ namespace dash
         class INode
         {
             public:
-                virtual ~INode   ();
+                virtual ~INode (){}
 
                 virtual const std::vector<INode *>&                 GetNodes            ()  const = 0;
                 virtual std::vector<std::string>                    GetAttributeKeys    ()  const = 0;

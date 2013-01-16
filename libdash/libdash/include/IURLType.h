@@ -14,6 +14,7 @@
 
 #include "config.h"
 
+#include "IMPDElement.h"
 #include "ISegment.h"
 #include "IBaseUrl.h"
 
@@ -21,7 +22,7 @@ namespace dash
 {
     namespace mpd
     {
-        class IURLType
+        class IURLType : public virtual IMPDElement
         {
             public:
                 virtual ~IURLType(){}

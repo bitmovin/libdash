@@ -121,14 +121,6 @@
   <ItemGroup>
     <None Include="authors.txt" />
     <None Include="license.txt" />
-    <None Include="Makefile" />
-    <None Include="source\defaults.mk" />
-    <None Include="source\Makefile" />
-    <None Include="source\manager\Makefile" />
-    <None Include="source\mpd\Makefile" />
-    <None Include="source\portable\Makefile" />
-    <None Include="source\sublibs.mk" />
-    <None Include="source\xml\Makefile" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{CB8F90F3-3666-43E1-9C51-502337569FEF}</ProjectGuid>

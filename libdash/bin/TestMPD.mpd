@@ -7,13 +7,14 @@
      mediaPresentationDuration="PT0H9M56.46S"
      minBufferTime="PT2.0S"
      myMDPAttribute="mpd">
+  <MPDElement>### MPDTestText ###</MPDElement>
   <ProgramInformation lang="en" myProgramInformationAttribute="programinformation">
     <Title>### Title ###</Title>
     <Source>### Source ###</Source>
     <Copyright>### Copyright ###</Copyright>
     <ProgramInformationElement>### ProgramInformationTestText ###</ProgramInformationElement>
   </ProgramInformation>
-  <BaseURL>http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s/</BaseURL>
+  <BaseURL>http://www.testurl.com/folder/subfolder/videos/</BaseURL>
   <Period start="PT0S" myPeriodAttribute="period">
     <BaseURL myBaseURLAttribute="baseurl">folder/</BaseURL>
     <SegmentBase indexRange="0-4332" mySegmentBaseAttribute="segmentbase">
@@ -62,11 +63,11 @@
         <SegmentListElement>### SegmentListTestText ###</SegmentListElement>
       </SegmentList>
       <SegmentTemplate timescale="90000" initialization="$Bandwidth%/init.mp4v" media="$Bandwidth%/$Time$.mp4v" mySegmentTemplateAttribute="segmenttemplate">
-        <SegmentTimeline mySegmentTimelineAttribute="segmenttimeline">
+        <SegmentTimeline mySegmentTimelineInAdaptationSetAttribute="segmenttimelineInAdapSet">
           <S t="0" d="180180" r="1" myTimelineAttribute="Timeline1"/>
           <S t="360360" d="180180" r="1"/>
           <S t="720720" d="180180" r="1"/>
-          <SegmentTimelineElement>### SegmentTimelineTestText ###</SegmentTimelineElement>
+          <SegmentTimelineElementInAdapatationSet mySpecialAttr="123">### SegmentTimelineTestText ###</SegmentTimelineElementInAdapatationSet>
         </SegmentTimeline>
       </SegmentTemplate>
       <Representation id="v0" width="320" height="240" bandwidth="250000" myRepresentationAttribute="representation">
@@ -111,5 +112,4 @@
     </Reporting>
     <MetricsElement>### Metrics TestText ###</MetricsElement>
   </Metrics>
-  <MPDElement>### MPDTestText ###</MPDElement>
 </MPD>

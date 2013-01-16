@@ -14,11 +14,13 @@
 
 #include "config.h"
 
+#include "IMPDElement.h"
+
 namespace dash
 {
     namespace mpd
     {
-        class ISubset
+        class ISubset : public virtual IMPDElement
         {
             public:
                 virtual ~ISubset(){}

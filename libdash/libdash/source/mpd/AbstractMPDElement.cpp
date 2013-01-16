@@ -19,6 +19,8 @@ AbstractMPDElement::AbstractMPDElement      ()
 }
 AbstractMPDElement::~AbstractMPDElement     ()
 {
+    for(size_t i = 0; i < this->additionalSubNodes.size(); i++)
+        delete(this->additionalSubNodes.at(i));
 }
 
 const std::vector<INode *>                  AbstractMPDElement::GetAdditionalSubNodes   ()  const

@@ -14,13 +14,14 @@
 
 #include "config.h"
 
+#include "IMPDElement.h"
 #include "IURLType.h"
 
 namespace dash
 {
     namespace mpd
     {
-        class ISegmentBase
+        class ISegmentBase : public virtual IMPDElement
         {
             public:
                 virtual ~ISegmentBase(){}

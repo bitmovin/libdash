@@ -14,6 +14,7 @@
 
 #include "config.h"
 
+#include "IMPDElement.h"
 #include "IProgramInformation.h"
 #include "IBaseUrl.h"
 #include "IPeriod.h"
@@ -23,7 +24,7 @@ namespace dash
 {
     namespace mpd
     {
-        class IMPD
+        class IMPD : public virtual IMPDElement
         {
             public:
                 virtual ~IMPD(){}

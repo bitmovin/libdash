@@ -14,13 +14,14 @@
 
 #include "config.h"
 
+#include "IMPDElement.h"
 #include "IDescriptor.h"
 
 namespace dash
 {
     namespace mpd
     {
-        class IRepresentationBase
+        class IRepresentationBase : public virtual IMPDElement
         {
             public:
                 virtual ~IRepresentationBase(){}

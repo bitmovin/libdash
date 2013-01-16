@@ -14,11 +14,13 @@
 
 #include "config.h"
 
+#include "IMPDElement.h"
+
 namespace dash
 {
     namespace mpd
     {
-        class ITimeline
+        class ITimeline : public virtual IMPDElement
         {
             public:
                 virtual ~ITimeline(){}

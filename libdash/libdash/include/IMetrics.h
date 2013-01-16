@@ -14,6 +14,7 @@
 
 #include "config.h"
 
+#include "IMPDElement.h"
 #include "IDescriptor.h"
 #include "IRange.h"
 
@@ -21,7 +22,7 @@ namespace dash
 {
     namespace mpd
     {
-        class IMetrics
+        class IMetrics : public virtual IMPDElement
         {
             public:
                 virtual ~IMetrics(){}

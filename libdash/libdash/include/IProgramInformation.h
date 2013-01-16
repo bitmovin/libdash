@@ -14,11 +14,13 @@
 
 #include "config.h"
 
+#include "IMPDElement.h"
+
 namespace dash
 {
     namespace mpd
     {
-        class IProgramInformation
+        class IProgramInformation : public virtual IMPDElement
         {
             public:
                 virtual ~IProgramInformation(){}

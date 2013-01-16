@@ -773,6 +773,10 @@ dash::mpd::MPD*                             Node::ToMPD                 ()  cons
     return mpd;
 }
 
+const std::vector<INode*>&                  Node::GetNodes              ()  const
+{
+    return (std::vector<INode*> &) this->subNodes;
+}
 const std::vector<Node*>&                   Node::GetSubNodes           ()  const
 {
     return this->subNodes;

@@ -14,6 +14,7 @@
 
 #include "config.h"
 
+#include "INode.h"
 #include "../helpers/String.h"
 #include "../mpd/AdaptationSet.h"
 #include "../mpd/BaseUrl.h"
@@ -40,13 +41,14 @@ namespace dash
 {
     namespace xml
     {
-        class Node
+        class Node : public INode
         {
             public:
                 Node            ();
                 Node            (const Node& other);
                 virtual ~Node   ();
 
+                const std::vector<INode *>&                 GetNodes            ()  const;
                 const std::vector<Node *>&                  GetSubNodes         ()  const;
                 std::vector<std::string>                    GetAttributeKeys    ()  const;
                 const std::string&                          GetName             ()  const;

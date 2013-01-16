@@ -14,6 +14,7 @@
 
 #include "config.h"
 
+#include "IMPDElement.h"
 #include "IBaseUrl.h"
 #include "ISegmentBase.h"
 #include "ISegmentList.h"
@@ -25,7 +26,7 @@ namespace dash
 {
     namespace mpd
     {
-        class IPeriod
+        class IPeriod : public virtual IMPDElement
         {
             public:
                 virtual ~IPeriod(){}

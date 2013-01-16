@@ -16,12 +16,13 @@
 
 #include "ISegment.h"
 #include "IBaseUrl.h"
+#include "IMPDElement.h"
 
 namespace dash
 {
     namespace mpd
     {
-        class ISegmentURL
+        class ISegmentURL : public virtual IMPDElement
         {
             public:
                 virtual ~ISegmentURL(){}
