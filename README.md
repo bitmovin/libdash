@@ -18,6 +18,10 @@ libdash is a library that provides an object orient (OO) interface to the MPEG-D
 * The project contains a sample multimedia player that is based on ffmpeg which uses libdash for the playback of one of our dataset MPDs.
 * The development is based on Windows, therefore the code contains a VS10 solution with additional tests and the sample multimedia player.
 
+## Architecture
+
+![libdash architecture](http://www.bitmovin.net/wp-content/uploads/2013/01/libdash_arch-1024x485.png "libdash arch")
+
 ## Mailinglist
 
 We offer a public accessible mailing list for discussions, questions, announcements, bug-reports, etc. around libdash. Everybody is invited to join, you can find the registration at:
