@@ -1,5 +1,5 @@
 /*
- * SegmentBuffer.cpp
+ * MediaObjectBuffer.cpp
  *****************************************************************************
  * Copyright (C) 2012, bitmovin Softwareentwicklung OG, All Rights Reserved
  *
@@ -9,60 +9,60 @@
  * and conditions of the applicable license agreement.
  *****************************************************************************/
 
-#include "SegmentBuffer.h"
+#include "MediaObjectBuffer.h"
 
 using namespace sampleplayer::input;
 using namespace dash::mpd;
 using namespace dash::network;
 
-SegmentBuffer::SegmentBuffer    (uint32_t maxcapacity) :
-               eos              (false),
-               maxcapacity      (maxcapacity)
+MediaObjectBuffer::MediaObjectBuffer    (uint32_t maxcapacity) :
+                   eos                  (false),
+                   maxcapacity          (maxcapacity)
 {
     InitializeConditionVariable (&this->full);
     InitializeConditionVariable (&this->empty);
     InitializeCriticalSection   (&this->monitorMutex);
 }
-SegmentBuffer::~SegmentBuffer   ()
+MediaObjectBuffer::~MediaObjectBuffer   ()
 {
     DeleteConditionVariable (&this->full);
     DeleteConditionVariable (&this->empty);
     DeleteCriticalSection   (&this->monitorMutex);
 
-    while(!this->segments.empty())
+    while(!this->mediaobjects.empty())
     {
-        delete(this->segments.front());
-        this->segments.pop();
+        delete(this->mediaobjects.front());
+        this->mediaobjects.pop();
     }
 }
 
-void        SegmentBuffer::Push     (ISegment *segment)
+void            MediaObjectBuffer::Push     (MediaObject *media)
 {
     EnterCriticalSection(&this->monitorMutex);
 
-    while(this->segments.size() >= this->maxcapacity && !this->eos)
+    while(this->mediaobjects.size() >= this->maxcapacity && !this->eos)
         SleepConditionVariableCS(&this->empty, &this->monitorMutex, INFINITE);
 
-    if(this->segments.size() >= this->maxcapacity)
+    if(this->mediaobjects.size() >= this->maxcapacity)
     {
-        delete(segment);
+        delete(media);
         LeaveCriticalSection(&this->monitorMutex);
         return;
     }
 
-    this->segments.push(segment);
+    this->mediaobjects.push(media);
 
     WakeAllConditionVariable(&this->full);
     LeaveCriticalSection(&this->monitorMutex);
 }
-ISegment*   SegmentBuffer::Front    ()
+MediaObject*    MediaObjectBuffer::Front    ()
 {
     EnterCriticalSection(&this->monitorMutex);
 
-    while(this->segments.size() == 0 && !this->eos)
+    while(this->mediaobjects.size() == 0 && !this->eos)
         SleepConditionVariableCS(&this->full, &this->monitorMutex, INFINITE);
 
-    if(this->segments.size() == 0)
+    if(this->mediaobjects.size() == 0)
     {
         LeaveCriticalSection(&this->monitorMutex);
         return NULL;
@@ -70,19 +70,29 @@ ISegment*   SegmentBuffer::Front    ()
 
     LeaveCriticalSection(&this->monitorMutex);
 
-    return this->segments.front();
+    return this->mediaobjects.front();
 }
-void        SegmentBuffer::Pop      ()
+uint32_t        MediaObjectBuffer::Length   ()
 {
     EnterCriticalSection(&this->monitorMutex);
 
-    delete(this->segments.front());
-    this->segments.pop();
+    uint32_t ret = this->mediaobjects.size();
+
+    LeaveCriticalSection(&this->monitorMutex);
+
+    return ret;
+}
+void            MediaObjectBuffer::Pop      ()
+{
+    EnterCriticalSection(&this->monitorMutex);
+
+    delete(this->mediaobjects.front());
+    this->mediaobjects.pop();
 
     WakeAllConditionVariable(&this->empty);
     LeaveCriticalSection(&this->monitorMutex);
 }
-void        SegmentBuffer::SetEOS   (bool value)
+void            MediaObjectBuffer::SetEOS   (bool value)
 {
     EnterCriticalSection(&this->monitorMutex);
 

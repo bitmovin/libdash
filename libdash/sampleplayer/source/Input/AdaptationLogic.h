@@ -12,6 +12,9 @@
 #ifndef ADAPTATIONLOGIC_H_
 #define ADAPTATIONLOGIC_H_
 
+#include "IMPD.h"
+#include "MediaObject.h"
+
 namespace sampleplayer
 {
     namespace input
@@ -19,8 +22,15 @@ namespace sampleplayer
         class AdaptationLogic
         {
             public:
-                AdaptationLogic             ();
+                AdaptationLogic             (dash::mpd::IMPD *mpd);
                 virtual ~AdaptationLogic    ();
+
+                MediaObject* GetSegment(uint32_t number);
+
+            private:
+                dash::mpd::IMPD                     *mpd;
+                dash::mpd::IRepresentation          *lowestRep;
+                std::vector<dash::mpd::IBaseUrl *>  baseurls;
         };
     }
 }

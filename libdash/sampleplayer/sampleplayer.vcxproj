@@ -91,7 +91,9 @@
     <ClInclude Include="source\Input\AdaptationLogic.h" />
     <ClInclude Include="source\Input\DASHReceiver.h" />
     <ClInclude Include="source\Input\IDataReceiver.h" />
-    <ClInclude Include="source\Input\SegmentBuffer.h" />
+    <ClInclude Include="source\Input\MediaObjectBuffer.h" />
+    <ClInclude Include="source\Input\MediaObject.h" />
+    <ClInclude Include="source\Input\MultiThreading.h" />
     <ClInclude Include="source\Renderer\IAudioObserver.h" />
     <ClInclude Include="source\Renderer\IVideoObserver.h" />
     <ClInclude Include="source\Renderer\SDLRenderer.h" />
@@ -100,7 +102,9 @@
     <ClCompile Include="source\Decoder\LibavDecoder.cpp" />
     <ClCompile Include="source\Input\AdaptationLogic.cpp" />
     <ClCompile Include="source\Input\DASHReceiver.cpp" />
-    <ClCompile Include="source\Input\SegmentBuffer.cpp" />
+    <ClCompile Include="source\Input\MediaObjectBuffer.cpp" />
+    <ClCompile Include="source\Input\MediaObject.cpp" />
+    <ClCompile Include="source\Input\MultiThreading.cpp" />
     <ClCompile Include="source\Renderer\SDLRenderer.cpp" />
     <ClCompile Include="source\sampleplayer.cpp" />
   </ItemGroup>
