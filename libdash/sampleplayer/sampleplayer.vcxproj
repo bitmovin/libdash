@@ -88,6 +88,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="source\Decoder\LibavDecoder.h" />
+    <ClInclude Include="source\Input\AdaptationLogic.h" />
     <ClInclude Include="source\Input\DASHReceiver.h" />
     <ClInclude Include="source\Input\IDataReceiver.h" />
     <ClInclude Include="source\Input\SegmentBuffer.h" />
@@ -97,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Decoder\LibavDecoder.cpp" />
+    <ClCompile Include="source\Input\AdaptationLogic.cpp" />
     <ClCompile Include="source\Input\DASHReceiver.cpp" />
     <ClCompile Include="source\Input\SegmentBuffer.cpp" />
     <ClCompile Include="source\Renderer\SDLRenderer.cpp" />

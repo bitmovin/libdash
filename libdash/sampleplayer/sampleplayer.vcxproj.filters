@@ -36,6 +36,9 @@
     <ClInclude Include="source\Input\SegmentBuffer.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="source\Input\AdaptationLogic.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\sampleplayer.cpp">
@@ -51,6 +54,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="source\Input\SegmentBuffer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Input\AdaptationLogic.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
