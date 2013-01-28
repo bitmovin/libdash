@@ -23,7 +23,7 @@ namespace sampleplayer
         class SegmentBuffer
         {
             public:
-                SegmentBuffer           ();
+                SegmentBuffer           (uint32_t maxcapacity);
                 virtual ~SegmentBuffer  ();
 
                 void                    Push    (dash::mpd::ISegment *segment);
@@ -34,8 +34,10 @@ namespace sampleplayer
             private:
                 std::queue<dash::mpd::ISegment *>   segments;
                 bool                                eos;
+                uint32_t                            maxcapacity;
                 mutable CRITICAL_SECTION            monitorMutex;
                 mutable CONDITION_VARIABLE          full;
+                mutable CONDITION_VARIABLE          empty;
         };
     }
 }

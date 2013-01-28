@@ -27,7 +27,7 @@ namespace sampleplayer
         class DASHReceiver : public IDataReceiver, public dash::network::IDownloadObserver
         {
             public:
-                DASHReceiver            ();
+                DASHReceiver            (uint32_t maxcapacity);
                 virtual ~DASHReceiver   ();
 
                 bool Init(std::string mpdurl);
@@ -39,11 +39,12 @@ namespace sampleplayer
             private:
                 dash::IDASHManager                  *manager;
                 dash::mpd::IMPD                     *mpd;
-                SegmentBuffer                       segmentbuffer;
+                SegmentBuffer                       *segmentbuffer;
                 std::vector<dash::mpd::IBaseUrl *>  baseurls;
                 dash::mpd::IAdaptationSet           *adaptationset;
                 dash::mpd::IRepresentation          *representation;
                 int                                 count;
+                uint32_t                            maxcapacity;
 
                 void AddSegmentToBuffer(int number, dash::mpd::IRepresentation *rep);
         };

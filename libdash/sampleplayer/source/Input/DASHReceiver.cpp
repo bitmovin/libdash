@@ -16,13 +16,15 @@ using namespace dash;
 using namespace dash::network;
 using namespace dash::mpd;
 
-DASHReceiver::DASHReceiver  () :
+DASHReceiver::DASHReceiver  (uint32_t maxcapacity) :
               manager       (NULL),
               mpd           (NULL),
               adaptationset (NULL),
-              count         (0)
+              count         (0),
+              maxcapacity   (maxcapacity)
 {
-    this->manager = CreateDashManager();
+    this->segmentbuffer = new SegmentBuffer(this->maxcapacity);
+    this->manager       = CreateDashManager();
 }
 DASHReceiver::~DASHReceiver ()
 {
@@ -60,7 +62,7 @@ void    DASHReceiver::AddSegmentToBuffer        (int number, dash::mpd::IReprese
 
     if(number >= rep->GetSegmentList()->GetSegmentURLs().size() + 1)
     {
-        this->segmentbuffer.SetEOS(true);
+        this->segmentbuffer->SetEOS(true);
         return;
     }
 
@@ -71,11 +73,11 @@ void    DASHReceiver::AddSegmentToBuffer        (int number, dash::mpd::IReprese
 
     seg->AttachDownloadObserver(this);
     seg->StartDownload();
-    this->segmentbuffer.Push(seg);
+    this->segmentbuffer->Push(seg);
 }
 int     DASHReceiver::IORead                    (uint8_t *buf, int buf_size )
 {
-    ISegment *seg = this->segmentbuffer.Front();
+    ISegment *seg = this->segmentbuffer->Front();
 
     if(seg == NULL)
         return 0;
@@ -84,7 +86,7 @@ int     DASHReceiver::IORead                    (uint8_t *buf, int buf_size )
 
     if(ret == 0)
     {
-        this->segmentbuffer.Pop();
+        this->segmentbuffer->Pop();
         return this->IORead(buf, buf_size);
     }
 
