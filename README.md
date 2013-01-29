@@ -92,6 +92,10 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
+## Professional Services
+
+In addition to the public available open source resources and the mailing list support, we provide professional development and integration services, consulting, high-quality streaming componentes/logics, etc. based on your individual needs. Feel free to contact us via sales@bitmovin.net so we can discuss your requirements and provide you an offer.
+
 ## Acknowledgements
 
 We specially want to thank our passionate developers at [bitmovin](http://www.bitmovin.net/) as well as the researchers at the [Institute of Information Technology](http://www-itec.aau.at/dash/) (ITEC) from the Alpen Adria Universitaet Klagenfurt (AAU)!
