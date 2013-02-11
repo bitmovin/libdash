@@ -40,6 +40,11 @@
 /libdash/sampleplayer/log.txt
 /libdash/sampleplayer/sampleplayer.vcxproj.user
 
+# /libdash/qtsampleplayer/
+/libdash/qtsampleplayer/log.txt
+/libdash/sampleplayer/sampleplayer.vcxproj.user
+/libdash/qtsampleplayer/GeneratedFiles
+
 # /libdash/libdash_memoryleak_test
 /libdash/libdash_memoryleak_test/libdash_memoryleak_test.vcxproj.user
 

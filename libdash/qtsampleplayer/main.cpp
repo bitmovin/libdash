@@ -1,10 +1,37 @@
 #include "qtsampleplayer.h"
-#include <QtWidgets/QApplication>
+#include "dashplayerobserver.h"
+#include <QApplication>
 
 int main(int argc, char *argv[])
 {
-	QApplication a(argc, argv);
-	QtSamplePlayer w;
-	w.show();
-	return a.exec();
+    QApplication a(argc, argv);
+    QtSamplePlayer w;
+
+    DashPlayerObserver obs;
+
+    w.addWidgetObserver(&obs);
+
+    std::vector<std::string> v_repr;
+    v_repr.push_back("asdf");
+    v_repr.push_back("bcdaswr");
+
+    std::vector<std::string> v_repr2;
+    v_repr2.push_back("lllll");
+    v_repr2.push_back("ttttt");
+
+
+    std::map<std::string, std::vector<std::string> > v_adaption;
+    v_adaption["Video 1"] = v_repr;
+    v_adaption["Video 2"] = v_repr2;
+
+
+    w.setGuiFields(v_adaption, v_adaption);
+
+    w.updateKeyValue("Framerate", "25");
+    w.updateKeyValue("Bitrate", "120000000");
+
+
+    w.show();
+    
+    return a.exec();
 }
