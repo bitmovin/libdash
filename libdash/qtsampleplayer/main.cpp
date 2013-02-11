@@ -9,20 +9,25 @@
  * and conditions of the applicable license agreement.
  *****************************************************************************/
 
-#include "qtsampleplayer.h"
-#include "dashplayerobserver.h"
+#include "QtSamplePlayerGui.h"
+
 #include <QApplication>
+
+#include "libdash.h"
+#include "Decoder/LibavDecoder.h"
+#include "Input/DASHReceiver.h"
+
+using namespace sampleplayer::input;
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    QtSamplePlayer w;
+    QtSamplePlayerGui w;
 
-    DashPlayerObserver obs;
 
-    w.addWidgetObserver(&obs);
+//    w.addWidgetObserver(&obs);
 
-    std::vector<std::string> v_repr;
+   /* std::vector<std::string> v_repr;
     v_repr.push_back("asdf");
     v_repr.push_back("bcdaswr");
 
@@ -39,10 +44,11 @@ int main(int argc, char *argv[])
     w.setGuiFields(v_adaption, v_adaption);
 
     w.updateKeyValue("Framerate", "25");
-    w.updateKeyValue("Bitrate", "120000000");
+    w.updateKeyValue("Bitrate", "120000000");*/
 
-
+	
+	
     w.show();
-    
+
     return a.exec();
 }

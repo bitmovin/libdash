@@ -79,7 +79,7 @@ public:
         lineEdit = new QLineEdit(widget);
         lineEdit->setObjectName(QStringLiteral("lineEdit"));
         lineEdit->setEnabled(true);
-        lineEdit->setText(QStringLiteral("http://somedash.mpd"));
+        lineEdit->setText(QStringLiteral("http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s_480p_only/bunny_Desktop.mpd"));
 
         verticalLayout_3->addWidget(lineEdit);
 

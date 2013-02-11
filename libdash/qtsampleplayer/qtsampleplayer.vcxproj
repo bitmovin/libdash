@@ -37,6 +37,7 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)bin\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)intermediate\$(ProjectName)\$(Configuration)$(Platform)\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)intermediate\$(ProjectName)\$(Configuration)$(Platform)\</IntDir>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)..\libav\include;$(ProjectDir)..\sdl\include;$(SolutionDir)libdash\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -52,7 +53,7 @@
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(SolutionDir)bin\libdashd.lib;qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Multimediad.lib;Qt5MultimediaWidgetsd.lib;Qt5Widgetsd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Multimediad.lib;Qt5MultimediaWidgetsd.lib;Qt5Widgetsd.lib;$(ProjectDir)..\libav\lib\avcodec.lib;$(ProjectDir)..\libav\lib\avdevice.lib;$(ProjectDir)..\libav\lib\avfilter.lib;$(ProjectDir)..\libav\lib\avformat.lib;$(ProjectDir)..\libav\lib\avutil.lib;$(ProjectDir)..\libav\lib\postproc.lib;$(ProjectDir)..\libav\lib\swresample.lib;$(ProjectDir)..\libav\lib\swscale.lib;$(ProjectDir)..\sdl\lib\x86\SDL.lib;$(ProjectDir)..\sdl\lib\x86\SDLmain.lib;$(SolutionDir)bin\libdashd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -73,8 +74,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="dashplayerobserver.cpp" />
-    <ClCompile Include="GeneratedFiles\Debug\moc_qtsampleplayer.cpp">
+    <ClCompile Include="DASHPlayer.cpp" />
+    <ClCompile Include="Decoder\LibavDecoder.cpp" />
+    <ClCompile Include="GeneratedFiles\Debug\moc_QtSamplePlayerGui.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\qrc_qtsampleplayer.cpp">
@@ -83,20 +85,25 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_qtsampleplayer.cpp">
+    <ClCompile Include="GeneratedFiles\Release\moc_QtSamplePlayerGui.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Input\AdaptationLogic.cpp" />
+    <ClCompile Include="Input\DASHReceiver.cpp" />
+    <ClCompile Include="Input\MediaObject.cpp" />
+    <ClCompile Include="Input\MediaObjectBuffer.cpp" />
+    <ClCompile Include="Input\MultiThreading.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="qtsampleplayer.cpp" />
+    <ClCompile Include="QtSamplePlayerGui.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="qtsampleplayer.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtsampleplayer.h...</Message>
+    <CustomBuild Include="QtSamplePlayerGui.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing QtSamplePlayerGui.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_MULTIMEDIA_LIB -DQT_MULTIMEDIAWIDGETS_LIB -DQT_WIDGETS_LIB "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\..\qtmultimedia\include\QtMultimedia" "-I$(QTDIR)\..\qtmultimedia\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtWidgets"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtsampleplayer.h...</Message>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing QtSamplePlayerGui.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_MULTIMEDIA_LIB -DQT_MULTIMEDIAWIDGETS_LIB -DQT_WIDGETS_LIB "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\..\qtmultimedia\include\QtMultimedia" "-I$(QTDIR)\..\qtmultimedia\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtWidgets"</Command>
     </CustomBuild>
@@ -115,8 +122,16 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="dashplayerobserver.h" />
+    <ClInclude Include="DASHPlayer.h" />
+    <ClInclude Include="IDASHPlayerGuiObserver.h" />
+    <ClInclude Include="Decoder\LibavDecoder.h" />
     <ClInclude Include="GeneratedFiles\ui_qtsampleplayer.h" />
+    <ClInclude Include="Input\AdaptationLogic.h" />
+    <ClInclude Include="Input\DASHReceiver.h" />
+    <ClInclude Include="Input\IDataReceiver.h" />
+    <ClInclude Include="Input\MediaObject.h" />
+    <ClInclude Include="Input\MediaObjectBuffer.h" />
+    <ClInclude Include="Input\MultiThreading.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="qtsampleplayer.qrc">

@@ -18,15 +18,15 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_qtsampleplayer.h"
 
-class DashPlayerObserver;
+class IDASHPlayerGuiObserver;
 
-class QtSamplePlayer : public QMainWindow
+class QtSamplePlayerGui : public QMainWindow
 {
 	Q_OBJECT
 
 public:
-	QtSamplePlayer(QWidget *parent = 0);
-	~QtSamplePlayer();
+	QtSamplePlayerGui(QWidget *parent = 0);
+	~QtSamplePlayerGui();
 
     void setGuiFields(std::map<std::string, std::vector<std::string> > video, std::map<std::string, std::vector<std::string> > audio);
 
@@ -35,8 +35,8 @@ public:
 
     virtual void setBufferFillState(int percentage);
 
-    virtual void addWidgetObserver(DashPlayerObserver* observer);
-    virtual void removeWidgetObserver(DashPlayerObserver* observer);
+    virtual void addWidgetObserver(IDASHPlayerGuiObserver* observer);
+    virtual void removeWidgetObserver(IDASHPlayerGuiObserver* observer);
     
 private slots:
     void on_cb_video_adaption_currentIndexChanged(const QString &arg1);
@@ -60,7 +60,7 @@ private:
 		QVideoWidget* videoWidget;
 		QMediaPlayer player;
 
-        std::vector<DashPlayerObserver*> observer;
+        std::vector<IDASHPlayerGuiObserver*> observer;
 
         void settingsChanged();
         void lockUI();
