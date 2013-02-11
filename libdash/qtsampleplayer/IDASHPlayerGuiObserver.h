@@ -13,14 +13,16 @@
 
 #include <string>
 #include "QtSamplePlayerGui.h"
+namespace dash {
+	namespace sampleplayer {
+		class IDASHPlayerGuiObserver
+		{
+		public:
+			virtual ~IDASHPlayerGuiObserver() {}
 
-class IDASHPlayerGuiObserver
-{
-public:
-	virtual ~IDASHPlayerGuiObserver() {}
-
-    virtual void OnSettingsChanged (QtSamplePlayerGui* widget, const std::string& v_adaption, const std::string& v_representation, const std::string& a_adaption, const std::string& a_representation) = 0;
-    virtual void OnURLChanged(QtSamplePlayerGui* widget, const std::string& url) = 0;
-};
-
+			virtual void OnSettingsChanged (QtSamplePlayerGui* widget, const std::string& v_adaption, const std::string& v_representation, const std::string& a_adaption, const std::string& a_representation) = 0;
+			virtual void OnURLChanged(QtSamplePlayerGui* widget, const std::string& url) = 0;
+		};
+	}
+}
 #endif /* IDASHPLAYERGUIOBSERVER_H_ */

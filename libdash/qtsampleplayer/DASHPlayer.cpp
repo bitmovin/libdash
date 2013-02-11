@@ -1,9 +1,13 @@
 #include "DASHPlayer.h"
 
+using namespace dash::sampleplayer;
 
-DASHPlayer::DASHPlayer(void)
+DASHPlayer::DASHPlayer(QtSamplePlayerGui& gui) : gui(&gui)
 {
 	this->manager = CreateDashManager();
+	
+	
+	this->gui->addWidgetObserver(this);
 }
 DASHPlayer::~DASHPlayer(void)
 {
@@ -15,5 +19,15 @@ void DASHPlayer::OnSettingsChanged (QtSamplePlayerGui* widget, const std::string
 }
  void DASHPlayer::OnURLChanged(QtSamplePlayerGui* widget, const std::string& url)
  {
+	this->mpd = this->manager->Open((char*)url.c_str());
+	if(this->mpd != NULL)
+	{
+		this->gui->setStatusBar("Gotcha MPD");
 
+		//this->mpd->GetProfiles()
+	}
+	else
+	{
+		this->gui->setStatusBar("Error parsing mpd at: " + url);
+	}
  }

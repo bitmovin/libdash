@@ -22,7 +22,6 @@ DASHManager::DASHManager            ()
 DASHManager::~DASHManager           ()
 {
 }
-
 IMPD*           DASHManager::Open           (char *path)
 {
     DOMParser parser(path);

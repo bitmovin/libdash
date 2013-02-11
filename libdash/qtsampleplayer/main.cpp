@@ -14,16 +14,17 @@
 #include <QApplication>
 
 #include "libdash.h"
+#include "DASHPlayer.h"
 #include "Decoder/LibavDecoder.h"
 #include "Input/DASHReceiver.h"
 
-using namespace sampleplayer::input;
+using namespace dash::sampleplayer;
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     QtSamplePlayerGui w;
-
+	DASHPlayer p(w);
 
 //    w.addWidgetObserver(&obs);
 

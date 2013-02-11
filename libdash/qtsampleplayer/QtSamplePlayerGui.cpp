@@ -13,6 +13,8 @@
 #include "QtSamplePlayerGui.h"
 #include "IDASHPlayerGuiObserver.h"
 
+using namespace dash::sampleplayer;
+
 QtSamplePlayerGui::QtSamplePlayerGui(QWidget *parent)
 	: QMainWindow(parent), ui(new Ui::QtSamplePlayerClass), player(0, QMediaPlayer::VideoSurface)
 {
@@ -118,6 +120,13 @@ void QtSamplePlayerGui::removeAllKeyValues()
 void QtSamplePlayerGui::addWidgetObserver(IDASHPlayerGuiObserver* observer)
 {
     this->observer.push_back(observer);
+	observer->OnURLChanged(this,this->ui->lineEdit->text().toStdString());
+	std::string v_adaption = this->ui->cb_video_adaption->itemData(this->ui->cb_video_adaption->currentIndex()).toString().toStdString();
+    std::string v_representation = this->ui->cb_video_representation->itemData(this->ui->cb_video_representation->currentIndex()).toString().toStdString();
+    std::string a_adaption = this->ui->cb_audio_adaption->itemData(this->ui->cb_audio_adaption->currentIndex()).toString().toStdString();
+    std::string a_representation = this->ui->cb_audio_representation->itemData(this->ui->cb_audio_representation->currentIndex()).toString().toStdString();
+   
+    observer->OnSettingsChanged(this,v_adaption, v_representation, a_adaption, a_representation);
 }
 void QtSamplePlayerGui::removeWidgetObserver(IDASHPlayerGuiObserver* observer)
 {
@@ -130,6 +139,11 @@ void QtSamplePlayerGui::removeWidgetObserver(IDASHPlayerGuiObserver* observer)
             break;
         }
     }
+}
+void QtSamplePlayerGui::setStatusBar(const std::string& text)
+{
+	QString str(text.c_str());
+	this->ui->statusBar->showMessage(str);
 }
 void QtSamplePlayerGui::on_cb_video_adaption_currentIndexChanged(const QString &arg1)
 {
