@@ -37,7 +37,7 @@ public:
     QWidget *widget;
     QVBoxLayout *verticalLayout_3;
     QLineEdit *lineEdit;
-    QWidget *widget_2;
+    QVBoxLayout *videoLayout;
     QWidget *w_controls;
     QVBoxLayout *verticalLayout;
     QWidget *w_boxes;
@@ -83,10 +83,11 @@ public:
 
         verticalLayout_3->addWidget(lineEdit);
 
-        widget_2 = new QWidget(widget);
-        widget_2->setObjectName(QStringLiteral("widget_2"));
+        videoLayout = new QVBoxLayout();
+        videoLayout->setSpacing(6);
+        videoLayout->setObjectName(QStringLiteral("videoLayout"));
 
-        verticalLayout_3->addWidget(widget_2);
+        verticalLayout_3->addLayout(videoLayout);
 
 
         horizontalLayout->addWidget(widget);

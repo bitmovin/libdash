@@ -1,11 +1,36 @@
+/*
+ * qtsampleplayer.cpp
+ *****************************************************************************
+ * Copyright (C) 2012, bitmovin Softwareentwicklung OG, All Rights Reserved
+ *
+ * Email: libdash-dev@vicky.bitmovin.net
+ *
+ * This source code and its use and distribution, is subject to the terms
+ * and conditions of the applicable license agreement.
+ *****************************************************************************/
+
+#include <QtWidgets>
 #include "qtsampleplayer.h"
 #include "dashplayerobserver.h"
 
 QtSamplePlayer::QtSamplePlayer(QWidget *parent)
-	: QMainWindow(parent), ui(new Ui::QtSamplePlayerClass)
+	: QMainWindow(parent), ui(new Ui::QtSamplePlayerClass), player(0, QMediaPlayer::VideoSurface)
 {
 	this->ui->setupUi(this);
 	this->setBufferFillState(98);
+	
+	this->videoWidget = new QVideoWidget();
+	this->player.setVideoOutput(this->videoWidget);
+	this->ui->videoLayout->addWidget(this->videoWidget);
+
+
+	QString fileName = QFileDialog::getOpenFileName(this, tr("Open Movie"),QDir::homePath());
+
+    if (!fileName.isEmpty()) {
+		this->player.setMedia(QUrl::fromLocalFile(fileName));
+		this->player.play();
+    }
+
 }
 QtSamplePlayer::~QtSamplePlayer()
 {

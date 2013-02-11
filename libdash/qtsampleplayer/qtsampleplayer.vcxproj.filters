@@ -73,4 +73,8 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\sampleplayer\license.txt" />
+    <None Include="..\sampleplayer\authors.txt" />
+  </ItemGroup>
 </Project>

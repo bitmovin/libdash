@@ -7,19 +7,14 @@
  *
  * This source code and its use and distribution, is subject to the terms
  * and conditions of the applicable license agreement.
- *****************************************************************************/.cpp
- *****************************************************************************
- * Copyright (C) 2012, bitmovin Softwareentwicklung OG, All Rights Reserved
- *
- * Email: libdash-dev@vicky.bitmovin.net
- *
- * This source code and its use and distribution, is subject to the terms
- * and conditions of the applicable license agreement.
  *****************************************************************************/
 
 #ifndef QTSAMPLEPLAYER_H
 #define QTSAMPLEPLAYER_H
 
+#include <QtMultimedia/qmediaplayer.h>
+#include <QtMultimediaWidgets/qvideowidget.h>
+#include <QtGui/QMovie>
 #include <QtWidgets/QMainWindow>
 #include "ui_qtsampleplayer.h"
 
@@ -62,6 +57,8 @@ private:
         std::map<std::string, std::vector<std::string> > audio;
 
         Ui::QtSamplePlayerClass *ui;
+		QVideoWidget* videoWidget;
+		QMediaPlayer player;
 
         std::vector<DashPlayerObserver*> observer;
 
