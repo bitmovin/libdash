@@ -20,7 +20,7 @@ namespace dash {
 		public:
 			virtual ~IDASHPlayerGuiObserver() {}
 
-			virtual void OnSettingsChanged (QtSamplePlayerGui* widget, const std::string& v_adaption, const std::string& v_representation, const std::string& a_adaption, const std::string& a_representation) = 0;
+			virtual void OnSettingsChanged (QtSamplePlayerGui* widget, int video_adaption, int video_representation, int audio_adaption, int audio_representation) = 0;
 			virtual void OnURLChanged(QtSamplePlayerGui* widget, const std::string& url) = 0;
 		};
 	}

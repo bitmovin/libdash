@@ -23,13 +23,14 @@ namespace dash {
 			DASHPlayer(QtSamplePlayerGui& gui);
 			~DASHPlayer(void);
 
-			virtual void OnSettingsChanged (QtSamplePlayerGui* widget, const std::string& v_adaption, const std::string& v_representation, const std::string& a_adaption, const std::string& a_representation);
+			virtual void OnSettingsChanged (QtSamplePlayerGui* widget, int video_adaption, int video_representation, int audio_adaption, int audio_representation);
 			virtual void OnURLChanged(QtSamplePlayerGui* widget, const std::string& url);
 
 		private:
 			dash::IDASHManager* manager;
 			dash::mpd::IMPD*	mpd;
 			QtSamplePlayerGui*	gui;
+
 		};
 	}
 }

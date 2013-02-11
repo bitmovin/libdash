@@ -17,6 +17,7 @@
 #include <QtGui/QMovie>
 #include <QtWidgets/QMainWindow>
 #include "ui_qtsampleplayer.h"
+#include "libdash.h"
 
 namespace dash {
 	namespace sampleplayer {
@@ -31,7 +32,7 @@ namespace dash {
 			QtSamplePlayerGui(QWidget *parent = 0);
 			~QtSamplePlayerGui();
 
-			void setGuiFields(std::map<std::string, std::vector<std::string> > video, std::map<std::string, std::vector<std::string> > audio);
+			void setGuiFields(dash::mpd::IMPD* mpd);
 
 			virtual void updateKeyValue(const std::string& key, const std::string& value);
 			virtual void removeAllKeyValues();
@@ -66,10 +67,12 @@ namespace dash {
 				QMediaPlayer player;
 
 				std::vector<IDASHPlayerGuiObserver*> observer;
-
+				dash::mpd::IMPD* mpd;
 				void settingsChanged();
 				void lockUI();
 				void unlockUI();
+
+				void updateRepresentation(dash::mpd::IAdaptationSet* adaption, QComboBox* cb);
 		};
 
 	}
