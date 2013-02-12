@@ -18,7 +18,7 @@
 #include "Decoder/LibavDecoder.h"
 #include "Input/DASHReceiver.h"
 
-using namespace dash::sampleplayer;
+using namespace sampleplayer;
 
 int main(int argc, char *argv[])
 {

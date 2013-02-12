@@ -16,7 +16,7 @@
 #include "IDASHPlayerGuiObserver.h"
 #include "libdash.h"
 
-using namespace dash::sampleplayer;
+using namespace sampleplayer;
 using namespace dash::mpd;
 
 QtSamplePlayerGui::QtSamplePlayerGui    (QWidget *parent)

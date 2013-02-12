@@ -11,7 +11,7 @@
 
 #include "DASHPlayer.h"
 
-using namespace dash::sampleplayer;
+using namespace sampleplayer;
 using namespace dash::mpd;
 using namespace std;
 
