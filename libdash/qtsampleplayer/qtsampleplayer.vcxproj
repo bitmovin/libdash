@@ -96,6 +96,7 @@
     <ClCompile Include="Input\MultiThreading.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="QtSamplePlayerGui.cpp" />
+    <ClCompile Include="Renderer\SDLRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="QtSamplePlayerGui.h">
@@ -133,6 +134,9 @@
     <ClInclude Include="Input\MediaObject.h" />
     <ClInclude Include="Input\MediaObjectBuffer.h" />
     <ClInclude Include="Input\MultiThreading.h" />
+    <ClInclude Include="renderer\IAudioObserver.h" />
+    <ClInclude Include="renderer\IVideoObserver.h" />
+    <ClInclude Include="Renderer\SDLRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="qtsampleplayer.qrc">

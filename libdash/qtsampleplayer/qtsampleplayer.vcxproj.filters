@@ -71,6 +71,9 @@
     <ClCompile Include="QtSamplePlayerGui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Renderer\SDLRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="qtsampleplayer.ui">
@@ -112,6 +115,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="IDASHPlayerGuiObserver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer\IAudioObserver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\SDLRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer\IVideoObserver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
