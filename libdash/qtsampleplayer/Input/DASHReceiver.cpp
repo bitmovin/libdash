@@ -16,28 +16,21 @@ using namespace dash;
 using namespace dash::network;
 using namespace dash::mpd;
 
-DASHReceiver::DASHReceiver  (uint32_t maxcapacity) :
-              manager       (NULL),
-              mpd           (NULL),
+DASHReceiver::DASHReceiver  (uint32_t maxcapacity, IAdaptationSet *adaptationSet, IMPD *mpd) :
+              adaptationSet (adaptationSet),
+              mpd           (mpd),
               count         (0),
               maxcapacity   (maxcapacity)
 {
-    this->buffer    = new MediaObjectBuffer(this->maxcapacity);
-    this->manager   = CreateDashManager();
+    this->buffer = new MediaObjectBuffer(this->maxcapacity);
 }
 DASHReceiver::~DASHReceiver ()
 {
-    delete(this->manager);
 }
 
 bool    DASHReceiver::Init                      (std::string mpdurl)
 {
-    this->mpd = this->manager->Open((char *)mpdurl.c_str());
-
-    if(this->mpd == NULL)
-        return false;
-
-    this->logic = new AdaptationLogic(this->mpd);
+    this->logic = new AdaptationLogic(this->adaptationSet, this->mpd);
 
     this->bufferingThread = CreateThreadPortable (DoBuffering, this);
 

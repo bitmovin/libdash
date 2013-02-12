@@ -14,12 +14,13 @@
 using namespace sampleplayer::input;
 using namespace dash::mpd;
 
-AdaptationLogic::AdaptationLogic    (IMPD *mpd) :
+AdaptationLogic::AdaptationLogic    (IAdaptationSet *adaptationSet, IMPD *mpd) :
+                 adaptationSet      (adaptationSet),
                  mpd                (mpd)
 {
     this->baseurls.push_back(this->mpd->GetBaseUrls().at(0));
 
-    this->lowestRep = this->mpd->GetPeriods().at(0)->GetAdaptationSets().at(0)->GetRepresentation().at(0);
+    this->lowestRep = this->adaptationSet->GetRepresentation().at(0);
 }
 AdaptationLogic::~AdaptationLogic   ()
 {

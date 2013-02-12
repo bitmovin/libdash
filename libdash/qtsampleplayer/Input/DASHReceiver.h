@@ -27,7 +27,7 @@ namespace sampleplayer
         class DASHReceiver : public IDataReceiver
         {
             public:
-                DASHReceiver            (uint32_t maxcapacity);
+                DASHReceiver            (uint32_t maxcapacity, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd);
                 virtual ~DASHReceiver   ();
 
                 bool Init   (std::string mpdurl);
@@ -35,13 +35,13 @@ namespace sampleplayer
                 virtual int IORead (uint8_t *buf, int buf_size);
 
             private:
-                dash::IDASHManager  *manager;
-                dash::mpd::IMPD     *mpd;
-                MediaObjectBuffer   *buffer;
-                int                 count;
-                uint32_t            maxcapacity;
-                AdaptationLogic     *logic;
-                THREAD_HANDLE       bufferingThread;
+                dash::mpd::IMPD             *mpd;
+                dash::mpd::IAdaptationSet   *adaptationSet;
+                MediaObjectBuffer           *buffer;
+                int                         count;
+                uint32_t                    maxcapacity;
+                AdaptationLogic             *logic;
+                THREAD_HANDLE               bufferingThread;
 
                 /* Thread that does the buffering of segments */
                 static void* DoBuffering (void *receiver);
