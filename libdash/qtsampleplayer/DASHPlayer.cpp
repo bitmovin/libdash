@@ -9,8 +9,8 @@ using namespace std;
 DASHPlayer::DASHPlayer  (QtSamplePlayerGui& gui) : gui(&gui)
 {
     this->manager = CreateDashManager();
-    
-    
+
+
     this->gui->addWidgetObserver(this);
 }
 DASHPlayer::~DASHPlayer ()
@@ -38,4 +38,3 @@ void DASHPlayer::OnURLChanged       (QtSamplePlayerGui* widget, const std::strin
         this->gui->setStatusBar("Error parsing mpd at: " + url);
     }
  }
-

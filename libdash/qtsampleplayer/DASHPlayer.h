@@ -14,6 +14,7 @@
 
 #include "libdash.h"
 #include "IDASHPlayerGuiObserver.h"
+#include "Renderer/SDLRenderer.h"
 
 namespace dash
 {
