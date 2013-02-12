@@ -18,7 +18,9 @@
 #include "libdash.h"
 #include "IDASHPlayerGuiObserver.h"
 #include "Renderer/SDLRenderer.h"
-
+#include "Decoder/LibavDecoder.h"
+#include "Input/DASHReceiver.h"
+#include "../Input/MultiThreading.h"
 
 namespace sampleplayer
 {
@@ -35,6 +37,9 @@ namespace sampleplayer
             dash::IDASHManager  *manager;
             dash::mpd::IMPD     *mpd;
             QtSamplePlayerGui   *gui;
+            THREAD_HANDLE       testThread;
+
+            static void* RenderVideo (void *dashplayer);
 
     };
 }

@@ -12,12 +12,18 @@
 #include "DASHPlayer.h"
 
 using namespace sampleplayer;
+using namespace sampleplayer::decoder;
+using namespace sampleplayer::input;
+using namespace sampleplayer::renderer;
 using namespace dash::mpd;
 using namespace std;
 
 DASHPlayer::DASHPlayer  (QtSamplePlayerGui& gui) : gui(&gui)
 {
     this->manager = CreateDashManager();
+    this->mpd = this->manager->Open("http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s_480p_only/bunny_Desktop.mpd");
+
+    this->testThread = CreateThreadPortable (RenderVideo, this);
 
     this->gui->addWidgetObserver(this);
 }
@@ -33,8 +39,7 @@ void DASHPlayer::OnSettingsChanged  (QtSamplePlayerGui* widget, int video_adapti
     this->gui->setStatusBar(ss.str());
 }
 void DASHPlayer::OnURLChanged       (QtSamplePlayerGui* widget, const std::string& url)
- {
-    this->mpd = this->manager->Open((char*)url.c_str());
+{
     if(this->mpd != NULL)
     {
 
@@ -45,4 +50,32 @@ void DASHPlayer::OnURLChanged       (QtSamplePlayerGui* widget, const std::strin
     {
         this->gui->setStatusBar("Error parsing mpd at: " + url);
     }
- }
+}
+
+/* Shows how to combine QT and SDL */
+void* DASHPlayer::RenderVideo   (void *dashplayer)
+{
+    DASHPlayer *player = (DASHPlayer *) dashplayer;
+
+    SDLRenderer  *renderer = new SDLRenderer();
+    DASHReceiver *receiver = new DASHReceiver(30, player->mpd->GetPeriods().at(0)->GetAdaptationSets().at(0), player->mpd); // Init a DASHReceiver with a buffer size of 30 Segments
+
+    receiver->Init("http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s_480p_only/bunny_Desktop.mpd");
+
+    LibavDecoder *decoder = new LibavDecoder(receiver);
+
+    decoder->attachVideoObserver(renderer);
+    decoder->setFrameRate(24);
+    decoder->init();
+    
+    bool eos = false;
+
+    while(!renderer->isQuitKeyPressed() && !eos)
+    {
+        eos = !decoder->decode();
+        renderer->processEvents();
+    }
+
+    decoder->stop();
+    return NULL;
+}
