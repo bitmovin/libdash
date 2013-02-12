@@ -15,23 +15,25 @@
 #include "libdash.h"
 #include "IDASHPlayerGuiObserver.h"
 
-namespace dash {
-	namespace sampleplayer {
-		class DASHPlayer : public IDASHPlayerGuiObserver
-		{
-		public:
-			DASHPlayer(QtSamplePlayerGui& gui);
-			~DASHPlayer(void);
+namespace dash
+{
+    namespace sampleplayer
+    {
+        class DASHPlayer : public IDASHPlayerGuiObserver
+        {
+            public:
+                DASHPlayer          (QtSamplePlayerGui& gui);
+                virtual ~DASHPlayer ();
 
-			virtual void OnSettingsChanged (QtSamplePlayerGui* widget, int video_adaption, int video_representation, int audio_adaption, int audio_representation);
-			virtual void OnURLChanged(QtSamplePlayerGui* widget, const std::string& url);
+                virtual void OnSettingsChanged  (QtSamplePlayerGui* widget, int video_adaption, int video_representation, int audio_adaption, int audio_representation);
+                virtual void OnURLChanged       (QtSamplePlayerGui* widget, const std::string& url);
 
-		private:
-			dash::IDASHManager* manager;
-			dash::mpd::IMPD*	mpd;
-			QtSamplePlayerGui*	gui;
+            private:
+                dash::IDASHManager  *manager;
+                dash::mpd::IMPD     *mpd;
+                QtSamplePlayerGui   *gui;
 
-		};
-	}
+        };
+    }
 }
 #endif /* DASHPLAYER_H_ */

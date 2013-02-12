@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     QtSamplePlayerGui w;
-	DASHPlayer p(w);
+    DASHPlayer p(w);
 
 //    w.addWidgetObserver(&obs);
 
@@ -47,8 +47,8 @@ int main(int argc, char *argv[])
     w.updateKeyValue("Framerate", "25");
     w.updateKeyValue("Bitrate", "120000000");*/
 
-	
-	
+    
+    
     w.show();
 
     return a.exec();
