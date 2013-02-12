@@ -12,6 +12,9 @@
 #ifndef DASHPLAYER_H_
 #define DASHPLAYER_H_
 
+#include <iostream>
+#include <sstream>
+
 #include "libdash.h"
 #include "IDASHPlayerGuiObserver.h"
 #include "Renderer/SDLRenderer.h"
