@@ -26,6 +26,7 @@
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include "Renderer/QTGLRenderer.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -37,6 +38,7 @@ public:
     QWidget *widget;
     QVBoxLayout *verticalLayout_3;
     QLineEdit *lineEdit;
+    sampleplayer::renderer::QTGLRenderer *videoelement;
     QVBoxLayout *videoLayout;
     QWidget *w_controls;
     QVBoxLayout *verticalLayout;
@@ -61,6 +63,7 @@ public:
     {
         if (QtSamplePlayerClass->objectName().isEmpty())
             QtSamplePlayerClass->setObjectName(QStringLiteral("QtSamplePlayerClass"));
+        QtSamplePlayerClass->setEnabled(true);
         QtSamplePlayerClass->resize(898, 516);
         centralWidget = new QWidget(QtSamplePlayerClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
@@ -83,11 +86,16 @@ public:
 
         verticalLayout_3->addWidget(lineEdit);
 
-        videoLayout = new QVBoxLayout();
+        videoelement = new sampleplayer::renderer::QTGLRenderer(widget);
+        videoelement->setObjectName(QStringLiteral("videoelement"));
+        videoelement->setEnabled(true);
+        videoelement->setMinimumSize(QSize(100, 100));
+        videoLayout = new QVBoxLayout(videoelement);
         videoLayout->setSpacing(6);
+        videoLayout->setContentsMargins(11, 11, 11, 11);
         videoLayout->setObjectName(QStringLiteral("videoLayout"));
 
-        verticalLayout_3->addLayout(videoLayout);
+        verticalLayout_3->addWidget(videoelement);
 
 
         horizontalLayout->addWidget(widget);

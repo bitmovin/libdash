@@ -46,7 +46,7 @@ namespace sampleplayer
         class  IVideoObserver
         {
             public:
-                virtual     ~IVideoObserver       (){};
+                virtual ~IVideoObserver (){};
 
                 virtual void onVideoDataAvailable  (const uint8_t **data, videoFrameProperties* props) = 0;
         };

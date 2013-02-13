@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>QtSamplePlayerClass</class>
  <widget class="QMainWindow" name="QtSamplePlayerClass">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -38,7 +41,18 @@
         </widget>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="videoLayout"/>
+        <widget class="sampleplayer::renderer::QTGLRenderer" name="videoelement" native="true">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>100</height>
+          </size>
+         </property>
+         <layout class="QVBoxLayout" name="videoLayout"/>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -177,6 +191,14 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>sampleplayer::renderer::QTGLRenderer</class>
+   <extends>QWidget</extends>
+   <header>Renderer/QTGLRenderer.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="qtsampleplayer.qrc"/>
  </resources>

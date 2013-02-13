@@ -71,8 +71,14 @@
     <ClCompile Include="QtSamplePlayerGui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer\SDLRenderer.cpp">
+    <ClCompile Include="Renderer\QTGLRenderer.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_QTGLRenderer.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_QTGLRenderer.cpp">
+      <Filter>Generated Files\Release</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -83,6 +89,12 @@
       <Filter>Resource Files</Filter>
     </CustomBuild>
     <CustomBuild Include="QtSamplePlayerGui.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Renderer\QTGLRenderer.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="renderer\IVideoObserver.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
@@ -118,12 +130,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="renderer\IAudioObserver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\SDLRenderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="renderer\IVideoObserver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
