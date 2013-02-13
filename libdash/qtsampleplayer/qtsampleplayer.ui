@@ -97,23 +97,37 @@
           </item>
           <item>
            <widget class="QLabel" name="label_3">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>Audio Adaption</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="cb_audio_adaption"/>
+           <widget class="QComboBox" name="cb_audio_adaption">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QLabel" name="label_4">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>Audio Representation</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="cb_audio_representation"/>
+           <widget class="QComboBox" name="cb_audio_representation">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QLabel" name="label_5">

@@ -141,21 +141,25 @@ public:
 
         label_3 = new QLabel(w_boxes);
         label_3->setObjectName(QStringLiteral("label_3"));
+        label_3->setEnabled(false);
 
         verticalLayout_2->addWidget(label_3);
 
         cb_audio_adaption = new QComboBox(w_boxes);
         cb_audio_adaption->setObjectName(QStringLiteral("cb_audio_adaption"));
+        cb_audio_adaption->setEnabled(false);
 
         verticalLayout_2->addWidget(cb_audio_adaption);
 
         label_4 = new QLabel(w_boxes);
         label_4->setObjectName(QStringLiteral("label_4"));
+        label_4->setEnabled(false);
 
         verticalLayout_2->addWidget(label_4);
 
         cb_audio_representation = new QComboBox(w_boxes);
         cb_audio_representation->setObjectName(QStringLiteral("cb_audio_representation"));
+        cb_audio_representation->setEnabled(false);
 
         verticalLayout_2->addWidget(cb_audio_representation);
 

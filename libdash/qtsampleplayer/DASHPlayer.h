@@ -41,6 +41,9 @@ namespace sampleplayer
             sampleplayer::renderer::QTGLRenderer    *renderer;
             QtSamplePlayerGui                       *gui;
             THREAD_HANDLE                           testThread;
+            dash::mpd::IAdaptationSet               *currentAdaptation;
+            dash::mpd::IRepresentation              *currentRepresentation;
+            bool                                    run;
 
             static void* RenderVideo (void *dashplayer);
 

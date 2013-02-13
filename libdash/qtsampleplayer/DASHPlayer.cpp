@@ -21,34 +21,59 @@ using namespace std;
 DASHPlayer::DASHPlayer  (QtSamplePlayerGui& gui) : gui(&gui)
 {
     this->manager = CreateDashManager();
-    this->mpd = this->manager->Open("http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s_480p_only/bunny_Desktop.mpd");
+    this->testThread = NULL;
     this->renderer = new QTGLRenderer(this->gui);
 
-    this->testThread = CreateThreadPortable (RenderVideo, this);
-
-    this->gui->addWidgetObserver(this);
+    this->gui->AddWidgetObserver(this);
+    this->OnURLChanged(NULL, this->gui->GetUrl());
+    
 }
 DASHPlayer::~DASHPlayer ()
 {
 
 }
-
 void DASHPlayer::OnSettingsChanged      (QtSamplePlayerGui* widget, int video_adaption, int video_representation, int audio_adaption, int audio_representation)
 {
-    stringstream ss;
-    ss << "Selected video adaption: " << video_adaption << " video_repr: " << video_representation << " Audio adaption:  " << audio_adaption << " Audio repr: " << audio_representation;
-    this->gui->setStatusBar(ss.str());
+    this->gui->SetStatusBar("Switching representation...");
+    if(this->testThread != NULL)
+    {
+        this->run = false;
+        WaitForSingleObject(this->testThread, INFINITE);
+        DestroyThreadPortable(this->testThread);
+    }
+    this->currentAdaptation = this->mpd->GetPeriods().at(0)->GetAdaptationSets().at(video_adaption);
+    this->currentRepresentation = this->currentAdaptation->GetRepresentation().at(video_representation);
+
+    this->run = true;
+    this->testThread = CreateThreadPortable (RenderVideo, this);
+
+    this->gui->SetStatusBar("Successfully switched representation");
 }
 void DASHPlayer::OnURLChanged           (QtSamplePlayerGui* widget, const std::string& url)
 {
+    if(this->testThread != NULL)
+    {
+        this->run = false;
+        WaitForSingleObject(this->testThread, INFINITE);
+        DestroyThreadPortable(this->testThread);
+    }
+
+    this->mpd = this->manager->Open((char*)url.c_str());
+
     if(this->mpd != NULL)
     {
-        this->gui->setStatusBar("Gotcha MPD");
-        this->gui->setGuiFields(this->mpd);
+        this->gui->SetStatusBar("Successfully parsed MPD at: " + url);
+        this->gui->SetGuiFields(this->mpd);
+
+        this->currentAdaptation = this->mpd->GetPeriods().at(0)->GetAdaptationSets().at(0);
+        this->currentRepresentation = this->currentAdaptation->GetRepresentation().at(0);
+
+        this->run = true;
+        this->testThread = CreateThreadPortable (RenderVideo, this);
     }
     else
     {
-        this->gui->setStatusBar("Error parsing mpd at: " + url);
+        this->gui->SetStatusBar("Error parsing mpd at: " + url);
     }
 }
 void DASHPlayer::onVideoDataAvailable   (const uint8_t **data, videoFrameProperties* props)
@@ -86,7 +111,9 @@ void DASHPlayer::onVideoDataAvailable   (const uint8_t **data, videoFramePropert
 void* DASHPlayer::RenderVideo   (void *dashplayer)
 {
     DASHPlayer      *player     = (DASHPlayer *) dashplayer;
-    DASHReceiver    *receiver   = new DASHReceiver(30, player->mpd->GetPeriods().at(0)->GetAdaptationSets().at(0), player->mpd); // Init a DASHReceiver with a buffer size of 30 Segments
+    AdaptationLogic *logic      = new AdaptationLogic(player->currentAdaptation, player->mpd);
+    logic->SetRepresentation(player->currentRepresentation);
+    DASHReceiver    *receiver   = new DASHReceiver(30, logic); // Init a DASHReceiver with a buffer size of 30 Segments
 
     receiver->Start();
 
@@ -98,11 +125,16 @@ void* DASHPlayer::RenderVideo   (void *dashplayer)
     
     bool eos = false;
 
-    while(!eos)
+    while(!eos && player->run)
     {
         eos = !decoder->decode();
     }
 
     decoder->stop();
+    receiver->Stop();
+
+    delete decoder;
+    delete receiver;
+
     return NULL;
 }

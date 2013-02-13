@@ -23,31 +23,22 @@ QtSamplePlayerGui::QtSamplePlayerGui    (QWidget *parent)
     : QMainWindow(parent), ui(new Ui::QtSamplePlayerClass), player(0, QMediaPlayer::VideoSurface)
 {
     this->ui->setupUi(this);
-    this->setBufferFillState(98);
     this->videoWidget = new QVideoWidget();
     this->player.setVideoOutput(this->videoWidget);
     this->ui->videoLayout->addWidget(this->videoWidget);
-
-    /*QString fileName = QFileDialog::getOpenFileName(this, tr("Open Movie"),QDir::homePath());
-
-    if (!fileName.isEmpty()) {
-        this->player.setMedia(QUrl::fromLocalFile(fileName));
-        this->player.play();
-    }*/
-
 }
 QtSamplePlayerGui::~QtSamplePlayerGui   ()
 {
     delete this->ui;
 }
 
-void QtSamplePlayerGui::setGuiFields                                    (dash::mpd::IMPD* mpd)
+void QtSamplePlayerGui::SetGuiFields                                    (dash::mpd::IMPD* mpd)
 {
     this->ui->cb_audio_adaption->clear();
     this->ui->cb_video_adaption->clear();
     this->ui->cb_audio_representation->clear();
     this->ui->cb_video_representation->clear();
-    this->removeAllKeyValues();
+    this->RemoveAllKeyValues();
 
     this->setEnabled(false);
 
@@ -68,13 +59,13 @@ void QtSamplePlayerGui::setGuiFields                                    (dash::m
     this->mpd = mpd;
     this->setEnabled(true);
 }
-void QtSamplePlayerGui::setBufferFillState                              (int percentage)
+void QtSamplePlayerGui::SetBufferFillState                              (int percentage)
 {
     this->ui->progressBar->setMaximum(100);
     this->ui->progressBar->setMinimum(0);
     this->ui->progressBar->setValue(percentage);
 }
-void QtSamplePlayerGui::updateKeyValue                                  (const std::string& key, const std::string& value)
+void QtSamplePlayerGui::UpdateKeyValue                                  (const std::string& key, const std::string& value)
 {
     if (this->keyValues.find(key) == this->keyValues.end()) {
         this->keyValues[key] = value;
@@ -92,7 +83,7 @@ void QtSamplePlayerGui::updateKeyValue                                  (const s
     this->ui->tableWidget->setItem(this->keyIndices[key], 0, key_item);
     this->ui->tableWidget->setItem(this->keyIndices[key], 1, value_item);
 }
-void QtSamplePlayerGui::removeAllKeyValues                              ()
+void QtSamplePlayerGui::RemoveAllKeyValues                              ()
 {
     this->keyValues.clear();
     this->keyIndices.clear();
@@ -101,18 +92,18 @@ void QtSamplePlayerGui::removeAllKeyValues                              ()
         this->ui->tableWidget->removeRow(i);
     }
 }
-void QtSamplePlayerGui::addWidgetObserver                               (IDASHPlayerGuiObserver* observer)
+void QtSamplePlayerGui::AddWidgetObserver                               (IDASHPlayerGuiObserver* observer)
 {
     this->observer.push_back(observer);
-    observer->OnURLChanged(this,this->ui->lineEdit->text().toStdString());
+    /*observer->OnURLChanged(this,this->ui->lineEdit->text().toStdString());
     int v_adaption = this->ui->cb_video_adaption->currentIndex();
     int v_representation = this->ui->cb_video_representation->currentIndex();
     int a_adaption = this->ui->cb_audio_adaption->currentIndex();
     int a_representation = this->ui->cb_audio_representation->currentIndex();
    
-    observer->OnSettingsChanged(this,v_adaption, v_representation, a_adaption, a_representation);
+    observer->OnSettingsChanged(this,v_adaption, v_representation, a_adaption, a_representation);*/
 }
-void QtSamplePlayerGui::removeWidgetObserver                            (IDASHPlayerGuiObserver* observer)
+void QtSamplePlayerGui::RemoveWidgetObserver                            (IDASHPlayerGuiObserver* observer)
 {
     std::vector<IDASHPlayerGuiObserver*>::iterator it;
     for(it = this->observer.begin(); it != this->observer.end(); it++)
@@ -124,7 +115,7 @@ void QtSamplePlayerGui::removeWidgetObserver                            (IDASHPl
         }
     }
 }
-void QtSamplePlayerGui::setStatusBar                                    (const std::string& text)
+void QtSamplePlayerGui::SetStatusBar                                    (const std::string& text)
 {
     QString str(text.c_str());
     this->ui->statusBar->showMessage(str);
@@ -209,4 +200,8 @@ void QtSamplePlayerGui::lockUI                                          ()
 void QtSamplePlayerGui::unlockUI                                        ()
 {
     this->setEnabled(true);
+}
+std::string QtSamplePlayerGui::GetUrl()
+{
+    return this->ui->lineEdit->text().toStdString();
 }

@@ -20,28 +20,31 @@ AdaptationLogic::AdaptationLogic    (IAdaptationSet *adaptationSet, IMPD *mpd) :
 {
     this->baseurls.push_back(this->mpd->GetBaseUrls().at(0));
 
-    this->lowestRep = this->adaptationSet->GetRepresentation().at(0);
+    this->currentRep = this->adaptationSet->GetRepresentation().at(0);
 }
 AdaptationLogic::~AdaptationLogic   ()
 {
 }
-
-MediaObject* AdaptationLogic::GetSegment(uint32_t number)
+void AdaptationLogic::SetRepresentation     (dash::mpd::IRepresentation* representation)
+{
+    this->currentRep = representation;
+}
+MediaObject* AdaptationLogic::GetSegment    (uint32_t number)
 {
     /* Put your code for the adaptation here and comment the sample code */
 
     /* Sample code that returns always the lowest repesentation (quality) */
     ISegment *seg = NULL;
 
-    if(number >= this->lowestRep->GetSegmentList()->GetSegmentURLs().size() + 1)
+    if(number >= this->currentRep->GetSegmentList()->GetSegmentURLs().size() + 1)
         return NULL;
 
     if(number == 0)
-        seg = this->lowestRep->GetSegmentBase()->GetInitialization()->ToSegment(this->baseurls);
+        seg = this->currentRep->GetSegmentBase()->GetInitialization()->ToSegment(this->baseurls);
     else
-        seg = this->lowestRep->GetSegmentList()->GetSegmentURLs().at(number - 1)->ToMediaSegment(this->baseurls);
+        seg = this->currentRep->GetSegmentList()->GetSegmentURLs().at(number - 1)->ToMediaSegment(this->baseurls);
 
-    MediaObject *media = new MediaObject(seg, this->lowestRep);
+    MediaObject *media = new MediaObject(seg, this->currentRep);
 
     return media;
 }

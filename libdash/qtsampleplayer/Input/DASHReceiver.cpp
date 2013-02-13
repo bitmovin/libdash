@@ -16,22 +16,20 @@ using namespace dash;
 using namespace dash::network;
 using namespace dash::mpd;
 
-DASHReceiver::DASHReceiver  (uint32_t maxcapacity, IAdaptationSet *adaptationSet, IMPD *mpd) :
-              adaptationSet (adaptationSet),
-              mpd           (mpd),
+DASHReceiver::DASHReceiver  (uint32_t maxcapacity, AdaptationLogic* logic) :
               count         (0),
-              maxcapacity   (maxcapacity)
+              maxcapacity   (maxcapacity),
+              logic         (logic)
 {
     this->buffer = new MediaObjectBuffer(this->maxcapacity);
 }
 DASHReceiver::~DASHReceiver ()
 {
+    this->Stop();
 }
-
 bool    DASHReceiver::Start                 ()
 {
-    this->logic = new AdaptationLogic(this->adaptationSet, this->mpd);
-
+    this->run = true;
     this->bufferingThread = CreateThreadPortable (DoBuffering, this);
 
     if(this->bufferingThread == NULL)
@@ -41,6 +39,12 @@ bool    DASHReceiver::Start                 ()
 }
 void    DASHReceiver::Stop                  ()
 {
+    this->run = false;
+    if(this->bufferingThread != NULL)
+    {
+        WaitForSingleObject(this->bufferingThread, INFINITE);
+        DestroyThreadPortable(this->bufferingThread);
+    }
 }
 void    DASHReceiver::AtachBufferObserver   ()
 {
@@ -72,7 +76,7 @@ void*   DASHReceiver::DoBuffering   (void *receiver)
 
     MediaObject *media = dashreceiver->logic->GetSegment(number);
 
-    while(media != NULL)
+    while(media != NULL && dashreceiver->run)
     {
         media->StartDownload();
         media->WaitFinished();
