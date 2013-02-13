@@ -43,7 +43,6 @@ void DASHPlayer::OnURLChanged           (QtSamplePlayerGui* widget, const std::s
 {
     if(this->mpd != NULL)
     {
-
         this->gui->setStatusBar("Gotcha MPD");
         this->gui->setGuiFields(this->mpd);
     }
@@ -54,6 +53,33 @@ void DASHPlayer::OnURLChanged           (QtSamplePlayerGui* widget, const std::s
 }
 void DASHPlayer::onVideoDataAvailable   (const uint8_t **data, videoFrameProperties* props)
 {
+    int w = props->width;
+    int h = props->height;
+
+    AVFrame *pFrameRGB  = avcodec_alloc_frame();
+    int     numBytes    = avpicture_get_size(PIX_FMT_RGB32, props->width, props->height);
+    uint8_t *buffer     = (uint8_t*)malloc(numBytes);
+
+    avpicture_fill((AVPicture*)pFrameRGB, buffer, PIX_FMT_RGB32, props->width, props->height);
+
+    SwsContext *imgConvertCtx = sws_getContext(props->width, props->height, (PixelFormat)props->pxlFmt, w, h, PIX_FMT_RGB32, SWS_BICUBIC, NULL, NULL, NULL);
+
+    sws_scale(imgConvertCtx, data, props->linesize, 0, props->height, pFrameRGB->data, pFrameRGB->linesize);
+
+    QImage image(props->width, props->height, QImage::Format_RGB32);
+    int x, y;
+    int *src = (int*)pFrameRGB->data[0];
+ 
+    for (y = 0; y < props->height; y++)
+    {
+        for (x = 0; x < props->width; x++)
+        {
+            image.setPixel(x, y, src[x] & 0x00ffffff);
+        }
+        src += props->width;
+    }
+
+    this->renderer->setImage(image);
     this->renderer->update();
 }
 /* Shows how to combine QT and SDL */

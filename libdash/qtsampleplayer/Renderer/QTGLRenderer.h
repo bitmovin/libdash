@@ -29,7 +29,10 @@ namespace sampleplayer
                 QTGLRenderer            (QWidget *parent = NULL);
                 virtual ~QTGLRenderer   ();
 
+                void setImage(const QImage& image);
+
             private:
+                QImage img;
                 CRITICAL_SECTION monitorMutex;
 
             protected:

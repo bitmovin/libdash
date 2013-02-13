@@ -25,6 +25,12 @@ QTGLRenderer::~QTGLRenderer ()
     DeleteCriticalSection (&this->monitorMutex);
 }
 
+void QTGLRenderer::setImage(const QImage& image)
+{
+    EnterCriticalSection(&this->monitorMutex);
+    img = image;
+    LeaveCriticalSection(&this->monitorMutex);
+}
 void    QTGLRenderer::paintEvent            (QPaintEvent *paintEvent)
 {
     /* http://stackoverflow.com/questions/1242005/what-is-the-most-efficient-way-to-display-decoded-video-frames-in-qt 
@@ -32,13 +38,10 @@ void    QTGLRenderer::paintEvent            (QPaintEvent *paintEvent)
      * http://qt-project.org/doc/qt-5.0/qtopengl/qglwidget.html
      */
     EnterCriticalSection(&this->monitorMutex);
-    QImage randomImage(100, 100, QImage::Format_ARGB32);
-    randomImage.fill(qRgba(rand()%255, rand()%255, rand()%255, rand()
-    %255));
 
     QPainter p;
     p.begin(this);
-    p.drawImage(paintEvent->rect(), randomImage);
+    p.drawImage(paintEvent->rect(), this->img);
     p.end();
 
     LeaveCriticalSection(&this->monitorMutex);
