@@ -42,7 +42,7 @@ bool    DASHReceiver::Start                 ()
 void    DASHReceiver::Stop                  ()
 {
 }
-void    DASHReceiver::AtachDownloadObserver ()
+void    DASHReceiver::AtachBufferObserver   ()
 {
 }
 int     DASHReceiver::IORead                (uint8_t *buf, int buf_size)

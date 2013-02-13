@@ -32,7 +32,7 @@ namespace sampleplayer
 
                 bool Start                  ();
                 void Stop                   ();
-                void AtachDownloadObserver  ();
+                void AtachBufferObserver    ();
 
                 virtual int IORead (uint8_t *buf, int buf_size);
 
