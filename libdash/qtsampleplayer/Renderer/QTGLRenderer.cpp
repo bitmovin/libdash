@@ -34,10 +34,6 @@ void QTGLRenderer::setImage(const QImage& image)
 }
 void    QTGLRenderer::paintEvent            (QPaintEvent *paintEvent)
 {
-    /* http://stackoverflow.com/questions/1242005/what-is-the-most-efficient-way-to-display-decoded-video-frames-in-qt 
-     * http://programanddesign.com/cpp/qt-opengl-code-example/
-     * http://qt-project.org/doc/qt-5.0/qtopengl/qglwidget.html
-     */
     EnterCriticalSection(&this->monitorMutex);
 
     QPainter p;
