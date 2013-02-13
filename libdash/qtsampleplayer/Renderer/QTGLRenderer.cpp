@@ -19,6 +19,7 @@ QTGLRenderer::QTGLRenderer  (QWidget *parent) :
     InitializeCriticalSection (&this->monitorMutex);
     setAutoBufferSwap(true);
     setAutoFillBackground(false);
+    this->setGeometry(9+10,35+30,582,401);
 }
 QTGLRenderer::~QTGLRenderer ()
 {
@@ -41,7 +42,7 @@ void    QTGLRenderer::paintEvent            (QPaintEvent *paintEvent)
 
     QPainter p;
     p.begin(this);
-    p.drawImage(paintEvent->rect(), this->img);
+    p.drawImage(this->rect(), this->img);
     p.end();
 
     LeaveCriticalSection(&this->monitorMutex);

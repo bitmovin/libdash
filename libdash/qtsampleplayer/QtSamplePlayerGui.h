@@ -39,7 +39,7 @@ namespace sampleplayer
             virtual void    addWidgetObserver       (IDASHPlayerGuiObserver* observer);
             virtual void    removeWidgetObserver    (IDASHPlayerGuiObserver* observer);
             virtual void    setStatusBar            (const std::string& text);
-    
+
         private slots:
             void on_cb_video_adaption_currentIndexChanged       (const QString &arg1);
             void on_cb_video_representation_currentIndexChanged (const QString &arg1);
