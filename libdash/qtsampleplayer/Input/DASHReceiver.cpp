@@ -80,8 +80,6 @@ void*   DASHReceiver::DoBuffering   (void *receiver)
         number++;
 
         media = dashreceiver->logic->GetSegment(number);
-
-        std::cout << "Buffer size in segments: " << dashreceiver->buffer->Length() << std::endl;
     }
 
     dashreceiver->buffer->SetEOS(true);
