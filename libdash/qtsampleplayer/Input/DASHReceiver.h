@@ -30,7 +30,7 @@ namespace sampleplayer
                 DASHReceiver            (uint32_t maxcapacity, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd);
                 virtual ~DASHReceiver   ();
 
-                bool Init   (std::string mpdurl);
+                bool Start ();
 
                 virtual int IORead (uint8_t *buf, int buf_size);
 

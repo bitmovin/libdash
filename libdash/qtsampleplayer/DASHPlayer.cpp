@@ -88,7 +88,7 @@ void* DASHPlayer::RenderVideo   (void *dashplayer)
     DASHPlayer      *player     = (DASHPlayer *) dashplayer;
     DASHReceiver    *receiver   = new DASHReceiver(30, player->mpd->GetPeriods().at(0)->GetAdaptationSets().at(0), player->mpd); // Init a DASHReceiver with a buffer size of 30 Segments
 
-    receiver->Init("http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s_480p_only/bunny_Desktop.mpd");
+    receiver->Start();
 
     LibavDecoder *decoder = new LibavDecoder(receiver);
 
