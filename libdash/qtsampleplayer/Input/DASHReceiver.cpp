@@ -28,7 +28,7 @@ DASHReceiver::~DASHReceiver ()
 {
 }
 
-bool    DASHReceiver::Start     ()
+bool    DASHReceiver::Start                 ()
 {
     this->logic = new AdaptationLogic(this->adaptationSet, this->mpd);
 
@@ -39,7 +39,13 @@ bool    DASHReceiver::Start     ()
 
     return true;
 }
-int     DASHReceiver::IORead    (uint8_t *buf, int buf_size)
+void    DASHReceiver::Stop                  ()
+{
+}
+void    DASHReceiver::AtachDownloadObserver ()
+{
+}
+int     DASHReceiver::IORead                (uint8_t *buf, int buf_size)
 {
     /* FFMpeg callback that consumes data from the buffer for decoding */
     MediaObject *media = this->buffer->Front();
