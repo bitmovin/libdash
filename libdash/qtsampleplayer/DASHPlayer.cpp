@@ -23,7 +23,6 @@ DASHPlayer::DASHPlayer  (QtSamplePlayerGui& gui) : gui(&gui)
     this->manager = CreateDashManager();
     this->testThread = NULL;
     this->renderer = new QTGLRenderer(this->gui);
-
     this->gui->AddWidgetObserver(this);
     this->OnURLChanged(NULL, this->gui->GetUrl());
     
@@ -114,6 +113,9 @@ void* DASHPlayer::RenderVideo   (void *dashplayer)
     AdaptationLogic *logic      = new AdaptationLogic(player->currentAdaptation, player->mpd);
     logic->SetRepresentation(player->currentRepresentation);
     DASHReceiver    *receiver   = new DASHReceiver(30, logic); // Init a DASHReceiver with a buffer size of 30 Segments
+    receiver->AtachBufferObserver(player);
+    player->gui->SetBufferFillState(0);
+
 
     receiver->Start();
 
@@ -137,4 +139,11 @@ void* DASHPlayer::RenderVideo   (void *dashplayer)
     delete receiver;
 
     return NULL;
+}
+void     DASHPlayer::OnBufferStateChange           (input::MediaObjectBuffer* buffer)
+{
+    double fill = (double)buffer->Length() / (double)buffer->Capacity();
+   
+    /* TODO: this must be called from the gui thread */
+    // this->gui->SetBufferFillState(fill*100);
 }

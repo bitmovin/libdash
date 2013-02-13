@@ -140,6 +140,7 @@
     <ClInclude Include="Input\AdaptationLogic.h" />
     <ClInclude Include="Input\DASHReceiver.h" />
     <ClInclude Include="Input\IAdaptationLogic.h" />
+    <ClInclude Include="Input\IBufferObserver.h" />
     <ClInclude Include="Input\IDataReceiver.h" />
     <ClInclude Include="Input\MediaObject.h" />
     <ClInclude Include="Input\MediaObjectBuffer.h" />

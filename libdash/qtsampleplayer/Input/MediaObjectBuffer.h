@@ -14,6 +14,7 @@
 
 #include "MediaObject.h"
 #include "MultiThreading.h"
+#include "IBufferObserver.h"
 #include <queue>
 
 namespace sampleplayer
@@ -31,14 +32,20 @@ namespace sampleplayer
                 void            Pop     ();
                 void            SetEOS  (bool value);
                 uint32_t        Length  ();
+                uint32_t        Capacity();
+
+                void            AddObserver(IBufferObserver* observer);
 
             private:
                 std::queue<MediaObject *>   mediaobjects;
+                std::vector<IBufferObserver*> observer;
                 bool                        eos;
                 uint32_t                    maxcapacity;
                 mutable CRITICAL_SECTION    monitorMutex;
                 mutable CONDITION_VARIABLE  full;
                 mutable CONDITION_VARIABLE  empty;
+
+                void            NotifyObserver();
         };
     }
 }

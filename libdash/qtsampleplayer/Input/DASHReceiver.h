@@ -19,11 +19,14 @@
 #include "libdash.h"
 #include <string>
 #include <queue>
+#include "IBufferObserver.h"
 
 namespace sampleplayer
 {
     namespace input
     {
+
+
         class DASHReceiver : public IDataReceiver
         {
             public:
@@ -32,7 +35,7 @@ namespace sampleplayer
 
                 bool Start                  ();
                 void Stop                   ();
-                void AtachBufferObserver    ();
+                void AtachBufferObserver    (IBufferObserver* observer);
 
                 virtual int IORead (uint8_t *buf, int buf_size);
 

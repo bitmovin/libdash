@@ -54,6 +54,7 @@ void            MediaObjectBuffer::Push     (MediaObject *media)
 
     WakeAllConditionVariable(&this->full);
     LeaveCriticalSection(&this->monitorMutex);
+    this->NotifyObserver();
 }
 MediaObject*    MediaObjectBuffer::Front    ()
 {
@@ -91,6 +92,7 @@ void            MediaObjectBuffer::Pop      ()
 
     WakeAllConditionVariable(&this->empty);
     LeaveCriticalSection(&this->monitorMutex);
+    this->NotifyObserver();
 }
 void            MediaObjectBuffer::SetEOS   (bool value)
 {
@@ -101,4 +103,19 @@ void            MediaObjectBuffer::SetEOS   (bool value)
     WakeAllConditionVariable(&this->empty);
     WakeAllConditionVariable(&this->full);
     LeaveCriticalSection(&this->monitorMutex);
+}
+void            MediaObjectBuffer::AddObserver(IBufferObserver* observer)
+{
+    this->observer.push_back(observer);
+}
+void            MediaObjectBuffer::NotifyObserver()
+{
+    for(unsigned int i=0; i < this->observer.size(); i++)
+    {
+        this->observer.at(i)->OnBufferStateChange(this);
+    }
+}
+uint32_t        MediaObjectBuffer::Capacity()
+{
+    return this->maxcapacity;
 }

@@ -135,6 +135,9 @@
     <ClInclude Include="Input\IAdaptationLogic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Input\IBufferObserver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\sampleplayer\license.txt" />
