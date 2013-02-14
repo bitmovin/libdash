@@ -12,6 +12,8 @@
 #ifndef LIBDASH_FRAMEWORK_BUFFER_IBUFFEROBSERVER_H_
 #define LIBDASH_FRAMEWORK_BUFFER_IBUFFEROBSERVER_H_
 
+#include <stdint.h>
+
 namespace libdash
 {
     namespace framework
@@ -22,6 +24,8 @@ namespace libdash
             {
                 public:
                     virtual ~IBufferObserver () {}
+
+                    void OnBufferStateChanged(uint32_t fillstateInPercent);
             };
         }
     }
