@@ -100,10 +100,10 @@
     <CustomBuild Include="Renderer\QTGLRenderer.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="renderer\IVideoObserver.h">
+    <CustomBuild Include="UI\QtSamplePlayerGui.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="UI\QtSamplePlayerGui.h">
+    <CustomBuild Include="Decoder\IVideoObserver.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
@@ -112,9 +112,6 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="Decoder\LibavDecoder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="renderer\IAudioObserver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Input\IAdaptationLogic.h">
@@ -163,6 +160,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Managers\IStreamObserver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Decoder\IAudioObserver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

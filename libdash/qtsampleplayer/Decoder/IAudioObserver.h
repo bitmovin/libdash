@@ -16,7 +16,7 @@
 
 namespace sampleplayer
 {
-    namespace renderer
+    namespace decoder
     {
         struct audioFrameProperties
         {

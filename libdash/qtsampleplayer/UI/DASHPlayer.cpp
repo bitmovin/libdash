@@ -79,40 +79,6 @@ void DASHPlayer::OnURLChanged           (QtSamplePlayerGui* widget, const std::s
         this->gui->SetStatusBar("Error parsing mpd at: " + url);
     }
 }
-void DASHPlayer::OnVideoDataAvailable   (const uint8_t **data, videoFrameProperties* props)
-{
-    int w = props->width;
-    int h = props->height;
-
-    AVFrame *rgbframe   = avcodec_alloc_frame();
-    int     numBytes    = avpicture_get_size(PIX_FMT_RGB32, props->width, props->height);
-    uint8_t *buffer     = (uint8_t*)av_malloc(numBytes);
-
-    avpicture_fill((AVPicture*)rgbframe, buffer, PIX_FMT_RGB32, props->width, props->height);
-
-    SwsContext *imgConvertCtx = sws_getContext(props->width, props->height, (PixelFormat)props->pxlFmt, w, h, PIX_FMT_RGB32, SWS_BICUBIC, NULL, NULL, NULL);
-
-    sws_scale(imgConvertCtx, data, props->linesize, 0, props->height, rgbframe->data, rgbframe->linesize);
-
-    QImage image(props->width, props->height, QImage::Format_RGB32);
-    int x, y;
-    int *src = (int*)rgbframe->data[0];
- 
-    for (y = 0; y < props->height; y++)
-    {
-        for (x = 0; x < props->width; x++)
-        {
-            image.setPixel(x, y, src[x] & 0x00ffffff);
-        }
-        src += props->width;
-    }
-
-    av_free(rgbframe);
-    av_free(buffer);
-
-    this->renderer->setImage(image);
-    this->renderer->update();
-}
 
 /* Shows how to combine QT and SDL */
 void* DASHPlayer::RenderVideo   (void *dashplayer)
@@ -121,14 +87,11 @@ void* DASHPlayer::RenderVideo   (void *dashplayer)
     AlwaysLowestLogic   *logic      = new AlwaysLowestLogic(player->currentAdaptation, player->mpd);
     DASHReceiver        *receiver   = new DASHReceiver(30, logic);
 
-
-    receiver->AtachBufferObserver(player);
     player->gui->SetBufferFillState(0);
     receiver->Start();
 
     LibavDecoder *decoder = new LibavDecoder(receiver);
 
-    decoder->AttachVideoObserver(player);
     decoder->SetFrameRate(24);
     decoder->Init();
     

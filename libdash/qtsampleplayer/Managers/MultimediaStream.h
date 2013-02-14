@@ -13,21 +13,21 @@
 #define QTSAMPLEPLAYER_MANAGERS_MULTIMEDIASTREAM_H_
 
 #include "IStreamObserver.h"
-#include "../Renderer/IAudioObserver.h"
-#include "../Renderer/IVideoObserver.h"
+#include "../Decoder/IAudioObserver.h"
+#include "../Decoder/IVideoObserver.h"
 
 namespace sampleplayer
 {
     namespace managers
     {
-        class MultimediaStream : public renderer::IAudioObserver, public renderer::IVideoObserver
+        class MultimediaStream : public decoder::IAudioObserver, public decoder::IVideoObserver
         {
             public:
                 MultimediaStream            ();
                 virtual ~MultimediaStream   ();
 
-                virtual void OnAudioDataAvailable (const uint8_t **data, renderer::audioFrameProperties* props);
-                virtual void OnVideoDataAvailable (const uint8_t **data, renderer::videoFrameProperties* props);
+                virtual void OnAudioDataAvailable (const uint8_t **data, decoder::audioFrameProperties* props);
+                virtual void OnVideoDataAvailable (const uint8_t **data, decoder::videoFrameProperties* props);
 
                 void AttachStreamObserver (IStreamObserver *observer);
 

@@ -24,8 +24,8 @@
 #endif
 
 #include "../libdashframework/Input/IDataReceiver.h"
-#include "../Renderer/IVideoObserver.h"
-#include "../Renderer/IAudioObserver.h"
+#include "IVideoObserver.h"
+#include "IAudioObserver.h"
 
 namespace sampleplayer
 {
@@ -47,8 +47,8 @@ namespace sampleplayer
                 bool Decode                 ();
                 bool Init                   ();
                 void Stop                   ();
-                void AttachVideoObserver    (renderer::IVideoObserver *observer);
-                void AttachAudioObserver    (renderer::IAudioObserver *observer);
+                void AttachVideoObserver    (IVideoObserver *observer);
+                void AttachAudioObserver    (IAudioObserver *observer);
                 void NotifyVideo            (AVFrame *frame, StreamConfig *config);
                 void NotifyAudio            (AVFrame *frame, StreamConfig *config);
                 void SetFrameRate           (uint8_t rate);
@@ -56,8 +56,8 @@ namespace sampleplayer
             private:
                 libdash::framework::input::IDataReceiver    *receiver;
                 std::vector <StreamConfig>                  streamconfigs;
-                std::vector <renderer::IVideoObserver*>     videoObservers;
-                std::vector <renderer::IAudioObserver*>     audioObservers;
+                std::vector <IVideoObserver*>               videoObservers;
+                std::vector <IAudioObserver*>               audioObservers;
                 unsigned char                               *iobuffer;
                 int                                         bufferSize;
                 int                                         framerate;

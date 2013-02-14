@@ -18,16 +18,14 @@
 #include "libdash.h"
 #include "IDASHPlayerGuiObserver.h"
 #include "Renderer/QTGLRenderer.h"
-#include "Renderer/IVideoObserver.h"
 #include "Decoder/LibavDecoder.h"
 #include "libdashframework/Input/DASHReceiver.h"
 #include "libdashframework/Portable/MultiThreading.h"
-#include "libdashframework/Buffer/IBufferObserver.h"
 #include "libdashframework/Adaptation/AlwaysLowestLogic.h"
 
 namespace sampleplayer
 {
-    class DASHPlayer : public IDASHPlayerGuiObserver, public renderer::IVideoObserver, public libdash::framework::buffer::IBufferObserver
+    class DASHPlayer : public IDASHPlayerGuiObserver
     {
         public:
             DASHPlayer          (QtSamplePlayerGui& gui);
@@ -35,7 +33,6 @@ namespace sampleplayer
 
             virtual void OnSettingsChanged      (QtSamplePlayerGui* widget, int video_adaption, int video_representation, int audio_adaption, int audio_representation);
             virtual void OnURLChanged           (QtSamplePlayerGui* widget, const std::string& url);
-            virtual void OnVideoDataAvailable   (const uint8_t **data, renderer::videoFrameProperties *props);
 
         private:
             dash::IDASHManager                      *manager;

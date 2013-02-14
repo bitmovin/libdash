@@ -23,7 +23,7 @@ extern "C"
 
 namespace sampleplayer
 {
-    namespace renderer
+    namespace decoder
     {
         enum   pixelFormat  {
                                 yuv420p = 0,
