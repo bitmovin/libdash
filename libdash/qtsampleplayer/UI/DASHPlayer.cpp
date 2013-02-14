@@ -11,22 +11,26 @@
 
 #include "DASHPlayer.h"
 
+using namespace libdash::framework::adaptation;
 using namespace sampleplayer;
 using namespace sampleplayer::renderer;
+using namespace sampleplayer::managers;
 using namespace dash::mpd;
 using namespace std;
 
 DASHPlayer::DASHPlayer  (QtSamplePlayerGui& gui) : gui(&gui)
 {
-    this->manager = CreateDashManager();
-    this->renderer = new QTGLRenderer(this->gui);
+    this->manager           = CreateDashManager();
+    this->videoElement      = new QTGLRenderer(this->gui);
+    this->multimediaManager = new MultimediaManager(this->videoElement);
+
     this->gui->AddWidgetObserver(this);
     this->OnURLChanged(NULL, this->gui->GetUrl());
     
 }
 DASHPlayer::~DASHPlayer ()
 {
-    delete(this->renderer);
+    delete(this->videoElement);
 }
 
 void DASHPlayer::OnSettingsChanged      (QtSamplePlayerGui* widget, int video_adaption, int video_representation, int audio_adaption, int audio_representation)
@@ -49,6 +53,10 @@ void DASHPlayer::OnURLChanged           (QtSamplePlayerGui* widget, const std::s
 
         this->currentAdaptation = this->mpd->GetPeriods().at(0)->GetAdaptationSets().at(0);
         this->currentRepresentation = this->currentAdaptation->GetRepresentation().at(0);
+
+        this->multimediaManager->SetVideoAdaptationSet(this->currentAdaptation);
+        this->multimediaManager->SetVideoAdaptationLogic(new AlwaysLowestLogic(this->currentAdaptation, this->mpd));
+        this->multimediaManager->Start();
 
         this->run = true;
     }

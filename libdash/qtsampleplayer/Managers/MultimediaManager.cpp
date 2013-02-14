@@ -14,9 +14,14 @@
 using namespace libdash::framework::adaptation;
 using namespace libdash::framework::buffer;
 using namespace sampleplayer::managers;
+using namespace sampleplayer::renderer;
 using namespace dash::mpd;
 
-MultimediaManager::MultimediaManager    ()
+MultimediaManager::MultimediaManager    (QTGLRenderer *videoelement) :
+                   videoelement         (videoelement),
+                   videoAdaptationSet   (NULL),
+                   videoLogic           (NULL),
+                   stream               (NULL)
 {
     /* This class manages the download and decocding process
      * Note multiple downloading/decoding threads must be handled in parallel when switching between adaptationsets or when audio and video is separated
@@ -26,9 +31,20 @@ MultimediaManager::~MultimediaManager   ()
 {
 }
 
+void MultimediaManager::OnVideoFrameAvailable       (const QImage& image, dash::mpd::IAdaptationSet *adaptationSet)
+{
+    this->videoelement->setImage(image);
+    this->videoelement->update();
+}
+void MultimediaManager::OnAudioSampleAvailable      ()
+{
+}
 void MultimediaManager::Start                       ()
 {
     /* Global Start button for start must be added to interface*/
+    this->stream = new MultimediaStream(this->videoAdaptationSet, this->videoLogic, 30, 0, 0);
+    this->stream->AttachStreamObserver(this);
+    this->stream->Start();
 }
 void MultimediaManager::Stop                        ()
 {
@@ -41,6 +57,7 @@ bool MultimediaManager::SetVideoAdaptationSet       (IAdaptationSet *adaptationS
      * Download Init segment
      * Download segment according to last segment of other adaptationset
      */
+    this->videoAdaptationSet = adaptationSet;
     return false;
 }
 bool MultimediaManager::SetAudioAdaptationSet       (IAdaptationSet *adaptationSet)
@@ -51,6 +68,7 @@ bool MultimediaManager::SetAudioAdaptationSet       (IAdaptationSet *adaptationS
 bool MultimediaManager::SetVideoAdaptationLogic     (IAdaptationLogic *logic)
 {
     /* Set AdaptationLogic of Video DASHReceiver */
+    this->videoLogic = logic;
     return false;
 }
 bool MultimediaManager::SetAudioAdaptationLogic     (IAdaptationLogic *logic)

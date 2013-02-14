@@ -13,21 +13,26 @@
 #define QTSAMPLEPLAYER_MANAGERS_MULTIMEDIAMANAGER_H_
 
 #include "IMPD.h"
+#include "MultimediaStream.h"
 #include "../libdashframework/Adaptation/IAdaptationLogic.h"
 #include "../libdashframework/Buffer/IBufferObserver.h"
+#include "../Renderer/QTGLRenderer.h"
 
 namespace sampleplayer
 {
     namespace managers
     {
-        class MultimediaManager
+        class MultimediaManager : public IStreamObserver
         {
             public:
-                MultimediaManager           ();
+                MultimediaManager           (renderer::QTGLRenderer *videoelement);
                 virtual ~MultimediaManager  ();
 
                 void Start  ();
                 void Stop   ();
+
+                void OnVideoFrameAvailable  (const QImage& image, dash::mpd::IAdaptationSet *adaptationSet);
+                void OnAudioSampleAvailable ();
 
                 bool SetVideoAdaptationSet      (dash::mpd::IAdaptationSet *adaptationSet);
                 bool SetAudioAdaptationSet      (dash::mpd::IAdaptationSet *adaptationSet);
@@ -43,6 +48,12 @@ namespace sampleplayer
 
                 void NotifyVideoBufferObservers ();
                 void NotifyAudioBufferObservers ();
+
+            private:
+                renderer::QTGLRenderer                              *videoelement;
+                dash::mpd::IAdaptationSet                           *videoAdaptationSet;
+                libdash::framework::adaptation::IAdaptationLogic    *videoLogic;
+                MultimediaStream                                    *stream;
         };
     }
 }

@@ -17,7 +17,9 @@
 
 #include "libdash.h"
 #include "IDASHPlayerGuiObserver.h"
-#include "Renderer/QTGLRenderer.h"
+#include "../Renderer/QTGLRenderer.h"
+#include "../Managers/MultimediaManager.h"
+#include "../libdashframework/Adaptation/AlwaysLowestLogic.h"
 
 namespace sampleplayer
 {
@@ -31,13 +33,14 @@ namespace sampleplayer
             virtual void OnURLChanged           (QtSamplePlayerGui* widget, const std::string& url);
 
         private:
-            dash::IDASHManager                      *manager;
-            dash::mpd::IMPD                         *mpd;
-            sampleplayer::renderer::QTGLRenderer    *renderer;
-            QtSamplePlayerGui                       *gui;
-            dash::mpd::IAdaptationSet               *currentAdaptation;
-            dash::mpd::IRepresentation              *currentRepresentation;
-            bool                                    run;
+            dash::IDASHManager                          *manager;
+            dash::mpd::IMPD                             *mpd;
+            sampleplayer::renderer::QTGLRenderer        *videoElement;
+            QtSamplePlayerGui                           *gui;
+            dash::mpd::IAdaptationSet                   *currentAdaptation;
+            dash::mpd::IRepresentation                  *currentRepresentation;
+            sampleplayer::managers::MultimediaManager   *multimediaManager;
+            bool                                        run;
     };
 }
 #endif /* DASHPLAYER_H_ */
