@@ -32,17 +32,27 @@ DASHReceiver::~DASHReceiver ()
 }
 bool    DASHReceiver::Start                 ()
 {
-    this->run = true;
-    this->bufferingThread = CreateThreadPortable (DoBuffering, this);
+    if(this->isDownloading)
+        return false;
+
+    this->isDownloading     = true;
+    this->bufferingThread   = CreateThreadPortable (DoBuffering, this);
 
     if(this->bufferingThread == NULL)
+    {
+        this->isDownloading = false;
         return false;
+    }
 
     return true;
 }
 void    DASHReceiver::Stop                  ()
 {
-    this->run = false;
+    if(!this->isDownloading)
+        return;
+
+    this->isDownloading = false;
+
     if(this->bufferingThread != NULL)
     {
         WaitForSingleObject(this->bufferingThread, INFINITE);
@@ -80,7 +90,7 @@ void*   DASHReceiver::DoBuffering   (void *receiver)
 
     MediaObject *media = dashreceiver->logic->GetSegment(number);
 
-    while(media != NULL && dashreceiver->run)
+    while(media != NULL && dashreceiver->isDownloading)
     {
         media->StartDownload();
         media->WaitFinished();

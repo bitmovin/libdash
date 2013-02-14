@@ -45,7 +45,7 @@ namespace libdash
                     uint32_t                        maxcapacity;
                     adaptation::IAdaptationLogic    *logic;
                     THREAD_HANDLE                   bufferingThread;
-                    bool                            run;
+                    bool                            isDownloading;
 
                     /* Thread that does the buffering of segments */
                     static void* DoBuffering (void *receiver);
