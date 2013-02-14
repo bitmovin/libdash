@@ -32,7 +32,7 @@ DASHPlayer::DASHPlayer  (QtSamplePlayerGui& gui) : gui(&gui)
 }
 DASHPlayer::~DASHPlayer ()
 {
-
+    delete(this->renderer);
 }
 
 void DASHPlayer::OnSettingsChanged      (QtSamplePlayerGui* widget, int video_adaption, int video_representation, int audio_adaption, int audio_representation)
