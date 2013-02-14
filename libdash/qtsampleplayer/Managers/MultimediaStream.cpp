@@ -46,6 +46,8 @@ bool MultimediaStream::Start                ()
 
     if(!this->decodingThread->Start())
         return false;
+
+    return true;
 }
 void MultimediaStream::Stop                 ()
 {
