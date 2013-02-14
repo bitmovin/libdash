@@ -12,7 +12,9 @@
 #ifndef QTSAMPLEPLAYER_MANAGERS_MULTIMEDIASTREAM_H_
 #define QTSAMPLEPLAYER_MANAGERS_MULTIMEDIASTREAM_H_
 
+#include "IMPD.h"
 #include "IStreamObserver.h"
+#include "../libdashframework/Adaptation/IAdaptationLogic.h"
 #include "../Decoder/IAudioObserver.h"
 #include "../Decoder/IVideoObserver.h"
 
@@ -23,7 +25,7 @@ namespace sampleplayer
         class MultimediaStream : public decoder::IAudioObserver, public decoder::IVideoObserver
         {
             public:
-                MultimediaStream            ();
+                MultimediaStream            (dash::mpd::IAdaptationSet *adaptationSet, libdash::framework::adaptation::IAdaptationLogic *logic);
                 virtual ~MultimediaStream   ();
 
                 virtual void OnAudioDataAvailable (const uint8_t **data, decoder::audioFrameProperties* props);

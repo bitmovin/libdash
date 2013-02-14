@@ -13,8 +13,10 @@
 
 using namespace sampleplayer::managers;
 using namespace sampleplayer::decoder;
+using namespace libdash::framework::adaptation;
+using namespace dash::mpd;
 
-MultimediaStream::MultimediaStream  ()
+MultimediaStream::MultimediaStream  (IAdaptationSet *adaptationSet, IAdaptationLogic *logic)
 {
 }
 MultimediaStream::~MultimediaStream ()
@@ -54,6 +56,8 @@ void MultimediaStream::OnVideoDataAvailable (const uint8_t **data, videoFramePro
 
     av_free(rgbframe);
     av_free(buffer);
+
+    /* Notify video stream observers */
 }
 void MultimediaStream::AttachStreamObserver (IStreamObserver *observer)
 {
