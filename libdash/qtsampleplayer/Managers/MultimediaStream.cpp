@@ -95,10 +95,10 @@ void MultimediaStream::OnVideoDataAvailable (const uint8_t **data, videoFramePro
         src += props->width;
     }
 
+    this->NotifyVideoObservers(image);
+
     av_free(rgbframe);
     av_free(buffer);
-
-    this->NotifyVideoObservers(image);
 }
 void MultimediaStream::AttachStreamObserver (IStreamObserver *observer)
 {
