@@ -83,6 +83,9 @@
     <ClCompile Include="UI\DASHPlayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Managers\DecodingThread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="qtsampleplayer.ui">
@@ -148,6 +151,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UI\DASHPlayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers\DecodingThread.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

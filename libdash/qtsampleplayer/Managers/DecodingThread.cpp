@@ -12,8 +12,10 @@
 #include "DecodingThread.h"
 
 using namespace sampleplayer::managers;
+using namespace sampleplayer::renderer;
+using namespace libdash::framework::input;
 
-DecodingThread::DecodingThread  ()
+DecodingThread::DecodingThread  (IDataReceiver *receiver, IAudioObserver *audioObserver, IVideoObserver *videoObserver)
 {
 }
 DecodingThread::~DecodingThread ()

@@ -78,6 +78,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Managers\DecodingThread.cpp" />
     <ClCompile Include="UI\DASHPlayer.cpp" />
     <ClCompile Include="Decoder\LibavDecoder.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_QTGLRenderer.cpp">
@@ -134,6 +135,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Managers\DecodingThread.h" />
     <ClInclude Include="UI\DASHPlayer.h" />
     <ClInclude Include="UI\IDASHPlayerGuiObserver.h" />
     <ClInclude Include="Decoder\LibavDecoder.h" />
