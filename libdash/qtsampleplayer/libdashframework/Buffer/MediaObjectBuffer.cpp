@@ -11,7 +11,9 @@
 
 #include "MediaObjectBuffer.h"
 
-using namespace sampleplayer::input;
+using namespace libdash::framework::buffer;
+using namespace libdash::framework::adaptation;
+
 using namespace dash::mpd;
 using namespace dash::network;
 
@@ -36,7 +38,7 @@ MediaObjectBuffer::~MediaObjectBuffer   ()
     }
 }
 
-void            MediaObjectBuffer::Push     (MediaObject *media)
+void            MediaObjectBuffer::Push             (MediaObject *media)
 {
     EnterCriticalSection(&this->monitorMutex);
 
@@ -54,9 +56,9 @@ void            MediaObjectBuffer::Push     (MediaObject *media)
 
     WakeAllConditionVariable(&this->full);
     LeaveCriticalSection(&this->monitorMutex);
-    this->NotifyObserver();
+    this->Notify();
 }
-MediaObject*    MediaObjectBuffer::Front    ()
+MediaObject*    MediaObjectBuffer::Front            ()
 {
     EnterCriticalSection(&this->monitorMutex);
 
@@ -73,7 +75,7 @@ MediaObject*    MediaObjectBuffer::Front    ()
 
     return this->mediaobjects.front();
 }
-uint32_t        MediaObjectBuffer::Length   ()
+uint32_t        MediaObjectBuffer::Length           ()
 {
     EnterCriticalSection(&this->monitorMutex);
 
@@ -83,7 +85,7 @@ uint32_t        MediaObjectBuffer::Length   ()
 
     return ret;
 }
-void            MediaObjectBuffer::Pop      ()
+void            MediaObjectBuffer::Pop              ()
 {
     EnterCriticalSection(&this->monitorMutex);
 
@@ -92,9 +94,9 @@ void            MediaObjectBuffer::Pop      ()
 
     WakeAllConditionVariable(&this->empty);
     LeaveCriticalSection(&this->monitorMutex);
-    this->NotifyObserver();
+    this->Notify();
 }
-void            MediaObjectBuffer::SetEOS   (bool value)
+void            MediaObjectBuffer::SetEOS           (bool value)
 {
     EnterCriticalSection(&this->monitorMutex);
 
@@ -104,18 +106,14 @@ void            MediaObjectBuffer::SetEOS   (bool value)
     WakeAllConditionVariable(&this->full);
     LeaveCriticalSection(&this->monitorMutex);
 }
-void            MediaObjectBuffer::AddObserver(IBufferObserver* observer)
+void            MediaObjectBuffer::AttachObserver   (IBufferObserver *observer)
 {
     this->observer.push_back(observer);
 }
-void            MediaObjectBuffer::NotifyObserver()
+void            MediaObjectBuffer::Notify           ()
 {
-    for(unsigned int i=0; i < this->observer.size(); i++)
-    {
-        this->observer.at(i)->OnBufferStateChange(this);
-    }
 }
-uint32_t        MediaObjectBuffer::Capacity()
+uint32_t        MediaObjectBuffer::Capacity         ()
 {
     return this->maxcapacity;
 }

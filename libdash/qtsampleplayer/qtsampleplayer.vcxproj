@@ -98,11 +98,11 @@
     <ClCompile Include="GeneratedFiles\Release\moc_QtSamplePlayerGui.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="Input\AdaptationLogic.cpp" />
-    <ClCompile Include="Input\DASHReceiver.cpp" />
-    <ClCompile Include="Input\MediaObject.cpp" />
-    <ClCompile Include="Input\MediaObjectBuffer.cpp" />
-    <ClCompile Include="Input\MultiThreading.cpp" />
+    <ClCompile Include="libdashframework\Adaptation\AdaptationLogic.cpp" />
+    <ClCompile Include="libdashframework\Input\DASHReceiver.cpp" />
+    <ClCompile Include="libdashframework\Adaptation\MediaObject.cpp" />
+    <ClCompile Include="libdashframework\Buffer\MediaObjectBuffer.cpp" />
+    <ClCompile Include="libdashframework\Portable\MultiThreading.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Renderer\QTGLRenderer.cpp" />
     <ClCompile Include="QtSamplePlayerGui.cpp" />
@@ -137,14 +137,15 @@
     <ClInclude Include="IDASHPlayerGuiObserver.h" />
     <ClInclude Include="Decoder\LibavDecoder.h" />
     <ClInclude Include="GeneratedFiles\ui_qtsampleplayer.h" />
-    <ClInclude Include="Input\AdaptationLogic.h" />
-    <ClInclude Include="Input\DASHReceiver.h" />
+    <ClInclude Include="libdashframework\Adaptation\AdaptationLogic.h" />
+    <ClInclude Include="libdashframework\Buffer\IBufferObserver.h" />
+    <ClInclude Include="libdashframework\Input\DASHReceiver.h" />
     <ClInclude Include="Input\IAdaptationLogic.h" />
     <ClInclude Include="Input\IBufferObserver.h" />
-    <ClInclude Include="Input\IDataReceiver.h" />
-    <ClInclude Include="Input\MediaObject.h" />
-    <ClInclude Include="Input\MediaObjectBuffer.h" />
-    <ClInclude Include="Input\MultiThreading.h" />
+    <ClInclude Include="libdashframework\Input\IDataReceiver.h" />
+    <ClInclude Include="libdashframework\Adaptation\MediaObject.h" />
+    <ClInclude Include="libdashframework\Buffer\MediaObjectBuffer.h" />
+    <ClInclude Include="libdashframework\Portable\MultiThreading.h" />
     <CustomBuild Include="Renderer\QTGLRenderer.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing QTGLRenderer.h...</Message>

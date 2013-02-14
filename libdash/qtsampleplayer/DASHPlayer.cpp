@@ -11,9 +11,12 @@
 
 #include "DASHPlayer.h"
 
+using namespace libdash::framework::adaptation;
+using namespace libdash::framework::buffer;
+using namespace libdash::framework::input;
+
 using namespace sampleplayer;
 using namespace sampleplayer::decoder;
-using namespace sampleplayer::input;
 using namespace sampleplayer::renderer;
 using namespace dash::mpd;
 using namespace std;
@@ -31,6 +34,7 @@ DASHPlayer::~DASHPlayer ()
 {
 
 }
+
 void DASHPlayer::OnSettingsChanged      (QtSamplePlayerGui* widget, int video_adaption, int video_representation, int audio_adaption, int audio_representation)
 {
     this->gui->SetStatusBar("Switching representation...");
@@ -106,6 +110,7 @@ void DASHPlayer::onVideoDataAvailable   (const uint8_t **data, videoFramePropert
     this->renderer->setImage(image);
     this->renderer->update();
 }
+
 /* Shows how to combine QT and SDL */
 void* DASHPlayer::RenderVideo   (void *dashplayer)
 {
@@ -139,11 +144,4 @@ void* DASHPlayer::RenderVideo   (void *dashplayer)
     delete receiver;
 
     return NULL;
-}
-void     DASHPlayer::OnBufferStateChange           (input::MediaObjectBuffer* buffer)
-{
-    double fill = (double)buffer->Length() / (double)buffer->Capacity();
-   
-    /* TODO: this must be called from the gui thread */
-    // this->gui->SetBufferFillState(fill*100);
 }

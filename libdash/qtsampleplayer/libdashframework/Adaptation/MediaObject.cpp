@@ -11,7 +11,8 @@
 
 #include "MediaObject.h"
 
-using namespace sampleplayer::input;
+using namespace libdash::framework::adaptation;
+
 using namespace dash::mpd;
 using namespace dash::network;
 

@@ -9,22 +9,25 @@
  * and conditions of the applicable license agreement.
  *****************************************************************************/
 
-#ifndef IDATARECEIVER_H_
-#define IDATARECEIVER_H_
+#ifndef LIBDASH_FRAMEWORK_INPUT_IDATARECEIVER_H_
+#define LIBDASH_FRAMEWORK_INPUT_IDATARECEIVER_H_
 
 #include <stdint.h>
 
-namespace sampleplayer
+namespace libdash
 {
-    namespace input
+    namespace framework
     {
-        class IDataReceiver
+        namespace input
         {
-            public:
-                virtual         ~IDataReceiver   (){};
+            class IDataReceiver
+            {
+                public:
+                    virtual         ~IDataReceiver   () {}
 
-                virtual int     IORead           (uint8_t *buf, int buf_size ) = 0;
-        };
+                    virtual int     IORead           (uint8_t *buf, int buf_size ) = 0;
+            };
+        }
     }
 }
-#endif /* IDATARECEIVER_H_ */
+#endif /* LIBDASH_FRAMEWORK_INPUT_IDATARECEIVER_H_ */

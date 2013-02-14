@@ -11,7 +11,7 @@
 
 #include "AdaptationLogic.h"
 
-using namespace sampleplayer::input;
+using namespace libdash::framework::adaptation;
 using namespace dash::mpd;
 
 AdaptationLogic::AdaptationLogic    (IAdaptationSet *adaptationSet, IMPD *mpd) :

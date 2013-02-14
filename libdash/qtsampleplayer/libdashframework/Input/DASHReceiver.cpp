@@ -11,7 +11,10 @@
 
 #include "DASHReceiver.h"
 
-using namespace sampleplayer::input;
+using namespace libdash::framework::input;
+using namespace libdash::framework::adaptation;
+using namespace libdash::framework::buffer;
+
 using namespace dash;
 using namespace dash::network;
 using namespace dash::mpd;
@@ -48,7 +51,7 @@ void    DASHReceiver::Stop                  ()
 }
 void    DASHReceiver::AtachBufferObserver   (IBufferObserver* observer)
 {
-    this->buffer->AddObserver(observer);
+    this->buffer->AttachObserver(observer);
 }
 int     DASHReceiver::IORead                (uint8_t *buf, int buf_size)
 {

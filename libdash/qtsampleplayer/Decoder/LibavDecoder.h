@@ -23,7 +23,7 @@
 #include <Windows.h>
 #endif
 
-#include "../Input/IDataReceiver.h"
+#include "../libdashframework/Input/IDataReceiver.h"
 #include "../Renderer/IVideoObserver.h"
 #include "../Renderer/IAudioObserver.h"
 
@@ -41,7 +41,7 @@ namespace sampleplayer
         class LibavDecoder
         {
             public:
-                LibavDecoder                     (input::IDataReceiver *rec);
+                LibavDecoder                     (libdash::framework::input::IDataReceiver *rec);
                 virtual ~LibavDecoder            ();
 
                 bool decode                 ();
@@ -54,16 +54,16 @@ namespace sampleplayer
                 void setFrameRate           (uint8_t rate);
 
             private:
-                input::IDataReceiver                    *receiver;
-                std::vector <StreamConfig>              streamconfigs;
-                std::vector <renderer::IVideoObserver*> videoObservers;
-                std::vector <renderer::IAudioObserver*> audioObservers;
-                unsigned char                           *iobuffer;
-                int                                     bufferSize;
-                int                                     framerate;
-                AVFormatContext                         *avFormatContextPtr;
-                AVFrame                                 *picture;
-                AVPacket                                avpkt;
+                libdash::framework::input::IDataReceiver    *receiver;
+                std::vector <StreamConfig>                  streamconfigs;
+                std::vector <renderer::IVideoObserver*>     videoObservers;
+                std::vector <renderer::IAudioObserver*>     audioObservers;
+                unsigned char                               *iobuffer;
+                int                                         bufferSize;
+                int                                         framerate;
+                AVFormatContext                             *avFormatContextPtr;
+                AVFrame                                     *picture;
+                AVPacket                                    avpkt;
 
                 AVFormatContext*    openInput       ();
                 void                initStreams     (AVFormatContext *ctx);

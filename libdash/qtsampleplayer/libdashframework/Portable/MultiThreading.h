@@ -1,5 +1,5 @@
-#ifndef SAMPLE_PORTABLE_MULTITHREADING_H_
-#define SAMPLE_PORTABLE_MULTITHREADING_H_
+#ifndef LIBDASH_FRAMEWORK_PORTABLE_MULTITHREADING_H_
+#define LIBDASH_FRAMEWORK_PORTABLE_MULTITHREADING_H_
 
 #if defined _WIN32 || defined _WIN64
 
@@ -67,4 +67,4 @@
 THREAD_HANDLE   CreateThreadPortable    (void *(*start_routine) (void *), void *arg);
 void            DestroyThreadPortable   (THREAD_HANDLE th);
 
-#endif  // SAMPLE_PORTABLE_MULTITHREADING_H_
+#endif  // LIBDASH_FRAMEWORK_PORTABLE_MULTITHREADING_H_

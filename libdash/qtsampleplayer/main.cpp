@@ -15,8 +15,6 @@
 
 #include "libdash.h"
 #include "DASHPlayer.h"
-#include "Decoder/LibavDecoder.h"
-#include "Input/DASHReceiver.h"
 
 using namespace sampleplayer;
 

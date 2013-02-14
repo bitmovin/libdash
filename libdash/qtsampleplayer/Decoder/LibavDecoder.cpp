@@ -11,8 +11,9 @@
 
 #include "LibavDecoder.h"
 
+using namespace libdash::framework::input;
+
 using namespace sampleplayer::decoder;
-using namespace sampleplayer::input;
 using namespace sampleplayer::renderer;
 
 static int          IORead                           (void *opaque, uint8_t *buf, int buf_size)

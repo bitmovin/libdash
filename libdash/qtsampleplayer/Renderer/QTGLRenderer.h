@@ -12,7 +12,7 @@
 #ifndef QTGLRENDERER_H_
 #define QTGLRENDERER_H_
 
-#include "../Input/MultiThreading.h"
+#include "../libdashframework/Portable/MultiThreading.h"
 #include <qimage.h>
 #include <QtOpenGL/QGLWidget>
 #include <QPaintEvent>
