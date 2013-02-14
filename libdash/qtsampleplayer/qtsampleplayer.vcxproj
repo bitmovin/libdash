@@ -109,8 +109,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Managers\MultimediaManager.cpp" />
     <ClCompile Include="Renderer\QTGLRenderer.cpp" />
-    <ClCompile Include="UI\DASHPlayer.cpp" />
-    <ClCompile Include="UI\QtSamplePlayerGui.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="UI\QtSamplePlayerGui.h">
@@ -138,14 +136,9 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="UI\DASHPlayer.h" />
-    <ClInclude Include="UI\IDASHPlayerGuiObserver.h" />
-    <ClInclude Include="UI\QtSamplePlayerGui.h" />
     <ClInclude Include="Managers\DecodingThread.h" />
     <ClInclude Include="Managers\IStreamObserver.h" />
     <ClInclude Include="Managers\MultimediaStream.h" />
-    <ClInclude Include="UI\DASHPlayer.h" />
-    <ClInclude Include="UI\IDASHPlayerGuiObserver.h" />
     <ClInclude Include="Decoder\LibavDecoder.h" />
     <ClInclude Include="GeneratedFiles\ui_qtsampleplayer.h" />
     <ClInclude Include="libdashframework\Adaptation\AlwaysLowestLogic.h" />
@@ -158,6 +151,8 @@
     <ClInclude Include="libdashframework\Adaptation\MediaObject.h" />
     <ClInclude Include="libdashframework\Buffer\MediaObjectBuffer.h" />
     <ClInclude Include="libdashframework\Portable\MultiThreading.h" />
+    <ClInclude Include="UI\DASHPlayer.h" />
+    <ClInclude Include="UI\IDASHPlayerGuiObserver.h" />
     <CustomBuild Include="Renderer\QTGLRenderer.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing QTGLRenderer.h...</Message>

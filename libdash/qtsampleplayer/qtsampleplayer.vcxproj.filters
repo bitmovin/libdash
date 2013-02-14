@@ -89,12 +89,6 @@
     <ClCompile Include="UI\DASHPlayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GUI\DASHPlayer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI\QtSamplePlayerGui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="qtsampleplayer.ui">
@@ -153,12 +147,6 @@
     <ClInclude Include="Managers\MultimediaManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UI\IDASHPlayerGuiObserver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\DASHPlayer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Managers\DecodingThread.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -171,13 +159,10 @@
     <ClInclude Include="Decoder\IAudioObserver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GUI\QtSamplePlayerGui.h">
+    <ClInclude Include="UI\DASHPlayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GUI\DASHPlayer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GUI\IDASHPlayerGuiObserver.h">
+    <ClInclude Include="UI\IDASHPlayerGuiObserver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
