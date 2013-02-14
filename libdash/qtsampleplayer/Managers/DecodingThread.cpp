@@ -15,7 +15,10 @@ using namespace sampleplayer::managers;
 using namespace sampleplayer::decoder;
 using namespace libdash::framework::input;
 
-DecodingThread::DecodingThread  (IDataReceiver *receiver, IAudioObserver *audioObserver, IVideoObserver *videoObserver)
+DecodingThread::DecodingThread  (IDataReceiver *receiver, IAudioObserver *audioObserver, IVideoObserver *videoObserver) : 
+                receiver        (receiver),
+                audioObserver   (audioObserver),
+                videoObserver   (videoObserver)
 {
 }
 DecodingThread::~DecodingThread ()
