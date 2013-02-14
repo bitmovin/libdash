@@ -70,8 +70,9 @@ void MultimediaStream::OnVideoDataAvailable (const uint8_t **data, videoFramePro
     av_free(rgbframe);
     av_free(buffer);
 
-    /* Notify video stream observers */
+    this->NotifyVideoObservers(image);
 }
 void MultimediaStream::AttachStreamObserver (IStreamObserver *observer)
 {
+    this->observers.push_back(observer);
 }
