@@ -78,6 +78,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="UI\DASHPlayer.cpp" />
+    <ClCompile Include="UI\QtSamplePlayerGui.cpp" />
     <ClCompile Include="Managers\DecodingThread.cpp" />
     <ClCompile Include="Managers\MultimediaStream.cpp" />
     <ClCompile Include="Decoder\LibavDecoder.cpp" />
@@ -136,6 +138,9 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="UI\DASHPlayer.h" />
+    <ClInclude Include="UI\IDASHPlayerGuiObserver.h" />
+    <ClInclude Include="UI\QtSamplePlayerGui.h" />
     <ClInclude Include="Managers\DecodingThread.h" />
     <ClInclude Include="Managers\IStreamObserver.h" />
     <ClInclude Include="Managers\MultimediaStream.h" />
@@ -196,8 +201,8 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\sampleplayer\authors.txt" />
-    <None Include="..\sampleplayer\license.txt" />
+    <None Include="Authors.txt" />
+    <None Include="License.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

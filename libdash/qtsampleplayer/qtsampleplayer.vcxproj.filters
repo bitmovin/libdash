@@ -89,6 +89,12 @@
     <ClCompile Include="UI\DASHPlayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GUI\DASHPlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\QtSamplePlayerGui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="qtsampleplayer.ui">
@@ -165,9 +171,18 @@
     <ClInclude Include="Decoder\IAudioObserver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GUI\QtSamplePlayerGui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\DASHPlayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\IDASHPlayerGuiObserver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\sampleplayer\license.txt" />
-    <None Include="..\sampleplayer\authors.txt" />
+    <None Include="Authors.txt" />
+    <None Include="License.txt" />
   </ItemGroup>
 </Project>
