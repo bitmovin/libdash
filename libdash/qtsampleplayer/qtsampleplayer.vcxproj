@@ -104,6 +104,7 @@
     <ClCompile Include="libdashframework\Buffer\MediaObjectBuffer.cpp" />
     <ClCompile Include="libdashframework\Portable\MultiThreading.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Managers\MultimediaManager.cpp" />
     <ClCompile Include="Renderer\QTGLRenderer.cpp" />
     <ClCompile Include="QtSamplePlayerGui.cpp" />
   </ItemGroup>
@@ -157,6 +158,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -DQT_MULTIMEDIAWIDGETS_LIB "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\..\qtmultimedia\include\QtMultimedia" "-I$(QTDIR)\..\qtmultimedia\include" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtMultimediaWidgets"</Command>
     </CustomBuild>
+    <ClInclude Include="Managers\MultimediaManager.h" />
     <ClInclude Include="renderer\IAudioObserver.h" />
     <CustomBuild Include="renderer\IVideoObserver.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalInputs)</AdditionalInputs>

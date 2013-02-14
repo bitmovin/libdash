@@ -80,6 +80,9 @@
     <ClCompile Include="libdashframework\Adaptation\AlwaysLowestLogic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Managers\MultimediaManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="qtsampleplayer.ui">
@@ -142,6 +145,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="libdashframework\Adaptation\AlwaysLowestLogic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers\MultimediaManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
