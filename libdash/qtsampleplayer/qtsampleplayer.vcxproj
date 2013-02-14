@@ -74,7 +74,7 @@
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalDependencies>qtmain.lib;Qt5Core5.lib;Qt5Gui5.lib;Qt5Multimedia5.lib;Qt5MultimediaWidgets5.lib;Qt5Widgets5.lib;$(ProjectDir)..\libav\lib\avcodec.lib;$(ProjectDir)..\libav\lib\avdevice.lib;$(ProjectDir)..\libav\lib\avfilter.lib;$(ProjectDir)..\libav\lib\avformat.lib;$(ProjectDir)..\libav\lib\avutil.lib;$(ProjectDir)..\libav\lib\postproc.lib;$(ProjectDir)..\libav\lib\swresample.lib;$(ProjectDir)..\libav\lib\swscale.lib;$(ProjectDir)..\sdl\lib\x86\SDL.lib;$(ProjectDir)..\sdl\lib\x86\SDLmain.lib;$(SolutionDir)bin\libdash.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Multimedia.lib;Qt5OpenGL.lib;opengl32.lib;glu32.lib;Qt5Widgets.lib;Qt5MultimediaWidgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>qtmain.lib;$(ProjectDir)..\libav\lib\avcodec.lib;$(ProjectDir)..\libav\lib\avdevice.lib;$(ProjectDir)..\libav\lib\avfilter.lib;$(ProjectDir)..\libav\lib\avformat.lib;$(ProjectDir)..\libav\lib\avutil.lib;$(ProjectDir)..\libav\lib\postproc.lib;$(ProjectDir)..\libav\lib\swresample.lib;$(ProjectDir)..\libav\lib\swscale.lib;$(ProjectDir)..\sdl\lib\x86\SDL.lib;$(ProjectDir)..\sdl\lib\x86\SDLmain.lib;$(SolutionDir)bin\libdash.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Multimedia.lib;Qt5OpenGL.lib;opengl32.lib;glu32.lib;Qt5Widgets.lib;Qt5MultimediaWidgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
