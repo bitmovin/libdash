@@ -37,7 +37,7 @@ namespace libdash
                     void Stop                   ();
                     void AtachBufferObserver    (buffer::IBufferObserver *observer);
 
-                    virtual int IORead (uint8_t *buf, int buf_size);
+                    virtual int Read (uint8_t *buf, int buf_size);
 
                 private:
                     buffer::MediaObjectBuffer       *buffer;

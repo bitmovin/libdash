@@ -23,9 +23,9 @@ namespace libdash
             class IDataReceiver
             {
                 public:
-                    virtual         ~IDataReceiver   () {}
+                    virtual ~IDataReceiver () {}
 
-                    virtual int     IORead           (uint8_t *buf, int buf_size ) = 0;
+                    virtual int Read (uint8_t *buf, int buf_size ) = 0;
             };
         }
     }

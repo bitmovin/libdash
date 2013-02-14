@@ -19,7 +19,7 @@ using namespace sampleplayer::renderer;
 static int          IORead                           (void *opaque, uint8_t *buf, int buf_size)
 {
     IDataReceiver* datrec = (IDataReceiver*)opaque;
-    int ret = datrec->IORead(buf, buf_size);
+    int ret = datrec->Read(buf, buf_size);
     return ret;
 }
 

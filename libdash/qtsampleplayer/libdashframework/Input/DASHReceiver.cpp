@@ -53,7 +53,7 @@ void    DASHReceiver::AtachBufferObserver   (IBufferObserver* observer)
 {
     this->buffer->AttachObserver(observer);
 }
-int     DASHReceiver::IORead                (uint8_t *buf, int buf_size)
+int     DASHReceiver::Read                  (uint8_t *buf, int buf_size)
 {
     /* FFMpeg callback that consumes data from the buffer for decoding */
     MediaObject *media = this->buffer->Front();
@@ -68,7 +68,7 @@ int     DASHReceiver::IORead                (uint8_t *buf, int buf_size)
     else
         return ret;
 
-    return this->IORead(buf, buf_size);
+    return this->Read(buf, buf_size);
 }
 
 /* Thread that does the buffering of segments */
