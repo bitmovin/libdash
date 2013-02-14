@@ -31,6 +31,8 @@ namespace sampleplayer
 
             virtual void OnSettingsChanged      (QtSamplePlayerGui* widget, int video_adaption, int video_representation, int audio_adaption, int audio_representation);
             virtual void OnURLChanged           (QtSamplePlayerGui* widget, const std::string& url);
+            virtual void OnStartButtonPressed   (QtSamplePlayerGui* widget, const std::string& url);
+            virtual void OnStopButtonPressed    (QtSamplePlayerGui* widget);
 
         private:
             dash::IDASHManager                          *manager;
@@ -40,7 +42,6 @@ namespace sampleplayer
             dash::mpd::IAdaptationSet                   *currentAdaptation;
             dash::mpd::IRepresentation                  *currentRepresentation;
             sampleplayer::managers::MultimediaManager   *multimediaManager;
-            bool                                        run;
     };
 }
 #endif /* DASHPLAYER_H_ */

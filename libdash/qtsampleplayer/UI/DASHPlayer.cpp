@@ -33,23 +33,13 @@ DASHPlayer::~DASHPlayer ()
     delete(this->videoElement);
 }
 
-void DASHPlayer::OnSettingsChanged      (QtSamplePlayerGui* widget, int video_adaption, int video_representation, int audio_adaption, int audio_representation)
-{
-    this->gui->SetStatusBar("Switching representation...");
-
-    this->currentAdaptation = this->mpd->GetPeriods().at(0)->GetAdaptationSets().at(video_adaption);
-    this->currentRepresentation = this->currentAdaptation->GetRepresentation().at(video_representation);
-
-    this->gui->SetStatusBar("Successfully switched representation");
-}
-void DASHPlayer::OnURLChanged           (QtSamplePlayerGui* widget, const std::string& url)
+void DASHPlayer::OnStartButtonPressed   (QtSamplePlayerGui* widget, const std::string& url)
 {
     this->mpd = this->manager->Open((char*)url.c_str());
 
     if(this->mpd != NULL)
     {
         this->gui->SetStatusBar("Successfully parsed MPD at: " + url);
-        this->gui->SetGuiFields(this->mpd);
 
         this->currentAdaptation = this->mpd->GetPeriods().at(0)->GetAdaptationSets().at(0);
         this->currentRepresentation = this->currentAdaptation->GetRepresentation().at(0);
@@ -57,11 +47,19 @@ void DASHPlayer::OnURLChanged           (QtSamplePlayerGui* widget, const std::s
         this->multimediaManager->SetVideoAdaptationSet(this->currentAdaptation);
         this->multimediaManager->SetVideoAdaptationLogic(new AlwaysLowestLogic(this->currentAdaptation, this->mpd));
         this->multimediaManager->Start();
-
-        this->run = true;
     }
     else
     {
         this->gui->SetStatusBar("Error parsing mpd at: " + url);
     }
+}
+void DASHPlayer::OnStopButtonPressed    (QtSamplePlayerGui* widget)
+{
+}
+void DASHPlayer::OnSettingsChanged      (QtSamplePlayerGui* widget, int video_adaption, int video_representation, int audio_adaption, int audio_representation)
+{
+}
+void DASHPlayer::OnURLChanged           (QtSamplePlayerGui* widget, const std::string& url)
+{
+
 }
