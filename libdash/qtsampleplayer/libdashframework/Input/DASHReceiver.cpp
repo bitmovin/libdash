@@ -22,7 +22,8 @@ using namespace dash::mpd;
 DASHReceiver::DASHReceiver  (uint32_t maxcapacity, IAdaptationLogic* logic) :
               count         (0),
               maxcapacity   (maxcapacity),
-              logic         (logic)
+              logic         (logic),
+              isDownloading (false)
 {
     this->buffer = new MediaObjectBuffer(this->maxcapacity);
 }

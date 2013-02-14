@@ -34,35 +34,34 @@ DASHPlayer::~DASHPlayer ()
 
 void DASHPlayer::OnStartButtonPressed   (QtSamplePlayerGui* widget)
 {
-    this->mpd = this->manager->Open((char*)widget->GetUrl().c_str());
-
-    if(this->mpd != NULL)
-    {
-        this->gui->SetStatusBar("Successfully parsed MPD at: " + widget->GetUrl());
-
-        this->currentAdaptation = this->mpd->GetPeriods().at(0)->GetAdaptationSets().at(0);
-        this->currentRepresentation = this->currentAdaptation->GetRepresentation().at(0);
-
-        this->multimediaManager->SetVideoAdaptationSet(this->currentAdaptation);
-        this->multimediaManager->SetVideoAdaptationLogic(new AlwaysLowestLogic(this->currentAdaptation, this->mpd));
-        this->multimediaManager->Start();
-    }
-    else
-    {
-        this->gui->SetStatusBar("Error parsing mpd at: " + widget->GetUrl());
-    }
+    this->multimediaManager->SetVideoAdaptationSet(this->currentAdaptation);
+    this->multimediaManager->SetVideoAdaptationLogic(new AlwaysLowestLogic(this->currentAdaptation, this->mpd));
+    this->multimediaManager->Start(); 
 }
 void DASHPlayer::OnStopButtonPressed    (QtSamplePlayerGui* widget)
 {
+    this->multimediaManager->Stop();
 }
 void DASHPlayer::OnCheckboxChanged      (QtSamplePlayerGui* widget, bool state)
 {
-
+    this->gui->SetStatusBar("checkbox changed");
 }
 void DASHPlayer::OnSettingsChanged      (QtSamplePlayerGui* widget, int video_adaption, int video_representation, int audio_adaption, int audio_representation)
 {
 }
 void DASHPlayer::OnURLChanged           (QtSamplePlayerGui* widget, const std::string& url)
 {
+    this->mpd = this->manager->Open((char*)url.c_str());
+    if(this->mpd != NULL)
+    {
+        this->gui->SetStatusBar("Successfully parsed MPD at: " + url);
+        this->gui->SetGuiFields(this->mpd);
 
+        this->currentAdaptation = this->mpd->GetPeriods().at(0)->GetAdaptationSets().at(0);
+        this->currentRepresentation = this->currentAdaptation->GetRepresentation().at(0);
+    }
+    else
+    {
+        this->gui->SetStatusBar("Error parsing mpd at: " + url);
+    }
 }

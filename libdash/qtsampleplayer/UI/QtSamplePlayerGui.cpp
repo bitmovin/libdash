@@ -27,10 +27,7 @@ QtSamplePlayerGui::QtSamplePlayerGui    (QWidget *parent)
     this->player.setVideoOutput(this->videoWidget);
     this->ui->videoLayout->addWidget(this->videoWidget);
 
-    connect(ui->button_start, SIGNAL(clicked()), this, SLOT(on_button_start_clicked()));
-    connect(ui->button_stop, SIGNAL(clicked()), this, SLOT(on_button_stop_clicked()));
-    connect(ui->ckb_automatic, SIGNAL(toggled(bool)), this, SLOT(on_ckb_automatic_toggled(bool)));
-
+    this->ui->button_stop->setEnabled(false);
 }
 QtSamplePlayerGui::~QtSamplePlayerGui   ()
 {
@@ -167,6 +164,8 @@ void QtSamplePlayerGui::on_lineEdit_returnPressed                       ()
 }
 void QtSamplePlayerGui::on_button_start_clicked                        ()
 {
+    this->ui->button_start->setEnabled(false);
+    this->ui->button_stop->setEnabled(true);
     for(unsigned int i=0; i < this->observer.size(); i++)
     {
         this->observer[i]->OnStartButtonPressed(this);
@@ -174,6 +173,8 @@ void QtSamplePlayerGui::on_button_start_clicked                        ()
 }
 void QtSamplePlayerGui::on_button_stop_clicked                         ()
 {
+    this->ui->button_start->setEnabled(true);
+    this->ui->button_stop->setEnabled(false);
     for(unsigned int i=0; i < this->observer.size(); i++)
     {
         this->observer[i]->OnStopButtonPressed(this);
