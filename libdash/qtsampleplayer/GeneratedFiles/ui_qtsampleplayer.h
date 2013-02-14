@@ -46,9 +46,9 @@ public:
     QVBoxLayout *verticalLayout;
     QWidget *w_boxes;
     QVBoxLayout *verticalLayout_2;
-    QPushButton *pushButton;
-    QPushButton *pushButton_2;
-    QCheckBox *checkBox;
+    QPushButton *button_start;
+    QPushButton *button_stop;
+    QCheckBox *ckb_automatic;
     QLabel *label;
     QComboBox *cb_video_adaption;
     QLabel *label_2;
@@ -124,20 +124,20 @@ public:
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         verticalLayout_2->setContentsMargins(-1, 0, -1, -1);
-        pushButton = new QPushButton(w_boxes);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
+        button_start = new QPushButton(w_boxes);
+        button_start->setObjectName(QStringLiteral("button_start"));
 
-        verticalLayout_2->addWidget(pushButton);
+        verticalLayout_2->addWidget(button_start);
 
-        pushButton_2 = new QPushButton(w_boxes);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+        button_stop = new QPushButton(w_boxes);
+        button_stop->setObjectName(QStringLiteral("button_stop"));
 
-        verticalLayout_2->addWidget(pushButton_2);
+        verticalLayout_2->addWidget(button_stop);
 
-        checkBox = new QCheckBox(w_boxes);
-        checkBox->setObjectName(QStringLiteral("checkBox"));
+        ckb_automatic = new QCheckBox(w_boxes);
+        ckb_automatic->setObjectName(QStringLiteral("ckb_automatic"));
 
-        verticalLayout_2->addWidget(checkBox);
+        verticalLayout_2->addWidget(ckb_automatic);
 
         label = new QLabel(w_boxes);
         label->setObjectName(QStringLiteral("label"));
@@ -236,9 +236,9 @@ public:
     void retranslateUi(QMainWindow *QtSamplePlayerClass)
     {
         QtSamplePlayerClass->setWindowTitle(QApplication::translate("QtSamplePlayerClass", "QtSamplePlayer", 0));
-        pushButton->setText(QApplication::translate("QtSamplePlayerClass", "Start", 0));
-        pushButton_2->setText(QApplication::translate("QtSamplePlayerClass", "Stop", 0));
-        checkBox->setText(QApplication::translate("QtSamplePlayerClass", "Automatic Adaptation", 0));
+        button_start->setText(QApplication::translate("QtSamplePlayerClass", "Start", 0));
+        button_stop->setText(QApplication::translate("QtSamplePlayerClass", "Stop", 0));
+        ckb_automatic->setText(QApplication::translate("QtSamplePlayerClass", "Automatic Adaptation", 0));
         label->setText(QApplication::translate("QtSamplePlayerClass", "Video AdaptationSet", 0));
         label_2->setText(QApplication::translate("QtSamplePlayerClass", "Video Representation", 0));
         label_3->setText(QApplication::translate("QtSamplePlayerClass", "Audio AdaptionSet", 0));

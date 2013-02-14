@@ -25,21 +25,20 @@ DASHPlayer::DASHPlayer  (QtSamplePlayerGui& gui) : gui(&gui)
     this->multimediaManager = new MultimediaManager(this->videoElement);
 
     this->gui->AddWidgetObserver(this);
-    this->OnURLChanged(NULL, this->gui->GetUrl());
-    
+    this->OnURLChanged(NULL, this->gui->GetUrl());   
 }
 DASHPlayer::~DASHPlayer ()
 {
     delete(this->videoElement);
 }
 
-void DASHPlayer::OnStartButtonPressed   (QtSamplePlayerGui* widget, const std::string& url)
+void DASHPlayer::OnStartButtonPressed   (QtSamplePlayerGui* widget)
 {
-    this->mpd = this->manager->Open((char*)url.c_str());
+    this->mpd = this->manager->Open((char*)widget->GetUrl().c_str());
 
     if(this->mpd != NULL)
     {
-        this->gui->SetStatusBar("Successfully parsed MPD at: " + url);
+        this->gui->SetStatusBar("Successfully parsed MPD at: " + widget->GetUrl());
 
         this->currentAdaptation = this->mpd->GetPeriods().at(0)->GetAdaptationSets().at(0);
         this->currentRepresentation = this->currentAdaptation->GetRepresentation().at(0);
@@ -50,11 +49,15 @@ void DASHPlayer::OnStartButtonPressed   (QtSamplePlayerGui* widget, const std::s
     }
     else
     {
-        this->gui->SetStatusBar("Error parsing mpd at: " + url);
+        this->gui->SetStatusBar("Error parsing mpd at: " + widget->GetUrl());
     }
 }
 void DASHPlayer::OnStopButtonPressed    (QtSamplePlayerGui* widget)
 {
+}
+void DASHPlayer::OnCheckboxChanged      (QtSamplePlayerGui* widget, bool state)
+{
+
 }
 void DASHPlayer::OnSettingsChanged      (QtSamplePlayerGui* widget, int video_adaption, int video_representation, int audio_adaption, int audio_representation)
 {

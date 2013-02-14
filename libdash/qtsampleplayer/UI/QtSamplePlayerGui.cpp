@@ -26,6 +26,11 @@ QtSamplePlayerGui::QtSamplePlayerGui    (QWidget *parent)
     this->videoWidget = new QVideoWidget();
     this->player.setVideoOutput(this->videoWidget);
     this->ui->videoLayout->addWidget(this->videoWidget);
+
+    connect(ui->button_start, SIGNAL(clicked()), this, SLOT(on_button_start_clicked()));
+    connect(ui->button_stop, SIGNAL(clicked()), this, SLOT(on_button_stop_clicked()));
+    connect(ui->ckb_automatic, SIGNAL(toggled(bool)), this, SLOT(on_ckb_automatic_toggled(bool)));
+
 }
 QtSamplePlayerGui::~QtSamplePlayerGui   ()
 {
@@ -95,13 +100,6 @@ void QtSamplePlayerGui::RemoveAllKeyValues                              ()
 void QtSamplePlayerGui::AddWidgetObserver                               (IDASHPlayerGuiObserver* observer)
 {
     this->observer.push_back(observer);
-    /*observer->OnURLChanged(this,this->ui->lineEdit->text().toStdString());
-    int v_adaption = this->ui->cb_video_adaption->currentIndex();
-    int v_representation = this->ui->cb_video_representation->currentIndex();
-    int a_adaption = this->ui->cb_audio_adaption->currentIndex();
-    int a_representation = this->ui->cb_audio_representation->currentIndex();
-   
-    observer->OnSettingsChanged(this,v_adaption, v_representation, a_adaption, a_representation);*/
 }
 void QtSamplePlayerGui::RemoveWidgetObserver                            (IDASHPlayerGuiObserver* observer)
 {
@@ -166,6 +164,27 @@ void QtSamplePlayerGui::on_lineEdit_returnPressed                       ()
         this->observer[i]->OnURLChanged(this, this->ui->lineEdit->text().toStdString());
     }
     this->unlockUI();
+}
+void QtSamplePlayerGui::on_button_start_clicked                        ()
+{
+    for(unsigned int i=0; i < this->observer.size(); i++)
+    {
+        this->observer[i]->OnStartButtonPressed(this);
+    }
+}
+void QtSamplePlayerGui::on_button_stop_clicked                         ()
+{
+    for(unsigned int i=0; i < this->observer.size(); i++)
+    {
+        this->observer[i]->OnStopButtonPressed(this);
+    }
+}
+void QtSamplePlayerGui::on_ckb_automatic_toggled                       (bool checked)
+{
+    for(unsigned int i=0; i < this->observer.size(); i++)
+    {
+        this->observer[i]->OnCheckboxChanged(this, checked);
+    }
 }
 void QtSamplePlayerGui::settingsChanged                                 ()
 {

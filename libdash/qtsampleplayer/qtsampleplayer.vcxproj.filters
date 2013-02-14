@@ -114,12 +114,6 @@
     <ClInclude Include="Decoder\LibavDecoder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Input\IAdaptationLogic.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Input\IBufferObserver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="libdashframework\Buffer\MediaObjectBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -145,8 +145,6 @@
     <ClInclude Include="libdashframework\Adaptation\IAdaptationLogic.h" />
     <ClInclude Include="libdashframework\Buffer\IBufferObserver.h" />
     <ClInclude Include="libdashframework\Input\DASHReceiver.h" />
-    <ClInclude Include="Input\IAdaptationLogic.h" />
-    <ClInclude Include="Input\IBufferObserver.h" />
     <ClInclude Include="libdashframework\Input\IDataReceiver.h" />
     <ClInclude Include="libdashframework\Adaptation\MediaObject.h" />
     <ClInclude Include="libdashframework\Buffer\MediaObjectBuffer.h" />

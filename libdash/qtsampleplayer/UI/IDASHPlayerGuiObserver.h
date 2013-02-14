@@ -23,8 +23,9 @@ namespace sampleplayer
 
             virtual void OnSettingsChanged      (QtSamplePlayerGui* widget, int video_adaption, int video_representation, int audio_adaption, int audio_representation) = 0;
             virtual void OnURLChanged           (QtSamplePlayerGui* widget, const std::string& url)                                                                     = 0;
-            virtual void OnStartButtonPressed   (QtSamplePlayerGui* widget, const std::string& url)                                                                     = 0;
+            virtual void OnStartButtonPressed   (QtSamplePlayerGui* widget)                                                                                             = 0;
             virtual void OnStopButtonPressed    (QtSamplePlayerGui* widget)                                                                                             = 0;
+            virtual void OnCheckboxChanged      (QtSamplePlayerGui* widget, bool state)                                                                                 = 0;
     };
 }
 #endif /* IDASHPLAYERGUIOBSERVER_H_ */
