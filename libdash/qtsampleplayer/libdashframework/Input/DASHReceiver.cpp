@@ -86,18 +86,15 @@ void*   DASHReceiver::DoBuffering   (void *receiver)
 {
     DASHReceiver *dashreceiver = (DASHReceiver *) receiver;
 
-    uint32_t number = 0;
-
-    MediaObject *media = dashreceiver->logic->GetSegment(number);
+    MediaObject *media = dashreceiver->logic->GetSegment();
 
     while(media != NULL && dashreceiver->isDownloading)
     {
         media->StartDownload();
         media->WaitFinished();
         dashreceiver->buffer->Push(media);
-        number++;
 
-        media = dashreceiver->logic->GetSegment(number);
+        media = dashreceiver->logic->GetSegment();
     }
 
     dashreceiver->buffer->SetEOS(true);

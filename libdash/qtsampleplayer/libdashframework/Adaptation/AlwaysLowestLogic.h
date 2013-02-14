@@ -27,13 +27,14 @@ namespace libdash
                     AlwaysLowestLogic           (dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd);
                     virtual ~AlwaysLowestLogic  ();
 
-                    MediaObject* GetSegment (uint32_t number);
+                    MediaObject* GetSegment ();
 
                 private:
                     dash::mpd::IAdaptationSet           *adaptationSet;
                     dash::mpd::IMPD                     *mpd;
                     dash::mpd::IRepresentation          *currentRep;
                     std::vector<dash::mpd::IBaseUrl *>  baseurls;
+                    uint32_t                            number;
             };
         }
     }
