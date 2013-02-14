@@ -44,14 +44,14 @@ namespace sampleplayer
                 LibavDecoder                     (libdash::framework::input::IDataReceiver *rec);
                 virtual ~LibavDecoder            ();
 
-                bool decode                 ();
-                bool init                   ();
-                void stop                   ();
-                void attachVideoObserver    (renderer::IVideoObserver *observer);
-                void attachAudioObserver    (renderer::IAudioObserver *observer);
-                void notifyVideo            (AVFrame *frame, StreamConfig *config);
-                void notifyAudio            (AVFrame *frame, StreamConfig *config);
-                void setFrameRate           (uint8_t rate);
+                bool Decode                 ();
+                bool Init                   ();
+                void Stop                   ();
+                void AttachVideoObserver    (renderer::IVideoObserver *observer);
+                void AttachAudioObserver    (renderer::IAudioObserver *observer);
+                void NotifyVideo            (AVFrame *frame, StreamConfig *config);
+                void NotifyAudio            (AVFrame *frame, StreamConfig *config);
+                void SetFrameRate           (uint8_t rate);
 
             private:
                 libdash::framework::input::IDataReceiver    *receiver;
@@ -65,12 +65,12 @@ namespace sampleplayer
                 AVFrame                                     *picture;
                 AVPacket                                    avpkt;
 
-                AVFormatContext*    openInput       ();
-                void                initStreams     (AVFormatContext *ctx);
-                StreamConfig*       getNextFrame    (AVFormatContext *ctx, AVPacket *pkt);
-                int                 decodeFrame     (AVFrame *frame, AVPacket *pkt, StreamConfig *streamCfg);
-                void                freeConfigs     ();
-                void                error           (std::string errormsg, int errorcode);
+                AVFormatContext*    OpenInput       ();
+                void                InitStreams     (AVFormatContext *ctx);
+                StreamConfig*       GetNextFrame    (AVFormatContext *ctx, AVPacket *pkt);
+                int                 DecodeFrame     (AVFrame *frame, AVPacket *pkt, StreamConfig *streamCfg);
+                void                FreeConfigs     ();
+                void                Error           (std::string errormsg, int errorcode);
                 bool                errorHappened;
         };
     }

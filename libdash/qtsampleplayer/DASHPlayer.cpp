@@ -128,18 +128,18 @@ void* DASHPlayer::RenderVideo   (void *dashplayer)
 
     LibavDecoder *decoder = new LibavDecoder(receiver);
 
-    decoder->attachVideoObserver(player);
-    decoder->setFrameRate(24);
-    decoder->init();
+    decoder->AttachVideoObserver(player);
+    decoder->SetFrameRate(24);
+    decoder->Init();
     
     bool eos = false;
 
     while(!eos && player->run)
     {
-        eos = !decoder->decode();
+        eos = !decoder->Decode();
     }
 
-    decoder->stop();
+    decoder->Stop();
     receiver->Stop();
 
     delete decoder;

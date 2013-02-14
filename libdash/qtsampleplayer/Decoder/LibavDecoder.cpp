@@ -34,15 +34,15 @@ LibavDecoder::~LibavDecoder ()
 {
 }
 
-void                LibavDecoder::attachAudioObserver     (IAudioObserver *observer)
+void                LibavDecoder::AttachAudioObserver     (IAudioObserver *observer)
 {
     audioObservers.push_back(observer);
 }
-void                LibavDecoder::attachVideoObserver     (IVideoObserver *observer)
+void                LibavDecoder::AttachVideoObserver     (IVideoObserver *observer)
 {
     videoObservers.push_back(observer);
 }
-void                LibavDecoder::notifyVideo             (AVFrame * avFrame, StreamConfig* decoConf)
+void                LibavDecoder::NotifyVideo             (AVFrame * avFrame, StreamConfig* decoConf)
 {
     videoFrameProperties props;
 
@@ -61,7 +61,7 @@ void                LibavDecoder::notifyVideo             (AVFrame * avFrame, St
     for(size_t i = 0; i < videoObservers.size(); i++)
         videoObservers.at(i)->onVideoDataAvailable((const uint8_t **)avFrame->data, &props);
 }
-void                LibavDecoder::notifyAudio             (AVFrame * avFrame, StreamConfig* decoConf)
+void                LibavDecoder::NotifyAudio             (AVFrame * avFrame, StreamConfig* decoConf)
 {
     audioFrameProperties props;
 
@@ -75,7 +75,7 @@ void                LibavDecoder::notifyAudio             (AVFrame * avFrame, St
     for(size_t i = 0; i < audioObservers.size(); i++)
         audioObservers.at(i)->onAudioDataAvailable((const uint8_t **) avFrame->data, &props);
 }
-AVFormatContext*    LibavDecoder::openInput               ()
+AVFormatContext*    LibavDecoder::OpenInput               ()
 {
     AVFormatContext *avFormatContextPtr = NULL;
     int             err                 = 0;
@@ -88,16 +88,16 @@ AVFormatContext*    LibavDecoder::openInput               ()
     err = avformat_open_input(&avFormatContextPtr, "", NULL, NULL);
     if (err != 0)
     {
-        error("Error while calling avformat_open_input", err);
+        this->Error("Error while calling avformat_open_input", err);
     } else
     {
         err = avformat_find_stream_info(avFormatContextPtr, 0);
         if (err < 0)
-            error("Error while calling avformat_find_stream_info", err);
+            this->Error("Error while calling avformat_find_stream_info", err);
     }
     return avFormatContextPtr;
 }
-void                LibavDecoder::initStreams             (AVFormatContext *avFormatContextPtr)
+void                LibavDecoder::InitStreams             (AVFormatContext *avFormatContextPtr)
 {
     AVStream      *tempStream   = NULL;
     AVCodec       *tempCodec    = NULL;
@@ -120,7 +120,7 @@ void                LibavDecoder::initStreams             (AVFormatContext *avFo
         }
     }
 }
-StreamConfig*       LibavDecoder::getNextFrame            (AVFormatContext* avFormatContextPtr, AVPacket* avpkt)
+StreamConfig*       LibavDecoder::GetNextFrame            (AVFormatContext* avFormatContextPtr, AVPacket* avpkt)
 {
     int           loop               = 1;
     int           err                = 0;
@@ -137,7 +137,7 @@ StreamConfig*       LibavDecoder::getNextFrame            (AVFormatContext* avFo
             {
                 if ((size_t)err != AVERROR_EOF)
                 {
-                    error("Error while av_read_frame", err);
+                    this->Error("Error while av_read_frame", err);
                 }
                 loop = 0;
             }
@@ -159,7 +159,7 @@ StreamConfig*       LibavDecoder::getNextFrame            (AVFormatContext* avFo
     }
     return tempConfig;
 }
-int                 LibavDecoder::decodeFrame             (AVFrame *picture, AVPacket* avpkt, StreamConfig* decConfig)
+int                 LibavDecoder::DecodeFrame             (AVFrame *picture, AVPacket* avpkt, StreamConfig* decConfig)
 {
     int len         = 0;
     int got_picture = 0;
@@ -170,15 +170,15 @@ int                 LibavDecoder::decodeFrame             (AVFrame *picture, AVP
 
        if(len < 0)
        {
-           error("Error while decoding frame", len);
+           this->Error("Error while decoding frame", len);
            ret = -1;
        }
        if(got_picture)
        {
            if(decConfig->stream->codec->codec_type == AVMEDIA_TYPE_VIDEO)
-               notifyVideo(picture, decConfig);
+               this->NotifyVideo(picture, decConfig);
            if(decConfig->stream->codec->codec_type == AVMEDIA_TYPE_AUDIO)
-               notifyAudio(picture, decConfig);
+               this->NotifyAudio(picture, decConfig);
 
            decConfig->frameCnt++;
        }
@@ -187,11 +187,11 @@ int                 LibavDecoder::decodeFrame             (AVFrame *picture, AVP
     }
     return ret;
 }
-bool                LibavDecoder::init                    ()
+bool                LibavDecoder::Init                    ()
 {
     av_register_all();
 
-    this->avFormatContextPtr = openInput();
+    this->avFormatContextPtr = this->OpenInput();
 
     if (this->errorHappened)
         return false;
@@ -199,38 +199,38 @@ bool                LibavDecoder::init                    ()
     this->picture = avcodec_alloc_frame();
 
     av_init_packet(&this->avpkt);
-    initStreams(avFormatContextPtr);
+    this->InitStreams(avFormatContextPtr);
 
     return true;
 }
-bool                LibavDecoder::decode                  ()
+bool                LibavDecoder::Decode                  ()
 {
-    StreamConfig* decConfig = getNextFrame(this->avFormatContextPtr, &this->avpkt);
+    StreamConfig* decConfig = this->GetNextFrame(this->avFormatContextPtr, &this->avpkt);
 
     if(decConfig == 0)
         return false;
 
-    if(decodeFrame(picture, &avpkt, decConfig) < 0)
+    if(this->DecodeFrame(picture, &avpkt, decConfig) < 0)
         return false;
 
     Sleep((1 / (double)this->framerate) * 1000);
 
     return true;
 }
-void                LibavDecoder::stop                    ()
+void                LibavDecoder::Stop                    ()
 {
     //av_free_packet(&this->avpkt);
 
-    freeConfigs();
+    this->FreeConfigs();
     avformat_close_input(&this->avFormatContextPtr);
     av_free(this->picture);
 }
-void                LibavDecoder::freeConfigs             ()
+void                LibavDecoder::FreeConfigs             ()
 {
     for(size_t i = 0; i < this->streamconfigs.size(); i++)
         avcodec_close(this->streamconfigs.at(i).codecContext);
 }
-void                LibavDecoder::error                   (std::string errormsg, int errorcode)
+void                LibavDecoder::Error                   (std::string errormsg, int errorcode)
 {
     videoFrameProperties    videoprops;
      audioFrameProperties   audioprops;
@@ -258,7 +258,7 @@ void                LibavDecoder::error                   (std::string errormsg,
     free(audioprops.errorMessage);
     free(videoprops.errorMessage);
 }
-void                LibavDecoder::setFrameRate            (uint8_t rate)
+void                LibavDecoder::SetFrameRate            (uint8_t rate)
 {
     this->framerate = rate;
 }
