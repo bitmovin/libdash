@@ -37,6 +37,7 @@ namespace sampleplayer
                 decoder::IAudioObserver                     *audioObserver;
                 decoder::IVideoObserver                     *videoObserver;
                 decoder::LibavDecoder                       *decoder;
+                bool                                        run;
 
                 static void* Decode (void *data);
         };

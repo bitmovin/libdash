@@ -48,7 +48,7 @@ void MultimediaManager::Start                       ()
 }
 void MultimediaManager::Stop                        ()
 {
-    /* Global Stop button for stop must be added to interface*/
+    this->stream->Stop();
 }
 bool MultimediaManager::SetVideoAdaptationSet       (IAdaptationSet *adaptationSet)
 {

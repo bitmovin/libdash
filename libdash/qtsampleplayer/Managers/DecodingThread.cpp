@@ -36,16 +36,18 @@ bool DecodingThread::Start  ()
     if(!decoder->Init())
         return false;
 
+    this->run = true;
     this->threadHandle = CreateThreadPortable (Decode, this);
 
     if(this->threadHandle == NULL)
         return false;
 
-    return false;
+    return true;
 }
 void DecodingThread::Stop   ()
 {
-    //TODO
+    this->run = false;
+    WaitForSingleObject(this->threadHandle, INFINITE);
 }
 
 void* DecodingThread::Decode (void *data)
@@ -54,7 +56,7 @@ void* DecodingThread::Decode (void *data)
 
     bool eos = false;
 
-    while(!eos) //TODO implement STOP
+    while(!eos && decodingThread->run)
     {
         eos = !decodingThread->decoder->Decode();
     }
