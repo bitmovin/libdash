@@ -9,11 +9,8 @@
  * and conditions of the applicable license agreement.
  *****************************************************************************/
 
-#include "QtSamplePlayerGui.h"
-
+#include "UI/QtSamplePlayerGui.h"
 #include <QApplication>
-
-#include "libdash.h"
 #include "DASHPlayer.h"
 
 using namespace sampleplayer;

@@ -53,9 +53,6 @@
     <ClCompile Include="GeneratedFiles\Release\moc_QtSamplePlayerGui.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="QtSamplePlayerGui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer\QTGLRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -83,6 +80,9 @@
     <ClCompile Include="Managers\MultimediaManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UI\QtSamplePlayerGui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="qtsampleplayer.ui">
@@ -91,13 +91,13 @@
     <CustomBuild Include="qtsampleplayer.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="QtSamplePlayerGui.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="Renderer\QTGLRenderer.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="renderer\IVideoObserver.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="UI\QtSamplePlayerGui.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
