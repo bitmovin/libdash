@@ -26,6 +26,9 @@ namespace sampleplayer
                 DecodingThread          (libdash::framework::input::IDataReceiver *receiver, renderer::IAudioObserver *audioObserver, renderer::IVideoObserver *videoObserver);
                 virtual ~DecodingThread ();
 
+                bool Start  ();
+                bool Stop   ();
+
             private:
         };
     }

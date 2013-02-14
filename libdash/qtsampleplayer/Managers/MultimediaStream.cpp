@@ -1,5 +1,5 @@
 /*
- * DecodingThread.cpp
+ * MultimediaStream.cpp
  *****************************************************************************
  * Copyright (C) 2013, bitmovin Softwareentwicklung OG, All Rights Reserved
  *
@@ -9,24 +9,24 @@
  * and conditions of the applicable license agreement.
  *****************************************************************************/
 
-#include "DecodingThread.h"
+#include "MultimediaStream.h"
 
 using namespace sampleplayer::managers;
 using namespace sampleplayer::renderer;
-using namespace libdash::framework::input;
 
-DecodingThread::DecodingThread  (IDataReceiver *receiver, IAudioObserver *audioObserver, IVideoObserver *videoObserver)
+MultimediaStream::MultimediaStream  ()
 {
 }
-DecodingThread::~DecodingThread ()
+MultimediaStream::~MultimediaStream ()
 {
 }
 
-bool DecodingThread::Start  ()
+void MultimediaStream::OnAudioDataAvailable (const uint8_t **data, audioFrameProperties* props)
 {
-    return false;
 }
-bool DecodingThread::Stop   ()
+void MultimediaStream::OnVideoDataAvailable (const uint8_t **data, videoFrameProperties* props)
 {
-    return false;
+}
+void MultimediaStream::AttachStreamObserver (IStreamObserver *observer)
+{
 }
