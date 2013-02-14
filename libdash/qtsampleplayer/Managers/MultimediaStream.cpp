@@ -72,27 +72,32 @@ void MultimediaStream::OnVideoDataAvailable (const uint8_t **data, videoFramePro
     int w = props->width;
     int h = props->height;
 
+    if(this->width > 0)
+        w = this->width;
+    if(this->height > 0)
+        h = this->height;
+
     AVFrame *rgbframe   = avcodec_alloc_frame();
-    int     numBytes    = avpicture_get_size(PIX_FMT_RGB32, props->width, props->height);
+    int     numBytes    = avpicture_get_size(PIX_FMT_RGB32, w, h);
     uint8_t *buffer     = (uint8_t*)av_malloc(numBytes);
 
-    avpicture_fill((AVPicture*)rgbframe, buffer, PIX_FMT_RGB32, props->width, props->height);
+    avpicture_fill((AVPicture*)rgbframe, buffer, PIX_FMT_RGB32, w, h);
 
     SwsContext *imgConvertCtx = sws_getContext(props->width, props->height, (PixelFormat)props->pxlFmt, w, h, PIX_FMT_RGB32, SWS_BICUBIC, NULL, NULL, NULL);
 
-    sws_scale(imgConvertCtx, data, props->linesize, 0, props->height, rgbframe->data, rgbframe->linesize);
+    sws_scale(imgConvertCtx, data, props->linesize, 0, h, rgbframe->data, rgbframe->linesize);
 
-    QImage image(props->width, props->height, QImage::Format_RGB32);
+    QImage image(w, h, QImage::Format_RGB32);
     int x, y;
     int *src = (int*)rgbframe->data[0];
  
-    for (y = 0; y < props->height; y++)
+    for (y = 0; y < h; y++)
     {
-        for (x = 0; x < props->width; x++)
+        for (x = 0; x < w; x++)
         {
             image.setPixel(x, y, src[x] & 0x00ffffff);
         }
-        src += props->width;
+        src += w;
     }
 
     this->NotifyVideoObservers(image);
