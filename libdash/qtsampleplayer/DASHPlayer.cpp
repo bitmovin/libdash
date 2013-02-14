@@ -84,19 +84,19 @@ void DASHPlayer::onVideoDataAvailable   (const uint8_t **data, videoFramePropert
     int w = props->width;
     int h = props->height;
 
-    AVFrame *pFrameRGB  = avcodec_alloc_frame();
+    AVFrame *rgbframe   = avcodec_alloc_frame();
     int     numBytes    = avpicture_get_size(PIX_FMT_RGB32, props->width, props->height);
-    uint8_t *buffer     = (uint8_t*)malloc(numBytes);
+    uint8_t *buffer     = (uint8_t*)av_malloc(numBytes);
 
-    avpicture_fill((AVPicture*)pFrameRGB, buffer, PIX_FMT_RGB32, props->width, props->height);
+    avpicture_fill((AVPicture*)rgbframe, buffer, PIX_FMT_RGB32, props->width, props->height);
 
     SwsContext *imgConvertCtx = sws_getContext(props->width, props->height, (PixelFormat)props->pxlFmt, w, h, PIX_FMT_RGB32, SWS_BICUBIC, NULL, NULL, NULL);
 
-    sws_scale(imgConvertCtx, data, props->linesize, 0, props->height, pFrameRGB->data, pFrameRGB->linesize);
+    sws_scale(imgConvertCtx, data, props->linesize, 0, props->height, rgbframe->data, rgbframe->linesize);
 
     QImage image(props->width, props->height, QImage::Format_RGB32);
     int x, y;
-    int *src = (int*)pFrameRGB->data[0];
+    int *src = (int*)rgbframe->data[0];
  
     for (y = 0; y < props->height; y++)
     {
@@ -106,6 +106,9 @@ void DASHPlayer::onVideoDataAvailable   (const uint8_t **data, videoFramePropert
         }
         src += props->width;
     }
+
+    av_free(rgbframe);
+    av_free(buffer);
 
     this->renderer->setImage(image);
     this->renderer->update();
