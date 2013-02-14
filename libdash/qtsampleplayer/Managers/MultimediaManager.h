@@ -15,8 +15,6 @@
 #include "IMPD.h"
 #include "../libdashframework/Adaptation/IAdaptationLogic.h"
 #include "../libdashframework/Buffer/IBufferObserver.h"
-#include "../Renderer/IAudioObserver.h"
-#include "../Renderer/IVideoObserver.h"
 
 namespace sampleplayer
 {
@@ -36,9 +34,6 @@ namespace sampleplayer
 
                 bool SetVideoAdaptationLogic    (libdash::framework::adaptation::IAdaptationLogic *logic);
                 bool SetAudioAdaptationLogic    (libdash::framework::adaptation::IAdaptationLogic *logic);
-
-                void AttachVideoObserver        (renderer::IVideoObserver *videoObserver);
-                void AttachAudioObserver        (renderer::IAudioObserver *audioObserver);
 
                 void AttachVideoBufferObserver  (libdash::framework::buffer::IBufferObserver *videoBufferObserver);
                 void AttachAudioBufferObserver  (libdash::framework::buffer::IBufferObserver *audioBufferObserver);

@@ -23,6 +23,19 @@ MultimediaStream::~MultimediaStream ()
 {
 }
 
+bool MultimediaStream::Start                ()
+{
+    return false;
+}
+bool MultimediaStream::Stop                 ()
+{
+    return false;
+}
+void MultimediaStream::NotifyVideoObservers (const QImage& image)
+{
+    for(size_t i = 0; i < this->observers.size(); i++)
+        this->observers.at(i)->OnVideoFrameAvailable(image, this->adaptationSet);
+}
 void MultimediaStream::OnAudioDataAvailable (const uint8_t **data, audioFrameProperties* props)
 {
 }

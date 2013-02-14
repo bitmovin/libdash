@@ -14,7 +14,6 @@
 using namespace libdash::framework::adaptation;
 using namespace libdash::framework::buffer;
 using namespace sampleplayer::managers;
-using namespace sampleplayer::renderer;
 using namespace dash::mpd;
 
 MultimediaManager::MultimediaManager    ()
@@ -58,12 +57,6 @@ bool MultimediaManager::SetAudioAdaptationLogic     (IAdaptationLogic *logic)
 {
     /* MUST NOT BE IMPLEMENTED YET */
     return false;
-}
-void MultimediaManager::AttachVideoObserver         (IVideoObserver *videoObserver)
-{
-}
-void MultimediaManager::AttachAudioObserver         (IAudioObserver *audioObserver)
-{
 }
 void MultimediaManager::NotifyVideoObservers        ()
 {

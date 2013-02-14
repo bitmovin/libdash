@@ -18,6 +18,8 @@
 #include "../Decoder/IAudioObserver.h"
 #include "../Decoder/IVideoObserver.h"
 
+#include <vector>
+
 namespace sampleplayer
 {
     namespace managers
@@ -28,12 +30,18 @@ namespace sampleplayer
                 MultimediaStream            (dash::mpd::IAdaptationSet *adaptationSet, libdash::framework::adaptation::IAdaptationLogic *logic);
                 virtual ~MultimediaStream   ();
 
+                bool Start                  ();
+                bool Stop                   ();
+                void AttachStreamObserver   (IStreamObserver *observer);
+                void NotifyVideoObservers   (const QImage& image);
+
                 virtual void OnAudioDataAvailable (const uint8_t **data, decoder::audioFrameProperties* props);
                 virtual void OnVideoDataAvailable (const uint8_t **data, decoder::videoFrameProperties* props);
 
-                void AttachStreamObserver (IStreamObserver *observer);
-
             private:
+                std::vector<IStreamObserver *>                      observers;
+                dash::mpd::IAdaptationSet                           *adaptationSet;
+                libdash::framework::adaptation::IAdaptationLogic    *logic;
         };
     }
 }
