@@ -65,9 +65,6 @@
     <ClCompile Include="GeneratedFiles\Release\moc_QTGLRenderer.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="libdashframework\Adaptation\AdaptationLogic.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="libdashframework\Buffer\MediaObjectBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -78,6 +75,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="libdashframework\Adaptation\MediaObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="libdashframework\Adaptation\AlwaysLowestLogic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -120,9 +120,6 @@
     <ClInclude Include="Input\IBufferObserver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libdashframework\Adaptation\AdaptationLogic.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="libdashframework\Buffer\MediaObjectBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -139,6 +136,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="libdashframework\Adaptation\MediaObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libdashframework\Adaptation\IAdaptationLogic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libdashframework\Adaptation\AlwaysLowestLogic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

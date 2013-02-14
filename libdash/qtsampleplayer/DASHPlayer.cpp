@@ -114,14 +114,13 @@ void DASHPlayer::onVideoDataAvailable   (const uint8_t **data, videoFramePropert
 /* Shows how to combine QT and SDL */
 void* DASHPlayer::RenderVideo   (void *dashplayer)
 {
-    DASHPlayer      *player     = (DASHPlayer *) dashplayer;
-    AdaptationLogic *logic      = new AdaptationLogic(player->currentAdaptation, player->mpd);
-    logic->SetRepresentation(player->currentRepresentation);
-    DASHReceiver    *receiver   = new DASHReceiver(30, logic); // Init a DASHReceiver with a buffer size of 30 Segments
+    DASHPlayer          *player     = (DASHPlayer *) dashplayer;
+    AlwaysLowestLogic   *logic      = new AlwaysLowestLogic(player->currentAdaptation, player->mpd);
+    DASHReceiver        *receiver   = new DASHReceiver(30, logic);
+
+
     receiver->AtachBufferObserver(player);
     player->gui->SetBufferFillState(0);
-
-
     receiver->Start();
 
     LibavDecoder *decoder = new LibavDecoder(receiver);

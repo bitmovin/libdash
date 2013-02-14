@@ -98,7 +98,7 @@
     <ClCompile Include="GeneratedFiles\Release\moc_QtSamplePlayerGui.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="libdashframework\Adaptation\AdaptationLogic.cpp" />
+    <ClCompile Include="libdashframework\Adaptation\AlwaysLowestLogic.cpp" />
     <ClCompile Include="libdashframework\Input\DASHReceiver.cpp" />
     <ClCompile Include="libdashframework\Adaptation\MediaObject.cpp" />
     <ClCompile Include="libdashframework\Buffer\MediaObjectBuffer.cpp" />
@@ -137,7 +137,8 @@
     <ClInclude Include="IDASHPlayerGuiObserver.h" />
     <ClInclude Include="Decoder\LibavDecoder.h" />
     <ClInclude Include="GeneratedFiles\ui_qtsampleplayer.h" />
-    <ClInclude Include="libdashframework\Adaptation\AdaptationLogic.h" />
+    <ClInclude Include="libdashframework\Adaptation\AlwaysLowestLogic.h" />
+    <ClInclude Include="libdashframework\Adaptation\IAdaptationLogic.h" />
     <ClInclude Include="libdashframework\Buffer\IBufferObserver.h" />
     <ClInclude Include="libdashframework\Input\DASHReceiver.h" />
     <ClInclude Include="Input\IAdaptationLogic.h" />

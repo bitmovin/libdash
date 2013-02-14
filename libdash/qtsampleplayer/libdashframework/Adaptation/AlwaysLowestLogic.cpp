@@ -1,5 +1,5 @@
 /*
- * AdaptationLogic.cpp
+ * AlwaysLowestLogic.cpp
  *****************************************************************************
  * Copyright (C) 2012, bitmovin Softwareentwicklung OG, All Rights Reserved
  *
@@ -9,30 +9,25 @@
  * and conditions of the applicable license agreement.
  *****************************************************************************/
 
-#include "AdaptationLogic.h"
+#include "AlwaysLowestLogic.h"
 
 using namespace libdash::framework::adaptation;
 using namespace dash::mpd;
 
-AdaptationLogic::AdaptationLogic    (IAdaptationSet *adaptationSet, IMPD *mpd) :
-                 adaptationSet      (adaptationSet),
-                 mpd                (mpd)
+AlwaysLowestLogic::AlwaysLowestLogic    (IAdaptationSet *adaptationSet, IMPD *mpd) :
+                   adaptationSet        (adaptationSet),
+                   mpd                  (mpd)
 {
     this->baseurls.push_back(this->mpd->GetBaseUrls().at(0));
 
     this->currentRep = this->adaptationSet->GetRepresentation().at(0);
 }
-AdaptationLogic::~AdaptationLogic   ()
+AlwaysLowestLogic::~AlwaysLowestLogic   ()
 {
 }
-void AdaptationLogic::SetRepresentation     (dash::mpd::IRepresentation* representation)
-{
-    this->currentRep = representation;
-}
-MediaObject* AdaptationLogic::GetSegment    (uint32_t number)
-{
-    /* Put your code for the adaptation here and comment the sample code */
 
+MediaObject* AlwaysLowestLogic::GetSegment    (uint32_t number)
+{
     /* Sample code that returns always the lowest repesentation (quality) */
     ISegment *seg = NULL;
 

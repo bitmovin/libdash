@@ -1,5 +1,5 @@
 /*
- * AdaptationLogic.h
+ * AlwaysLowestLogic.h
  *****************************************************************************
  * Copyright (C) 2012, bitmovin Softwareentwicklung OG, All Rights Reserved
  *
@@ -9,11 +9,11 @@
  * and conditions of the applicable license agreement.
  *****************************************************************************/
 
-#ifndef LIBDASH_FRAMEWORK_ADAPTATION_ADAPTATIONLOGIC_H_
-#define LIBDASH_FRAMEWORK_ADAPTATION_ADAPTATIONLOGIC_H_
+#ifndef LIBDASH_FRAMEWORK_ADAPTATION_ALWAYSLOWESTLOGIC_H_
+#define LIBDASH_FRAMEWORK_ADAPTATION_ALWAYSLOWESTLOGIC_H_
 
 #include "IMPD.h"
-#include "MediaObject.h"
+#include "IAdaptationLogic.h"
 
 namespace libdash
 {
@@ -21,14 +21,13 @@ namespace libdash
     {
         namespace adaptation
         {
-            class AdaptationLogic
+            class AlwaysLowestLogic : public IAdaptationLogic
             {
                 public:
-                    AdaptationLogic             (dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd);
-                    virtual ~AdaptationLogic    ();
+                    AlwaysLowestLogic           (dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd);
+                    virtual ~AlwaysLowestLogic  ();
 
                     MediaObject* GetSegment (uint32_t number);
-                    void SetRepresentation      (dash::mpd::IRepresentation* representation);
 
                 private:
                     dash::mpd::IAdaptationSet           *adaptationSet;
@@ -40,4 +39,4 @@ namespace libdash
     }
 }
 
-#endif /* LIBDASH_FRAMEWORK_ADAPTATION_ADAPTATIONLOGIC_H_ */
+#endif /* LIBDASH_FRAMEWORK_ADAPTATION_ALWAYSLOWESTLOGIC_H_ */

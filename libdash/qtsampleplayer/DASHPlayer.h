@@ -23,7 +23,7 @@
 #include "libdashframework/Input/DASHReceiver.h"
 #include "libdashframework/Portable/MultiThreading.h"
 #include "libdashframework/Buffer/IBufferObserver.h"
-#include "libdashframework/Adaptation/AdaptationLogic.h"
+#include "libdashframework/Adaptation/AlwaysLowestLogic.h"
 
 namespace sampleplayer
 {

@@ -14,7 +14,7 @@
 
 #include "IDataReceiver.h"
 #include "../Buffer/MediaObjectBuffer.h"
-#include "../Adaptation/AdaptationLogic.h"
+#include "../Adaptation/IAdaptationLogic.h"
 
 #include "IDownloadObserver.h"
 #include "libdash.h"
@@ -30,7 +30,7 @@ namespace libdash
             class DASHReceiver : public IDataReceiver
             {
                 public:
-                    DASHReceiver            (uint32_t maxcapacity, adaptation::AdaptationLogic *logic);
+                    DASHReceiver            (uint32_t maxcapacity, adaptation::IAdaptationLogic *logic);
                     virtual ~DASHReceiver   ();
 
                     bool Start                  ();
@@ -40,12 +40,12 @@ namespace libdash
                     virtual int IORead (uint8_t *buf, int buf_size);
 
                 private:
-                    buffer::MediaObjectBuffer   *buffer;
-                    int                         count;
-                    uint32_t                    maxcapacity;
-                    adaptation::AdaptationLogic *logic;
-                    THREAD_HANDLE               bufferingThread;
-                    bool                        run;
+                    buffer::MediaObjectBuffer       *buffer;
+                    int                             count;
+                    uint32_t                        maxcapacity;
+                    adaptation::IAdaptationLogic    *logic;
+                    THREAD_HANDLE                   bufferingThread;
+                    bool                            run;
 
                     /* Thread that does the buffering of segments */
                     static void* DoBuffering (void *receiver);

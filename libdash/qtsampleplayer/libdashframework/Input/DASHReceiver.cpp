@@ -19,7 +19,7 @@ using namespace dash;
 using namespace dash::network;
 using namespace dash::mpd;
 
-DASHReceiver::DASHReceiver  (uint32_t maxcapacity, AdaptationLogic* logic) :
+DASHReceiver::DASHReceiver  (uint32_t maxcapacity, IAdaptationLogic* logic) :
               count         (0),
               maxcapacity   (maxcapacity),
               logic         (logic)
