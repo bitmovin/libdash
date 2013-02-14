@@ -17,10 +17,12 @@ using namespace libdash::framework::adaptation;
 using namespace libdash::framework::input;
 using namespace dash::mpd;
 
-MultimediaStream::MultimediaStream  (IAdaptationSet *adaptationSet, IAdaptationLogic *logic, uint32_t bufferSize) :
+MultimediaStream::MultimediaStream  (IAdaptationSet *adaptationSet, IAdaptationLogic *logic, uint32_t bufferSize, uint32_t width, uint32_t height) :
                   adaptationSet     (adaptationSet),
                   logic             (logic),
                   bufferSize        (bufferSize),
+                  width             (width),
+                  height            (height),
                   receiver          (NULL),
                   decodingThread    (NULL)
 {
@@ -64,6 +66,7 @@ void MultimediaStream::OnAudioDataAvailable (const uint8_t **data, audioFramePro
 }
 void MultimediaStream::OnVideoDataAvailable (const uint8_t **data, videoFrameProperties* props)
 {
+    /* After first stable version integrate scaling to width height of constructor */
     int w = props->width;
     int h = props->height;
 

@@ -29,7 +29,7 @@ namespace sampleplayer
         class MultimediaStream : public decoder::IAudioObserver, public decoder::IVideoObserver
         {
             public:
-                MultimediaStream            (dash::mpd::IAdaptationSet *adaptationSet, libdash::framework::adaptation::IAdaptationLogic *logic, uint32_t bufferSize);
+                MultimediaStream            (dash::mpd::IAdaptationSet *adaptationSet, libdash::framework::adaptation::IAdaptationLogic *logic, uint32_t bufferSize, uint32_t width, uint32_t height);
                 virtual ~MultimediaStream   ();
 
                 bool Start                  ();
@@ -48,6 +48,8 @@ namespace sampleplayer
                 libdash::framework::input::DASHReceiver             *receiver;
                 DecodingThread                                      *decodingThread;
                 uint32_t                                            bufferSize;
+                uint32_t                                            width;
+                uint32_t                                            height;
 
                 void Init ();
         };
