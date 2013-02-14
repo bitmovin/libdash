@@ -33,9 +33,9 @@ namespace sampleplayer
         class  IAudioObserver
         {
             public:
-                virtual     ~IAudioObserver      (){};
+                virtual ~IAudioObserver () {}
 
-                virtual void onAudioDataAvailable (const uint8_t **data, audioFrameProperties* props) = 0;
+                virtual void OnAudioDataAvailable (const uint8_t **data, audioFrameProperties* props) = 0;
         };
     }
 }

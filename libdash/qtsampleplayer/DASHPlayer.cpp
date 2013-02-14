@@ -79,7 +79,7 @@ void DASHPlayer::OnURLChanged           (QtSamplePlayerGui* widget, const std::s
         this->gui->SetStatusBar("Error parsing mpd at: " + url);
     }
 }
-void DASHPlayer::onVideoDataAvailable   (const uint8_t **data, videoFrameProperties* props)
+void DASHPlayer::OnVideoDataAvailable   (const uint8_t **data, videoFrameProperties* props)
 {
     int w = props->width;
     int h = props->height;

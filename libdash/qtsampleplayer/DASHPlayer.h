@@ -35,7 +35,7 @@ namespace sampleplayer
 
             virtual void OnSettingsChanged      (QtSamplePlayerGui* widget, int video_adaption, int video_representation, int audio_adaption, int audio_representation);
             virtual void OnURLChanged           (QtSamplePlayerGui* widget, const std::string& url);
-            virtual void onVideoDataAvailable   (const uint8_t **data, renderer::videoFrameProperties *props);
+            virtual void OnVideoDataAvailable   (const uint8_t **data, renderer::videoFrameProperties *props);
 
         private:
             dash::IDASHManager                      *manager;

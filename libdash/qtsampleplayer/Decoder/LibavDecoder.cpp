@@ -59,7 +59,7 @@ void                LibavDecoder::NotifyVideo             (AVFrame * avFrame, St
         props.pxlFmt = yuv422p;
 
     for(size_t i = 0; i < videoObservers.size(); i++)
-        videoObservers.at(i)->onVideoDataAvailable((const uint8_t **)avFrame->data, &props);
+        videoObservers.at(i)->OnVideoDataAvailable((const uint8_t **)avFrame->data, &props);
 }
 void                LibavDecoder::NotifyAudio             (AVFrame * avFrame, StreamConfig* decoConf)
 {
@@ -73,7 +73,7 @@ void                LibavDecoder::NotifyAudio             (AVFrame * avFrame, St
     props.samples     = avFrame->nb_samples;
 
     for(size_t i = 0; i < audioObservers.size(); i++)
-        audioObservers.at(i)->onAudioDataAvailable((const uint8_t **) avFrame->data, &props);
+        audioObservers.at(i)->OnAudioDataAvailable((const uint8_t **) avFrame->data, &props);
 }
 AVFormatContext*    LibavDecoder::OpenInput               ()
 {
@@ -245,14 +245,14 @@ void                LibavDecoder::Error                   (std::string errormsg,
     strcpy(videoprops.errorMessage, sstm.str().c_str());
 
     for (size_t i = 0; i < videoObservers.size(); i++)
-        videoObservers.at(i)->onVideoDataAvailable(NULL, &videoprops);
+        videoObservers.at(i)->OnVideoDataAvailable(NULL, &videoprops);
 
     audioprops.fireError       = true;
     audioprops.errorMessage = (char*)malloc(sstm.str().size()+1);
     strcpy(audioprops.errorMessage, sstm.str().c_str());
 
     for (size_t j = 0; j < audioObservers.size(); j++)
-        audioObservers.at(j)->onAudioDataAvailable(NULL, &audioprops);
+        audioObservers.at(j)->OnAudioDataAvailable(NULL, &audioprops);
 
     this->errorHappened    = true;
     free(audioprops.errorMessage);
