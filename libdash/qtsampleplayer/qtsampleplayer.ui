@@ -78,7 +78,7 @@
           <item>
            <widget class="QLabel" name="label">
             <property name="text">
-             <string>Video Adaption</string>
+             <string>Video AdaptationSet</string>
             </property>
            </widget>
           </item>
@@ -101,7 +101,7 @@
              <bool>false</bool>
             </property>
             <property name="text">
-             <string>Audio Adaption</string>
+             <string>Audio AdaptionSet</string>
             </property>
            </widget>
           </item>

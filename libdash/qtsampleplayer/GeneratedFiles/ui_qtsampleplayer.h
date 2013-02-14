@@ -216,9 +216,9 @@ public:
     void retranslateUi(QMainWindow *QtSamplePlayerClass)
     {
         QtSamplePlayerClass->setWindowTitle(QApplication::translate("QtSamplePlayerClass", "QtSamplePlayer", 0));
-        label->setText(QApplication::translate("QtSamplePlayerClass", "Video Adaption", 0));
+        label->setText(QApplication::translate("QtSamplePlayerClass", "Video AdaptationSet", 0));
         label_2->setText(QApplication::translate("QtSamplePlayerClass", "Video Representation", 0));
-        label_3->setText(QApplication::translate("QtSamplePlayerClass", "Audio Adaption", 0));
+        label_3->setText(QApplication::translate("QtSamplePlayerClass", "Audio AdaptionSet", 0));
         label_4->setText(QApplication::translate("QtSamplePlayerClass", "Audio Representation", 0));
         label_5->setText(QApplication::translate("QtSamplePlayerClass", "Buffer", 0));
     } // retranslateUi
