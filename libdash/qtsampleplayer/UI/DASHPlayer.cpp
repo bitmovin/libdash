@@ -35,7 +35,7 @@ DASHPlayer::~DASHPlayer ()
 void DASHPlayer::OnStartButtonPressed   (QtSamplePlayerGui* widget)
 {
     this->multimediaManager->SetVideoAdaptationSet(this->currentAdaptation);
-    this->multimediaManager->SetVideoAdaptationLogic(new AlwaysLowestLogic(this->currentAdaptation, this->mpd));
+    this->multimediaManager->SetVideoAdaptationLogic(new AlwaysLowestLogic(this->currentAdaptation, this->mpd, 0));
     this->multimediaManager->Start(); 
 }
 void DASHPlayer::OnStopButtonPressed    (QtSamplePlayerGui* widget)
@@ -44,7 +44,14 @@ void DASHPlayer::OnStopButtonPressed    (QtSamplePlayerGui* widget)
 }
 void DASHPlayer::OnCheckboxChanged      (QtSamplePlayerGui* widget, bool state)
 {
-    this->gui->SetStatusBar("checkbox changed");
+    if(state)
+    {
+        this->multimediaManager->SetVideoAdaptationLogic(new AlwaysLowestLogic(this->currentAdaptation, this->mpd, 0));
+    }
+    else
+    {
+        this->multimediaManager->SetVideoAdaptationLogic(new ForcedLogic(this->currentAdaptation, this->mpd, 0));
+    }
 }
 void DASHPlayer::OnSettingsChanged      (QtSamplePlayerGui* widget, int video_adaption, int video_representation, int audio_adaption, int audio_representation)
 {

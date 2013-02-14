@@ -41,6 +41,7 @@ namespace sampleplayer
             virtual void    SetStatusBar            (const std::string& text);
 
             virtual std::string GetUrl              ();
+            virtual bool    GetAutomatic            ();
       
         private slots:
             void on_cb_video_adaption_currentIndexChanged       (const QString &arg1);

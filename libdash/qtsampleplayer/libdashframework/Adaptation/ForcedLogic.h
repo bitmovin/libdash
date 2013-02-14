@@ -1,5 +1,5 @@
 /*
- * AlwaysLowestLogic.h
+ * ForcedLogic.h
  *****************************************************************************
  * Copyright (C) 2012, bitmovin Softwareentwicklung OG, All Rights Reserved
  *
@@ -9,8 +9,8 @@
  * and conditions of the applicable license agreement.
  *****************************************************************************/
 
-#ifndef LIBDASH_FRAMEWORK_ADAPTATION_ALWAYSLOWESTLOGIC_H_
-#define LIBDASH_FRAMEWORK_ADAPTATION_ALWAYSLOWESTLOGIC_H_
+#ifndef LIBDASH_FRAMEWORK_ADAPTATION_FORCEDLOGIC_H_
+#define LIBDASH_FRAMEWORK_ADAPTATION_FORCEDLOGIC_H_
 
 #include "IMPD.h"
 #include "AbstractAdaptationLogic.h"
@@ -21,11 +21,11 @@ namespace libdash
     {
         namespace adaptation
         {
-            class AlwaysLowestLogic : public AbstractAdaptationLogic
+            class ForcedLogic : public AbstractAdaptationLogic
             {
                 public:
-                    AlwaysLowestLogic           (dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd, uint32_t startSegment);
-                    virtual ~AlwaysLowestLogic  ();
+                    ForcedLogic           (dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd, uint32_t startSegment);
+                    virtual ~ForcedLogic  ();
 
                     MediaObject* GetSegment ();
 
@@ -34,4 +34,4 @@ namespace libdash
     }
 }
 
-#endif /* LIBDASH_FRAMEWORK_ADAPTATION_ALWAYSLOWESTLOGIC_H_ */
+#endif /* LIBDASH_FRAMEWORK_ADAPTATION_FORCEDLOGIC_H_ */

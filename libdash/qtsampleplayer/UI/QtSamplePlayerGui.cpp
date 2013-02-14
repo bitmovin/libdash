@@ -182,6 +182,16 @@ void QtSamplePlayerGui::on_button_stop_clicked                         ()
 }
 void QtSamplePlayerGui::on_ckb_automatic_toggled                       (bool checked)
 {
+    
+    if(checked)
+    {
+        this->ui->cb_video_representation->setEnabled(false);
+    }
+    else
+    {
+        this->ui->cb_video_representation->setEnabled(true);
+    }
+    
     for(unsigned int i=0; i < this->observer.size(); i++)
     {
         this->observer[i]->OnCheckboxChanged(this, checked);
@@ -224,4 +234,8 @@ void QtSamplePlayerGui::unlockUI                                        ()
 std::string QtSamplePlayerGui::GetUrl()
 {
     return this->ui->lineEdit->text().toStdString();
+}
+bool    QtSamplePlayerGui::GetAutomatic            ()
+{
+    return this->ui->ckb_automatic->isChecked();
 }

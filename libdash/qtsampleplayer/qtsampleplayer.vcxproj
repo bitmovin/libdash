@@ -78,6 +78,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="libdashframework\Adaptation\AbstractAdaptationLogic.cpp" />
+    <ClCompile Include="libdashframework\Adaptation\ForcedLogic.cpp" />
     <ClCompile Include="UI\DASHPlayer.cpp" />
     <ClCompile Include="UI\QtSamplePlayerGui.cpp" />
     <ClCompile Include="Managers\DecodingThread.cpp" />
@@ -136,6 +138,8 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="libdashframework\Adaptation\AbstractAdaptationLogic.h" />
+    <ClInclude Include="libdashframework\Adaptation\ForcedLogic.h" />
     <ClInclude Include="Managers\DecodingThread.h" />
     <ClInclude Include="Managers\IStreamObserver.h" />
     <ClInclude Include="Managers\MultimediaStream.h" />

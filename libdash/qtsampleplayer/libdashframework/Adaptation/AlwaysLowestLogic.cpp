@@ -14,10 +14,8 @@
 using namespace libdash::framework::adaptation;
 using namespace dash::mpd;
 
-AlwaysLowestLogic::AlwaysLowestLogic    (IAdaptationSet *adaptationSet, IMPD *mpd) :
-                   adaptationSet        (adaptationSet),
-                   mpd                  (mpd),
-                   number               (0)
+AlwaysLowestLogic::AlwaysLowestLogic    (IAdaptationSet *adaptationSet, IMPD *mpd, uint32_t startSegment) :
+                AbstractAdaptationLogic(adaptationSet, mpd, startSegment)
 {
     this->baseurls.push_back(this->mpd->GetBaseUrls().at(0));
 
@@ -31,17 +29,17 @@ MediaObject* AlwaysLowestLogic::GetSegment    ()
     /* Sample code that returns always the lowest repesentation (quality) */
     ISegment *seg = NULL;
 
-    if(this->number >= this->currentRep->GetSegmentList()->GetSegmentURLs().size() + 1)
+    if(this->segmentNumber >= this->currentRep->GetSegmentList()->GetSegmentURLs().size() + 1)
         return NULL;
 
-    if(this->number == 0)
+    if(this->segmentNumber == 0)
         seg = this->currentRep->GetSegmentBase()->GetInitialization()->ToSegment(this->baseurls);
     else
-        seg = this->currentRep->GetSegmentList()->GetSegmentURLs().at(this->number - 1)->ToMediaSegment(this->baseurls);
+        seg = this->currentRep->GetSegmentList()->GetSegmentURLs().at(this->segmentNumber - 1)->ToMediaSegment(this->baseurls);
 
     MediaObject *media = new MediaObject(seg, this->currentRep);
 
-    this->number++;
+    this->segmentNumber++;
 
     return media;
 }

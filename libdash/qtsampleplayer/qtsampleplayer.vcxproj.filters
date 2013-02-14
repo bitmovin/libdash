@@ -89,6 +89,12 @@
     <ClCompile Include="UI\DASHPlayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="libdashframework\Adaptation\ForcedLogic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="libdashframework\Adaptation\AbstractAdaptationLogic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="qtsampleplayer.ui">
@@ -157,6 +163,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UI\IDASHPlayerGuiObserver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libdashframework\Adaptation\ForcedLogic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libdashframework\Adaptation\AbstractAdaptationLogic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
