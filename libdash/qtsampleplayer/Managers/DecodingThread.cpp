@@ -20,13 +20,22 @@ DecodingThread::DecodingThread  (IDataReceiver *receiver, IAudioObserver *audioO
                 audioObserver   (audioObserver),
                 videoObserver   (videoObserver)
 {
+    this->decoder = new LibavDecoder(this->receiver);
+
+    decoder->AttachVideoObserver(this->videoObserver);
+    decoder->AttachAudioObserver(this->audioObserver);
+    decoder->SetFrameRate(24);
 }
 DecodingThread::~DecodingThread ()
 {
+    delete(this->decoder);
 }
 
 bool DecodingThread::Start  ()
 {
+    if(!decoder->Init())
+        return false;
+
     this->threadHandle = CreateThreadPortable (Decode, this);
 
     if(this->threadHandle == NULL)
@@ -42,22 +51,15 @@ void DecodingThread::Stop   ()
 void* DecodingThread::Decode (void *data)
 {
     DecodingThread  *decodingThread = (DecodingThread *) data;
-    LibavDecoder    *decoder        = new LibavDecoder(decodingThread->receiver); // TODO move to stack after first successfull decoding
 
-    decoder->AttachVideoObserver(decodingThread->videoObserver);
-    decoder->SetFrameRate(24);
-    decoder->Init();
-    
     bool eos = false;
 
-    while(!eos)
+    while(!eos) //TODO implement STOP
     {
-        eos = !decoder->Decode();
+        eos = !decodingThread->decoder->Decode();
     }
 
-    decoder->Stop();
-
-    delete decoder;
+    decodingThread->decoder->Stop();
 
     return NULL;
 }

@@ -36,6 +36,7 @@ namespace sampleplayer
                 libdash::framework::input::IDataReceiver    *receiver;
                 decoder::IAudioObserver                     *audioObserver;
                 decoder::IVideoObserver                     *videoObserver;
+                decoder::LibavDecoder                       *decoder;
 
                 static void* Decode (void *data);
         };
