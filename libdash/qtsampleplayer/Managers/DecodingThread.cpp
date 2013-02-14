@@ -24,8 +24,37 @@ DecodingThread::~DecodingThread ()
 
 bool DecodingThread::Start  ()
 {
+    this->threadHandle = CreateThreadPortable (Decode, this);
+
+    if(this->threadHandle == NULL)
+        return false;
+
     return false;
 }
 void DecodingThread::Stop   ()
 {
+    //TODO
+}
+
+void* DecodingThread::Decode (void *data)
+{
+    DecodingThread  *decodingThread = (DecodingThread *) data;
+    LibavDecoder    *decoder        = new LibavDecoder(decodingThread->receiver); // TODO move to stack after first successfull decoding
+
+    decoder->AttachVideoObserver(decodingThread->videoObserver);
+    decoder->SetFrameRate(24);
+    decoder->Init();
+    
+    bool eos = false;
+
+    while(!eos)
+    {
+        eos = !decoder->Decode();
+    }
+
+    decoder->Stop();
+
+    delete decoder;
+
+    return NULL;
 }

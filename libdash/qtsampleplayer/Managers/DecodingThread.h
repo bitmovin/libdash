@@ -12,7 +12,9 @@
 #ifndef QTSAMPLEPLAYER_MANAGERS_DECODINGTHREAD_H_
 #define QTSAMPLEPLAYER_MANAGERS_DECODINGTHREAD_H_
 
+#include "../libdashframework/Portable/MultiThreading.h"
 #include "../libdashframework/Input/IDataReceiver.h"
+#include "../Decoder/LibavDecoder.h"
 #include "../Decoder/IAudioObserver.h"
 #include "../Decoder/IVideoObserver.h"
 
@@ -30,6 +32,12 @@ namespace sampleplayer
                 void Stop   ();
 
             private:
+                THREAD_HANDLE                               threadHandle;
+                libdash::framework::input::IDataReceiver    *receiver;
+                decoder::IAudioObserver                     *audioObserver;
+                decoder::IVideoObserver                     *videoObserver;
+
+                static void* Decode (void *data);
         };
     }
 }

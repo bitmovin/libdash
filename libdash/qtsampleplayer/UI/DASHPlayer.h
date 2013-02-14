@@ -18,10 +18,6 @@
 #include "libdash.h"
 #include "IDASHPlayerGuiObserver.h"
 #include "Renderer/QTGLRenderer.h"
-#include "Decoder/LibavDecoder.h"
-#include "libdashframework/Input/DASHReceiver.h"
-#include "libdashframework/Portable/MultiThreading.h"
-#include "libdashframework/Adaptation/AlwaysLowestLogic.h"
 
 namespace sampleplayer
 {
@@ -39,13 +35,9 @@ namespace sampleplayer
             dash::mpd::IMPD                         *mpd;
             sampleplayer::renderer::QTGLRenderer    *renderer;
             QtSamplePlayerGui                       *gui;
-            THREAD_HANDLE                           testThread;
             dash::mpd::IAdaptationSet               *currentAdaptation;
             dash::mpd::IRepresentation              *currentRepresentation;
             bool                                    run;
-
-            static void* RenderVideo (void *dashplayer);
-
     };
 }
 #endif /* DASHPLAYER_H_ */
