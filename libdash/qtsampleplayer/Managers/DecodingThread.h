@@ -13,8 +13,8 @@
 #define QTSAMPLEPLAYER_MANAGERS_DECODINGTHREAD_H_
 
 #include "../libdashframework/Input/IDataReceiver.h"
-#include "../Renderer/IAudioObserver.h"
-#include "../Renderer/IVideoObserver.h"
+#include "../Decoder/IAudioObserver.h"
+#include "../Decoder/IVideoObserver.h"
 
 namespace sampleplayer
 {
@@ -23,11 +23,11 @@ namespace sampleplayer
         class DecodingThread
         {
             public:
-                DecodingThread          (libdash::framework::input::IDataReceiver *receiver, renderer::IAudioObserver *audioObserver, renderer::IVideoObserver *videoObserver);
+                DecodingThread          (libdash::framework::input::IDataReceiver *receiver, decoder::IAudioObserver *audioObserver, decoder::IVideoObserver *videoObserver);
                 virtual ~DecodingThread ();
 
                 bool Start  ();
-                bool Stop   ();
+                void Stop   ();
 
             private:
         };

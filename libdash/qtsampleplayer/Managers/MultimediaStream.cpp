@@ -14,22 +14,45 @@
 using namespace sampleplayer::managers;
 using namespace sampleplayer::decoder;
 using namespace libdash::framework::adaptation;
+using namespace libdash::framework::input;
 using namespace dash::mpd;
 
-MultimediaStream::MultimediaStream  (IAdaptationSet *adaptationSet, IAdaptationLogic *logic)
+MultimediaStream::MultimediaStream  (IAdaptationSet *adaptationSet, IAdaptationLogic *logic, uint32_t bufferSize) :
+                  adaptationSet     (adaptationSet),
+                  logic             (logic),
+                  bufferSize        (bufferSize),
+                  receiver          (NULL),
+                  decodingThread    (NULL)
 {
+    this->Init();
 }
 MultimediaStream::~MultimediaStream ()
 {
+    delete(this->decodingThread);
+    delete(this->receiver);
 }
 
+void MultimediaStream::Init                 ()
+{
+    this->receiver          = new DASHReceiver(this->bufferSize, this->logic);
+    this->decodingThread    = new DecodingThread(this->receiver, this, this);
+}
 bool MultimediaStream::Start                ()
 {
-    return false;
+    if(!receiver->Start())
+        return false;
+
+    if(!this->decodingThread->Start())
+        return false;
 }
-bool MultimediaStream::Stop                 ()
+void MultimediaStream::Stop                 ()
 {
-    return false;
+    this->StopDownload();
+    this->decodingThread->Stop();
+}
+void MultimediaStream::StopDownload         ()
+{
+    this->receiver->Stop();
 }
 void MultimediaStream::NotifyVideoObservers (const QImage& image)
 {

@@ -14,6 +14,8 @@
 
 #include "IMPD.h"
 #include "IStreamObserver.h"
+#include "DecodingThread.h"
+#include "../libdashframework/Input/DASHReceiver.h"
 #include "../libdashframework/Adaptation/IAdaptationLogic.h"
 #include "../Decoder/IAudioObserver.h"
 #include "../Decoder/IVideoObserver.h"
@@ -27,11 +29,12 @@ namespace sampleplayer
         class MultimediaStream : public decoder::IAudioObserver, public decoder::IVideoObserver
         {
             public:
-                MultimediaStream            (dash::mpd::IAdaptationSet *adaptationSet, libdash::framework::adaptation::IAdaptationLogic *logic);
+                MultimediaStream            (dash::mpd::IAdaptationSet *adaptationSet, libdash::framework::adaptation::IAdaptationLogic *logic, uint32_t bufferSize);
                 virtual ~MultimediaStream   ();
 
                 bool Start                  ();
-                bool Stop                   ();
+                void Stop                   ();
+                void StopDownload           ();
                 void AttachStreamObserver   (IStreamObserver *observer);
                 void NotifyVideoObservers   (const QImage& image);
 
@@ -42,6 +45,11 @@ namespace sampleplayer
                 std::vector<IStreamObserver *>                      observers;
                 dash::mpd::IAdaptationSet                           *adaptationSet;
                 libdash::framework::adaptation::IAdaptationLogic    *logic;
+                libdash::framework::input::DASHReceiver             *receiver;
+                DecodingThread                                      *decodingThread;
+                uint32_t                                            bufferSize;
+
+                void Init ();
         };
     }
 }

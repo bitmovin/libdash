@@ -12,7 +12,7 @@
 #include "DecodingThread.h"
 
 using namespace sampleplayer::managers;
-using namespace sampleplayer::renderer;
+using namespace sampleplayer::decoder;
 using namespace libdash::framework::input;
 
 DecodingThread::DecodingThread  (IDataReceiver *receiver, IAudioObserver *audioObserver, IVideoObserver *videoObserver)
@@ -26,7 +26,6 @@ bool DecodingThread::Start  ()
 {
     return false;
 }
-bool DecodingThread::Stop   ()
+void DecodingThread::Stop   ()
 {
-    return false;
 }
