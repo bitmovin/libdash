@@ -80,7 +80,6 @@
   <ItemGroup>
     <ClCompile Include="Managers\DecodingThread.cpp" />
     <ClCompile Include="Managers\MultimediaStream.cpp" />
-    <ClCompile Include="UI\DASHPlayer.cpp" />
     <ClCompile Include="Decoder\LibavDecoder.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_QTGLRenderer.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -108,6 +107,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Managers\MultimediaManager.cpp" />
     <ClCompile Include="Renderer\QTGLRenderer.cpp" />
+    <ClCompile Include="UI\DASHPlayer.cpp" />
     <ClCompile Include="UI\QtSamplePlayerGui.cpp" />
   </ItemGroup>
   <ItemGroup>

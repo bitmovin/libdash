@@ -80,13 +80,13 @@
     <ClCompile Include="UI\QtSamplePlayerGui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UI\DASHPlayer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Managers\DecodingThread.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Managers\MultimediaStream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\DASHPlayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
