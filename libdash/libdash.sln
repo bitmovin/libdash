@@ -19,6 +19,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libdash_memoryleak_test", "
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qtsampleplayer", "qtsampleplayer\qtsampleplayer.vcxproj", "{C353C17A-25FB-40C8-BCE4-0D07A300547E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CB8F90F3-3666-43E1-9C51-502337569FEF} = {CB8F90F3-3666-43E1-9C51-502337569FEF}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
