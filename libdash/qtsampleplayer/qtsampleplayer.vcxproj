@@ -78,7 +78,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DASHPlayer.cpp" />
+    <ClCompile Include="UI\DASHPlayer.cpp" />
     <ClCompile Include="Decoder\LibavDecoder.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_QTGLRenderer.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -134,8 +134,8 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DASHPlayer.h" />
-    <ClInclude Include="IDASHPlayerGuiObserver.h" />
+    <ClInclude Include="UI\DASHPlayer.h" />
+    <ClInclude Include="UI\IDASHPlayerGuiObserver.h" />
     <ClInclude Include="Decoder\LibavDecoder.h" />
     <ClInclude Include="GeneratedFiles\ui_qtsampleplayer.h" />
     <ClInclude Include="libdashframework\Adaptation\AlwaysLowestLogic.h" />

@@ -44,9 +44,6 @@
     <ClCompile Include="Decoder\LibavDecoder.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
-    <ClCompile Include="DASHPlayer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_QtSamplePlayerGui.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -83,6 +80,9 @@
     <ClCompile Include="UI\QtSamplePlayerGui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UI\DASHPlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="qtsampleplayer.ui">
@@ -106,12 +106,6 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="Decoder\LibavDecoder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DASHPlayer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IDASHPlayerGuiObserver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="renderer\IAudioObserver.h">
@@ -148,6 +142,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Managers\MultimediaManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\IDASHPlayerGuiObserver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\DASHPlayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

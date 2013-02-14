@@ -12,7 +12,7 @@
 #define IDASHPLAYERGUIOBSERVER_H_
 
 #include <string>
-#include "UI/QtSamplePlayerGui.h"
+#include "QtSamplePlayerGui.h"
 
 namespace sampleplayer
 {
