@@ -35,6 +35,7 @@ namespace sampleplayer
                 bool Start                  ();
                 void Stop                   ();
                 void StopDownload           ();
+                void Clear                  ();
                 void AttachStreamObserver   (IStreamObserver *observer);
                 void NotifyVideoObservers   (const QImage& image);
 

@@ -81,7 +81,10 @@ int     DASHReceiver::Read                  (uint8_t *buf, int buf_size)
 
     return this->Read(buf, buf_size);
 }
-
+void    DASHReceiver::Clear                 ()
+{
+    this->buffer->Clear();
+}
 /* Thread that does the buffering of segments */
 void*   DASHReceiver::DoBuffering   (void *receiver)
 {

@@ -25,7 +25,9 @@ namespace libdash
                 public:
                     virtual ~IAdaptationLogic () {}
 
-                    virtual MediaObject* GetSegment () = 0;
+                    virtual MediaObject* GetSegment                 () = 0;
+                    virtual uint32_t     GetSegmentNumber           () = 0;
+                    virtual void         SetSegmentNumber           (uint32_t segmentNumber) = 0;
             };
         }
     }

@@ -31,6 +31,9 @@ namespace libdash
 
                     void                SetRepresentation       (dash::mpd::IRepresentation* newRepresentation);
 
+                private:
+                    bool                needInitSegment;
+
             };
         }
     }

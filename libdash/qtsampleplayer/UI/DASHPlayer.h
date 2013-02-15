@@ -44,10 +44,7 @@ namespace sampleplayer
             dash::mpd::IAdaptationSet                           *currentAdaptation;
             dash::mpd::IRepresentation                          *currentRepresentation;
             sampleplayer::managers::MultimediaManager           *multimediaManager;
-            libdash::framework::adaptation::AbstractAdaptationLogic *currentLogic;
-            libdash::framework::adaptation::ForcedLogic         *forcedLogic;
 
-            void          SetNewLogic            (dash::mpd::IAdaptationSet* adaptionSet);
     };
 }
 #endif /* DASHPLAYER_H_ */

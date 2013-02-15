@@ -113,6 +113,25 @@ void            MediaObjectBuffer::AttachObserver   (IBufferObserver *observer)
 void            MediaObjectBuffer::Notify           ()
 {
 }
+void            MediaObjectBuffer::Clear            ()
+{
+    EnterCriticalSection(&this->monitorMutex);
+
+    int size = this->mediaobjects.size()-1;
+
+    MediaObject* object = this->mediaobjects.front();
+    this->mediaobjects.pop();
+    for(int i=0; i < size; i++)
+    {
+        delete this->mediaobjects.front();
+        this->mediaobjects.pop();
+    }
+
+    this->mediaobjects.push(object);
+    WakeAllConditionVariable(&this->empty);
+    WakeAllConditionVariable(&this->full);
+    LeaveCriticalSection(&this->monitorMutex);
+}
 uint32_t        MediaObjectBuffer::Capacity         ()
 {
     return this->maxcapacity;

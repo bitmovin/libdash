@@ -58,6 +58,10 @@ void MultimediaStream::StopDownload         ()
 {
     this->receiver->Stop();
 }
+void MultimediaStream::Clear                ()
+{
+    this->receiver->Clear();
+}
 void MultimediaStream::NotifyVideoObservers (const QImage& image)
 {
     for(size_t i = 0; i < this->observers.size(); i++)

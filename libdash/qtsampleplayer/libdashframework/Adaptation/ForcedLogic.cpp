@@ -8,6 +8,7 @@ ForcedLogic::ForcedLogic                                (dash::mpd::IAdaptationS
 {
     this->baseurls.push_back(this->mpd->GetBaseUrls().at(0));
     this->currentRep = this->adaptationSet->GetRepresentation().at(0);
+    this->needInitSegment = true;
 }
 ForcedLogic::       ~ForcedLogic                        (void)
 {
@@ -19,18 +20,21 @@ MediaObject*        ForcedLogic::GetSegment             ()
     if(this->segmentNumber >= this->currentRep->GetSegmentList()->GetSegmentURLs().size() + 1)
         return NULL;
 
-    if(this->segmentNumber == 0)
+    if(this->needInitSegment)
+    {
+        this->needInitSegment = false;
         seg = this->currentRep->GetSegmentBase()->GetInitialization()->ToSegment(this->baseurls);
+    }   
     else
+    {
         seg = this->currentRep->GetSegmentList()->GetSegmentURLs().at(this->segmentNumber - 1)->ToMediaSegment(this->baseurls);
-
+    }
+    
     MediaObject *media = new MediaObject(seg, this->currentRep);
-
     this->segmentNumber++;
-
     return media;
 }
 void                ForcedLogic::SetRepresentation      (dash::mpd::IRepresentation* newRepresentation)
 {
-    //TODO: implement
+    this->currentRep = newRepresentation;
 }

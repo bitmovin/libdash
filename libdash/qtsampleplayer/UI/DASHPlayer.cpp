@@ -19,16 +19,15 @@ using namespace dash::mpd;
 using namespace std;
 
 DASHPlayer::DASHPlayer  (QtSamplePlayerGui& gui) : 
-                        gui(&gui), 
-                        currentLogic(NULL), 
-                        forcedLogic(NULL)
+                        gui(&gui)
 {
     this->manager           = CreateDashManager();
     this->videoElement      = new QTGLRenderer(this->gui);
     this->multimediaManager = new MultimediaManager(this->videoElement);
+    
 
     this->gui->AddWidgetObserver(this);
-    this->OnURLChanged(NULL, this->gui->GetUrl());   
+    this->OnURLChanged(NULL, this->gui->GetUrl());  
 }
 DASHPlayer::~DASHPlayer ()
 {
@@ -37,8 +36,6 @@ DASHPlayer::~DASHPlayer ()
 
 void DASHPlayer::OnStartButtonPressed   (QtSamplePlayerGui* widget)
 {
-    this->multimediaManager->SetVideoAdaptationSet(this->currentAdaptation);
-    this->multimediaManager->SetVideoAdaptationLogic(new AlwaysLowestLogic(this->currentAdaptation, this->mpd, 0));
     this->multimediaManager->Start(); 
 }
 void DASHPlayer::OnStopButtonPressed    (QtSamplePlayerGui* widget)
@@ -47,11 +44,18 @@ void DASHPlayer::OnStopButtonPressed    (QtSamplePlayerGui* widget)
 }
 void DASHPlayer::OnCheckboxChanged      (QtSamplePlayerGui* widget, bool state)
 {
-    this->SetNewLogic(this->currentAdaptation);
-    this->multimediaManager->SetAudioAdaptationLogic(this->currentLogic);
+    if(state)
+    {
+        this->multimediaManager->SetVideoAdaptationLogic(new AlwaysLowestLogic(this->currentAdaptation, this->mpd, 0));
+    }
+    else
+    {
+        this->multimediaManager->SetVideoAdaptationLogic(new ForcedLogic(this->currentAdaptation, this->mpd, 0));
+    }
 }
 void DASHPlayer::OnSettingsChanged      (QtSamplePlayerGui* widget, int video_adaption, int video_representation, int audio_adaption, int audio_representation)
 {
+    
     IAdaptationSet *newAdaptionSet = this->mpd->GetPeriods().at(0)->GetAdaptationSets().at(video_adaption);
     IRepresentation* newRepresentation = newAdaptionSet->GetRepresentation().at(video_representation);
     if(this->currentAdaptation == newAdaptionSet)
@@ -59,14 +63,13 @@ void DASHPlayer::OnSettingsChanged      (QtSamplePlayerGui* widget, int video_ad
         if(this->currentRepresentation != newRepresentation)
         {
             this->currentRepresentation = newRepresentation;
-            this->forcedLogic->SetRepresentation(this->currentRepresentation);
+            this->multimediaManager->SetVideoRepresenation(this->currentRepresentation);
         }
     }
     else
     {
         this->currentAdaptation = newAdaptionSet;
-        this->SetNewLogic(this->currentAdaptation);
-        this->multimediaManager->SetVideoAdaptationLogic(this->currentLogic);
+        this->multimediaManager->SetVideoAdaptationSet(newAdaptionSet, this->mpd);
     }
 }
 void DASHPlayer::OnURLChanged           (QtSamplePlayerGui* widget, const std::string& url)
@@ -79,23 +82,10 @@ void DASHPlayer::OnURLChanged           (QtSamplePlayerGui* widget, const std::s
 
         this->currentAdaptation = this->mpd->GetPeriods().at(0)->GetAdaptationSets().at(0);
         this->currentRepresentation = this->currentAdaptation->GetRepresentation().at(0);
+        this->multimediaManager->SetVideoAdaptationSet(this->currentAdaptation, this->mpd);
     }
     else
     {
         this->gui->SetStatusBar("Error parsing mpd at: " + url);
-    }
-}
-void          DASHPlayer::SetNewLogic            (dash::mpd::IAdaptationSet* adaptionSet)
-{
-    int segment = this->currentLogic->GetSegmentNumber();
-    if(this->gui->GetAutomatic())
-    {
-        this->currentLogic = new AlwaysLowestLogic(adaptionSet, this->mpd, segment);
-        this->forcedLogic = NULL;
-    }
-    else
-    {
-        this->forcedLogic = new ForcedLogic(adaptionSet, this->mpd, segment);
-        this->currentLogic = this->forcedLogic;
     }
 }
