@@ -24,10 +24,12 @@ namespace libdash
             class ForcedLogic : public AbstractAdaptationLogic
             {
                 public:
-                    ForcedLogic           (dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd, uint32_t startSegment);
-                    virtual ~ForcedLogic  ();
+                                        ForcedLogic             (dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd, uint32_t startSegment);
+                    virtual             ~ForcedLogic            ();
 
-                    MediaObject* GetSegment ();
+                    MediaObject*        GetSegment              ();
+
+                    void                SetRepresentation       (dash::mpd::IRepresentation* newRepresentation);
 
             };
         }

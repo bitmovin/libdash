@@ -18,7 +18,10 @@ using namespace sampleplayer::managers;
 using namespace dash::mpd;
 using namespace std;
 
-DASHPlayer::DASHPlayer  (QtSamplePlayerGui& gui) : gui(&gui)
+DASHPlayer::DASHPlayer  (QtSamplePlayerGui& gui) : 
+                        gui(&gui), 
+                        currentLogic(NULL), 
+                        forcedLogic(NULL)
 {
     this->manager           = CreateDashManager();
     this->videoElement      = new QTGLRenderer(this->gui);
@@ -44,17 +47,27 @@ void DASHPlayer::OnStopButtonPressed    (QtSamplePlayerGui* widget)
 }
 void DASHPlayer::OnCheckboxChanged      (QtSamplePlayerGui* widget, bool state)
 {
-    if(state)
-    {
-        this->multimediaManager->SetVideoAdaptationLogic(new AlwaysLowestLogic(this->currentAdaptation, this->mpd, 0));
-    }
-    else
-    {
-        this->multimediaManager->SetVideoAdaptationLogic(new ForcedLogic(this->currentAdaptation, this->mpd, 0));
-    }
+    this->SetNewLogic(this->currentAdaptation);
+    this->multimediaManager->SetAudioAdaptationLogic(this->currentLogic);
 }
 void DASHPlayer::OnSettingsChanged      (QtSamplePlayerGui* widget, int video_adaption, int video_representation, int audio_adaption, int audio_representation)
 {
+    IAdaptationSet *newAdaptionSet = this->mpd->GetPeriods().at(0)->GetAdaptationSets().at(video_adaption);
+    IRepresentation* newRepresentation = newAdaptionSet->GetRepresentation().at(video_representation);
+    if(this->currentAdaptation == newAdaptionSet)
+    {
+        if(this->currentRepresentation != newRepresentation)
+        {
+            this->currentRepresentation = newRepresentation;
+            this->forcedLogic->SetRepresentation(this->currentRepresentation);
+        }
+    }
+    else
+    {
+        this->currentAdaptation = newAdaptionSet;
+        this->SetNewLogic(this->currentAdaptation);
+        this->multimediaManager->SetVideoAdaptationLogic(this->currentLogic);
+    }
 }
 void DASHPlayer::OnURLChanged           (QtSamplePlayerGui* widget, const std::string& url)
 {
@@ -70,5 +83,19 @@ void DASHPlayer::OnURLChanged           (QtSamplePlayerGui* widget, const std::s
     else
     {
         this->gui->SetStatusBar("Error parsing mpd at: " + url);
+    }
+}
+void          DASHPlayer::SetNewLogic            (dash::mpd::IAdaptationSet* adaptionSet)
+{
+    int segment = this->currentLogic->GetSegmentNumber();
+    if(this->gui->GetAutomatic())
+    {
+        this->currentLogic = new AlwaysLowestLogic(adaptionSet, this->mpd, segment);
+        this->forcedLogic = NULL;
+    }
+    else
+    {
+        this->forcedLogic = new ForcedLogic(adaptionSet, this->mpd, segment);
+        this->currentLogic = this->forcedLogic;
     }
 }
