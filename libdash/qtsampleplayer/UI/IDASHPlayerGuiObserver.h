@@ -12,12 +12,15 @@
 #define IDASHPLAYERGUIOBSERVER_H_
 
 #include <string>
+#include <qobject.h>
 #include "QtSamplePlayerGui.h"
 
 namespace sampleplayer
 {
-    class IDASHPlayerGuiObserver
+    class IDASHPlayerGuiObserver : public QObject
     {
+        Q_OBJECT
+
         public:
             virtual ~IDASHPlayerGuiObserver() {}
 
@@ -26,6 +29,9 @@ namespace sampleplayer
             virtual void OnStartButtonPressed   (QtSamplePlayerGui* widget)                                                                                             = 0;
             virtual void OnStopButtonPressed    (QtSamplePlayerGui* widget)                                                                                             = 0;
             virtual void OnCheckboxChanged      (QtSamplePlayerGui* widget, bool state)                                                                                 = 0;
+
+        signals:
+            virtual void FillStateChanged(uint32_t fillStateInPercent);
     };
 }
 #endif /* IDASHPLAYERGUIOBSERVER_H_ */

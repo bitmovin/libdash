@@ -30,6 +30,7 @@ MultimediaStream::MultimediaStream  (IAdaptationSet *adaptationSet, IAdaptationL
 }
 MultimediaStream::~MultimediaStream ()
 {
+    this->Stop();
     delete(this->decodingThread);
     delete(this->receiver);
 }
@@ -112,4 +113,8 @@ void MultimediaStream::OnVideoDataAvailable (const uint8_t **data, videoFramePro
 void MultimediaStream::AttachStreamObserver (IStreamObserver *observer)
 {
     this->observers.push_back(observer);
+}
+void MultimediaStream::AttachBufferObserver   (libdash::framework::buffer::IBufferObserver *observer)
+{
+    this->receiver->AtachBufferObserver(observer);
 }

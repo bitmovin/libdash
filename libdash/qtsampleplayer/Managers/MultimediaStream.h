@@ -16,6 +16,7 @@
 #include "IStreamObserver.h"
 #include "DecodingThread.h"
 #include "../libdashframework/Input/DASHReceiver.h"
+#include "../libdashframework/Buffer/IBufferObserver.h"
 #include "../libdashframework/Adaptation/IAdaptationLogic.h"
 #include "../Decoder/IAudioObserver.h"
 #include "../Decoder/IVideoObserver.h"
@@ -37,6 +38,7 @@ namespace sampleplayer
                 void StopDownload           ();
                 void Clear                  ();
                 void AttachStreamObserver   (IStreamObserver *observer);
+                void AttachBufferObserver   (libdash::framework::buffer::IBufferObserver *observer);
                 void NotifyVideoObservers   (const QImage& image);
 
                 virtual void OnAudioDataAvailable (const uint8_t **data, decoder::audioFrameProperties* props);

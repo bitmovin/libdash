@@ -35,7 +35,7 @@ namespace sampleplayer
             void            SetGuiFields            (dash::mpd::IMPD* mpd);
             virtual void    UpdateKeyValue          (const std::string& key, const std::string& value);
             virtual void    RemoveAllKeyValues      ();
-            virtual void    SetBufferFillState      (int percentage);
+            
             virtual void    AddWidgetObserver       (IDASHPlayerGuiObserver* observer);
             virtual void    RemoveWidgetObserver    (IDASHPlayerGuiObserver* observer);
             virtual void    SetStatusBar            (const std::string& text);
@@ -52,6 +52,10 @@ namespace sampleplayer
             void on_button_start_clicked                        ();
             void on_button_stop_clicked                         ();
             void on_ckb_automatic_toggled                       (bool checked);
+
+
+        public slots:
+            virtual void    SetBufferFillState      (uint32_t percentage);
 
         private:
             std::map<std::string, std::string>                  keyValues;

@@ -14,17 +14,18 @@
 
 #include <iostream>
 #include <sstream>
-
+#include <QObject.h>
 #include "libdash.h"
 #include "IDASHPlayerGuiObserver.h"
 #include "../Renderer/QTGLRenderer.h"
 #include "../Managers/MultimediaManager.h"
 #include "../libdashframework/Adaptation/AlwaysLowestLogic.h"
 #include "../libdashframework/Adaptation/ForcedLogic.h"
+#include "../libdashframework/Buffer/IBufferObserver.h"
 
 namespace sampleplayer
 {
-    class DASHPlayer : public IDASHPlayerGuiObserver
+    class DASHPlayer : public IDASHPlayerGuiObserver, public libdash::framework::buffer::IBufferObserver
     {
         public:
             DASHPlayer          (QtSamplePlayerGui& gui);
@@ -35,6 +36,9 @@ namespace sampleplayer
             virtual void OnStartButtonPressed   (QtSamplePlayerGui* widget);
             virtual void OnStopButtonPressed    (QtSamplePlayerGui* widget);
             virtual void OnCheckboxChanged      (QtSamplePlayerGui* widget, bool state);
+            virtual void OnBufferStateChanged(uint32_t fillstateInPercent);
+
+              
 
         private:
             dash::IDASHManager                                  *manager;

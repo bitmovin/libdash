@@ -25,7 +25,7 @@ namespace libdash
                 public:
                     virtual ~IBufferObserver () {}
 
-                    void OnBufferStateChanged(uint32_t fillstateInPercent);
+                    virtual void OnBufferStateChanged(uint32_t fillstateInPercent) = 0;
             };
         }
     }

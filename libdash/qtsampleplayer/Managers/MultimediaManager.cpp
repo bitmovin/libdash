@@ -45,7 +45,7 @@ void MultimediaManager::OnAudioSampleAvailable      ()
 void MultimediaManager::Start                       ()
 {
     /* Global Start button for start must be added to interface*/
-    if(this->stream == NULL)
+    if(this->stream != NULL)
     {
         if(this->run)
         {
@@ -55,6 +55,12 @@ void MultimediaManager::Start                       ()
     }
     this->stream = new MultimediaStream(this->videoAdaptationSet, this->videoLogic, 20, 0, 0);
     this->stream->AttachStreamObserver(this);
+
+    for(int i=0; i < this->videoBufferObserver.size(); i++)
+    {
+        this->stream->AttachBufferObserver(this->videoBufferObserver.at(i));
+    }
+
     this->stream->Start();
     this->run = true;
 }
@@ -99,13 +105,6 @@ bool MultimediaManager::SetVideoAdaptationSet       (IAdaptationSet *adaptationS
         {
             return false;
         }
-
-        if(this->stream != NULL)
-        {
-            delete this->stream;
-            this->stream = NULL;
-        }
-
         if(this->run)
         {
             this->Start();
@@ -150,10 +149,7 @@ bool MultimediaManager::SetVideoAdaptationLogic     (IAdaptationLogic *logic)
         logic->SetSegmentNumber(this->videoLogic->GetSegmentNumber());
         delete this->videoLogic; 
     }
-
-    delete this->stream;
     this->videoLogic = logic;
-    this->stream = NULL;
     if(this->run)
     {
         this->Start();
@@ -175,6 +171,11 @@ void MultimediaManager::NotifyAudioObservers        ()
 }
 void MultimediaManager::AttachVideoBufferObserver   (IBufferObserver *videoBufferObserver)
 {
+    this->videoBufferObserver.push_back(videoBufferObserver);
+    if(this->stream != NULL)
+    {
+        this->stream->AttachBufferObserver(videoBufferObserver);
+    }
 }
 void MultimediaManager::AttachAudioBufferObserver   (IBufferObserver *audioBufferObserver)
 {

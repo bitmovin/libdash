@@ -112,6 +112,10 @@ void            MediaObjectBuffer::AttachObserver   (IBufferObserver *observer)
 }
 void            MediaObjectBuffer::Notify           ()
 {
+    for(int i=0; i < this->observer.size(); i++)
+    {
+        this->observer.at(i)->OnBufferStateChanged((int)((double)this->mediaobjects.size()/(double)this->maxcapacity*100.0));
+    }
 }
 void            MediaObjectBuffer::Clear            ()
 {

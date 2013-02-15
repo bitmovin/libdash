@@ -10,6 +10,7 @@
  *****************************************************************************/
 
 #include "DASHPlayer.h"
+#include <iostream>
 
 using namespace libdash::framework::adaptation;
 using namespace sampleplayer;
@@ -24,10 +25,13 @@ DASHPlayer::DASHPlayer  (QtSamplePlayerGui& gui) :
     this->manager           = CreateDashManager();
     this->videoElement      = new QTGLRenderer(this->gui);
     this->multimediaManager = new MultimediaManager(this->videoElement);
-    
+    this->multimediaManager->AttachVideoBufferObserver(this);
 
     this->gui->AddWidgetObserver(this);
+
     this->OnURLChanged(NULL, this->gui->GetUrl());  
+
+    QObject::connect(this, SIGNAL(FillStateChanged(uint32_t fillstate)), &gui, SLOT(SetBufferFillState(uint32_t fillstate)));
 }
 DASHPlayer::~DASHPlayer ()
 {
@@ -88,4 +92,9 @@ void DASHPlayer::OnURLChanged           (QtSamplePlayerGui* widget, const std::s
     {
         this->gui->SetStatusBar("Error parsing mpd at: " + url);
     }
+}
+void DASHPlayer::OnBufferStateChanged(uint32_t fillstateInPercent)
+{
+    //cout << "Buffer filled: " << fillstateInPercent << endl;
+    emit FillStateChanged(fillstateInPercent);
 }

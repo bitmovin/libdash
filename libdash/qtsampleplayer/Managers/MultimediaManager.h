@@ -57,6 +57,7 @@ namespace sampleplayer
                 dash::mpd::IAdaptationSet                           *videoAdaptationSet;
                 libdash::framework::adaptation::IAdaptationLogic    *videoLogic;
                 MultimediaStream                                    *stream;
+                std::vector<libdash::framework::buffer::IBufferObserver*> videoBufferObserver;                 
                 bool                                                run;
         };
     }
