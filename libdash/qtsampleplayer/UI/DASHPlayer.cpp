@@ -29,9 +29,9 @@ DASHPlayer::DASHPlayer  (QtSamplePlayerGui& gui) :
 
     this->gui->AddWidgetObserver(this);
 
-    this->OnURLChanged(NULL, this->gui->GetUrl());  
+    this->OnURLChanged(NULL, this->gui->GetUrl());
 
-    QObject::connect(this, SIGNAL(FillStateChanged(uint32_t fillstate)), &gui, SLOT(SetBufferFillState(uint32_t fillstate)));
+    QObject::connect(this, SIGNAL(FillStateChanged(uint32_t)), &gui, SLOT(SetBufferFillState(uint32_t)));
 }
 DASHPlayer::~DASHPlayer ()
 {
@@ -93,7 +93,7 @@ void DASHPlayer::OnURLChanged           (QtSamplePlayerGui* widget, const std::s
         this->gui->SetStatusBar("Error parsing mpd at: " + url);
     }
 }
-void DASHPlayer::OnBufferStateChanged(uint32_t fillstateInPercent)
+void DASHPlayer::OnBufferStateChanged   (uint32_t fillstateInPercent)
 {
     //cout << "Buffer filled: " << fillstateInPercent << endl;
     emit FillStateChanged(fillstateInPercent);

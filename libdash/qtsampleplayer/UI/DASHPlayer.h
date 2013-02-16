@@ -27,6 +27,8 @@ namespace sampleplayer
 {
     class DASHPlayer : public IDASHPlayerGuiObserver, public libdash::framework::buffer::IBufferObserver
     {
+        Q_OBJECT
+
         public:
             DASHPlayer          (QtSamplePlayerGui& gui);
             virtual ~DASHPlayer ();
@@ -36,9 +38,7 @@ namespace sampleplayer
             virtual void OnStartButtonPressed   (QtSamplePlayerGui* widget);
             virtual void OnStopButtonPressed    (QtSamplePlayerGui* widget);
             virtual void OnCheckboxChanged      (QtSamplePlayerGui* widget, bool state);
-            virtual void OnBufferStateChanged(uint32_t fillstateInPercent);
-
-              
+            virtual void OnBufferStateChanged   (uint32_t fillstateInPercent);
 
         private:
             dash::IDASHManager                                  *manager;
@@ -48,6 +48,9 @@ namespace sampleplayer
             dash::mpd::IAdaptationSet                           *currentAdaptation;
             dash::mpd::IRepresentation                          *currentRepresentation;
             sampleplayer::managers::MultimediaManager           *multimediaManager;
+
+        signals:
+            void FillStateChanged(uint32_t fillStateInPercent);
 
     };
 }

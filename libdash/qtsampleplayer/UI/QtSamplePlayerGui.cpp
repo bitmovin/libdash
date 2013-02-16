@@ -27,6 +27,9 @@ QtSamplePlayerGui::QtSamplePlayerGui    (QWidget *parent)
     this->player.setVideoOutput(this->videoWidget);
     this->ui->videoLayout->addWidget(this->videoWidget);
 
+    this->ui->progressBar->setMaximum(100);
+    this->ui->progressBar->setMinimum(0);
+
     this->ui->button_stop->setEnabled(false);
 }
 QtSamplePlayerGui::~QtSamplePlayerGui   ()
@@ -63,8 +66,6 @@ void QtSamplePlayerGui::SetGuiFields                                    (dash::m
 }
 void QtSamplePlayerGui::SetBufferFillState                              (uint32_t percentage)
 {
-    this->ui->progressBar->setMaximum(100);
-    this->ui->progressBar->setMinimum(0);
     this->ui->progressBar->setValue(percentage);
 }
 void QtSamplePlayerGui::UpdateKeyValue                                  (const std::string& key, const std::string& value)

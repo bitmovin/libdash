@@ -29,9 +29,6 @@ namespace sampleplayer
             virtual void OnStartButtonPressed   (QtSamplePlayerGui* widget)                                                                                             = 0;
             virtual void OnStopButtonPressed    (QtSamplePlayerGui* widget)                                                                                             = 0;
             virtual void OnCheckboxChanged      (QtSamplePlayerGui* widget, bool state)                                                                                 = 0;
-
-        signals:
-            virtual void FillStateChanged(uint32_t fillStateInPercent);
     };
 }
 #endif /* IDASHPLAYERGUIOBSERVER_H_ */
