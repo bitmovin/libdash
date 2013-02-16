@@ -37,7 +37,7 @@ namespace sampleplayer
             virtual void OnURLChanged           (QtSamplePlayerGui* widget, const std::string& url);
             virtual void OnStartButtonPressed   (QtSamplePlayerGui* widget);
             virtual void OnStopButtonPressed    (QtSamplePlayerGui* widget);
-            virtual void OnCheckboxChanged      (QtSamplePlayerGui* widget, bool state);
+            virtual void OnCheckboxChanged      (QtSamplePlayerGui* widget, bool isAutomatic);
             virtual void OnBufferStateChanged   (uint32_t fillstateInPercent);
 
         private:
@@ -45,8 +45,8 @@ namespace sampleplayer
             dash::mpd::IMPD                                     *mpd;
             sampleplayer::renderer::QTGLRenderer                *videoElement;
             QtSamplePlayerGui                                   *gui;
-            dash::mpd::IAdaptationSet                           *currentAdaptation;
-            dash::mpd::IRepresentation                          *currentRepresentation;
+            dash::mpd::IAdaptationSet                           *videoAdaptationSet;
+            dash::mpd::IRepresentation                          *videoRepresentation;
             sampleplayer::managers::MultimediaManager           *multimediaManager;
 
         signals:
