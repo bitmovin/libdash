@@ -95,6 +95,5 @@ void DASHPlayer::OnURLChanged           (QtSamplePlayerGui* widget, const std::s
 }
 void DASHPlayer::OnBufferStateChanged   (uint32_t fillstateInPercent)
 {
-    //cout << "Buffer filled: " << fillstateInPercent << endl;
     emit FillStateChanged(fillstateInPercent);
 }
