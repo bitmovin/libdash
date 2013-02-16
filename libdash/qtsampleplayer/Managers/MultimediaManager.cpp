@@ -51,8 +51,9 @@ void MultimediaManager::Start                       ()
         {
             this->stream->Stop();
         }
-        delete this->stream;    
+        delete this->stream;
     }
+    this->videoLogic->SetPosition(0);
     this->stream = new MultimediaStream(this->videoAdaptationSet, this->videoLogic, 20, 0, 0);
     this->stream->AttachStreamObserver(this);
 
