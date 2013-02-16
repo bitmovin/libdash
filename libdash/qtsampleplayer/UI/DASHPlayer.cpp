@@ -34,6 +34,8 @@ DASHPlayer::DASHPlayer  (QtSamplePlayerGui& gui) :
 }
 DASHPlayer::~DASHPlayer ()
 {
+    this->multimediaManager->Stop();
+    delete(this->multimediaManager);
     delete(this->videoElement);
 }
 
