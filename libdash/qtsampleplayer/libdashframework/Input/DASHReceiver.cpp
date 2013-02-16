@@ -31,6 +31,7 @@ DASHReceiver::~DASHReceiver ()
 {
     this->Stop();
 }
+
 bool    DASHReceiver::Start                 ()
 {
     if(this->isDownloading)
@@ -85,6 +86,7 @@ void    DASHReceiver::Clear                 ()
 {
     this->buffer->Clear();
 }
+
 /* Thread that does the buffering of segments */
 void*   DASHReceiver::DoBuffering   (void *receiver)
 {

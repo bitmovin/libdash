@@ -114,7 +114,7 @@ void MultimediaStream::AttachStreamObserver (IStreamObserver *observer)
 {
     this->observers.push_back(observer);
 }
-void MultimediaStream::AttachBufferObserver   (libdash::framework::buffer::IBufferObserver *observer)
+void MultimediaStream::AttachBufferObserver (libdash::framework::buffer::IBufferObserver *observer)
 {
     this->receiver->AtachBufferObserver(observer);
 }

@@ -117,7 +117,7 @@ bool MultimediaManager::SetAudioAdaptationSet       (IAdaptationSet *adaptationS
     //MUST NOT BE IMPLEMENTED YET
     return false;
 }
-bool MultimediaManager::SetVideoRepresenation      (dash::mpd::IRepresentation *representation)
+bool MultimediaManager::SetVideoRepresenation       (dash::mpd::IRepresentation *representation)
 {
     ForcedLogic* logic = dynamic_cast<ForcedLogic*>(this->videoLogic);
     if(logic != NULL)
@@ -132,7 +132,7 @@ bool MultimediaManager::SetVideoRepresenation      (dash::mpd::IRepresentation *
     }
    
 }
-bool MultimediaManager::SetAudioRepresenation      (dash::mpd::IRepresentation *representation)
+bool MultimediaManager::SetAudioRepresenation       (dash::mpd::IRepresentation *representation)
 {
     ///MUST NOT BE IMPLEMENTED YET
     return false;

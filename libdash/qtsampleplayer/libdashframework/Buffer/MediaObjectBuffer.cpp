@@ -121,7 +121,7 @@ void            MediaObjectBuffer::Clear            ()
 {
     EnterCriticalSection(&this->monitorMutex);
 
-    int size = this->mediaobjects.size()-1;
+    int size = this->mediaobjects.size() - 1;
 
     MediaObject* object = this->mediaobjects.front();
     this->mediaobjects.pop();
