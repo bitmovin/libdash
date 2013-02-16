@@ -31,7 +31,7 @@ DASHPlayer::DASHPlayer  (QtSamplePlayerGui& gui) :
 
     this->OnURLChanged(NULL, this->gui->GetUrl());
 
-    QObject::connect(this, SIGNAL(FillStateChanged(uint32_t)), &gui, SLOT(SetBufferFillState(uint32_t)));
+    QObject::connect(this, SIGNAL(FillStateChanged(int)), &gui, SLOT(SetBufferFillState(int)));
 }
 DASHPlayer::~DASHPlayer ()
 {

@@ -55,7 +55,7 @@ namespace sampleplayer
 
 
         public slots:
-            virtual void    SetBufferFillState      (uint32_t percentage);
+            virtual void    SetBufferFillState      (int percentage);
 
         private:
             std::map<std::string, std::string>                  keyValues;

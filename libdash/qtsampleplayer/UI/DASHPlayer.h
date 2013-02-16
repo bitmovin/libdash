@@ -50,7 +50,7 @@ namespace sampleplayer
             sampleplayer::managers::MultimediaManager           *multimediaManager;
 
         signals:
-            void FillStateChanged(uint32_t fillStateInPercent);
+            void FillStateChanged(int fillStateInPercent);
 
     };
 }

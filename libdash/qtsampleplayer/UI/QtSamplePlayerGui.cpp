@@ -64,7 +64,7 @@ void QtSamplePlayerGui::SetGuiFields                                    (dash::m
     this->mpd = mpd;
     this->setEnabled(true);
 }
-void QtSamplePlayerGui::SetBufferFillState                              (uint32_t percentage)
+void QtSamplePlayerGui::SetBufferFillState                              (int percentage)
 {
     this->ui->progressBar->setValue(percentage);
 }
