@@ -89,9 +89,6 @@
     <ClCompile Include="UI\DASHPlayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="libdashframework\Adaptation\ForcedLogic.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="libdashframework\Adaptation\AbstractAdaptationLogic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -106,6 +103,9 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_DASHPlayer.cpp">
       <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="libdashframework\Adaptation\ManualAdaptation.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -177,10 +177,10 @@
     <ClInclude Include="Decoder\IAudioObserver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libdashframework\Adaptation\ForcedLogic.h">
+    <ClInclude Include="libdashframework\Adaptation\AbstractAdaptationLogic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libdashframework\Adaptation\AbstractAdaptationLogic.h">
+    <ClInclude Include="libdashframework\Adaptation\ManualAdaptation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

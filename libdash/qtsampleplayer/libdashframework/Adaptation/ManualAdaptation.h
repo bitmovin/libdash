@@ -1,7 +1,7 @@
 /*
- * ForcedLogic.h
+ * ManualAdaptation.h
  *****************************************************************************
- * Copyright (C) 2012, bitmovin Softwareentwicklung OG, All Rights Reserved
+ * Copyright (C) 2013, bitmovin Softwareentwicklung OG, All Rights Reserved
  *
  * Email: libdash-dev@vicky.bitmovin.net
  *
@@ -21,11 +21,11 @@ namespace libdash
     {
         namespace adaptation
         {
-            class ForcedLogic : public AbstractAdaptationLogic
+            class ManualAdaptation : public AbstractAdaptationLogic
             {
                 public:
-                    ForcedLogic             (dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd);
-                    virtual ~ForcedLogic    ();
+                    ManualAdaptation            (dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd);
+                    virtual ~ManualAdaptation   ();
 
                     virtual MediaObject*    GetSegment          ();
                     virtual uint32_t        GetPosition         ();

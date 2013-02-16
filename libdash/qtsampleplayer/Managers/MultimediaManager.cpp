@@ -10,7 +10,7 @@
  *****************************************************************************/
 
 #include "MultimediaManager.h"
-#include "../libdashframework/Adaptation/ForcedLogic.h"
+#include "../libdashframework/Adaptation/ManualAdaptation.h"
 #include "../libdashframework/Adaptation/AlwaysLowestLogic.h"
 
 using namespace libdash::framework::adaptation;
@@ -86,18 +86,10 @@ bool MultimediaManager::SetAudioAdaptationSet       (IAdaptationSet *adaptationS
 }
 bool MultimediaManager::SetVideoRepresenation       (dash::mpd::IRepresentation *representation)
 {
-    ForcedLogic* logic = dynamic_cast<ForcedLogic*>(this->videoLogic);
-    if(logic != NULL)
-    {
-         this->stream->Clear();
-         logic->SetRepresentation(representation);
-         return true;
-    }
-    else
-    {
-        return false;
-    }
-   
+    this->stream->Clear();
+    this->videoLogic->SetRepresentation(representation);
+
+    return true;
 }
 bool MultimediaManager::SetAudioRepresenation       (dash::mpd::IRepresentation *representation)
 {

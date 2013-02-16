@@ -20,7 +20,7 @@
 #include "../Renderer/QTGLRenderer.h"
 #include "../Managers/MultimediaManager.h"
 #include "../libdashframework/Adaptation/AlwaysLowestLogic.h"
-#include "../libdashframework/Adaptation/ForcedLogic.h"
+#include "../libdashframework/Adaptation/ManualAdaptation.h"
 #include "../libdashframework/Buffer/IBufferObserver.h"
 
 namespace sampleplayer

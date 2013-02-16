@@ -53,7 +53,7 @@ void DASHPlayer::OnCheckboxChanged      (QtSamplePlayerGui* widget, bool state)
     }
     else
     {
-        this->multimediaManager->SetVideoAdaptationLogic(new ForcedLogic(this->currentAdaptation, this->mpd));
+        this->multimediaManager->SetVideoAdaptationLogic(new ManualAdaptation(this->currentAdaptation, this->mpd));
     }
 }
 void DASHPlayer::OnSettingsChanged      (QtSamplePlayerGui* widget, int video_adaption, int video_representation, int audio_adaption, int audio_representation)
@@ -86,7 +86,7 @@ void DASHPlayer::OnURLChanged           (QtSamplePlayerGui* widget, const std::s
         this->currentAdaptation = this->mpd->GetPeriods().at(0)->GetAdaptationSets().at(0);
         this->currentRepresentation = this->currentAdaptation->GetRepresentation().at(0);
         this->multimediaManager->SetVideoAdaptationSet(this->currentAdaptation);
-        this->multimediaManager->SetVideoAdaptationLogic(new ForcedLogic(this->currentAdaptation, this->mpd));
+        this->multimediaManager->SetVideoAdaptationLogic(new ManualAdaptation(this->currentAdaptation, this->mpd));
     }
     else
     {
