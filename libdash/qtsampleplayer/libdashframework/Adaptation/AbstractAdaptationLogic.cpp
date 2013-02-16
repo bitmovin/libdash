@@ -14,21 +14,21 @@
 using namespace libdash::framework::adaptation;
 using namespace dash::mpd;
 
-AbstractAdaptationLogic::AbstractAdaptationLogic                         (dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd, uint32_t startSegment) : 
-            mpd(mpd), 
-            adaptationSet(adaptationSet),
-            segmentNumber(startSegment)
+AbstractAdaptationLogic::AbstractAdaptationLogic    (dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd)
 {
 }
-AbstractAdaptationLogic::~AbstractAdaptationLogic                        () 
+AbstractAdaptationLogic::~AbstractAdaptationLogic   ()
 {
 
 }
-uint32_t     AbstractAdaptationLogic::GetSegmentNumber           ()
+
+uint32_t    AbstractAdaptationLogic::GetPosition         ()
 {
-    return this->segmentNumber;
+    return 0;
 }
-void         AbstractAdaptationLogic::SetSegmentNumber           (uint32_t segmentNumber)
+void        AbstractAdaptationLogic::SetPosition         (uint32_t segmentNumber)
 {
-    this->segmentNumber = segmentNumber;
+}
+void        AbstractAdaptationLogic::SetRepresentation   (dash::mpd::IRepresentation *representation)
+{
 }

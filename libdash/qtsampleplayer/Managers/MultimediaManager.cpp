@@ -70,7 +70,7 @@ void MultimediaManager::Stop                        ()
     this->run = false;
 }
 
-bool MultimediaManager::SetVideoAdaptationSet       (IAdaptationSet *adaptationSet, IMPD *mpd)
+bool MultimediaManager::SetVideoAdaptationSet       (IAdaptationSet *adaptationSet)
 {
     //Steps:
      // Init new DASHReceiver and decoder 
@@ -78,41 +78,9 @@ bool MultimediaManager::SetVideoAdaptationSet       (IAdaptationSet *adaptationS
      // Download segment according to last segment of other adaptationset
      
     this->videoAdaptationSet = adaptationSet;
-    if(this->videoLogic == NULL)
-    {
-        this->videoLogic = new ForcedLogic(adaptationSet, mpd, 0);
-    } 
-    else 
-    {
-        if(this->run)
-        {
-            this->stream->Stop();
-        }
-        ForcedLogic* flogic = dynamic_cast<ForcedLogic*>(this->videoLogic);
-        AlwaysLowestLogic* alogic = dynamic_cast<AlwaysLowestLogic*>(this->videoLogic);
-
-        if(flogic != NULL)
-        {
-            delete this->videoLogic;
-            this->videoLogic = new ForcedLogic(adaptationSet, mpd, flogic->GetSegmentNumber());
-        }
-        else if(alogic != NULL)
-        {
-            delete this->videoLogic;
-            this->videoLogic = new AlwaysLowestLogic(adaptationSet, mpd, alogic->GetSegmentNumber());
-        }
-        else
-        {
-            return false;
-        }
-        if(this->run)
-        {
-            this->Start();
-        }
-    }
     return true;
 }
-bool MultimediaManager::SetAudioAdaptationSet       (IAdaptationSet *adaptationSet, IMPD* mpd)
+bool MultimediaManager::SetAudioAdaptationSet       (IAdaptationSet *adaptationSet)
 {
     //MUST NOT BE IMPLEMENTED YET
     return false;
@@ -139,21 +107,7 @@ bool MultimediaManager::SetAudioRepresenation       (dash::mpd::IRepresentation 
 }
 bool MultimediaManager::SetVideoAdaptationLogic     (IAdaptationLogic *logic)
 {
-    if(this->run)
-    {
-        this->stream->Stop();
-    }
-
-    if(this->videoLogic != NULL)
-    {
-        logic->SetSegmentNumber(this->videoLogic->GetSegmentNumber());
-        delete this->videoLogic; 
-    }
     this->videoLogic = logic;
-    if(this->run)
-    {
-        this->Start();
-    }
     return true;
 }
 bool MultimediaManager::SetAudioAdaptationLogic     (IAdaptationLogic *logic)

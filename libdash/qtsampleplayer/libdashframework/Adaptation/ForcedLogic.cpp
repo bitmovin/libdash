@@ -3,38 +3,48 @@
 using namespace dash::mpd;
 using namespace libdash::framework::adaptation;
 
-ForcedLogic::ForcedLogic                                (dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd, uint32_t startSegment) : 
-                                        AbstractAdaptationLogic(adaptationSet, mpd, startSegment)
+ForcedLogic::ForcedLogic                (dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd) : 
+             AbstractAdaptationLogic    (adaptationSet, mpd),
+             adaptationSet              (adaptationSet),
+             mpd                        (mpd),
+             segmentNumber              (0)
 {
     this->baseurls.push_back(this->mpd->GetBaseUrls().at(0));
-    this->currentRep = this->adaptationSet->GetRepresentation().at(0);
-    this->needInitSegment = true;
+    this->representation = this->adaptationSet->GetRepresentation().at(0);
 }
-ForcedLogic::       ~ForcedLogic                        (void)
+ForcedLogic::~ForcedLogic               ()
 {
 }
+
 MediaObject*        ForcedLogic::GetSegment             ()
 {
     ISegment *seg = NULL;
 
-    if(this->segmentNumber >= this->currentRep->GetSegmentList()->GetSegmentURLs().size() + 1)
+    if(this->segmentNumber >= this->representation->GetSegmentList()->GetSegmentURLs().size() + 1)
         return NULL;
 
-    if(this->needInitSegment)
+    if(this->segmentNumber == 0)
     {
-        this->needInitSegment = false;
-        seg = this->currentRep->GetSegmentBase()->GetInitialization()->ToSegment(this->baseurls);
+        seg = this->representation->GetSegmentBase()->GetInitialization()->ToSegment(this->baseurls);
     }   
     else
     {
-        seg = this->currentRep->GetSegmentList()->GetSegmentURLs().at(this->segmentNumber - 1)->ToMediaSegment(this->baseurls);
+        seg = this->representation->GetSegmentList()->GetSegmentURLs().at(this->segmentNumber - 1)->ToMediaSegment(this->baseurls);
     }
     
-    MediaObject *media = new MediaObject(seg, this->currentRep);
+    MediaObject *media = new MediaObject(seg, this->representation);
     this->segmentNumber++;
     return media;
 }
-void                ForcedLogic::SetRepresentation      (dash::mpd::IRepresentation* newRepresentation)
+uint32_t            ForcedLogic::GetPosition            ()
 {
-    this->currentRep = newRepresentation;
+    return this->segmentNumber;
+}
+void                ForcedLogic::SetPosition            (uint32_t segmentNumber)
+{
+    this->segmentNumber = segmentNumber;
+}
+void                ForcedLogic::SetRepresentation      (dash::mpd::IRepresentation *representation)
+{
+    this->representation = representation;
 }

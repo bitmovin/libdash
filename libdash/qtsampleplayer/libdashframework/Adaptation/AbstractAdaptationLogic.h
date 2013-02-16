@@ -24,18 +24,13 @@ namespace libdash
             class AbstractAdaptationLogic : public IAdaptationLogic
             {
                 public:
-                    AbstractAdaptationLogic                         (dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd, uint32_t startSegment);
-                    virtual ~AbstractAdaptationLogic                ();
+                    AbstractAdaptationLogic             (dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd);
+                    virtual ~AbstractAdaptationLogic    ();
 
-                    virtual uint32_t     GetSegmentNumber           ();
-                    virtual void         SetSegmentNumber           (uint32_t segmentNumber);
-
-            protected:
-                    dash::mpd::IAdaptationSet           *adaptationSet;
-                    dash::mpd::IMPD                     *mpd;
-                    dash::mpd::IRepresentation          *currentRep;
-                    std::vector<dash::mpd::IBaseUrl *>  baseurls;
-                    uint32_t                            segmentNumber;
+                    virtual uint32_t        GetPosition         ();
+                    virtual void            SetPosition         (uint32_t segmentNumber);
+                    virtual void            SetRepresentation   (dash::mpd::IRepresentation *representation);
+                    virtual MediaObject*    GetSegment          () = 0;
             };
         }
     }

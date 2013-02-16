@@ -34,8 +34,8 @@ namespace sampleplayer
                 void OnVideoFrameAvailable  (const QImage& image, dash::mpd::IAdaptationSet *adaptationSet);
                 void OnAudioSampleAvailable ();
                 
-                bool SetVideoAdaptationSet      (dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD* mpd);
-                bool SetAudioAdaptationSet      (dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD* mpd);
+                bool SetVideoAdaptationSet      (dash::mpd::IAdaptationSet *adaptationSet);
+                bool SetAudioAdaptationSet      (dash::mpd::IAdaptationSet *adaptationSet);
 
                 bool SetVideoRepresenation      (dash::mpd::IRepresentation *representation);
                 bool SetAudioRepresenation      (dash::mpd::IRepresentation *representation);

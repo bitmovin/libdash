@@ -25,10 +25,9 @@ DASHPlayer::DASHPlayer  (QtSamplePlayerGui& gui) :
     this->manager           = CreateDashManager();
     this->videoElement      = new QTGLRenderer(this->gui);
     this->multimediaManager = new MultimediaManager(this->videoElement);
+
     this->multimediaManager->AttachVideoBufferObserver(this);
-
     this->gui->AddWidgetObserver(this);
-
     this->OnURLChanged(NULL, this->gui->GetUrl());
 
     QObject::connect(this, SIGNAL(FillStateChanged(int)), &gui, SLOT(SetBufferFillState(int)));
@@ -40,7 +39,7 @@ DASHPlayer::~DASHPlayer ()
 
 void DASHPlayer::OnStartButtonPressed   (QtSamplePlayerGui* widget)
 {
-    this->multimediaManager->Start(); 
+    this->multimediaManager->Start();
 }
 void DASHPlayer::OnStopButtonPressed    (QtSamplePlayerGui* widget)
 {
@@ -50,11 +49,11 @@ void DASHPlayer::OnCheckboxChanged      (QtSamplePlayerGui* widget, bool state)
 {
     if(state)
     {
-        this->multimediaManager->SetVideoAdaptationLogic(new AlwaysLowestLogic(this->currentAdaptation, this->mpd, 0));
+        this->multimediaManager->SetVideoAdaptationLogic(new AlwaysLowestLogic(this->currentAdaptation, this->mpd));
     }
     else
     {
-        this->multimediaManager->SetVideoAdaptationLogic(new ForcedLogic(this->currentAdaptation, this->mpd, 0));
+        this->multimediaManager->SetVideoAdaptationLogic(new ForcedLogic(this->currentAdaptation, this->mpd));
     }
 }
 void DASHPlayer::OnSettingsChanged      (QtSamplePlayerGui* widget, int video_adaption, int video_representation, int audio_adaption, int audio_representation)
@@ -73,7 +72,7 @@ void DASHPlayer::OnSettingsChanged      (QtSamplePlayerGui* widget, int video_ad
     else
     {
         this->currentAdaptation = newAdaptionSet;
-        this->multimediaManager->SetVideoAdaptationSet(newAdaptionSet, this->mpd);
+        this->multimediaManager->SetVideoAdaptationSet(newAdaptionSet);
     }
 }
 void DASHPlayer::OnURLChanged           (QtSamplePlayerGui* widget, const std::string& url)
@@ -86,7 +85,8 @@ void DASHPlayer::OnURLChanged           (QtSamplePlayerGui* widget, const std::s
 
         this->currentAdaptation = this->mpd->GetPeriods().at(0)->GetAdaptationSets().at(0);
         this->currentRepresentation = this->currentAdaptation->GetRepresentation().at(0);
-        this->multimediaManager->SetVideoAdaptationSet(this->currentAdaptation, this->mpd);
+        this->multimediaManager->SetVideoAdaptationSet(this->currentAdaptation);
+        this->multimediaManager->SetVideoAdaptationLogic(new ForcedLogic(this->currentAdaptation, this->mpd));
     }
     else
     {
