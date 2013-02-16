@@ -69,7 +69,6 @@ void MultimediaManager::Stop                        ()
     this->stream->Stop();
     this->run = false;
 }
-
 bool MultimediaManager::SetVideoAdaptationSet       (IAdaptationSet *adaptationSet)
 {
     //Steps:
