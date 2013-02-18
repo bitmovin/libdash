@@ -55,6 +55,9 @@ bool    MultimediaManager::Init                         (const std::string& url)
     if(this->mpd == NULL)
         return false;
 
+    this->videoAdaptationSet = this->mpd->GetPeriods().at(0)->GetAdaptationSets().at(0);
+    this->videoRepresentation = this->videoAdaptationSet->GetRepresentation().at(0);
+
     return true;
 }
 void    MultimediaManager::Start                        ()
