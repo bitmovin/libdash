@@ -23,7 +23,7 @@ MultimediaManager::MultimediaManager    (QTGLRenderer *videoelement) :
                    videoelement         (videoelement),
                    videoAdaptationSet   (NULL),
                    videoLogic           (NULL),
-                   stream               (NULL),
+                   videoStream          (NULL),
                    run                  (false)
 {
     /* This class manages the download and decocding process
@@ -45,30 +45,30 @@ void MultimediaManager::OnAudioSampleAvailable      ()
 void MultimediaManager::Start                       ()
 {
     /* Global Start button for start must be added to interface*/
-    if(this->stream != NULL)
+    if(this->videoStream != NULL)
     {
         if(this->run)
         {
-            this->stream->Stop();
+            this->videoStream->Stop();
         }
-        delete this->stream;
+        delete this->videoStream;
     }
     this->videoLogic->SetPosition(0);
-    this->stream = new MultimediaStream(this->videoAdaptationSet, this->videoLogic, 20, 0, 0);
-    this->stream->AttachStreamObserver(this);
+    this->videoStream = new MultimediaStream(this->videoAdaptationSet, this->videoLogic, 20, 0, 0);
+    this->videoStream->AttachStreamObserver(this);
 
-    for(int i=0; i < this->videoBufferObserver.size(); i++)
+    for(int i=0; i < this->videoBufferObservers.size(); i++)
     {
-        this->stream->AttachBufferObserver(this->videoBufferObserver.at(i));
+        this->videoStream->AttachBufferObserver(this->videoBufferObservers.at(i));
     }
 
-    this->stream->Start();
+    this->videoStream->Start();
     this->run = true;
 }
 void MultimediaManager::Stop                        ()
 {
-    if(this->stream)
-        this->stream->Stop();
+    if(this->videoStream)
+        this->videoStream->Stop();
 
     this->run = false;
 }
@@ -89,7 +89,7 @@ bool MultimediaManager::SetAudioAdaptationSet       (IAdaptationSet *adaptationS
 }
 bool MultimediaManager::SetVideoRepresenation       (dash::mpd::IRepresentation *representation)
 {
-    this->stream->Clear();
+    this->videoStream->Clear();
     this->videoLogic->SetRepresentation(representation);
 
     return true;
@@ -119,11 +119,7 @@ void MultimediaManager::NotifyAudioObservers        ()
 }
 void MultimediaManager::AttachVideoBufferObserver   (IBufferObserver *videoBufferObserver)
 {
-    this->videoBufferObserver.push_back(videoBufferObserver);
-    if(this->stream != NULL)
-    {
-        this->stream->AttachBufferObserver(videoBufferObserver);
-    }
+    this->videoBufferObservers.push_back(videoBufferObserver);
 }
 void MultimediaManager::AttachAudioBufferObserver   (IBufferObserver *audioBufferObserver)
 {

@@ -53,12 +53,12 @@ namespace sampleplayer
                 void NotifyAudioBufferObservers ();
 
             private:
-                renderer::QTGLRenderer                              *videoelement;
-                dash::mpd::IAdaptationSet                           *videoAdaptationSet;
-                libdash::framework::adaptation::IAdaptationLogic    *videoLogic;
-                MultimediaStream                                    *stream;
-                std::vector<libdash::framework::buffer::IBufferObserver*> videoBufferObserver;                 
-                bool                                                run;
+                renderer::QTGLRenderer                                      *videoelement;
+                dash::mpd::IAdaptationSet                                   *videoAdaptationSet;
+                libdash::framework::adaptation::IAdaptationLogic            *videoLogic;
+                MultimediaStream                                            *videoStream;
+                std::vector<libdash::framework::buffer::IBufferObserver* >  videoBufferObservers;
+                bool                                                        run;
         };
     }
 }
