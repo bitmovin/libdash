@@ -20,12 +20,9 @@ using namespace sampleplayer;
 using namespace dash::mpd;
 
 QtSamplePlayerGui::QtSamplePlayerGui    (QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::QtSamplePlayerClass), player(0, QMediaPlayer::VideoSurface)
+    : QMainWindow(parent), ui(new Ui::QtSamplePlayerClass)
 {
     this->ui->setupUi(this);
-    this->videoWidget = new QVideoWidget();
-    this->player.setVideoOutput(this->videoWidget);
-    this->ui->videoLayout->addWidget(this->videoWidget);
 
     this->ui->progressBar->setMaximum(100);
     this->ui->progressBar->setMinimum(0);

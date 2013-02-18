@@ -62,8 +62,6 @@ namespace sampleplayer
             std::map<std::string, std::vector<std::string> >    audio;
 
             Ui::QtSamplePlayerClass                 *ui;
-            QVideoWidget                            *videoWidget;
-            QMediaPlayer                            player;
             std::vector<IDASHPlayerGuiObserver*>    observer;
             dash::mpd::IMPD                         *mpd;
 

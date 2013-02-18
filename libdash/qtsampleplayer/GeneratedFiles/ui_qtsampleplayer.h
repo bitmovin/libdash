@@ -145,7 +145,7 @@ public:
 
         cb_video_representation = new QComboBox(w_boxes);
         cb_video_representation->setObjectName(QStringLiteral("cb_video_representation"));
-        cb_video_representation->setMinimumSize(QSize(150, 0));
+        cb_video_representation->setMinimumSize(QSize(200, 0));
 
         verticalLayout_2->addWidget(cb_video_representation);
 
