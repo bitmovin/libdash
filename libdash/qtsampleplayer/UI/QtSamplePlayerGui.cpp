@@ -54,8 +54,10 @@ void            QtSamplePlayerGui::SetGuiFields                                 
         IAdaptationSet* adaptationSet = adaptationSets.at(i);
         QString str(adaptationSet->GetContentType().c_str());
         this->ui->cb_video_adaption->addItem(str);
-        this->updateRepresentation(adaptationSet, this->ui->cb_video_representation);
+       
     }
+
+    this->updateRepresentation(adaptationSets.at(0), this->ui->cb_video_representation);
 
     /* Disabled Audio
     {
