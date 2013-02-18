@@ -47,20 +47,21 @@ void        QtSamplePlayerGui::SetGuiFields                                     
 
     this->setEnabled(false);
 
-    std::vector<IAdaptationSet*> adaptations = mpd->GetPeriods().at(0)->GetAdaptationSets();
-    IAdaptationSet* adaptation = adaptations.at(0);
-    QString str("ID: " + adaptation->GetId());
+    std::vector<IAdaptationSet*> adaptationSets = mpd->GetPeriods().at(0)->GetAdaptationSets();
 
-    if(true)        //TODO: distinguish between audio and video
+    for(size_t i = 0; i < adaptationSets.size(); i++)
     {
+        IAdaptationSet* adaptationSet = adaptationSets.at(i);
+        QString str(adaptationSet->GetContentType().c_str());
         this->ui->cb_video_adaption->addItem(str);
-        this->updateRepresentation(adaptation,this->ui->cb_video_representation);
+        this->updateRepresentation(adaptationSet, this->ui->cb_video_representation);
     }
-    else
+
+    /* Disabled Audio
     {
         this->ui->cb_audio_adaption->addItem(str);
         this->updateRepresentation(adaptation,this->ui->cb_audio_representation);
-    }
+    }*/
     this->mpd = mpd;
     this->setEnabled(true);
 }
@@ -219,7 +220,7 @@ void        QtSamplePlayerGui::updateRepresentation                             
     {
         IRepresentation* representation = represenations.at(j);
         std::stringstream ss;
-        ss << representation->GetId() << " " << representation->GetBandwidth() << "kbps "  << representation->GetWidth() << "/" << representation->GetHeight();
+        ss << representation->GetId() << " " << representation->GetBandwidth() << "kbps "  << representation->GetWidth() << "x" << representation->GetHeight();
         QString str2(ss.str().c_str());
         cb->addItem(str2);
     }
