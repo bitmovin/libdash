@@ -55,6 +55,7 @@ void DASHPlayer::OnSettingsChanged      (QtSamplePlayerGui* widget, int video_ad
         return; // TODO dialog or symbol that indicates that error
 
     IPeriod *currentPeriod = this->multimediaManager->GetMPD()->GetPeriods().at(0);
+
     this->multimediaManager->SetVideoAdaptationSet(currentPeriod->GetAdaptationSets().at(video_adaption));
     this->multimediaManager->SetVideoRepresenation(currentPeriod->GetAdaptationSets().at(video_adaption)->GetRepresentation().at(video_representation));
 }

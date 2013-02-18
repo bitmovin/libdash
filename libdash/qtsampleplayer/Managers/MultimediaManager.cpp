@@ -19,10 +19,13 @@ using namespace sampleplayer::managers;
 using namespace sampleplayer::renderer;
 using namespace dash::mpd;
 
+#define SEGMENTBUFFER_SIZE 20
+
 MultimediaManager::MultimediaManager    (QTGLRenderer *videoelement) :
                    videoelement         (videoelement),
                    mpd                  (NULL),
                    videoAdaptationSet   (NULL),
+                   videoRepresentation  (NULL),
                    videoLogic           (NULL),
                    videoStream          (NULL),
                    run                  (false)
@@ -57,42 +60,43 @@ bool    MultimediaManager::Init                         (const std::string& url)
 void    MultimediaManager::Start                        ()
 {
     /* Global Start button for start must be added to interface*/
-    if(this->videoStream != NULL)
+    if(this->run)
     {
-        if(this->run)
-        {
-            this->videoStream->Stop();
-        }
-        delete this->videoStream;
+        this->Stop();
     }
-    this->videoLogic = new ManualAdaptation(this->videoAdaptationSet, this->mpd);
-    this->videoLogic->SetPosition(0);
-    this->videoStream = new MultimediaStream(this->videoAdaptationSet, this->videoLogic, 20, 0, 0);
-    this->videoStream->AttachStreamObserver(this);
-
-    for(int i=0; i < this->videoBufferObservers.size(); i++)
-    {
-        this->videoStream->AttachBufferObserver(this->videoBufferObservers.at(i));
-    }
+    
+    this->InitChain(0);
 
     this->videoStream->Start();
     this->run = true;
 }
 void    MultimediaManager::Stop                         ()
 {
-    if(this->videoStream)
+    if(this->run)
+    {
         this->videoStream->Stop();
-
+        delete this->videoStream;
+        delete this->videoLogic;
+        this->videoStream = NULL;
+        this->videoLogic = NULL;
+    }
     this->run = false;
 }
 bool    MultimediaManager::SetVideoAdaptationSet        (IAdaptationSet *adaptationSet)
 {
-    //Steps:
-     // Init new DASHReceiver and decoder 
-     // Download Init segment
-     // Download segment according to last segment of other adaptationset
-     
-    this->videoAdaptationSet = adaptationSet;
+
+    if(this->videoAdaptationSet != adaptationSet)
+    {
+        this->videoAdaptationSet = adaptationSet;
+        if(this->run)
+        {
+            int position = this->videoLogic->GetPosition();
+            this->Stop();
+        
+            this->InitChain(position);
+            this->videoStream->Start();
+        }
+    }
     return true;
 }
 bool    MultimediaManager::SetAudioAdaptationSet        (IAdaptationSet *adaptationSet)
@@ -102,9 +106,12 @@ bool    MultimediaManager::SetAudioAdaptationSet        (IAdaptationSet *adaptat
 }
 bool    MultimediaManager::SetVideoRepresenation        (dash::mpd::IRepresentation *representation)
 {
-    this->videoStream->Clear();
-    this->videoLogic->SetRepresentation(representation);
-
+    if(this->run && representation != this->videoRepresentation)
+    {
+        this->videoStream->Clear();
+        this->videoLogic->SetRepresentation(representation);
+    }
+    this->videoRepresentation = representation;
     return true;
 }
 bool    MultimediaManager::SetAudioRepresenation        (dash::mpd::IRepresentation *representation)
@@ -114,6 +121,7 @@ bool    MultimediaManager::SetAudioRepresenation        (dash::mpd::IRepresentat
 }
 bool    MultimediaManager::SetVideoAdaptationLogic      (libdash::framework::adaptation::LogicType type)
 {
+    //Currently unused, always using ManualAdaptation.
     return true;
 }
 bool    MultimediaManager::SetAudioAdaptationLogic      (libdash::framework::adaptation::LogicType type)
@@ -141,4 +149,18 @@ void    MultimediaManager::NotifyVideoBufferObservers   ()
 }
 void    MultimediaManager::NotifyAudioBufferObservers   ()
 {
+}
+void    MultimediaManager::InitChain                    (uint32_t position)
+{
+    this->videoLogic = new ManualAdaptation(this->videoAdaptationSet, this->mpd);
+    this->videoLogic->SetPosition(position);
+    this->videoLogic->SetRepresentation(this->videoRepresentation);
+
+    this->videoStream = new MultimediaStream(this->videoAdaptationSet, this->videoLogic, SEGMENTBUFFER_SIZE, 0, 0);
+    this->videoStream->AttachStreamObserver(this);
+
+    for(int i=0; i < this->videoBufferObservers.size(); i++)
+    {
+        this->videoStream->AttachBufferObserver(this->videoBufferObservers.at(i));
+    }
 }

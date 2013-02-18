@@ -106,8 +106,8 @@ void            QtSamplePlayerGui::on_cb_video_adaption_currentIndexChanged     
         this->ui->cb_video_representation->clear();
         int index = this->ui->cb_video_adaption->currentIndex();
         this->updateRepresentation(this->mpd->GetPeriods()[0]->GetAdaptationSets()[index], this->ui->cb_video_representation);
-        this->settingsChanged();
         this->setEnabled(true);
+        this->settingsChanged();
     }
 }
 void            QtSamplePlayerGui::on_cb_video_representation_currentIndexChanged   (const QString &arg1)

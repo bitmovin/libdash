@@ -59,10 +59,13 @@ namespace sampleplayer
                 dash::mpd::IMPD                                             *mpd;
                 renderer::QTGLRenderer                                      *videoelement;
                 dash::mpd::IAdaptationSet                                   *videoAdaptationSet;
+                dash::mpd::IRepresentation                                  *videoRepresentation;
                 libdash::framework::adaptation::IAdaptationLogic            *videoLogic;
                 MultimediaStream                                            *videoStream;
                 std::vector<libdash::framework::buffer::IBufferObserver* >  videoBufferObservers;
                 bool                                                        run;
+
+                void InitChain                  (uint32_t position);
         };
     }
 }
