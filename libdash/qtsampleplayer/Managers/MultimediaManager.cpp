@@ -67,7 +67,9 @@ void MultimediaManager::Start                       ()
 }
 void MultimediaManager::Stop                        ()
 {
-    this->stream->Stop();
+    if(this->stream)
+        this->stream->Stop();
+
     this->run = false;
 }
 bool MultimediaManager::SetVideoAdaptationSet       (IAdaptationSet *adaptationSet)
