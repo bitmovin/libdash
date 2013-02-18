@@ -21,14 +21,13 @@ using namespace dash::mpd;
 
 MultimediaManager::MultimediaManager    (QTGLRenderer *videoelement) :
                    videoelement         (videoelement),
+                   mpd                  (NULL),
                    videoAdaptationSet   (NULL),
                    videoLogic           (NULL),
                    videoStream          (NULL),
                    run                  (false)
 {
-    /* This class manages the download and decocding process
-     * Note multiple downloading/decoding threads must be handled in parallel when switching between adaptationsets or when audio and video is separated
-     */
+    this->manager = CreateDashManager();
 }
 MultimediaManager::~MultimediaManager   ()
 {
@@ -41,6 +40,15 @@ void MultimediaManager::OnVideoFrameAvailable       (const QImage& image, dash::
 }
 void MultimediaManager::OnAudioSampleAvailable      ()
 {
+}
+bool MultimediaManager::Init                        (const std::string& url)
+{
+    this->mpd = this->manager->Open((char*)url.c_str());
+    
+    if(this->mpd == NULL)
+        return false;
+
+    return true;
 }
 void MultimediaManager::Start                       ()
 {

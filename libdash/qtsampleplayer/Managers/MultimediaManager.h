@@ -28,6 +28,7 @@ namespace sampleplayer
                 MultimediaManager           (renderer::QTGLRenderer *videoelement);
                 virtual ~MultimediaManager  ();
 
+                bool Init   (const std::string& url);
                 void Start  ();
                 void Stop   ();
 
@@ -53,6 +54,8 @@ namespace sampleplayer
                 void NotifyAudioBufferObservers ();
 
             private:
+                dash::IDASHManager                                          *manager;
+                dash::mpd::IMPD                                             *mpd;
                 renderer::QTGLRenderer                                      *videoelement;
                 dash::mpd::IAdaptationSet                                   *videoAdaptationSet;
                 libdash::framework::adaptation::IAdaptationLogic            *videoLogic;
