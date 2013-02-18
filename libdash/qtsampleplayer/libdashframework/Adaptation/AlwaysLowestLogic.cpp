@@ -40,14 +40,22 @@ MediaObject*    AlwaysLowestLogic::GetSegment   ()
     if(this->segmentNumber >= this->representation->GetSegmentList()->GetSegmentURLs().size() + 1)
         return NULL;
 
-    if(this->segmentNumber == 0)
+    if(this->segmentNumber == 0 || this->invokeInitSegment)
+    {
         seg = this->representation->GetSegmentBase()->GetInitialization()->ToSegment(this->baseurls);
+        this->invokeInitSegment = false;
+    }
     else
+    {
         seg = this->representation->GetSegmentList()->GetSegmentURLs().at(this->segmentNumber - 1)->ToMediaSegment(this->baseurls);
-
+    }
     MediaObject *media = new MediaObject(seg, this->representation);
 
     this->segmentNumber++;
 
     return media;
+}
+void            AlwaysLowestLogic::InvokeInitSegment   (bool invoke)
+{
+    this->invokeInitSegment = invoke;
 }

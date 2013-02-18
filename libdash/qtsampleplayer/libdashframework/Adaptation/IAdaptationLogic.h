@@ -36,6 +36,7 @@ namespace libdash
                     virtual uint32_t        GetPosition         ()                                              = 0;
                     virtual void            SetPosition         (uint32_t segmentNumber)                        = 0;
                     virtual void            SetRepresentation   (dash::mpd::IRepresentation *representation)    = 0;
+                    virtual void            InvokeInitSegment   (bool invoke)                                   = 0;
                     virtual LogicType       GetType             ()                                              = 0;
             };
         }

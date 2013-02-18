@@ -18,7 +18,8 @@ ManualAdaptation::ManualAdaptation          (dash::mpd::IAdaptationSet *adaptati
                   AbstractAdaptationLogic   (adaptationSet, mpd),
                   adaptationSet             (adaptationSet),
                   mpd                       (mpd),
-                  segmentNumber             (0)
+                  segmentNumber             (0),
+                  invokeInitSegment         (false)
 {
     this->baseurls.push_back(this->mpd->GetBaseUrls().at(0));
     this->representation = this->adaptationSet->GetRepresentation().at(0);
@@ -38,9 +39,10 @@ MediaObject*    ManualAdaptation::GetSegment            ()
     if(this->segmentNumber >= this->representation->GetSegmentList()->GetSegmentURLs().size() + 1)
         return NULL;
 
-    if(this->segmentNumber == 0)
+    if(this->segmentNumber == 0 || this->invokeInitSegment)
     {
         seg = this->representation->GetSegmentBase()->GetInitialization()->ToSegment(this->baseurls);
+        this->invokeInitSegment = false;
     }   
     else
     {
@@ -62,4 +64,8 @@ void            ManualAdaptation::SetPosition           (uint32_t segmentNumber)
 void            ManualAdaptation::SetRepresentation     (dash::mpd::IRepresentation *representation)
 {
     this->representation = representation;
+}
+void            ManualAdaptation::InvokeInitSegment     (bool invoke)
+{
+    this->invokeInitSegment = invoke;
 }

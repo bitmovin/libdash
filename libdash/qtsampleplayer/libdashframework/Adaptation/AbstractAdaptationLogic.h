@@ -33,6 +33,7 @@ namespace libdash
 
                     virtual MediaObject*    GetSegment          ()  = 0;
                     virtual LogicType       GetType             ()  = 0;
+
             };
         }
     }

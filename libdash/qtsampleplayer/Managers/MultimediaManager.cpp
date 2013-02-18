@@ -161,6 +161,7 @@ void    MultimediaManager::InitChain                    (uint32_t position)
     this->videoLogic = new ManualAdaptation(this->videoAdaptationSet, this->mpd);
     this->videoLogic->SetPosition(position);
     this->videoLogic->SetRepresentation(this->videoRepresentation);
+    this->videoLogic->InvokeInitSegment(true);
 
     this->videoStream = new MultimediaStream(this->videoAdaptationSet, this->videoLogic, SEGMENTBUFFER_SIZE, 0, 0);
     this->videoStream->AttachStreamObserver(this);

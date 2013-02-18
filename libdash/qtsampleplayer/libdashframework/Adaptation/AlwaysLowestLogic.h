@@ -27,8 +27,9 @@ namespace libdash
                     AlwaysLowestLogic           (dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd);
                     virtual ~AlwaysLowestLogic  ();
 
-                    virtual MediaObject*    GetSegment  ();
-                    virtual LogicType       GetType     ();
+                    virtual MediaObject*    GetSegment          ();
+                    virtual LogicType       GetType             ();
+                    virtual void            InvokeInitSegment   (bool invoke);
 
                 private:
                     std::vector<dash::mpd::IBaseUrl *>  baseurls;
@@ -36,6 +37,7 @@ namespace libdash
                     dash::mpd::IAdaptationSet           *adaptationSet;
                     dash::mpd::IMPD                     *mpd;
                     uint32_t                            segmentNumber;
+                    bool                                invokeInitSegment;
 
             };
         }
