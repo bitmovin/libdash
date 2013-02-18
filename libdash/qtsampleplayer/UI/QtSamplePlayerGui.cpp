@@ -39,9 +39,7 @@ QtSamplePlayerGui::~QtSamplePlayerGui   ()
 
 void        QtSamplePlayerGui::SetGuiFields                                     (dash::mpd::IMPD* mpd)
 {
-    this->ui->cb_audio_adaption->clear();
     this->ui->cb_video_adaption->clear();
-    this->ui->cb_audio_representation->clear();
     this->ui->cb_video_representation->clear();
     this->RemoveAllKeyValues();
 
@@ -71,30 +69,9 @@ void        QtSamplePlayerGui::SetBufferFillState                               
 }
 void        QtSamplePlayerGui::UpdateKeyValue                                   (const std::string& key, const std::string& value)
 {
-    if (this->keyValues.find(key) == this->keyValues.end()) {
-        this->keyValues[key] = value;
-
-        this->keyIndices[key] = this->ui->tableWidget->rowCount();
-        this->ui->tableWidget->insertRow(this->ui->tableWidget->rowCount());
-    }
-    //TODO: proper memory mgmt.
-    QTableWidgetItem *key_item = new QTableWidgetItem;
-    key_item->setText(key.c_str());
-
-    QTableWidgetItem *value_item = new QTableWidgetItem;
-    value_item->setText(value.c_str());
-
-    this->ui->tableWidget->setItem(this->keyIndices[key], 0, key_item);
-    this->ui->tableWidget->setItem(this->keyIndices[key], 1, value_item);
 }
 void        QtSamplePlayerGui::RemoveAllKeyValues                               ()
 {
-    this->keyValues.clear();
-    this->keyIndices.clear();
-    for(int i= this->ui->tableWidget->rowCount()-1; i >= 0; i--)
-    {
-        this->ui->tableWidget->removeRow(i);
-    }
 }
 void        QtSamplePlayerGui::AddWidgetObserver                                (IDASHPlayerGuiObserver* observer)
 {
@@ -138,15 +115,6 @@ void        QtSamplePlayerGui::on_cb_video_representation_currentIndexChanged   
 }
 void        QtSamplePlayerGui::on_cb_audio_adaption_currentIndexChanged         (const QString &arg1)
 {
-    if(this->isEnabled())
-    {
-        this->setEnabled(false);
-        this->ui->cb_video_representation->clear();
-        int index = this->ui->cb_audio_adaption->currentIndex();
-        this->updateRepresentation(this->mpd->GetPeriods()[0]->GetAdaptationSets()[index], this->ui->cb_audio_representation);
-        this->settingsChanged();
-        this->setEnabled(true);
-    }
 }
 void        QtSamplePlayerGui::on_cb_audio_representation_currentIndexChanged   (const QString &arg1)
 {
@@ -204,11 +172,9 @@ void        QtSamplePlayerGui::settingsChanged                                  
     this->lockUI();
     int v_adaption = this->ui->cb_video_adaption->currentIndex();
     int v_representation = this->ui->cb_video_representation->currentIndex();
-    int a_adaption = this->ui->cb_audio_adaption->currentIndex();
-    int a_representation = this->ui->cb_audio_representation->currentIndex();
     for(unsigned int i=0; i < this->observer.size(); i++)
     {
-        this->observer[i]->OnSettingsChanged(this,v_adaption, v_representation, a_adaption, a_representation);
+        this->observer[i]->OnSettingsChanged(this,v_adaption, v_representation, 0, 0);
     }
     this->unlockUI();
 }
@@ -239,5 +205,5 @@ std::string QtSamplePlayerGui::GetUrl                                           
 }
 bool        QtSamplePlayerGui::GetAutomatic                                     ()
 {
-    return this->ui->ckb_automatic->isChecked();
+    return false;
 }

@@ -13,7 +13,6 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QHBoxLayout>
@@ -24,8 +23,8 @@
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QTableWidget>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -48,18 +47,13 @@ public:
     QVBoxLayout *verticalLayout_2;
     QPushButton *button_start;
     QPushButton *button_stop;
-    QCheckBox *ckb_automatic;
     QLabel *label;
     QComboBox *cb_video_adaption;
     QLabel *label_2;
     QComboBox *cb_video_representation;
-    QLabel *label_3;
-    QComboBox *cb_audio_adaption;
-    QLabel *label_4;
-    QComboBox *cb_audio_representation;
     QLabel *label_5;
     QProgressBar *progressBar;
-    QTableWidget *tableWidget;
+    QSpacerItem *verticalSpacer;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -134,11 +128,6 @@ public:
 
         verticalLayout_2->addWidget(button_stop);
 
-        ckb_automatic = new QCheckBox(w_boxes);
-        ckb_automatic->setObjectName(QStringLiteral("ckb_automatic"));
-
-        verticalLayout_2->addWidget(ckb_automatic);
-
         label = new QLabel(w_boxes);
         label->setObjectName(QStringLiteral("label"));
 
@@ -156,32 +145,9 @@ public:
 
         cb_video_representation = new QComboBox(w_boxes);
         cb_video_representation->setObjectName(QStringLiteral("cb_video_representation"));
+        cb_video_representation->setMinimumSize(QSize(150, 0));
 
         verticalLayout_2->addWidget(cb_video_representation);
-
-        label_3 = new QLabel(w_boxes);
-        label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setEnabled(false);
-
-        verticalLayout_2->addWidget(label_3);
-
-        cb_audio_adaption = new QComboBox(w_boxes);
-        cb_audio_adaption->setObjectName(QStringLiteral("cb_audio_adaption"));
-        cb_audio_adaption->setEnabled(false);
-
-        verticalLayout_2->addWidget(cb_audio_adaption);
-
-        label_4 = new QLabel(w_boxes);
-        label_4->setObjectName(QStringLiteral("label_4"));
-        label_4->setEnabled(false);
-
-        verticalLayout_2->addWidget(label_4);
-
-        cb_audio_representation = new QComboBox(w_boxes);
-        cb_audio_representation->setObjectName(QStringLiteral("cb_audio_representation"));
-        cb_audio_representation->setEnabled(false);
-
-        verticalLayout_2->addWidget(cb_audio_representation);
 
         label_5 = new QLabel(w_boxes);
         label_5->setObjectName(QStringLiteral("label_5"));
@@ -194,24 +160,12 @@ public:
 
         verticalLayout_2->addWidget(progressBar);
 
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_2->addItem(verticalSpacer);
+
 
         verticalLayout->addWidget(w_boxes);
-
-        tableWidget = new QTableWidget(w_controls);
-        if (tableWidget->columnCount() < 2)
-            tableWidget->setColumnCount(2);
-        tableWidget->setObjectName(QStringLiteral("tableWidget"));
-        tableWidget->setEnabled(true);
-        tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
-        tableWidget->setAlternatingRowColors(true);
-        tableWidget->setColumnCount(2);
-        tableWidget->horizontalHeader()->setVisible(false);
-        tableWidget->horizontalHeader()->setCascadingSectionResizes(false);
-        tableWidget->horizontalHeader()->setStretchLastSection(true);
-        tableWidget->verticalHeader()->setVisible(false);
-        tableWidget->verticalHeader()->setStretchLastSection(false);
-
-        verticalLayout->addWidget(tableWidget);
 
 
         horizontalLayout->addWidget(w_controls);
@@ -238,11 +192,8 @@ public:
         QtSamplePlayerClass->setWindowTitle(QApplication::translate("QtSamplePlayerClass", "QtSamplePlayer", 0));
         button_start->setText(QApplication::translate("QtSamplePlayerClass", "Start", 0));
         button_stop->setText(QApplication::translate("QtSamplePlayerClass", "Stop", 0));
-        ckb_automatic->setText(QApplication::translate("QtSamplePlayerClass", "Automatic Adaptation", 0));
         label->setText(QApplication::translate("QtSamplePlayerClass", "Video AdaptationSet", 0));
         label_2->setText(QApplication::translate("QtSamplePlayerClass", "Video Representation", 0));
-        label_3->setText(QApplication::translate("QtSamplePlayerClass", "Audio AdaptionSet", 0));
-        label_4->setText(QApplication::translate("QtSamplePlayerClass", "Audio Representation", 0));
         label_5->setText(QApplication::translate("QtSamplePlayerClass", "Buffer", 0));
     } // retranslateUi
 

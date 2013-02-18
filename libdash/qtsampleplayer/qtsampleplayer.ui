@@ -90,13 +90,6 @@
            </widget>
           </item>
           <item>
-           <widget class="QCheckBox" name="ckb_automatic">
-            <property name="text">
-             <string>Automatic Adaptation</string>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QLabel" name="label">
             <property name="text">
              <string>Video AdaptationSet</string>
@@ -114,39 +107,12 @@
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="cb_video_representation"/>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_3">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="text">
-             <string>Audio AdaptionSet</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="cb_audio_adaption">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_4">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="text">
-             <string>Audio Representation</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="cb_audio_representation">
-            <property name="enabled">
-             <bool>false</bool>
+           <widget class="QComboBox" name="cb_video_representation">
+            <property name="minimumSize">
+             <size>
+              <width>150</width>
+              <height>0</height>
+             </size>
             </property>
            </widget>
           </item>
@@ -164,40 +130,20 @@
             </property>
            </widget>
           </item>
+          <item>
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
          </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QTableWidget" name="tableWidget">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="editTriggers">
-          <set>QAbstractItemView::NoEditTriggers</set>
-         </property>
-         <property name="alternatingRowColors">
-          <bool>true</bool>
-         </property>
-         <property name="columnCount">
-          <number>2</number>
-         </property>
-         <attribute name="horizontalHeaderVisible">
-          <bool>false</bool>
-         </attribute>
-         <attribute name="horizontalHeaderCascadingSectionResizes">
-          <bool>false</bool>
-         </attribute>
-         <attribute name="horizontalHeaderStretchLastSection">
-          <bool>true</bool>
-         </attribute>
-         <attribute name="verticalHeaderVisible">
-          <bool>false</bool>
-         </attribute>
-         <attribute name="verticalHeaderStretchLastSection">
-          <bool>false</bool>
-         </attribute>
-         <column/>
-         <column/>
         </widget>
        </item>
       </layout>
