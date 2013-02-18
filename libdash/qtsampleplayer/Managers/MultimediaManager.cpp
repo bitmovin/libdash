@@ -112,12 +112,11 @@ bool    MultimediaManager::SetAudioRepresenation        (dash::mpd::IRepresentat
     ///MUST NOT BE IMPLEMENTED YET
     return false;
 }
-bool    MultimediaManager::SetVideoAdaptationLogic      (IAdaptationLogic *logic)
+bool    MultimediaManager::SetVideoAdaptationLogic      (libdash::framework::adaptation::LogicType type)
 {
-    this->videoLogic = logic;
     return true;
 }
-bool    MultimediaManager::SetAudioAdaptationLogic      (IAdaptationLogic *logic)
+bool    MultimediaManager::SetAudioAdaptationLogic      (libdash::framework::adaptation::LogicType type)
 {
     /* MUST NOT BE IMPLEMENTED YET */
     return false;

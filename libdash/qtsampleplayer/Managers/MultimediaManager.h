@@ -42,8 +42,8 @@ namespace sampleplayer
                 bool SetVideoRepresenation      (dash::mpd::IRepresentation *representation);
                 bool SetAudioRepresenation      (dash::mpd::IRepresentation *representation);
                
-                bool SetVideoAdaptationLogic    (libdash::framework::adaptation::IAdaptationLogic *logic);
-                bool SetAudioAdaptationLogic    (libdash::framework::adaptation::IAdaptationLogic *logic);
+                bool SetVideoAdaptationLogic    (libdash::framework::adaptation::LogicType type);
+                bool SetAudioAdaptationLogic    (libdash::framework::adaptation::LogicType type);
 
                 void AttachVideoBufferObserver  (libdash::framework::buffer::IBufferObserver *videoBufferObserver);
                 void AttachAudioBufferObserver  (libdash::framework::buffer::IBufferObserver *audioBufferObserver);

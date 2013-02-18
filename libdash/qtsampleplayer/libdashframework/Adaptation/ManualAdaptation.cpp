@@ -27,6 +27,10 @@ ManualAdaptation::~ManualAdaptation         ()
 {
 }
 
+LogicType       ManualAdaptation:: GetType              ()
+{
+    return adaptation::Manual;
+}
 MediaObject*    ManualAdaptation::GetSegment            ()
 {
     ISegment *seg = NULL;

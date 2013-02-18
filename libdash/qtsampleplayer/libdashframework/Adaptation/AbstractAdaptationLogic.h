@@ -30,7 +30,9 @@ namespace libdash
                     virtual uint32_t        GetPosition         ();
                     virtual void            SetPosition         (uint32_t segmentNumber);
                     virtual void            SetRepresentation   (dash::mpd::IRepresentation *representation);
-                    virtual MediaObject*    GetSegment          () = 0;
+
+                    virtual MediaObject*    GetSegment          ()  = 0;
+                    virtual LogicType       GetType             ()  = 0;
             };
         }
     }

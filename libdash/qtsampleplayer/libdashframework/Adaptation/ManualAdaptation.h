@@ -31,6 +31,7 @@ namespace libdash
                     virtual uint32_t        GetPosition         ();
                     virtual void            SetPosition         (uint32_t segmentNumber);
                     virtual void            SetRepresentation   (dash::mpd::IRepresentation *representation);
+                    virtual LogicType       GetType             ();
 
                 private:
                     std::vector<dash::mpd::IBaseUrl *>  baseurls;

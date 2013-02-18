@@ -27,7 +27,12 @@ AlwaysLowestLogic::AlwaysLowestLogic        (IAdaptationSet *adaptationSet, IMPD
 AlwaysLowestLogic::~AlwaysLowestLogic   ()
 {
 }
-MediaObject* AlwaysLowestLogic::GetSegment    ()
+
+LogicType       AlwaysLowestLogic::GetType      ()
+{
+    return adaptation::AlwaysLowest;
+}
+MediaObject*    AlwaysLowestLogic::GetSegment   ()
 {
     /* Sample code that returns always the lowest repesentation (quality) */
     ISegment *seg = NULL;
