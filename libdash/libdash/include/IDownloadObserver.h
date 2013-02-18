@@ -1,13 +1,16 @@
-/*
- * IDownloadObserver.h
- *****************************************************************************
- * Copyright (C) 2012, bitmovin Softwareentwicklung OG, All Rights Reserved
+/**
+ *  @class      dash::network::IDownloadObserver
+ *  @brief      This interface is needed for informing 
+ *  @details    ...
  *
- * Email: libdash-dev@vicky.bitmovin.net
- *
- * This source code and its use and distribution, is subject to the terms
- * and conditions of the applicable license agreement.
- *****************************************************************************/
+ *  @author     bitmovin Softwareentwicklung OG \n
+ *              Email: libdash-dev@vicky.bitmovin.net
+ *  @version    2.1
+ *  @date       2013
+ *  @copyright  bitmovin Softwareentwicklung OG, All Rights Reserved \n\n
+ *              This source code and its use and distribution, is subject to the terms
+ *              and conditions of the applicable license agreement.
+ */
 
 #ifndef IDOWNLOADOBSERVER_H_
 #define IDOWNLOADOBSERVER_H_
@@ -31,7 +34,16 @@ namespace dash
             public:
                 virtual ~IDownloadObserver(){}
 
+                /**
+                 *  Informs the dash::network::IDownloadObserver object that the download rate has changed.
+                 *  @param      bytesDownloaded     the number of downloaded bytes
+                 */
                 virtual void OnDownloadRateChanged  (uint64_t bytesDownloaded)  = 0;
+
+                /**
+                 *  Informs the dash::network::IDownloadObserver object that the download state has changed.
+                 *  @param      state               the download state
+                 */
                 virtual void OnDownloadStateChanged (DownloadState state)       = 0;
         };
     }
