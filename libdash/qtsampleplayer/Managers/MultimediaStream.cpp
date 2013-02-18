@@ -73,7 +73,6 @@ void MultimediaStream::OnAudioDataAvailable (const uint8_t **data, audioFramePro
 }
 void MultimediaStream::OnVideoDataAvailable (const uint8_t **data, videoFrameProperties* props)
 {
-    /* After first stable version integrate scaling to width height of constructor */
     int w = props->width;
     int h = props->height;
 
