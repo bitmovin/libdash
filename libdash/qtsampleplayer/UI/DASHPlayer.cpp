@@ -22,7 +22,6 @@ using namespace std;
 DASHPlayer::DASHPlayer  (QtSamplePlayerGui& gui) : 
                         gui(&gui)
 {
-    this->manager           = CreateDashManager();
     this->videoElement      = gui.GetVideoElement();
     this->multimediaManager = new MultimediaManager(this->videoElement);
 
@@ -48,46 +47,38 @@ void DASHPlayer::OnStopButtonPressed    (QtSamplePlayerGui* widget)
 }
 void DASHPlayer::OnCheckboxChanged      (QtSamplePlayerGui* widget, bool isAutomatic)
 {
-    if(isAutomatic)
-        this->multimediaManager->SetVideoAdaptationLogic(new AlwaysLowestLogic(this->videoAdaptationSet, this->mpd));
-    else
-        this->multimediaManager->SetVideoAdaptationLogic(new ManualAdaptation(this->videoAdaptationSet, this->mpd));
+
 }
-void DASHPlayer::OnSettingsChanged      (QtSamplePlayerGui* widget, int video_adaption, int video_representation, int audio_adaption, int audio_representation)
+void DASHPlayer::OnSettingsChanged      (QtSamplePlayerGui* widget, int video_adaption, int video_representation)
 {
-    IAdaptationSet *newAdaptionSet = this->mpd->GetPeriods().at(0)->GetAdaptationSets().at(video_adaption);
-    IRepresentation* newRepresentation = newAdaptionSet->GetRepresentation().at(video_representation);
-    if(this->videoAdaptationSet == newAdaptionSet)
-    {
-        if(this->videoRepresentation != newRepresentation)
-        {
-            this->videoRepresentation = newRepresentation;
-            this->multimediaManager->SetVideoRepresenation(this->videoRepresentation);
-        }
-    }
-    else
-    {
-        this->videoAdaptationSet = newAdaptionSet;
-        this->multimediaManager->SetVideoAdaptationSet(newAdaptionSet);
-    }
+    if(this->multimediaManager->GetMPD() == NULL)
+        return; // TODO dialog or symbol that indicates that error
+
+    IPeriod *currentPeriod = this->multimediaManager->GetMPD()->GetPeriods().at(0);
+    this->multimediaManager->SetVideoAdaptationSet(currentPeriod->GetAdaptationSets().at(video_adaption));
+    this->multimediaManager->SetAudioRepresenation(currentPeriod->GetAdaptationSets().at(video_adaption)->GetRepresentation().at(video_representation));
 }
 void DASHPlayer::OnURLEntered           (QtSamplePlayerGui* widget, const std::string& url)
 {
-    this->mpd = this->manager->Open((char*)url.c_str());
-    if(this->mpd != NULL)
-    {
-        this->gui->SetStatusBar("Successfully parsed MPD at: " + url);
-        this->gui->SetGuiFields(this->mpd);
-
-        this->videoAdaptationSet = this->mpd->GetPeriods().at(0)->GetAdaptationSets().at(0);
-        this->videoRepresentation = this->videoAdaptationSet->GetRepresentation().at(0);
-        this->multimediaManager->SetVideoAdaptationSet(this->videoAdaptationSet);
-        this->multimediaManager->SetVideoAdaptationLogic(new ManualAdaptation(this->videoAdaptationSet, this->mpd));
-    }
-    else
+    if(!this->multimediaManager->Init(url))
     {
         this->gui->SetStatusBar("Error parsing mpd at: " + url);
+        return; // TODO dialog or symbol that indicates that error
     }
+
+    this->gui->SetStatusBar("Successfully parsed MPD at: " + url);
+    this->gui->SetGuiFields(this->multimediaManager->GetMPD());
+
+    this->InitMultimediaStreams();
+}
+void DASHPlayer::InitMultimediaStreams  ()
+{
+    if(this->multimediaManager->GetMPD() == NULL)
+        return; // TODO dialog or symbol that indicates that error
+
+    IPeriod *currentPeriod = this->multimediaManager->GetMPD()->GetPeriods().at(0);
+    this->multimediaManager->SetVideoAdaptationSet(currentPeriod->GetAdaptationSets().at(0));
+    this->multimediaManager->SetAudioRepresenation(currentPeriod->GetAdaptationSets().at(0)->GetRepresentation().at(0));
 }
 void DASHPlayer::OnBufferStateChanged   (uint32_t fillstateInPercent)
 {

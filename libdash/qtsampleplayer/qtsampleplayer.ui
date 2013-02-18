@@ -36,7 +36,7 @@
           <bool>true</bool>
          </property>
          <property name="text">
-          <string notr="true">http://www-itec.aau.at/~cmueller/libdashtest/showcases/redbull_2_resolutions.mpd</string>
+          <string notr="true">http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s_480p_only/bunny_Desktop.mpd</string>
          </property>
         </widget>
        </item>

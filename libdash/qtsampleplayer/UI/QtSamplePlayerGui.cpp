@@ -176,7 +176,7 @@ void            QtSamplePlayerGui::settingsChanged                              
     int v_representation = this->ui->cb_video_representation->currentIndex();
     for(unsigned int i=0; i < this->observer.size(); i++)
     {
-        this->observer[i]->OnSettingsChanged(this,v_adaption, v_representation, 0, 0);
+        this->observer[i]->OnSettingsChanged(this,v_adaption, v_representation);
     }
     this->unlockUI();
 }

@@ -28,13 +28,14 @@ namespace sampleplayer
                 MultimediaManager           (renderer::QTGLRenderer *videoelement);
                 virtual ~MultimediaManager  ();
 
-                bool Init   (const std::string& url);
-                void Start  ();
-                void Stop   ();
+                bool                Init    (const std::string& url);
+                void                Start   ();
+                void                Stop    ();
+                dash::mpd::IMPD*    GetMPD  ();
 
                 void OnVideoFrameAvailable  (const QImage& image, dash::mpd::IAdaptationSet *adaptationSet);
                 void OnAudioSampleAvailable ();
-                
+
                 bool SetVideoAdaptationSet      (dash::mpd::IAdaptationSet *adaptationSet);
                 bool SetAudioAdaptationSet      (dash::mpd::IAdaptationSet *adaptationSet);
 
