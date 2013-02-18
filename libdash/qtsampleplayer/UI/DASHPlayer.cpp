@@ -23,7 +23,7 @@ DASHPlayer::DASHPlayer  (QtSamplePlayerGui& gui) :
                         gui(&gui)
 {
     this->manager           = CreateDashManager();
-    this->videoElement      = new QTGLRenderer(this->gui);
+    this->videoElement      = gui.GetVideoElement();
     this->multimediaManager = new MultimediaManager(this->videoElement);
 
     this->multimediaManager->AttachVideoBufferObserver(this);

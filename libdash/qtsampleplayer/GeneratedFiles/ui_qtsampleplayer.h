@@ -14,7 +14,6 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QComboBox>
-#include <QtWidgets/QFrame>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
@@ -28,6 +27,7 @@
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include "Renderer/QTGLRenderer.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -39,7 +39,7 @@ public:
     QWidget *widget;
     QVBoxLayout *verticalLayout_3;
     QLineEdit *lineEdit;
-    QFrame *videoelement;
+    sampleplayer::renderer::QTGLRenderer *videoelement;
     QVBoxLayout *videoLayout;
     QWidget *w_controls;
     QVBoxLayout *verticalLayout;
@@ -85,7 +85,7 @@ public:
 
         verticalLayout_3->addWidget(lineEdit);
 
-        videoelement = new QFrame(widget);
+        videoelement = new sampleplayer::renderer::QTGLRenderer(widget);
         videoelement->setObjectName(QStringLiteral("videoelement"));
         videoelement->setEnabled(true);
         videoelement->setMinimumSize(QSize(100, 100));

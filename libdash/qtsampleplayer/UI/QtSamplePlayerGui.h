@@ -32,14 +32,15 @@ namespace sampleplayer
             QtSamplePlayerGui           (QWidget *parent = 0);
             virtual ~QtSamplePlayerGui  ();
 
-            void                SetGuiFields            (dash::mpd::IMPD* mpd);
-            virtual void        UpdateKeyValue          (const std::string& key, const std::string& value);
-            virtual void        RemoveAllKeyValues      ();
-            virtual void        AddWidgetObserver       (IDASHPlayerGuiObserver* observer);
-            virtual void        RemoveWidgetObserver    (IDASHPlayerGuiObserver* observer);
-            virtual void        SetStatusBar            (const std::string& text);
-            virtual std::string GetUrl                  ();
-            virtual bool        GetAutomatic            ();
+            void                                    SetGuiFields            (dash::mpd::IMPD* mpd);
+            virtual void                            UpdateKeyValue          (const std::string& key, const std::string& value);
+            virtual void                            RemoveAllKeyValues      ();
+            virtual void                            AddWidgetObserver       (IDASHPlayerGuiObserver* observer);
+            virtual void                            RemoveWidgetObserver    (IDASHPlayerGuiObserver* observer);
+            virtual void                            SetStatusBar            (const std::string& text);
+            virtual std::string                     GetUrl                  ();
+            virtual bool                            GetAutomatic            ();
+            sampleplayer::renderer::QTGLRenderer*   GetVideoElement         ();
       
         private slots:
             void on_cb_video_adaption_currentIndexChanged       (const QString &arg1);

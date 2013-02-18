@@ -41,7 +41,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QFrame" name="videoelement">
+        <widget class="sampleplayer::renderer::QTGLRenderer" name="videoelement" native="true">
          <property name="enabled">
           <bool>true</bool>
          </property>
@@ -172,6 +172,14 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>sampleplayer::renderer::QTGLRenderer</class>
+   <extends>QWidget</extends>
+   <header>Renderer/QTGLRenderer.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="qtsampleplayer.qrc"/>
  </resources>
