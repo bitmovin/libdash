@@ -56,7 +56,7 @@ void DASHPlayer::OnSettingsChanged      (QtSamplePlayerGui* widget, int video_ad
 
     IPeriod *currentPeriod = this->multimediaManager->GetMPD()->GetPeriods().at(0);
     this->multimediaManager->SetVideoAdaptationSet(currentPeriod->GetAdaptationSets().at(video_adaption));
-    this->multimediaManager->SetAudioRepresenation(currentPeriod->GetAdaptationSets().at(video_adaption)->GetRepresentation().at(video_representation));
+    this->multimediaManager->SetVideoRepresenation(currentPeriod->GetAdaptationSets().at(video_adaption)->GetRepresentation().at(video_representation));
 }
 void DASHPlayer::OnURLEntered           (QtSamplePlayerGui* widget, const std::string& url)
 {
