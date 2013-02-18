@@ -34,6 +34,7 @@ MultimediaManager::MultimediaManager    (QTGLRenderer *videoelement) :
 }
 MultimediaManager::~MultimediaManager   ()
 {
+    this->Stop();
 }
 
 void    MultimediaManager::OnVideoFrameAvailable        (const QImage& image, dash::mpd::IAdaptationSet *adaptationSet)
@@ -98,6 +99,8 @@ bool    MultimediaManager::SetVideoAdaptationSet        (IAdaptationSet *adaptat
         
             this->InitChain(position);
             this->videoStream->Start();
+
+            this->run = true;
         }
     }
     return true;

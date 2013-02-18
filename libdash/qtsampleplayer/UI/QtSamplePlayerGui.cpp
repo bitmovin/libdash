@@ -24,10 +24,7 @@ QtSamplePlayerGui::QtSamplePlayerGui    (QWidget *parent)
     : QMainWindow(parent), ui(new Ui::QtSamplePlayerClass)
 {
     this->ui->setupUi(this);
-
-    this->ui->progressBar->setMaximum(100);
-    this->ui->progressBar->setMinimum(0);
-
+    this->SetBufferFillState(0);
     this->ui->button_stop->setEnabled(false);
 }
 QtSamplePlayerGui::~QtSamplePlayerGui   ()
