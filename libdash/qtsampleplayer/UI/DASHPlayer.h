@@ -33,7 +33,7 @@ namespace sampleplayer
             DASHPlayer          (QtSamplePlayerGui& gui);
             virtual ~DASHPlayer ();
 
-            virtual void OnSettingsChanged      (QtSamplePlayerGui* widget, int video_adaption, int video_representation, int audio_adaption, int audio_representation);
+            virtual void OnSettingsChanged      (QtSamplePlayerGui* widget, int video_adaption, int video_representation);
             virtual void OnURLEntered           (QtSamplePlayerGui* widget, const std::string& url);
             virtual void OnStartButtonPressed   (QtSamplePlayerGui* widget);
             virtual void OnStopButtonPressed    (QtSamplePlayerGui* widget);
@@ -41,13 +41,12 @@ namespace sampleplayer
             virtual void OnBufferStateChanged   (uint32_t fillstateInPercent);
 
         private:
-            dash::IDASHManager                                  *manager;
-            dash::mpd::IMPD                                     *mpd;
-            sampleplayer::renderer::QTGLRenderer                *videoElement;
-            QtSamplePlayerGui                                   *gui;
-            dash::mpd::IAdaptationSet                           *videoAdaptationSet;
-            dash::mpd::IRepresentation                          *videoRepresentation;
-            sampleplayer::managers::MultimediaManager           *multimediaManager;
+            dash::mpd::IMPD                             *mpd;
+            sampleplayer::renderer::QTGLRenderer        *videoElement;
+            QtSamplePlayerGui                           *gui;
+            sampleplayer::managers::MultimediaManager   *multimediaManager;
+
+            void InitMultimediaStreams();
 
         signals:
             void FillStateChanged(int fillStateInPercent);

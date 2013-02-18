@@ -33,24 +33,28 @@ MultimediaManager::~MultimediaManager   ()
 {
 }
 
-void MultimediaManager::OnVideoFrameAvailable       (const QImage& image, dash::mpd::IAdaptationSet *adaptationSet)
+void    MultimediaManager::OnVideoFrameAvailable        (const QImage& image, dash::mpd::IAdaptationSet *adaptationSet)
 {
     this->videoelement->setImage(image);
     this->videoelement->update();
 }
-void MultimediaManager::OnAudioSampleAvailable      ()
+void    MultimediaManager::OnAudioSampleAvailable       ()
 {
 }
-bool MultimediaManager::Init                        (const std::string& url)
+IMPD*   MultimediaManager::GetMPD                       ()
 {
-    this->mpd = this->manager->Open((char*)url.c_str());
+    return this->mpd;
+}
+bool    MultimediaManager::Init                         (const std::string& url)
+{
+    this->mpd = this->manager->Open((char *)url.c_str());
     
     if(this->mpd == NULL)
         return false;
 
     return true;
 }
-void MultimediaManager::Start                       ()
+void    MultimediaManager::Start                        ()
 {
     /* Global Start button for start must be added to interface*/
     if(this->videoStream != NULL)
@@ -61,6 +65,7 @@ void MultimediaManager::Start                       ()
         }
         delete this->videoStream;
     }
+    this->videoLogic = new ManualAdaptation(this->videoAdaptationSet, this->mpd);
     this->videoLogic->SetPosition(0);
     this->videoStream = new MultimediaStream(this->videoAdaptationSet, this->videoLogic, 20, 0, 0);
     this->videoStream->AttachStreamObserver(this);
@@ -73,14 +78,14 @@ void MultimediaManager::Start                       ()
     this->videoStream->Start();
     this->run = true;
 }
-void MultimediaManager::Stop                        ()
+void    MultimediaManager::Stop                         ()
 {
     if(this->videoStream)
         this->videoStream->Stop();
 
     this->run = false;
 }
-bool MultimediaManager::SetVideoAdaptationSet       (IAdaptationSet *adaptationSet)
+bool    MultimediaManager::SetVideoAdaptationSet        (IAdaptationSet *adaptationSet)
 {
     //Steps:
      // Init new DASHReceiver and decoder 
@@ -90,51 +95,50 @@ bool MultimediaManager::SetVideoAdaptationSet       (IAdaptationSet *adaptationS
     this->videoAdaptationSet = adaptationSet;
     return true;
 }
-bool MultimediaManager::SetAudioAdaptationSet       (IAdaptationSet *adaptationSet)
+bool    MultimediaManager::SetAudioAdaptationSet        (IAdaptationSet *adaptationSet)
 {
     //MUST NOT BE IMPLEMENTED YET
     return false;
 }
-bool MultimediaManager::SetVideoRepresenation       (dash::mpd::IRepresentation *representation)
+bool    MultimediaManager::SetVideoRepresenation        (dash::mpd::IRepresentation *representation)
 {
     this->videoStream->Clear();
     this->videoLogic->SetRepresentation(representation);
 
     return true;
 }
-bool MultimediaManager::SetAudioRepresenation       (dash::mpd::IRepresentation *representation)
+bool    MultimediaManager::SetAudioRepresenation        (dash::mpd::IRepresentation *representation)
 {
     ///MUST NOT BE IMPLEMENTED YET
     return false;
 }
-bool MultimediaManager::SetVideoAdaptationLogic     (IAdaptationLogic *logic)
+bool    MultimediaManager::SetVideoAdaptationLogic      (libdash::framework::adaptation::LogicType type)
 {
-    this->videoLogic = logic;
     return true;
 }
-bool MultimediaManager::SetAudioAdaptationLogic     (IAdaptationLogic *logic)
+bool    MultimediaManager::SetAudioAdaptationLogic      (libdash::framework::adaptation::LogicType type)
 {
     /* MUST NOT BE IMPLEMENTED YET */
     return false;
 }
-void MultimediaManager::NotifyVideoObservers        ()
+void    MultimediaManager::NotifyVideoObservers         ()
 {
     /* Notify DASHPLayer onVideoDataAvailable which does the scaling and forwards the frame to the renderer */
 }
-void MultimediaManager::NotifyAudioObservers        ()
+void    MultimediaManager::NotifyAudioObservers         ()
 {
     /* MUST NOT BE IMPLEMENTED YET */
 }
-void MultimediaManager::AttachVideoBufferObserver   (IBufferObserver *videoBufferObserver)
+void    MultimediaManager::AttachVideoBufferObserver    (IBufferObserver *videoBufferObserver)
 {
     this->videoBufferObservers.push_back(videoBufferObserver);
 }
-void MultimediaManager::AttachAudioBufferObserver   (IBufferObserver *audioBufferObserver)
+void    MultimediaManager::AttachAudioBufferObserver    (IBufferObserver *audioBufferObserver)
 {
 }
-void MultimediaManager::NotifyVideoBufferObservers  ()
+void    MultimediaManager::NotifyVideoBufferObservers   ()
 {
 }
-void MultimediaManager::NotifyAudioBufferObservers  ()
+void    MultimediaManager::NotifyAudioBufferObservers   ()
 {
 }
