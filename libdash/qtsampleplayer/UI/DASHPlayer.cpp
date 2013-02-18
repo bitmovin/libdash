@@ -28,7 +28,7 @@ DASHPlayer::DASHPlayer  (QtSamplePlayerGui& gui) :
 
     this->multimediaManager->AttachVideoBufferObserver(this);
     this->gui->AddWidgetObserver(this);
-    this->OnURLChanged(NULL, this->gui->GetUrl());
+    this->OnURLEntered(NULL, this->gui->GetUrl());
 
     QObject::connect(this, SIGNAL(FillStateChanged(int)), &gui, SLOT(SetBufferFillState(int)));
 }
@@ -36,7 +36,6 @@ DASHPlayer::~DASHPlayer ()
 {
     this->multimediaManager->Stop();
     delete(this->multimediaManager);
-    delete(this->videoElement);
 }
 
 void DASHPlayer::OnStartButtonPressed   (QtSamplePlayerGui* widget)
@@ -72,7 +71,7 @@ void DASHPlayer::OnSettingsChanged      (QtSamplePlayerGui* widget, int video_ad
         this->multimediaManager->SetVideoAdaptationSet(newAdaptionSet);
     }
 }
-void DASHPlayer::OnURLChanged           (QtSamplePlayerGui* widget, const std::string& url)
+void DASHPlayer::OnURLEntered           (QtSamplePlayerGui* widget, const std::string& url)
 {
     this->mpd = this->manager->Open((char*)url.c_str());
     if(this->mpd != NULL)

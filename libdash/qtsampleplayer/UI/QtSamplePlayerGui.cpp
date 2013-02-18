@@ -130,7 +130,7 @@ void            QtSamplePlayerGui::on_lineEdit_returnPressed                    
     this->lockUI();
     for(unsigned int i=0; i < this->observer.size(); i++)
     {
-        this->observer[i]->OnURLChanged(this, this->ui->lineEdit->text().toStdString());
+        this->observer[i]->OnURLEntered(this, this->ui->lineEdit->text().toStdString());
     }
     this->unlockUI();
 }
