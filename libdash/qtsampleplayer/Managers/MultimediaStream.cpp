@@ -35,12 +35,16 @@ MultimediaStream::~MultimediaStream ()
     delete(this->receiver);
 }
 
-void MultimediaStream::Init                 ()
+uint32_t    MultimediaStream::GetPosition           ()
+{
+    return this->receiver->GetPosition();
+}
+void        MultimediaStream::Init                  ()
 {
     this->receiver          = new DASHReceiver(this->bufferSize, this->logic);
     this->decodingThread    = new DecodingThread(this->receiver, this, this);
 }
-bool MultimediaStream::Start                ()
+bool        MultimediaStream::Start                 ()
 {
     if(!receiver->Start())
         return false;
@@ -50,28 +54,28 @@ bool MultimediaStream::Start                ()
 
     return true;
 }
-void MultimediaStream::Stop                 ()
+void        MultimediaStream::Stop                  ()
 {
     this->StopDownload();
     this->decodingThread->Stop();
 }
-void MultimediaStream::StopDownload         ()
+void        MultimediaStream::StopDownload          ()
 {
     this->receiver->Stop();
 }
-void MultimediaStream::Clear                ()
+void        MultimediaStream::Clear                 ()
 {
     this->receiver->Clear();
 }
-void MultimediaStream::NotifyVideoObservers (const QImage& image)
+void        MultimediaStream::NotifyVideoObservers  (const QImage& image)
 {
     for(size_t i = 0; i < this->observers.size(); i++)
         this->observers.at(i)->OnVideoFrameAvailable(image, this->adaptationSet);
 }
-void MultimediaStream::OnAudioDataAvailable (const uint8_t **data, audioFrameProperties* props)
+void        MultimediaStream::OnAudioDataAvailable  (const uint8_t **data, audioFrameProperties* props)
 {
 }
-void MultimediaStream::OnVideoDataAvailable (const uint8_t **data, videoFrameProperties* props)
+void        MultimediaStream::OnVideoDataAvailable  (const uint8_t **data, videoFrameProperties* props)
 {
     int w = props->width;
     int h = props->height;
@@ -109,11 +113,11 @@ void MultimediaStream::OnVideoDataAvailable (const uint8_t **data, videoFramePro
     av_free(rgbframe);
     av_free(buffer);
 }
-void MultimediaStream::AttachStreamObserver (IStreamObserver *observer)
+void        MultimediaStream::AttachStreamObserver  (IStreamObserver *observer)
 {
     this->observers.push_back(observer);
 }
-void MultimediaStream::AttachBufferObserver (libdash::framework::buffer::IBufferObserver *observer)
+void        MultimediaStream::AttachBufferObserver  (libdash::framework::buffer::IBufferObserver *observer)
 {
     this->receiver->AtachBufferObserver(observer);
 }

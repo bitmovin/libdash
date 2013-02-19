@@ -33,13 +33,14 @@ namespace sampleplayer
                 MultimediaStream            (dash::mpd::IAdaptationSet *adaptationSet, libdash::framework::adaptation::IAdaptationLogic *logic, uint32_t bufferSize, uint32_t width, uint32_t height);
                 virtual ~MultimediaStream   ();
 
-                bool Start                  ();
-                void Stop                   ();
-                void StopDownload           ();
-                void Clear                  ();
-                void AttachStreamObserver   (IStreamObserver *observer);
-                void AttachBufferObserver   (libdash::framework::buffer::IBufferObserver *observer);
-                void NotifyVideoObservers   (const QImage& image);
+                bool        Start                   ();
+                void        Stop                    ();
+                void        StopDownload            ();
+                void        Clear                   ();
+                uint32_t    GetPosition             ();
+                void        AttachStreamObserver    (IStreamObserver *observer);
+                void        AttachBufferObserver    (libdash::framework::buffer::IBufferObserver *observer);
+                void        NotifyVideoObservers    (const QImage& image);
 
                 virtual void OnAudioDataAvailable (const uint8_t **data, decoder::audioFrameProperties* props);
                 virtual void OnVideoDataAvailable (const uint8_t **data, decoder::videoFrameProperties* props);
