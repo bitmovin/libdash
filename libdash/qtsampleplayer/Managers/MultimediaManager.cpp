@@ -86,13 +86,13 @@ void    MultimediaManager::Stop                         ()
     }
     this->run = false;
 }
-bool    MultimediaManager::SetVideoAdaptationSet        (IAdaptationSet *adaptationSet)
+bool    MultimediaManager::SetVideoQuality              (IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation)
 {
 
     if(this->videoAdaptationSet != adaptationSet)
     {
         this->videoAdaptationSet  = adaptationSet;
-        this->videoRepresentation = adaptationSet->GetRepresentation().at(0);
+        this->videoRepresentation = representation;
         if(this->run)
         {
             int position = this->videoLogic->GetPosition();
@@ -104,26 +104,18 @@ bool    MultimediaManager::SetVideoAdaptationSet        (IAdaptationSet *adaptat
             this->run = true;
         }
     }
-    return true;
-}
-bool    MultimediaManager::SetAudioAdaptationSet        (IAdaptationSet *adaptationSet)
-{
-    //MUST NOT BE IMPLEMENTED YET
-    return false;
-}
-bool    MultimediaManager::SetVideoRepresenation        (dash::mpd::IRepresentation *representation)
-{
     if(this->run && representation != this->videoRepresentation)
     {
         this->videoStream->Clear();
         this->videoLogic->SetRepresentation(representation);
     }
     this->videoRepresentation = representation;
+
     return true;
 }
-bool    MultimediaManager::SetAudioRepresenation        (dash::mpd::IRepresentation *representation)
+bool    MultimediaManager::SetAudioQuality              (IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation)
 {
-    ///MUST NOT BE IMPLEMENTED YET
+    //MUST NOT BE IMPLEMENTED YET
     return false;
 }
 bool    MultimediaManager::SetVideoAdaptationLogic      (libdash::framework::adaptation::LogicType type)

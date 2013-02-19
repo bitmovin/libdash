@@ -66,8 +66,8 @@ void DASHPlayer::OnSettingsChanged      (QtSamplePlayerGui* widget, int video_ad
 
     IPeriod *currentPeriod = this->multimediaManager->GetMPD()->GetPeriods().at(0);
 
-    this->multimediaManager->SetVideoAdaptationSet(currentPeriod->GetAdaptationSets().at(video_adaption));
-    this->multimediaManager->SetVideoRepresenation(currentPeriod->GetAdaptationSets().at(video_adaption)->GetRepresentation().at(video_representation));
+    this->multimediaManager->SetVideoQuality(currentPeriod->GetAdaptationSets().at(video_adaption),
+                                             currentPeriod->GetAdaptationSets().at(video_adaption)->GetRepresentation().at(video_representation));
 }
 void DASHPlayer::InitMultimediaStreams  ()
 {
@@ -75,8 +75,8 @@ void DASHPlayer::InitMultimediaStreams  ()
         return; // TODO dialog or symbol that indicates that error
 
     IPeriod *currentPeriod = this->multimediaManager->GetMPD()->GetPeriods().at(0);
-    this->multimediaManager->SetVideoAdaptationSet(currentPeriod->GetAdaptationSets().at(0));
-    this->multimediaManager->SetAudioRepresenation(currentPeriod->GetAdaptationSets().at(0)->GetRepresentation().at(0));
+    this->multimediaManager->SetVideoQuality(currentPeriod->GetAdaptationSets().at(0),
+                                             currentPeriod->GetAdaptationSets().at(0)->GetRepresentation().at(0));
 }
 void DASHPlayer::OnBufferStateChanged   (uint32_t fillstateInPercent)
 {
