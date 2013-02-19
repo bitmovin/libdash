@@ -16,13 +16,32 @@ using namespace libdash::framework::mpd;
 
 ISegment*   RepresentationHelper::GetInitSegment    (IRepresentation *representation, const std::vector<IBaseUrl *>& baseurls)
 {
-    return representation->GetSegmentBase()->GetInitialization()->ToSegment(baseurls);
+    /* Check for segment base */
+    if(representation->GetSegmentBase())
+        return representation->GetSegmentBase()->GetInitialization()->ToSegment(baseurls);
+
+    /* Check for segment template */
+    if(representation->GetSegmentTemplate())
+        return representation->GetSegmentTemplate()->ToInitializationSegment(baseurls, "", 0);
+
+    return NULL;
 }
 ISegment*   RepresentationHelper::GetSegment        (IRepresentation *representation, const std::vector<IBaseUrl *>& baseurls, uint32_t number)
 {
-    return representation->GetSegmentList()->GetSegmentURLs().at(number)->ToMediaSegment(baseurls);
+    /* Check for segment list */
+    if(representation->GetSegmentList())
+        return representation->GetSegmentList()->GetSegmentURLs().at(number)->ToMediaSegment(baseurls);
+
+    /* Check for segment template */
+    if(representation->GetSegmentTemplate())
+        return representation->GetSegmentTemplate()->GetMediaSegmentFromNumber(baseurls, "", 0, representation->GetSegmentTemplate()->GetStartNumber() + number);
+
+    return NULL;
 }
 uint32_t    RepresentationHelper::GetSize           (IRepresentation *representation)
 {
-    return representation->GetSegmentList()->GetSegmentURLs().size();
+    if(representation->GetSegmentList())
+        return representation->GetSegmentList()->GetSegmentURLs().size();
+
+    return UINT32_MAX - 1;
 }
