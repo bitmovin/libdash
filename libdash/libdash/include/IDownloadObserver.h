@@ -1,7 +1,7 @@
 /**
  *  @class      dash::network::IDownloadObserver
- *  @brief      This interface is needed for informing 
- *  @details    ...
+ *  @brief      This interface is needed for informing the application of the state of the download process.
+ *  @details    Informs the application about the download rate and the state of the download.
  *
  *  @author     bitmovin Softwareentwicklung OG \n
  *              Email: libdash-dev@vicky.bitmovin.net
