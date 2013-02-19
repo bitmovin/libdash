@@ -195,8 +195,8 @@ std::string     QtSamplePlayerGui::GetUrl                                       
 {
     this->lockUI();
 
-    int         index   = this->ui->comboBoxMPD->currentIndex();
-    std::string ret     = this->ui->comboBoxMPD->itemText(index).toStdString();
+    int         index   = this->ui->cb_mpd->currentIndex();
+    std::string ret     = this->ui->cb_mpd->itemText(index).toStdString();
 
     this->unlockUI();
     return ret;

@@ -41,7 +41,7 @@ namespace sampleplayer
             virtual std::string                     GetUrl                  ();
             virtual bool                            GetAutomatic            ();
             sampleplayer::renderer::QTGLRenderer*   GetVideoElement         ();
-      
+
         private slots:
             void on_cb_video_adaption_currentIndexChanged       (const QString &arg1);
             void on_cb_video_representation_currentIndexChanged (const QString &arg1);

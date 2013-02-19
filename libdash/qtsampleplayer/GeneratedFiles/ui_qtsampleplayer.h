@@ -17,13 +17,12 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
 #include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "Renderer/QTGLRenderer.h"
@@ -37,7 +36,8 @@ public:
     QHBoxLayout *horizontalLayout;
     QWidget *widget;
     QVBoxLayout *verticalLayout_3;
-    QComboBox *comboBoxMPD;
+    QComboBox *cb_mpd;
+    QLineEdit *lineEdit;
     sampleplayer::renderer::QTGLRenderer *videoelement;
     QVBoxLayout *videoLayout;
     QWidget *w_controls;
@@ -53,8 +53,6 @@ public:
     QLabel *label_5;
     QProgressBar *progressBar;
     QSpacerItem *verticalSpacer;
-    QMenuBar *menuBar;
-    QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *QtSamplePlayerClass)
@@ -77,12 +75,18 @@ public:
         verticalLayout_3->setSpacing(6);
         verticalLayout_3->setContentsMargins(11, 11, 11, 11);
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
-        comboBoxMPD = new QComboBox(widget);
-        comboBoxMPD->addItem(QStringLiteral("http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s_480p_only/bunny_Desktop.mpd"));
-        comboBoxMPD->addItem(QString());
-        comboBoxMPD->setObjectName(QStringLiteral("comboBoxMPD"));
+        cb_mpd = new QComboBox(widget);
+        cb_mpd->addItem(QStringLiteral("http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s_480p_only/bunny_Desktop.mpd"));
+        cb_mpd->addItem(QString());
+        cb_mpd->addItem(QString());
+        cb_mpd->setObjectName(QStringLiteral("cb_mpd"));
 
-        verticalLayout_3->addWidget(comboBoxMPD);
+        verticalLayout_3->addWidget(cb_mpd);
+
+        lineEdit = new QLineEdit(widget);
+        lineEdit->setObjectName(QStringLiteral("lineEdit"));
+
+        verticalLayout_3->addWidget(lineEdit);
 
         videoelement = new sampleplayer::renderer::QTGLRenderer(widget);
         videoelement->setObjectName(QStringLiteral("videoelement"));
@@ -170,13 +174,6 @@ public:
         horizontalLayout->addWidget(w_controls);
 
         QtSamplePlayerClass->setCentralWidget(centralWidget);
-        menuBar = new QMenuBar(QtSamplePlayerClass);
-        menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 898, 21));
-        QtSamplePlayerClass->setMenuBar(menuBar);
-        mainToolBar = new QToolBar(QtSamplePlayerClass);
-        mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
-        QtSamplePlayerClass->addToolBar(Qt::TopToolBarArea, mainToolBar);
         statusBar = new QStatusBar(QtSamplePlayerClass);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         QtSamplePlayerClass->setStatusBar(statusBar);
@@ -188,8 +185,9 @@ public:
 
     void retranslateUi(QMainWindow *QtSamplePlayerClass)
     {
-        QtSamplePlayerClass->setWindowTitle(QApplication::translate("QtSamplePlayerClass", "QtSamplePlayer", 0));
-        comboBoxMPD->setItemText(1, QApplication::translate("QtSamplePlayerClass", "http://www-itec.aau.at/~cmueller/libdashtest/showcases/redbull_2_resolutions.mpd", 0));
+        QtSamplePlayerClass->setWindowTitle(QApplication::translate("QtSamplePlayerClass", "libdash player", 0));
+        cb_mpd->setItemText(1, QApplication::translate("QtSamplePlayerClass", "http://www-itec.aau.at/~cmueller/libdashtest/showcases/redbull_2_resolutions.mpd", 0));
+        cb_mpd->setItemText(2, QApplication::translate("QtSamplePlayerClass", "http://www-itec.aau.at/~cmueller/libdashtest/showcases/redbull_segment_template.mpd", 0));
 
         button_start->setText(QApplication::translate("QtSamplePlayerClass", "Start", 0));
         button_stop->setText(QApplication::translate("QtSamplePlayerClass", "Stop", 0));

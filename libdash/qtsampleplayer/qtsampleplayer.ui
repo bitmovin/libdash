@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>QtSamplePlayer</string>
+   <string>libdash player</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
@@ -31,7 +31,7 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
-        <widget class="QComboBox" name="comboBoxMPD">
+        <widget class="QComboBox" name="cb_mpd">
          <item>
           <property name="text">
            <string notr="true">http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s_480p_only/bunny_Desktop.mpd</string>
@@ -42,7 +42,15 @@
            <string>http://www-itec.aau.at/~cmueller/libdashtest/showcases/redbull_2_resolutions.mpd</string>
           </property>
          </item>
+         <item>
+          <property name="text">
+           <string>http://www-itec.aau.at/~cmueller/libdashtest/showcases/redbull_segment_template.mpd</string>
+          </property>
+         </item>
         </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit"/>
        </item>
        <item>
         <widget class="sampleplayer::renderer::QTGLRenderer" name="videoelement" native="true">
@@ -154,24 +162,6 @@
      </widget>
     </item>
    </layout>
-  </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>898</width>
-     <height>21</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
