@@ -49,6 +49,13 @@ bool        MultimediaStream::Start                 ()
     if(!this->StartDownload())
         return false;
 
+    if(!this->StartDecoding())
+        return false;
+
+    return true;
+}
+bool        MultimediaStream::StartDecoding         ()
+{
     if(!this->decodingThread->Start())
         return false;
 

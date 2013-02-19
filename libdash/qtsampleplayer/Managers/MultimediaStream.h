@@ -36,6 +36,7 @@ namespace sampleplayer
                 bool        Start                   ();
                 void        Stop                    ();
                 void        StopDownload            ();
+                bool        StartDecoding           ();
                 bool        StartDownload           ();
                 void        Clear                   ();
                 uint32_t    GetPosition             ();
