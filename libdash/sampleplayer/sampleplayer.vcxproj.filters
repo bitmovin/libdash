@@ -33,7 +33,16 @@
     <ClInclude Include="source\Renderer\SDLRenderer.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="source\Input\SegmentBuffer.h">
+    <ClInclude Include="source\Input\AdaptationLogic.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Input\MediaObject.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Input\MediaObjectBuffer.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Input\MultiThreading.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
@@ -50,7 +59,16 @@
     <ClCompile Include="source\Renderer\SDLRenderer.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="source\Input\SegmentBuffer.cpp">
+    <ClCompile Include="source\Input\AdaptationLogic.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Input\MediaObject.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Input\MediaObjectBuffer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Input\MultiThreading.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

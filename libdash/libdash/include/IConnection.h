@@ -1,13 +1,17 @@
-/*
- * IConnection.h
- *****************************************************************************
- * Copyright (C) 2012, bitmovin Softwareentwicklung OG, All Rights Reserved
+/**
+ *  @class      dash::network::IConnection
+ *  @brief      ...
+ *  @details    ...
+ *  @see        dash::network::IChunk
  *
- * Email: libdash-dev@vicky.bitmovin.net
- *
- * This source code and its use and distribution, is subject to the terms
- * and conditions of the applicable license agreement.
- *****************************************************************************/
+ *  @author     bitmovin Softwareentwicklung OG \n
+ *              Email: libdash-dev@vicky.bitmovin.net
+ *  @version    2.1
+ *  @date       2013
+ *  @copyright  bitmovin Softwareentwicklung OG, All Rights Reserved \n\n
+ *              This source code and its use and distribution, is subject to the terms
+ *              and conditions of the applicable license agreement.
+ */
 
 #ifndef ICONNECTION_H_
 #define ICONNECTION_H_
@@ -25,7 +29,22 @@ namespace dash
             public:
                 virtual ~IConnection(){}
 
+                /**
+                 *  Reads ... and returns ...
+                 *  @param      data    ...
+                 *  @param      len     ...
+                 *  @param      chunk   a pointer to a dash::network::IChunk object
+                 *  @return     an integer
+                 */
                 virtual int Read (uint8_t *data, size_t len, IChunk *chunk)  = 0;
+
+                /**
+                 *  Peeks ... and returns ...
+                 *  @param      data    ...
+                 *  @param      len     ...
+                 *  @param      chunk   a pointer to a dash::network::IChunk object
+                 *  @return     an integer
+                 */
                 virtual int Peek (uint8_t *data, size_t len, IChunk *chunk)  = 0;
         };
     }

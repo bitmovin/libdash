@@ -16,13 +16,14 @@ using namespace dash;
 using namespace dash::network;
 using namespace dash::mpd;
 
-DASHReceiver::DASHReceiver  () :
+DASHReceiver::DASHReceiver  (uint32_t maxcapacity) :
               manager       (NULL),
               mpd           (NULL),
-              adaptationset (NULL),
-              count         (0)
+              count         (0),
+              maxcapacity   (maxcapacity)
 {
-    this->manager = CreateDashManager();
+    this->buffer    = new MediaObjectBuffer(this->maxcapacity);
+    this->manager   = CreateDashManager();
 }
 DASHReceiver::~DASHReceiver ()
 {
@@ -36,57 +37,54 @@ bool    DASHReceiver::Init                      (std::string mpdurl)
     if(this->mpd == NULL)
         return false;
 
+    this->logic = new AdaptationLogic(this->mpd);
 
-    this->baseurls.push_back(this->mpd->GetBaseUrls().at(0));
+    this->bufferingThread = CreateThreadPortable (DoBuffering, this);
 
-    this->adaptationset  = this->mpd->GetPeriods().at(0)->GetAdaptationSets().at(0);
-    this->representation = this->adaptationset->GetRepresentation().at(0);
-
-    this->AddSegmentToBuffer(count++, this->representation);
+    if(this->bufferingThread == NULL)
+        return false;
 
     return true;
 }
-void    DASHReceiver::OnDownloadStateChanged    (DownloadState state)
+int     DASHReceiver::IORead                    (uint8_t *buf, int buf_size)
 {
-    if(state == COMPLETED)
-        this->AddSegmentToBuffer(count++, this->representation);
-}
-void    DASHReceiver::OnDownloadRateChanged     (uint64_t bytesDownloaded)
-{
-}
-void    DASHReceiver::AddSegmentToBuffer        (int number, dash::mpd::IRepresentation *rep)
-{
-    dash::mpd::ISegment *seg = NULL;
+    /* FFMpeg callback that consumes data from the buffer for decoding */
+    MediaObject *media = this->buffer->Front();
 
-    if(number >= rep->GetSegmentList()->GetSegmentURLs().size() + 1)
-    {
-        this->segmentbuffer.SetEOS(true);
-        return;
-    }
-
-    if(number == 0)
-        seg = rep->GetSegmentBase()->GetInitialization()->ToSegment(this->baseurls);
-    else
-        seg = rep->GetSegmentList()->GetSegmentURLs().at(number - 1)->ToMediaSegment(this->baseurls);
-
-    seg->AttachDownloadObserver(this);
-    seg->StartDownload();
-    this->segmentbuffer.Push(seg);
-}
-int     DASHReceiver::IORead                    (uint8_t *buf, int buf_size )
-{
-    ISegment *seg = this->segmentbuffer.Front();
-
-    if(seg == NULL)
+    if(media == NULL)
         return 0;
 
-    int ret = seg->Read(buf, buf_size);
+    int ret = media->Read(buf, buf_size);
 
     if(ret == 0)
+        this->buffer->Pop();
+    else
+        return ret;
+
+    return this->IORead(buf, buf_size);
+}
+
+/* Thread that does the buffering of segments */
+void*   DASHReceiver::DoBuffering   (void *receiver)
+{
+    DASHReceiver *dashreceiver = (DASHReceiver *) receiver;
+
+    uint32_t number = 0;
+
+    MediaObject *media = dashreceiver->logic->GetSegment(number);
+
+    while(media != NULL)
     {
-        this->segmentbuffer.Pop();
-        return this->IORead(buf, buf_size);
+        media->StartDownload();
+        media->WaitFinished();
+        dashreceiver->buffer->Push(media);
+        number++;
+
+        media = dashreceiver->logic->GetSegment(number);
+
+        std::cout << "Buffer size in segments: " << dashreceiver->buffer->Length() << std::endl;
     }
 
-    return ret;
+    dashreceiver->buffer->SetEOS(true);
+    return NULL;
 }

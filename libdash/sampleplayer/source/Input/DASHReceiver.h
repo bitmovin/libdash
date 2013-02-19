@@ -13,8 +13,8 @@
 #define DASHRECEIVER_H_
 
 #include "IDataReceiver.h"
-#include "SegmentBuffer.h"
-#include "IAdaptationSet.h"
+#include "MediaObjectBuffer.h"
+#include "AdaptationLogic.h"
 #include "IDownloadObserver.h"
 #include "libdash.h"
 #include <string>
@@ -24,28 +24,27 @@ namespace sampleplayer
 {
     namespace input
     {
-        class DASHReceiver : public IDataReceiver, public dash::network::IDownloadObserver
+        class DASHReceiver : public IDataReceiver
         {
             public:
-                DASHReceiver            ();
+                DASHReceiver            (uint32_t maxcapacity);
                 virtual ~DASHReceiver   ();
 
-                bool Init(std::string mpdurl);
+                bool Init   (std::string mpdurl);
 
-                virtual int     IORead                  (uint8_t *buf, int buf_size );
-                virtual void    OnDownloadStateChanged  (dash::network::DownloadState state);
-                virtual void    OnDownloadRateChanged   (uint64_t bytesDownloaded);
+                virtual int IORead (uint8_t *buf, int buf_size);
 
             private:
-                dash::IDASHManager                  *manager;
-                dash::mpd::IMPD                     *mpd;
-                SegmentBuffer                       segmentbuffer;
-                std::vector<dash::mpd::IBaseUrl *>  baseurls;
-                dash::mpd::IAdaptationSet           *adaptationset;
-                dash::mpd::IRepresentation          *representation;
-                int                                 count;
+                dash::IDASHManager  *manager;
+                dash::mpd::IMPD     *mpd;
+                MediaObjectBuffer   *buffer;
+                int                 count;
+                uint32_t            maxcapacity;
+                AdaptationLogic     *logic;
+                THREAD_HANDLE       bufferingThread;
 
-                void AddSegmentToBuffer(int number, dash::mpd::IRepresentation *rep);
+                /* Thread that does the buffering of segments */
+                static void* DoBuffering (void *receiver);
         };
     }
 }

@@ -199,6 +199,8 @@ bool                LibavDecoder::init                    ()
 
     av_init_packet(&this->avpkt);
     initStreams(avFormatContextPtr);
+
+    return true;
 }
 bool                LibavDecoder::decode                  ()
 {

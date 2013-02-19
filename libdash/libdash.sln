@@ -18,6 +18,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libdash_memoryleak_test", "
 		{CB8F90F3-3666-43E1-9C51-502337569FEF} = {CB8F90F3-3666-43E1-9C51-502337569FEF}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qtsampleplayer", "qtsampleplayer\qtsampleplayer.vcxproj", "{C353C17A-25FB-40C8-BCE4-0D07A300547E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CB8F90F3-3666-43E1-9C51-502337569FEF} = {CB8F90F3-3666-43E1-9C51-502337569FEF}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -40,6 +45,10 @@ Global
 		{27A37295-8676-417F-977F-85E7E9B1B28B}.Debug|Win32.Build.0 = Debug|Win32
 		{27A37295-8676-417F-977F-85E7E9B1B28B}.Release|Win32.ActiveCfg = Release|Win32
 		{27A37295-8676-417F-977F-85E7E9B1B28B}.Release|Win32.Build.0 = Release|Win32
+		{C353C17A-25FB-40C8-BCE4-0D07A300547E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C353C17A-25FB-40C8-BCE4-0D07A300547E}.Debug|Win32.Build.0 = Debug|Win32
+		{C353C17A-25FB-40C8-BCE4-0D07A300547E}.Release|Win32.ActiveCfg = Release|Win32
+		{C353C17A-25FB-40C8-BCE4-0D07A300547E}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

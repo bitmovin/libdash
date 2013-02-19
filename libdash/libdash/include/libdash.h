@@ -1,13 +1,17 @@
-/*
- * libdash.h
- *****************************************************************************
- * Copyright (C) 2012, bitmovin Softwareentwicklung OG, All Rights Reserved
+/**
+ *  libdash.h
  *
- * Email: libdash-dev@vicky.bitmovin.net
+ *  @brief      ...
+ *  @details    ...
  *
- * This source code and its use and distribution, is subject to the terms
- * and conditions of the applicable license agreement.
- *****************************************************************************/
+ *  @author     bitmovin Softwareentwicklung OG \n
+ *              Email: libdash-dev@vicky.bitmovin.net
+ *  @version    2.1
+ *  @date       2013
+ *  @copyright  bitmovin Softwareentwicklung OG, All Rights Reserved \n\n
+ *              This source code and its use and distribution, is subject to the terms
+ *              and conditions of the applicable license agreement.
+ */
 
 #ifndef LIBDASH_H_
 #define LIBDASH_H_

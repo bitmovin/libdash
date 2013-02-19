@@ -20,7 +20,7 @@ using namespace sampleplayer::renderer;
 int main(int argc, char *argv[])
 {
     SDLRenderer     *renderer = new SDLRenderer();
-    DASHReceiver    *receiver = new DASHReceiver();
+    DASHReceiver    *receiver = new DASHReceiver(30); // Init a DASHReceiver with a buffer size of 30 Segments
 
     receiver->Init("http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s_480p_only/bunny_Desktop.mpd");
 
