@@ -37,7 +37,7 @@ public:
     QWidget *widget;
     QVBoxLayout *verticalLayout_3;
     QComboBox *cb_mpd;
-    QLineEdit *lineEdit;
+    QLineEdit *lineEdit_mpd;
     sampleplayer::renderer::QTGLRenderer *videoelement;
     QVBoxLayout *videoLayout;
     QWidget *w_controls;
@@ -83,10 +83,10 @@ public:
 
         verticalLayout_3->addWidget(cb_mpd);
 
-        lineEdit = new QLineEdit(widget);
-        lineEdit->setObjectName(QStringLiteral("lineEdit"));
+        lineEdit_mpd = new QLineEdit(widget);
+        lineEdit_mpd->setObjectName(QStringLiteral("lineEdit_mpd"));
 
-        verticalLayout_3->addWidget(lineEdit);
+        verticalLayout_3->addWidget(lineEdit_mpd);
 
         videoelement = new sampleplayer::renderer::QTGLRenderer(widget);
         videoelement->setObjectName(QStringLiteral("videoelement"));
@@ -189,6 +189,7 @@ public:
         cb_mpd->setItemText(1, QApplication::translate("QtSamplePlayerClass", "http://www-itec.aau.at/~cmueller/libdashtest/showcases/redbull_2_resolutions.mpd", 0));
         cb_mpd->setItemText(2, QApplication::translate("QtSamplePlayerClass", "http://www-itec.aau.at/~cmueller/libdashtest/showcases/redbull_segment_template.mpd", 0));
 
+        lineEdit_mpd->setText(QApplication::translate("QtSamplePlayerClass", "http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s_480p_only/bunny_Desktop.mpd", 0));
         button_start->setText(QApplication::translate("QtSamplePlayerClass", "Start", 0));
         button_stop->setText(QApplication::translate("QtSamplePlayerClass", "Stop", 0));
         label->setText(QApplication::translate("QtSamplePlayerClass", "Video AdaptationSet", 0));

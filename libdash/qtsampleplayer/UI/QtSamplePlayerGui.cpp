@@ -95,6 +95,10 @@ void            QtSamplePlayerGui::SetStatusBar                                 
     QString str(text.c_str());
     this->ui->statusBar->showMessage(str);
 }
+void            QtSamplePlayerGui::on_cb_mpd_currentTextChanged                     (const QString &arg1)
+{
+    this->ui->lineEdit_mpd->setText(arg1);
+}
 void            QtSamplePlayerGui::on_cb_video_adaption_currentIndexChanged         (const QString &arg1)
 {
     if(this->isEnabled())

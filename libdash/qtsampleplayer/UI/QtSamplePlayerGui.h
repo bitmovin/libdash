@@ -43,6 +43,7 @@ namespace sampleplayer
             sampleplayer::renderer::QTGLRenderer*   GetVideoElement         ();
 
         private slots:
+            void on_cb_mpd_currentTextChanged                   (const QString &arg1);
             void on_cb_video_adaption_currentIndexChanged       (const QString &arg1);
             void on_cb_video_representation_currentIndexChanged (const QString &arg1);
             void on_cb_audio_adaption_currentIndexChanged       (const QString &arg1);

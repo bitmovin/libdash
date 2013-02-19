@@ -50,7 +50,11 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit"/>
+        <widget class="QLineEdit" name="lineEdit_mpd">
+         <property name="text">
+          <string>http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s_480p_only/bunny_Desktop.mpd</string>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="sampleplayer::renderer::QTGLRenderer" name="videoelement" native="true">
