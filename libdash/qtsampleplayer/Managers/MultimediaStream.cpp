@@ -46,10 +46,17 @@ void        MultimediaStream::Init                  ()
 }
 bool        MultimediaStream::Start                 ()
 {
-    if(!receiver->Start())
+    if(!this->StartDownload())
         return false;
 
     if(!this->decodingThread->Start())
+        return false;
+
+    return true;
+}
+bool        MultimediaStream::StartDownload         ()
+{
+    if(!receiver->Start())
         return false;
 
     return true;
