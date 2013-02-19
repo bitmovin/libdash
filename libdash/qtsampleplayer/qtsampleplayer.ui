@@ -33,7 +33,7 @@
        <item>
         <widget class="QLineEdit" name="lineEdit">
          <property name="enabled">
-          <bool>true</bool>
+          <bool>false</bool>
          </property>
          <property name="text">
           <string notr="true">http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s_480p_only/bunny_Desktop.mpd</string>
