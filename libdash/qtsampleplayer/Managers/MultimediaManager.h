@@ -60,7 +60,7 @@ namespace sampleplayer
                 libdash::framework::adaptation::IAdaptationLogic            *videoLogic;
                 MultimediaStream                                            *videoStream;
                 std::vector<libdash::framework::buffer::IBufferObserver* >  videoBufferObservers;
-                bool                                                        run;
+                bool                                                        isStarted;
 
                 void InitVideoRendering (uint32_t offset);
         };

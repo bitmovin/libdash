@@ -28,7 +28,7 @@ MultimediaManager::MultimediaManager    (QTGLRenderer *videoelement) :
                    videoRepresentation  (NULL),
                    videoLogic           (NULL),
                    videoStream          (NULL),
-                   run                  (false)
+                   isStarted            (false)
 {
     this->manager = CreateDashManager();
 }
@@ -64,7 +64,7 @@ bool    MultimediaManager::Init                         (const std::string& url)
 void    MultimediaManager::Start                        ()
 {
     /* Global Start button for start must be added to interface*/
-    if(this->run)
+    if(this->isStarted)
     {
         this->Stop();
     }
@@ -72,11 +72,11 @@ void    MultimediaManager::Start                        ()
     this->InitVideoRendering(0);
 
     this->videoStream->Start();
-    this->run = true;
+    this->isStarted = true;
 }
 void    MultimediaManager::Stop                         ()
 {
-    if(this->run)
+    if(this->isStarted)
     {
         this->videoStream->Stop();
         delete this->videoStream;
@@ -84,7 +84,7 @@ void    MultimediaManager::Stop                         ()
         this->videoStream = NULL;
         this->videoLogic = NULL;
     }
-    this->run = false;
+    this->isStarted = false;
 }
 bool    MultimediaManager::SetVideoQuality              (IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation)
 {
@@ -92,7 +92,7 @@ bool    MultimediaManager::SetVideoQuality              (IAdaptationSet *adaptat
     {
         this->videoAdaptationSet  = adaptationSet;
         this->videoRepresentation = representation;
-        if(this->run)
+        if(this->isStarted)
         {
             int position = this->videoStream->GetPosition();
             this->Stop();
@@ -100,10 +100,10 @@ bool    MultimediaManager::SetVideoQuality              (IAdaptationSet *adaptat
             this->InitVideoRendering(position);
             this->videoStream->Start();
 
-            this->run = true;
+            this->isStarted = true;
         }
     }
-    if(this->run && representation != this->videoRepresentation)
+    if(this->isStarted && representation != this->videoRepresentation)
     {
         this->videoStream->Clear();
         this->videoLogic->SetRepresentation(representation);
