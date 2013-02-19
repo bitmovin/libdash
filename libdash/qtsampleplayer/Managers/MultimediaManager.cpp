@@ -94,7 +94,7 @@ bool    MultimediaManager::SetVideoQuality              (IAdaptationSet *adaptat
         this->videoRepresentation = representation;
         if(this->run)
         {
-            int position = this->videoLogic->GetPosition();
+            int position = this->videoStream->GetPosition();
             this->Stop();
 
             this->InitVideoRendering(position);
