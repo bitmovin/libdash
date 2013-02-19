@@ -69,7 +69,7 @@ void    MultimediaManager::Start                        ()
         this->Stop();
     }
     
-    this->InitChain(0);
+    this->InitVideoRendering(0);
 
     this->videoStream->Start();
     this->run = true;
@@ -88,7 +88,6 @@ void    MultimediaManager::Stop                         ()
 }
 bool    MultimediaManager::SetVideoQuality              (IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation)
 {
-
     if(this->videoAdaptationSet != adaptationSet)
     {
         this->videoAdaptationSet  = adaptationSet;
@@ -97,8 +96,8 @@ bool    MultimediaManager::SetVideoQuality              (IAdaptationSet *adaptat
         {
             int position = this->videoLogic->GetPosition();
             this->Stop();
-        
-            this->InitChain(position);
+
+            this->InitVideoRendering(position);
             this->videoStream->Start();
 
             this->run = true;
@@ -149,10 +148,10 @@ void    MultimediaManager::NotifyVideoBufferObservers   ()
 void    MultimediaManager::NotifyAudioBufferObservers   ()
 {
 }
-void    MultimediaManager::InitChain                    (uint32_t position)
+void    MultimediaManager::InitVideoRendering           (uint32_t offset)
 {
     this->videoLogic = new ManualAdaptation(this->videoAdaptationSet, this->mpd);
-    this->videoLogic->SetPosition(position);
+    this->videoLogic->SetPosition(offset);
     this->videoLogic->SetRepresentation(this->videoRepresentation);
     this->videoLogic->InvokeInitSegment(true);
 

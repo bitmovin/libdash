@@ -62,7 +62,7 @@ namespace sampleplayer
                 std::vector<libdash::framework::buffer::IBufferObserver* >  videoBufferObservers;
                 bool                                                        run;
 
-                void InitChain                  (uint32_t position);
+                void InitVideoRendering (uint32_t offset);
         };
     }
 }
