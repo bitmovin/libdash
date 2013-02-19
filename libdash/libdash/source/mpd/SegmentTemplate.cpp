@@ -115,8 +115,6 @@ std::string         SegmentTemplate::ReplaceParameters              (const std::
 
     for(size_t i = 0; i < chunks.size(); i++) 
         replacedUri += chunks.at(i);
-    
-    delete &chunks;
 
     return replacedUri;
 }
