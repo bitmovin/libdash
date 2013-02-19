@@ -199,8 +199,7 @@ std::string     QtSamplePlayerGui::GetUrl                                       
 {
     this->lockUI();
 
-    int         index   = this->ui->cb_mpd->currentIndex();
-    std::string ret     = this->ui->cb_mpd->itemText(index).toStdString();
+    std::string ret  = this->ui->lineEdit_mpd->text().toStdString();
 
     this->unlockUI();
     return ret;
