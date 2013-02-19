@@ -28,7 +28,7 @@ ManualAdaptation::~ManualAdaptation         ()
 {
 }
 
-LogicType       ManualAdaptation:: GetType              ()
+LogicType       ManualAdaptation::GetType               ()
 {
     return adaptation::Manual;
 }
