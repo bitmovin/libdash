@@ -92,6 +92,7 @@
     </ClCompile>
     <ClCompile Include="libdashframework\Adaptation\AbstractAdaptationLogic.cpp" />
     <ClCompile Include="libdashframework\Adaptation\ManualAdaptation.cpp" />
+    <ClCompile Include="libdashframework\MPD\RepresentationHelper.cpp" />
     <ClCompile Include="UI\DASHPlayer.cpp" />
     <ClCompile Include="UI\QtSamplePlayerGui.cpp" />
     <ClCompile Include="Managers\DecodingThread.cpp" />
@@ -152,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="libdashframework\Adaptation\AbstractAdaptationLogic.h" />
     <ClInclude Include="libdashframework\Adaptation\ManualAdaptation.h" />
+    <ClInclude Include="libdashframework\MPD\RepresentationHelper.h" />
     <ClInclude Include="Managers\DecodingThread.h" />
     <ClInclude Include="Managers\IStreamObserver.h" />
     <ClInclude Include="Managers\MultimediaStream.h" />

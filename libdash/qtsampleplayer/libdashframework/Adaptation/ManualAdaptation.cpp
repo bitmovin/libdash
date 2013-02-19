@@ -13,6 +13,7 @@
 
 using namespace dash::mpd;
 using namespace libdash::framework::adaptation;
+using namespace libdash::framework::mpd;
 
 ManualAdaptation::ManualAdaptation          (dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd) : 
                   AbstractAdaptationLogic   (adaptationSet, mpd),
@@ -36,17 +37,17 @@ MediaObject*    ManualAdaptation::GetSegment            ()
 {
     ISegment *seg = NULL;
 
-    if(this->segmentNumber >= this->representation->GetSegmentList()->GetSegmentURLs().size() + 1)
+    if(this->segmentNumber >= RepresentationHelper::GetSize(this->representation) + 1) 
         return NULL;
 
     if(this->segmentNumber == 0 || this->invokeInitSegment)
     {
-        seg = this->representation->GetSegmentBase()->GetInitialization()->ToSegment(this->baseurls);
+        seg = RepresentationHelper::GetInitSegment(this->representation, this->baseurls);
         this->invokeInitSegment = false;
     }   
     else
     {
-        seg = this->representation->GetSegmentList()->GetSegmentURLs().at(this->segmentNumber - 1)->ToMediaSegment(this->baseurls);
+        seg = RepresentationHelper::GetSegment(this->representation, this->baseurls, this->segmentNumber - 1);
     }
     
     MediaObject *media = new MediaObject(seg, this->representation);

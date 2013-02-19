@@ -12,7 +12,7 @@
 #ifndef LIBDASH_FRAMEWORK_ADAPTATION_FORCEDLOGIC_H_
 #define LIBDASH_FRAMEWORK_ADAPTATION_FORCEDLOGIC_H_
 
-#include "IMPD.h"
+#include "../MPD/RepresentationHelper.h"
 #include "AbstractAdaptationLogic.h"
 
 namespace libdash
