@@ -33,16 +33,16 @@ namespace libdash
                     DASHReceiver            (uint32_t maxcapacity, adaptation::IAdaptationLogic *logic);
                     virtual ~DASHReceiver   ();
 
-                    bool Start                  ();
-                    void Stop                   ();
-                    void Clear                  ();
-                    void AtachBufferObserver    (buffer::IBufferObserver *observer);
-
-                    virtual int Read (uint8_t *buf, int buf_size);
+                    bool        Start               ();
+                    void        Stop                ();
+                    uint32_t    GetPosition         ();
+                    void        Clear               ();
+                    void        AtachBufferObserver (buffer::IBufferObserver *observer);
+                    virtual int Read                (uint8_t *buf, int buf_size);
 
                 private:
                     buffer::MediaObjectBuffer       *buffer;
-                    int                             count;
+                    uint32_t                        readSegmentCount;
                     uint32_t                        maxcapacity;
                     adaptation::IAdaptationLogic    *logic;
                     THREAD_HANDLE                   bufferingThread;

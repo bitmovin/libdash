@@ -19,20 +19,20 @@ using namespace dash;
 using namespace dash::network;
 using namespace dash::mpd;
 
-DASHReceiver::DASHReceiver  (uint32_t maxcapacity, IAdaptationLogic* logic) :
-              count         (0),
-              maxcapacity   (maxcapacity),
-              logic         (logic),
-              isDownloading (false)
+DASHReceiver::DASHReceiver      (uint32_t maxcapacity, IAdaptationLogic* logic) :
+              readSegmentCount  (0),
+              maxcapacity       (maxcapacity),
+              logic             (logic),
+              isDownloading     (false)
 {
     this->buffer = new MediaObjectBuffer(this->maxcapacity);
 }
-DASHReceiver::~DASHReceiver ()
+DASHReceiver::~DASHReceiver     ()
 {
     this->Stop();
 }
 
-bool    DASHReceiver::Start                 ()
+bool        DASHReceiver::Start                 ()
 {
     if(this->isDownloading)
         return false;
@@ -48,7 +48,7 @@ bool    DASHReceiver::Start                 ()
 
     return true;
 }
-void    DASHReceiver::Stop                  ()
+void        DASHReceiver::Stop                  ()
 {
     if(!this->isDownloading)
         return;
@@ -61,11 +61,11 @@ void    DASHReceiver::Stop                  ()
         DestroyThreadPortable(this->bufferingThread);
     }
 }
-void    DASHReceiver::AtachBufferObserver   (IBufferObserver* observer)
+void        DASHReceiver::AtachBufferObserver   (IBufferObserver* observer)
 {
     this->buffer->AttachObserver(observer);
 }
-int     DASHReceiver::Read                  (uint8_t *buf, int buf_size)
+int         DASHReceiver::Read                  (uint8_t *buf, int buf_size)
 {
     /* FFMpeg callback that consumes data from the buffer for decoding */
     MediaObject *media = this->buffer->Front();
@@ -80,11 +80,16 @@ int     DASHReceiver::Read                  (uint8_t *buf, int buf_size)
     else
         return ret;
 
+    this->readSegmentCount++;
     return this->Read(buf, buf_size);
 }
-void    DASHReceiver::Clear                 ()
+void        DASHReceiver::Clear                 ()
 {
     this->buffer->Clear();
+}
+uint32_t    DASHReceiver::GetPosition           ()
+{
+    return this->readSegmentCount;
 }
 
 /* Thread that does the buffering of segments */
