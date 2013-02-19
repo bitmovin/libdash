@@ -91,7 +91,8 @@ bool    MultimediaManager::SetVideoAdaptationSet        (IAdaptationSet *adaptat
 
     if(this->videoAdaptationSet != adaptationSet)
     {
-        this->videoAdaptationSet = adaptationSet;
+        this->videoAdaptationSet  = adaptationSet;
+        this->videoRepresentation = adaptationSet->GetRepresentation().at(0);
         if(this->run)
         {
             int position = this->videoLogic->GetPosition();

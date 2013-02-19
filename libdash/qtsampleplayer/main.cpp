@@ -20,10 +20,8 @@ int main(int argc, char *argv[])
     QtSamplePlayerGui w;
 
     DASHPlayer p(w);
- 
-    w.show();
 
-    
+    w.show();
 
     return a.exec();
 }

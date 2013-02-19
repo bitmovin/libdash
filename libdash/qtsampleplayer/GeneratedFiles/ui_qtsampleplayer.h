@@ -78,9 +78,8 @@ public:
         verticalLayout_3->setContentsMargins(11, 11, 11, 11);
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         comboBoxMPD = new QComboBox(widget);
-        comboBoxMPD->insertItems(0, QStringList()
-         << QStringLiteral("http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s_480p_only/bunny_Desktop.mpd")
-        );
+        comboBoxMPD->addItem(QStringLiteral("http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s_480p_only/bunny_Desktop.mpd"));
+        comboBoxMPD->addItem(QString());
         comboBoxMPD->setObjectName(QStringLiteral("comboBoxMPD"));
 
         verticalLayout_3->addWidget(comboBoxMPD);
@@ -190,6 +189,8 @@ public:
     void retranslateUi(QMainWindow *QtSamplePlayerClass)
     {
         QtSamplePlayerClass->setWindowTitle(QApplication::translate("QtSamplePlayerClass", "QtSamplePlayer", 0));
+        comboBoxMPD->setItemText(1, QApplication::translate("QtSamplePlayerClass", "http://www-itec.aau.at/~cmueller/libdashtest/showcases/redbull_2_resolutions.mpd", 0));
+
         button_start->setText(QApplication::translate("QtSamplePlayerClass", "Start", 0));
         button_stop->setText(QApplication::translate("QtSamplePlayerClass", "Stop", 0));
         label->setText(QApplication::translate("QtSamplePlayerClass", "Video AdaptationSet", 0));
