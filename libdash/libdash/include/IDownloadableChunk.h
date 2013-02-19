@@ -1,7 +1,7 @@
 /**
  *  @class      dash::network::IDownloadableChunk
  *  @brief      This interface is needed for starting and abortinng downloads, reading, peeking and attaching dash::network::IDownloadObservers to this Chunk
- *  @details    ...
+ *  @details    Enables the download of media segments with the internal libcurl connection or with external connections that can be passed to this interface
  *  @see        dash::network::IDownloadObserver dash::network::IConnection dash::network::IChunk
  *
  *  @author     bitmovin Softwareentwicklung OG \n
@@ -51,17 +51,17 @@ namespace dash
 
                 /**
                  *  Reads
-                 *  @param      data    ...
-                 *  @param      len     ...
-                 *  @return     ...
+                 *  @param      data    pointer to a block of memory
+                 *  @param      len     size of the memory block that can be used by the method
+                 *  @return     amount of data that has been read
                  */
                 virtual int     Read                    (uint8_t *data, size_t len)     = 0;
 
                 /**
                  *  Reads
-                 *  @param      data    ...
-                 *  @param      len     ...
-                 *  @return     an integer
+                 *  @param      data    pointer to a block of memory
+                 *  @param      len     size of the memory block that can be used by the method
+                 *  @return     amount of data that has been peeked
                  */
                 virtual int     Peek                    (uint8_t *data, size_t len)     = 0;
 
