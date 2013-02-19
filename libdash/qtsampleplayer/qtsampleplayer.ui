@@ -31,13 +31,12 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
-        <widget class="QLineEdit" name="lineEdit">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string notr="true">http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s_480p_only/bunny_Desktop.mpd</string>
-         </property>
+        <widget class="QComboBox" name="comboBoxMPD">
+         <item>
+          <property name="text">
+           <string notr="true">http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s_480p_only/bunny_Desktop.mpd</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item>

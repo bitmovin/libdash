@@ -47,7 +47,6 @@ namespace sampleplayer
             void on_cb_video_representation_currentIndexChanged (const QString &arg1);
             void on_cb_audio_adaption_currentIndexChanged       (const QString &arg1);
             void on_cb_audio_representation_currentIndexChanged (const QString &arg1);
-            void on_lineEdit_returnPressed                      ();
             void on_button_start_clicked                        ();
             void on_button_stop_clicked                         ();
             void on_ckb_automatic_toggled                       (bool checked);

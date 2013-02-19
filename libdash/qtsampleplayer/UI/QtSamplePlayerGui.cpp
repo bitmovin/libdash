@@ -124,15 +124,6 @@ void            QtSamplePlayerGui::on_cb_audio_representation_currentIndexChange
         this->settingsChanged();
     }
 }
-void            QtSamplePlayerGui::on_lineEdit_returnPressed                        ()
-{
-    this->lockUI();
-    for(unsigned int i=0; i < this->observer.size(); i++)
-    {
-        this->observer[i]->OnURLEntered(this, this->ui->lineEdit->text().toStdString());
-    }
-    this->unlockUI();
-}
 void            QtSamplePlayerGui::on_button_start_clicked                          ()
 {
     this->ui->button_start->setEnabled(false);
@@ -202,7 +193,13 @@ void            QtSamplePlayerGui::unlockUI                                     
 }
 std::string     QtSamplePlayerGui::GetUrl                                           ()
 {
-    return this->ui->lineEdit->text().toStdString();
+    this->lockUI();
+
+    int         index   = this->ui->comboBoxMPD->currentIndex();
+    std::string ret     = this->ui->comboBoxMPD->itemText(index).toStdString();
+
+    this->unlockUI();
+    return ret;
 }
 bool            QtSamplePlayerGui::GetAutomatic                                     ()
 {

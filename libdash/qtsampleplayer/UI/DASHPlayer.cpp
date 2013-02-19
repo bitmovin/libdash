@@ -27,7 +27,6 @@ DASHPlayer::DASHPlayer  (QtSamplePlayerGui& gui) :
 
     this->multimediaManager->AttachVideoBufferObserver(this);
     this->gui->AddWidgetObserver(this);
-    this->OnURLEntered(NULL, this->gui->GetUrl());
 
     QObject::connect(this, SIGNAL(FillStateChanged(int)), &gui, SLOT(SetBufferFillState(int)));
 }
@@ -39,6 +38,17 @@ DASHPlayer::~DASHPlayer ()
 
 void DASHPlayer::OnStartButtonPressed   (QtSamplePlayerGui* widget)
 {
+    std::string url = this->gui->GetUrl();
+    if(!this->multimediaManager->Init(url))
+    {
+        this->gui->SetStatusBar("Error parsing mpd at: " + url);
+        return; // TODO dialog or symbol that indicates that error
+    }
+
+    this->gui->SetStatusBar("Successfully parsed MPD at: " + url);
+    this->gui->SetGuiFields(this->multimediaManager->GetMPD());
+
+    this->InitMultimediaStreams();
     this->multimediaManager->Start();
 }
 void DASHPlayer::OnStopButtonPressed    (QtSamplePlayerGui* widget)
@@ -58,19 +68,6 @@ void DASHPlayer::OnSettingsChanged      (QtSamplePlayerGui* widget, int video_ad
 
     this->multimediaManager->SetVideoAdaptationSet(currentPeriod->GetAdaptationSets().at(video_adaption));
     this->multimediaManager->SetVideoRepresenation(currentPeriod->GetAdaptationSets().at(video_adaption)->GetRepresentation().at(video_representation));
-}
-void DASHPlayer::OnURLEntered           (QtSamplePlayerGui* widget, const std::string& url)
-{
-    if(!this->multimediaManager->Init(url))
-    {
-        this->gui->SetStatusBar("Error parsing mpd at: " + url);
-        return; // TODO dialog or symbol that indicates that error
-    }
-
-    this->gui->SetStatusBar("Successfully parsed MPD at: " + url);
-    this->gui->SetGuiFields(this->multimediaManager->GetMPD());
-
-    this->InitMultimediaStreams();
 }
 void DASHPlayer::InitMultimediaStreams  ()
 {

@@ -17,7 +17,6 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QProgressBar>
@@ -38,7 +37,7 @@ public:
     QHBoxLayout *horizontalLayout;
     QWidget *widget;
     QVBoxLayout *verticalLayout_3;
-    QLineEdit *lineEdit;
+    QComboBox *comboBoxMPD;
     sampleplayer::renderer::QTGLRenderer *videoelement;
     QVBoxLayout *videoLayout;
     QWidget *w_controls;
@@ -78,12 +77,13 @@ public:
         verticalLayout_3->setSpacing(6);
         verticalLayout_3->setContentsMargins(11, 11, 11, 11);
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
-        lineEdit = new QLineEdit(widget);
-        lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        lineEdit->setEnabled(false);
-        lineEdit->setText(QStringLiteral("http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s_480p_only/bunny_Desktop.mpd"));
+        comboBoxMPD = new QComboBox(widget);
+        comboBoxMPD->insertItems(0, QStringList()
+         << QStringLiteral("http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s_480p_only/bunny_Desktop.mpd")
+        );
+        comboBoxMPD->setObjectName(QStringLiteral("comboBoxMPD"));
 
-        verticalLayout_3->addWidget(lineEdit);
+        verticalLayout_3->addWidget(comboBoxMPD);
 
         videoelement = new sampleplayer::renderer::QTGLRenderer(widget);
         videoelement->setObjectName(QStringLiteral("videoelement"));

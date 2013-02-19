@@ -34,7 +34,6 @@ namespace sampleplayer
             virtual ~DASHPlayer ();
 
             virtual void OnSettingsChanged      (QtSamplePlayerGui* widget, int video_adaption, int video_representation);
-            virtual void OnURLEntered           (QtSamplePlayerGui* widget, const std::string& url);
             virtual void OnStartButtonPressed   (QtSamplePlayerGui* widget);
             virtual void OnStopButtonPressed    (QtSamplePlayerGui* widget);
             virtual void OnCheckboxChanged      (QtSamplePlayerGui* widget, bool isAutomatic);
