@@ -3,7 +3,7 @@
  *
  * Author:
  *     Christopher Mueller  <christopher.mueller@bitmovin.net>
- *     Armin Trattnig       <peter.knafl@bitmovin.net>
+ *     Armin Trattnig       <armin.trattnig@bitmovin.net>
  *
  * This source code and its use and distribution, is subject to the terms
  * and conditions of the applicable license agreement.
