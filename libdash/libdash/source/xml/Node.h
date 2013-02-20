@@ -65,6 +65,7 @@ namespace dash
                 void                                        SetText             (const std::string &text);
                 void                                        Print               (std::ostream &stream)  const;
                 dash::mpd::MPD*                             ToMPD               ()  const;
+                void                                        SetMPDUrl           (std::string url);
 
             private:
                 void                                        SetCommonValuesForRep   (dash::mpd::RepresentationBase& object) const;
@@ -94,6 +95,7 @@ namespace dash
                 std::string                         name;
                 std::string                         text;
                 int                                 type;
+                std::string                         mpdUrl;
 
         };
     }

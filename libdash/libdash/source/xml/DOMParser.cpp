@@ -12,6 +12,7 @@
 #include "DOMParser.h"
 
 using namespace dash::xml;
+using namespace dash::helpers;
 
 DOMParser::DOMParser    (std::string url) :
            url          (url),
@@ -37,7 +38,7 @@ bool    DOMParser::Parse                    ()
     if(this->reader == NULL)
         return false;
 
-    if(xmlTextReaderRead(this->reader))
+    if(xmlTextReaderRead(this->reader)) 
         this->root = this->ProcessNode();
 
     if(this->root == NULL)
@@ -61,6 +62,7 @@ Node*   DOMParser::ProcessNode              ()
 
         Node *node = new Node();
         node->SetType(type);
+        node->SetMPDUrl(Path::GetDirectoryPath(url));
 
         if(xmlTextReaderConstName(this->reader) == NULL)
             return NULL;
