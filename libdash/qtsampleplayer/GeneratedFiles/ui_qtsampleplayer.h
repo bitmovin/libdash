@@ -46,10 +46,16 @@ public:
     QVBoxLayout *verticalLayout_2;
     QPushButton *button_start;
     QPushButton *button_stop;
+    QLabel *label_period;
+    QComboBox *cb_period;
     QLabel *label;
     QComboBox *cb_video_adaption;
     QLabel *label_2;
     QComboBox *cb_video_representation;
+    QLabel *label_audio_adaptationset;
+    QComboBox *cb_audio_adaptationset;
+    QLabel *label_audio_representation;
+    QComboBox *cb_audio_represenation;
     QLabel *label_5;
     QProgressBar *progressBar;
     QSpacerItem *verticalSpacer;
@@ -131,6 +137,16 @@ public:
 
         verticalLayout_2->addWidget(button_stop);
 
+        label_period = new QLabel(w_boxes);
+        label_period->setObjectName(QStringLiteral("label_period"));
+
+        verticalLayout_2->addWidget(label_period);
+
+        cb_period = new QComboBox(w_boxes);
+        cb_period->setObjectName(QStringLiteral("cb_period"));
+
+        verticalLayout_2->addWidget(cb_period);
+
         label = new QLabel(w_boxes);
         label->setObjectName(QStringLiteral("label"));
 
@@ -151,6 +167,26 @@ public:
         cb_video_representation->setMinimumSize(QSize(200, 0));
 
         verticalLayout_2->addWidget(cb_video_representation);
+
+        label_audio_adaptationset = new QLabel(w_boxes);
+        label_audio_adaptationset->setObjectName(QStringLiteral("label_audio_adaptationset"));
+
+        verticalLayout_2->addWidget(label_audio_adaptationset);
+
+        cb_audio_adaptationset = new QComboBox(w_boxes);
+        cb_audio_adaptationset->setObjectName(QStringLiteral("cb_audio_adaptationset"));
+
+        verticalLayout_2->addWidget(cb_audio_adaptationset);
+
+        label_audio_representation = new QLabel(w_boxes);
+        label_audio_representation->setObjectName(QStringLiteral("label_audio_representation"));
+
+        verticalLayout_2->addWidget(label_audio_representation);
+
+        cb_audio_represenation = new QComboBox(w_boxes);
+        cb_audio_represenation->setObjectName(QStringLiteral("cb_audio_represenation"));
+
+        verticalLayout_2->addWidget(cb_audio_represenation);
 
         label_5 = new QLabel(w_boxes);
         label_5->setObjectName(QStringLiteral("label_5"));
@@ -192,8 +228,11 @@ public:
         lineEdit_mpd->setText(QApplication::translate("QtSamplePlayerClass", "http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s_480p_only/bunny_Desktop.mpd", 0));
         button_start->setText(QApplication::translate("QtSamplePlayerClass", "Start", 0));
         button_stop->setText(QApplication::translate("QtSamplePlayerClass", "Stop", 0));
+        label_period->setText(QApplication::translate("QtSamplePlayerClass", "Period", 0));
         label->setText(QApplication::translate("QtSamplePlayerClass", "Video AdaptationSet", 0));
         label_2->setText(QApplication::translate("QtSamplePlayerClass", "Video Representation", 0));
+        label_audio_adaptationset->setText(QApplication::translate("QtSamplePlayerClass", "Audio AdaptationSet", 0));
+        label_audio_representation->setText(QApplication::translate("QtSamplePlayerClass", "Audio Representation", 0));
         label_5->setText(QApplication::translate("QtSamplePlayerClass", "Buffer", 0));
     } // retranslateUi
 

@@ -106,6 +106,16 @@
            </widget>
           </item>
           <item>
+           <widget class="QLabel" name="label_period">
+            <property name="text">
+             <string>Period</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="cb_period"/>
+          </item>
+          <item>
            <widget class="QLabel" name="label">
             <property name="text">
              <string>Video AdaptationSet</string>
@@ -131,6 +141,26 @@
              </size>
             </property>
            </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_audio_adaptationset">
+            <property name="text">
+             <string>Audio AdaptationSet</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="cb_audio_adaptationset"/>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_audio_representation">
+            <property name="text">
+             <string>Audio Representation</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="cb_audio_represenation"/>
           </item>
           <item>
            <widget class="QLabel" name="label_5">
