@@ -38,7 +38,7 @@ namespace libdash
                     void        Stop                            ();
                     uint32_t    GetPosition                     ();
                     void        Clear                           ();
-                    void        AtachBufferObserver             (buffer::IBufferObserver *observer);
+                    void        AttachBufferObserver            (buffer::IBufferObserver *observer);
                     void        AttachDownloadObserver          (IDASHReceiverObserver *observer);
                     void        NotifySegmentDownloaded         ();
                     void        NotifySegmentDecodingStarted    ();

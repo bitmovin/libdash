@@ -61,7 +61,7 @@ void        DASHReceiver::Stop                          ()
         DestroyThreadPortable(this->bufferingThread);
     }
 }
-void        DASHReceiver::AtachBufferObserver           (IBufferObserver* observer)
+void        DASHReceiver::AttachBufferObserver          (IBufferObserver* observer)
 {
     this->buffer->AttachObserver(observer);
 }
