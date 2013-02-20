@@ -99,34 +99,38 @@ void            QtSamplePlayerGui::on_cb_mpd_currentTextChanged                 
 {
     this->ui->lineEdit_mpd->setText(arg1);
 }
-void            QtSamplePlayerGui::on_cb_video_adaption_currentIndexChanged         (const QString &arg1)
+void            QtSamplePlayerGui::on_cb_video_adaption_currentIndexChanged         (int index)
 {
+    if(index == -1)
+        return; // No Item set
+
     if(this->isEnabled())
     {
         this->setEnabled(false);
         this->ui->cb_video_representation->clear();
-        int index = this->ui->cb_video_adaption->currentIndex();
         this->updateRepresentation(this->mpd->GetPeriods()[0]->GetAdaptationSets()[index], this->ui->cb_video_representation);
         this->setEnabled(true);
         this->settingsChanged();
     }
 }
-void            QtSamplePlayerGui::on_cb_video_representation_currentIndexChanged   (const QString &arg1)
+void            QtSamplePlayerGui::on_cb_video_representation_currentIndexChanged   (int index)
 {
+    if(index == -1)
+        return; // No Item set
+
     if(this->isEnabled())
-    {
         this->settingsChanged();
-    }
 }
-void            QtSamplePlayerGui::on_cb_audio_adaption_currentIndexChanged         (const QString &arg1)
+void            QtSamplePlayerGui::on_cb_audio_adaption_currentIndexChanged         (int index)
 {
 }
-void            QtSamplePlayerGui::on_cb_audio_representation_currentIndexChanged   (const QString &arg1)
+void            QtSamplePlayerGui::on_cb_audio_representation_currentIndexChanged   (int index)
 {
+    if(index == -1)
+        return; // No Item set
+
     if(this->isEnabled())
-    {
         this->settingsChanged();
-    }
 }
 void            QtSamplePlayerGui::on_button_start_clicked                          ()
 {
