@@ -86,6 +86,22 @@ public:
         cb_mpd->addItem(QStringLiteral("http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s_480p_only/bunny_Desktop.mpd"));
         cb_mpd->addItem(QString());
         cb_mpd->addItem(QString());
+        cb_mpd->addItem(QString());
+        cb_mpd->addItem(QString());
+        cb_mpd->addItem(QString());
+        cb_mpd->addItem(QString());
+        cb_mpd->addItem(QString());
+        cb_mpd->addItem(QString());
+        cb_mpd->addItem(QString());
+        cb_mpd->addItem(QString());
+        cb_mpd->addItem(QString());
+        cb_mpd->addItem(QString());
+        cb_mpd->addItem(QString());
+        cb_mpd->addItem(QString());
+        cb_mpd->addItem(QString());
+        cb_mpd->addItem(QString());
+        cb_mpd->addItem(QString());
+        cb_mpd->addItem(QString());
         cb_mpd->setObjectName(QStringLiteral("cb_mpd"));
 
         verticalLayout_3->addWidget(cb_mpd);
@@ -230,6 +246,22 @@ public:
         QtSamplePlayerClass->setWindowTitle(QApplication::translate("QtSamplePlayerClass", "libdash player", 0));
         cb_mpd->setItemText(1, QApplication::translate("QtSamplePlayerClass", "http://www-itec.aau.at/~cmueller/libdashtest/showcases/redbull_2_resolutions.mpd", 0));
         cb_mpd->setItemText(2, QApplication::translate("QtSamplePlayerClass", "http://www-itec.aau.at/~cmueller/libdashtest/showcases/redbull_segment_template.mpd", 0));
+        cb_mpd->setItemText(3, QApplication::translate("QtSamplePlayerClass", "http://dash.edgesuite.net/dash264/TestCases/1a/netflix/exMPD_BIP_TC1.mpd", 0));
+        cb_mpd->setItemText(4, QApplication::translate("QtSamplePlayerClass", "http://dash.edgesuite.net/dash264/TestCases/1a/sony/SNE_DASH_SD_CASE1A_REVISED.mpd", 0));
+        cb_mpd->setItemText(5, QApplication::translate("QtSamplePlayerClass", "http://dash.edgesuite.net/dash264/TestCases/1b/envivio/manifest.mpd", 0));
+        cb_mpd->setItemText(6, QApplication::translate("QtSamplePlayerClass", "http://dash.edgesuite.net/dash264/TestCases/1b/thomson-networks/manifest.mpd", 0));
+        cb_mpd->setItemText(7, QApplication::translate("QtSamplePlayerClass", "http://dash.edgesuite.net/dash264/TestCases/1c/envivio/manifest.mpd", 0));
+        cb_mpd->setItemText(8, QApplication::translate("QtSamplePlayerClass", "http://dash.edgesuite.net/dash264/TestCases/2a/envivio/manifest.mpd", 0));
+        cb_mpd->setItemText(9, QApplication::translate("QtSamplePlayerClass", "http://dash.edgesuite.net/dash264/TestCases/2a/sony/SNE_DASH_CASE_2A_SD_REVISED.mpd", 0));
+        cb_mpd->setItemText(10, QApplication::translate("QtSamplePlayerClass", "http://dash.edgesuite.net/dash264/TestCases/2a/thomson-networks/manifest.mpd", 0));
+        cb_mpd->setItemText(11, QApplication::translate("QtSamplePlayerClass", "http://dash.edgesuite.net/dash264/TestCases/3a/fraunhofer/ed.mpd", 0));
+        cb_mpd->setItemText(12, QApplication::translate("QtSamplePlayerClass", "http://dash.edgesuite.net/dash264/TestCases/3b/fraunhofer/elephants_dream_heaac2_0.mpd", 0));
+        cb_mpd->setItemText(13, QApplication::translate("QtSamplePlayerClass", "http://dash.edgesuite.net/dash264/TestCases/3b/sony/SNE_DASH_CASE3B_SD_REVISED.mpd", 0));
+        cb_mpd->setItemText(14, QApplication::translate("QtSamplePlayerClass", "http://dash.edgesuite.net/dash264/TestCases/4b/sony/SNE_DASH_CASE4B_SD_REVISED.mpd", 0));
+        cb_mpd->setItemText(15, QApplication::translate("QtSamplePlayerClass", "http://dash.edgesuite.net/dash264/TestCases/5a/1/manifest.mpd", 0));
+        cb_mpd->setItemText(16, QApplication::translate("QtSamplePlayerClass", "http://dash.edgesuite.net/dash264/TestCases/5b/1/manifest.mpd", 0));
+        cb_mpd->setItemText(17, QApplication::translate("QtSamplePlayerClass", "http://dash.edgesuite.net/dash264/TestCases/6c/envivio/manifest.mpd", 0));
+        cb_mpd->setItemText(18, QApplication::translate("QtSamplePlayerClass", "http://dash.edgesuite.net/dash264/TestCases/6c/envivio/manifest2.mpd", 0));
 
         lineEdit_mpd->setText(QApplication::translate("QtSamplePlayerClass", "http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s_480p_only/bunny_Desktop.mpd", 0));
         button_mpd->setText(QApplication::translate("QtSamplePlayerClass", "Download MPD", 0));
