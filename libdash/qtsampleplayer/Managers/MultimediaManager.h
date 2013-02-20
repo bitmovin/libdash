@@ -61,6 +61,7 @@ namespace sampleplayer
                 MultimediaStream                                            *videoStream;
                 std::vector<libdash::framework::buffer::IBufferObserver* >  videoBufferObservers;
                 bool                                                        isStarted;
+                uint64_t                                                    framesDisplayed;
 
                 void InitVideoRendering (uint32_t offset);
         };

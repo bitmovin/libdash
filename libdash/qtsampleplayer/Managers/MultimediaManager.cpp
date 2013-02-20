@@ -28,7 +28,8 @@ MultimediaManager::MultimediaManager    (QTGLRenderer *videoelement) :
                    videoRepresentation  (NULL),
                    videoLogic           (NULL),
                    videoStream          (NULL),
-                   isStarted            (false)
+                   isStarted            (false),
+                   framesDisplayed      (0)
 {
     this->manager = CreateDashManager();
 }
@@ -39,6 +40,7 @@ MultimediaManager::~MultimediaManager   ()
 
 void    MultimediaManager::OnVideoFrameAvailable        (const QImage& image, dash::mpd::IAdaptationSet *adaptationSet)
 {
+    this->framesDisplayed++;
     this->videoelement->setImage(image);
     this->videoelement->update();
 }
