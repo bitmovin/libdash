@@ -32,13 +32,17 @@ QtSamplePlayerGui::~QtSamplePlayerGui   ()
     delete this->ui;
 }
 
+void            QtSamplePlayerGui::on_button_mpd_clicked                            ()
+{
+    //parse mpd and setup gui fields
+}
 QTGLRenderer*   QtSamplePlayerGui::GetVideoElement                                  ()
 {
     return this->ui->videoelement;
 }
 void            QtSamplePlayerGui::SetGuiFields                                     (dash::mpd::IMPD* mpd)
 {
-    this->ui->cb_video_adaption->clear();
+    this->ui->cb_video_adaptationset->clear();
     this->ui->cb_video_representation->clear();
     this->RemoveAllKeyValues();
 
@@ -50,7 +54,7 @@ void            QtSamplePlayerGui::SetGuiFields                                 
     {
         IAdaptationSet* adaptationSet = adaptationSets.at(i);
         QString str(adaptationSet->GetContentType().c_str());
-        this->ui->cb_video_adaption->addItem(str);
+        this->ui->cb_video_adaptationset->addItem(str);
        
     }
 
@@ -95,11 +99,14 @@ void            QtSamplePlayerGui::SetStatusBar                                 
     QString str(text.c_str());
     this->ui->statusBar->showMessage(str);
 }
+void            QtSamplePlayerGui::on_cb_period_currentIndexChanged                 (int index)
+{
+}
 void            QtSamplePlayerGui::on_cb_mpd_currentTextChanged                     (const QString &arg1)
 {
     this->ui->lineEdit_mpd->setText(arg1);
 }
-void            QtSamplePlayerGui::on_cb_video_adaption_currentIndexChanged         (int index)
+void            QtSamplePlayerGui::on_cb_video_adaptationset_currentIndexChanged    (int index)
 {
     if(index == -1)
         return; // No Item set
@@ -121,7 +128,7 @@ void            QtSamplePlayerGui::on_cb_video_representation_currentIndexChange
     if(this->isEnabled())
         this->settingsChanged();
 }
-void            QtSamplePlayerGui::on_cb_audio_adaption_currentIndexChanged         (int index)
+void            QtSamplePlayerGui::on_cb_audio_adaptationset_currentIndexChanged    (int index)
 {
 }
 void            QtSamplePlayerGui::on_cb_audio_representation_currentIndexChanged   (int index)
@@ -170,7 +177,7 @@ void            QtSamplePlayerGui::on_ckb_automatic_toggled                     
 void            QtSamplePlayerGui::settingsChanged                                  ()
 {
     this->lockUI();
-    int v_adaption = this->ui->cb_video_adaption->currentIndex();
+    int v_adaption = this->ui->cb_video_adaptationset->currentIndex();
     int v_representation = this->ui->cb_video_representation->currentIndex();
     for(unsigned int i=0; i < this->observer.size(); i++)
     {

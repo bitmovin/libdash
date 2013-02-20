@@ -92,6 +92,13 @@
            <number>0</number>
           </property>
           <item>
+           <widget class="QPushButton" name="button_mpd">
+            <property name="text">
+             <string>Download MPD</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QPushButton" name="button_start">
             <property name="text">
              <string>Start</string>
@@ -123,7 +130,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="cb_video_adaption"/>
+           <widget class="QComboBox" name="cb_video_adaptationset"/>
           </item>
           <item>
            <widget class="QLabel" name="label_2">

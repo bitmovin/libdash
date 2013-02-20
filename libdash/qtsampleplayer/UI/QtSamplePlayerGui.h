@@ -44,10 +44,12 @@ namespace sampleplayer
 
         private slots:
             void on_cb_mpd_currentTextChanged                   (const QString &arg1);
-            void on_cb_video_adaption_currentIndexChanged       (int index);
+            void on_cb_period_currentIndexChanged               (int index);
+            void on_cb_video_adaptationset_currentIndexChanged  (int index);
             void on_cb_video_representation_currentIndexChanged (int index);
-            void on_cb_audio_adaption_currentIndexChanged       (int index);
+            void on_cb_audio_adaptationset_currentIndexChanged  (int index);
             void on_cb_audio_representation_currentIndexChanged (int index);
+            void on_button_mpd_clicked                          ();
             void on_button_start_clicked                        ();
             void on_button_stop_clicked                         ();
             void on_ckb_automatic_toggled                       (bool checked);

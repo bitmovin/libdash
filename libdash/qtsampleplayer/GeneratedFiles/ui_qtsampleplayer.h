@@ -44,12 +44,13 @@ public:
     QVBoxLayout *verticalLayout;
     QWidget *w_boxes;
     QVBoxLayout *verticalLayout_2;
+    QPushButton *button_mpd;
     QPushButton *button_start;
     QPushButton *button_stop;
     QLabel *label_period;
     QComboBox *cb_period;
     QLabel *label;
-    QComboBox *cb_video_adaption;
+    QComboBox *cb_video_adaptationset;
     QLabel *label_2;
     QComboBox *cb_video_representation;
     QLabel *label_audio_adaptationset;
@@ -127,6 +128,11 @@ public:
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         verticalLayout_2->setContentsMargins(-1, 0, -1, -1);
+        button_mpd = new QPushButton(w_boxes);
+        button_mpd->setObjectName(QStringLiteral("button_mpd"));
+
+        verticalLayout_2->addWidget(button_mpd);
+
         button_start = new QPushButton(w_boxes);
         button_start->setObjectName(QStringLiteral("button_start"));
 
@@ -152,10 +158,10 @@ public:
 
         verticalLayout_2->addWidget(label);
 
-        cb_video_adaption = new QComboBox(w_boxes);
-        cb_video_adaption->setObjectName(QStringLiteral("cb_video_adaption"));
+        cb_video_adaptationset = new QComboBox(w_boxes);
+        cb_video_adaptationset->setObjectName(QStringLiteral("cb_video_adaptationset"));
 
-        verticalLayout_2->addWidget(cb_video_adaption);
+        verticalLayout_2->addWidget(cb_video_adaptationset);
 
         label_2 = new QLabel(w_boxes);
         label_2->setObjectName(QStringLiteral("label_2"));
@@ -226,6 +232,7 @@ public:
         cb_mpd->setItemText(2, QApplication::translate("QtSamplePlayerClass", "http://www-itec.aau.at/~cmueller/libdashtest/showcases/redbull_segment_template.mpd", 0));
 
         lineEdit_mpd->setText(QApplication::translate("QtSamplePlayerClass", "http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s_480p_only/bunny_Desktop.mpd", 0));
+        button_mpd->setText(QApplication::translate("QtSamplePlayerClass", "Download MPD", 0));
         button_start->setText(QApplication::translate("QtSamplePlayerClass", "Start", 0));
         button_stop->setText(QApplication::translate("QtSamplePlayerClass", "Stop", 0));
         label_period->setText(QApplication::translate("QtSamplePlayerClass", "Period", 0));
