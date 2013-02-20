@@ -54,9 +54,9 @@ Node*   DOMParser::ProcessNode              ()
 
     if(type != WhiteSpace && type != Text)
     {
-        while (type == Comment) 
+        while (type == Comment || type == WhiteSpace)
         {
-            xmlTextReaderNext(this->reader);
+            xmlTextReaderRead(this->reader);
             type = xmlTextReaderNodeType(this->reader);
         }
 
