@@ -45,6 +45,9 @@ namespace sampleplayer
                 void AttachVideoBufferObserver  (libdash::framework::buffer::IBufferObserver *videoBufferObserver);
                 void AttachAudioBufferObserver  (libdash::framework::buffer::IBufferObserver *audioBufferObserver);
 
+                void OnVideoSegmentDecoded      ();
+                void OnVideoSegmentDownloaded   ();
+
                 void NotifyVideoObservers       ();
                 void NotifyAudioObservers       ();
 

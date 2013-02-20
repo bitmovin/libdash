@@ -25,6 +25,8 @@ namespace sampleplayer
                 virtual ~IStreamObserver () {}
 
                 virtual void OnVideoFrameAvailable      (const QImage& image, dash::mpd::IAdaptationSet *adaptationSet) = 0;
+                virtual void OnVideoSegmentDecoded      ()                                                              = 0;
+                virtual void OnVideoSegmentDownloaded   ()                                                              = 0;
                 virtual void OnAudioSampleAvailable     ()                                                              = 0;
         };
     }

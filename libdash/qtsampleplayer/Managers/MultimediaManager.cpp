@@ -165,3 +165,9 @@ void    MultimediaManager::InitVideoRendering           (uint32_t offset)
         this->videoStream->AttachBufferObserver(this->videoBufferObservers.at(i));
     }
 }
+void    MultimediaManager::OnVideoSegmentDecoded        ()
+{
+}
+void    MultimediaManager::OnVideoSegmentDownloaded     ()
+{
+}
