@@ -53,6 +53,12 @@ Node*   DOMParser::ProcessNode              ()
 
     if(type != WhiteSpace && type != Text)
     {
+        while (type == Comment) 
+        {
+            xmlTextReaderNext(this->reader);
+            type = xmlTextReaderNodeType(this->reader);
+        }
+
         Node *node = new Node();
         node->SetType(type);
 

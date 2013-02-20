@@ -25,6 +25,7 @@ namespace dash
         {
             Start           = 1,
             End             = 15,
+            Comment         = 8,
             WhiteSpace      = 14,
             Text            = 3,
         };
