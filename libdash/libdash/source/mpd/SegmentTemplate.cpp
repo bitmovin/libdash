@@ -87,36 +87,44 @@ std::string         SegmentTemplate::ReplaceParameters              (const std::
 
     dash::helpers::String::Split(uri, '$', chunks);
 
-    for(size_t i = 0; i < chunks.size(); i++) 
+    if (chunks.size() > 1) 
     {
-        if ( chunks.at(i) == "RepresentationID") {
-            chunks.at(i) = representationID;
-            continue;
+        for(size_t i = 0; i < chunks.size(); i++) 
+        {
+            if ( chunks.at(i) == "RepresentationID") {
+                chunks.at(i) = representationID;
+                continue;
+            }
+
+            if (chunks.at(i).find("Bandwidth") == 0)
+            {
+                FormatChunk(chunks.at(i), bandwidth);
+                continue;
+            }
+
+            if (chunks.at(i).find("Number") == 0)
+            {
+                FormatChunk(chunks.at(i), number);
+                continue;
+            }
+
+            if (chunks.at(i).find("Time") == 0)
+            {
+                FormatChunk(chunks.at(i), time);
+                continue;
+            }
         }
 
-        if (chunks.at(i).find("Bandwidth") == 0)
-        {
-            FormatChunk(chunks.at(i), bandwidth);
-            continue;
-        }
+        for(size_t i = 0; i < chunks.size(); i++) 
+            replacedUri += chunks.at(i);
 
-        if (chunks.at(i).find("Number") == 0)
-        {
-            FormatChunk(chunks.at(i), number);
-            continue;
-        }
-
-        if (chunks.at(i).find("Time") == 0)
-        {
-            FormatChunk(chunks.at(i), time);
-            continue;
-        }
+        return replacedUri;
     }
-
-    for(size_t i = 0; i < chunks.size(); i++) 
-        replacedUri += chunks.at(i);
-
-    return replacedUri;
+    else
+    {
+        replacedUri = uri;
+        return replacedUri;
+    }
 }
 void                SegmentTemplate::FormatChunk                    (std::string& uri, uint32_t number) const
 {

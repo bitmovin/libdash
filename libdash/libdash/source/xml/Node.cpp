@@ -80,7 +80,14 @@ dash::mpd::BaseUrl*                         Node::ToBaseUrl             ()  cons
     {
         baseUrl->SetByteRange(this->GetAttributeValue("byteRange"));
     }
-    baseUrl->SetUrl(this->GetText());
+    if (this->GetText() == "./")
+    {
+        baseUrl->SetUrl(this->mpdUrl);
+    }
+    else 
+    {
+        baseUrl->SetUrl(this->GetText());
+    }
 
     baseUrl->AddRawAttributes(this->attributes);
     return baseUrl;
@@ -771,6 +778,10 @@ dash::mpd::MPD*                             Node::ToMPD                 ()  cons
 
     mpd->AddRawAttributes(this->attributes);
     return mpd;
+}
+void                                        Node::SetMPDUrl             (std::string url)
+{
+    this->mpdUrl = url;
 }
 
 const std::vector<INode*>&                  Node::GetNodes              ()  const

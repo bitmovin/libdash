@@ -16,6 +16,7 @@
 
 #include "Node.h"
 #include <libxml/xmlreader.h>
+#include "../helpers/Path.h"
 
 namespace dash
 {
