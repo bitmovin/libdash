@@ -21,39 +21,39 @@ using namespace dash::mpd;
 
 #define SEGMENTBUFFER_SIZE 20
 
-MultimediaManager::MultimediaManager        (QTGLRenderer *videoelement) :
-                   videoelement             (videoelement),
-                   mpd                      (NULL),
-                   videoAdaptationSet       (NULL),
-                   videoRepresentation      (NULL),
-                   videoLogic               (NULL),
-                   videoStream              (NULL),
-                   isStarted                (false),
-                   framesDisplayed          (0),
-                   videoSegmentsDownloaded  (0),
-                   videoSegmentsDecoded     (0)
+MultimediaManager::MultimediaManager            (QTGLRenderer *videoelement) :
+                   videoelement                 (videoelement),
+                   mpd                          (NULL),
+                   videoAdaptationSet           (NULL),
+                   videoRepresentation          (NULL),
+                   videoLogic                   (NULL),
+                   videoStream                  (NULL),
+                   isStarted                    (false),
+                   framesDisplayed              (0),
+                   videoSegmentsDownloaded      (0),
+                   videoSegmentsDecodingStarted (0)
 {
     this->manager = CreateDashManager();
 }
-MultimediaManager::~MultimediaManager       ()
+MultimediaManager::~MultimediaManager           ()
 {
     this->Stop();
 }
 
-void    MultimediaManager::OnVideoFrameAvailable        (const QImage& image, dash::mpd::IAdaptationSet *adaptationSet)
+void    MultimediaManager::OnVideoFrameAvailable            (const QImage& image, dash::mpd::IAdaptationSet *adaptationSet)
 {
     this->framesDisplayed++;
     this->videoelement->setImage(image);
     this->videoelement->update();
 }
-void    MultimediaManager::OnAudioSampleAvailable       ()
+void    MultimediaManager::OnAudioSampleAvailable           ()
 {
 }
-IMPD*   MultimediaManager::GetMPD                       ()
+IMPD*   MultimediaManager::GetMPD                           ()
 {
     return this->mpd;
 }
-bool    MultimediaManager::Init                         (const std::string& url)
+bool    MultimediaManager::Init                             (const std::string& url)
 {
     this->mpd = this->manager->Open((char *)url.c_str());
     
@@ -65,7 +65,7 @@ bool    MultimediaManager::Init                         (const std::string& url)
 
     return true;
 }
-void    MultimediaManager::Start                        ()
+void    MultimediaManager::Start                            ()
 {
     /* Global Start button for start must be added to interface*/
     if(this->isStarted)
@@ -78,7 +78,7 @@ void    MultimediaManager::Start                        ()
     this->videoStream->Start();
     this->isStarted = true;
 }
-void    MultimediaManager::Stop                         ()
+void    MultimediaManager::Stop                             ()
 {
     if(this->isStarted)
     {
@@ -90,7 +90,7 @@ void    MultimediaManager::Stop                         ()
     }
     this->isStarted = false;
 }
-bool    MultimediaManager::SetVideoQuality              (IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation)
+bool    MultimediaManager::SetVideoQuality                  (IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation)
 {
     if(this->videoAdaptationSet != adaptationSet)
     {
@@ -98,7 +98,7 @@ bool    MultimediaManager::SetVideoQuality              (IAdaptationSet *adaptat
         this->videoRepresentation = representation;
         if(this->isStarted)
         {
-            int position = this->videoStream->GetPosition();
+            int position = this->videoSegmentsDecodingStarted;
             this->Stop();
 
             this->InitVideoRendering(position);
@@ -116,43 +116,43 @@ bool    MultimediaManager::SetVideoQuality              (IAdaptationSet *adaptat
 
     return true;
 }
-bool    MultimediaManager::SetAudioQuality              (IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation)
+bool    MultimediaManager::SetAudioQuality                  (IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation)
 {
     //MUST NOT BE IMPLEMENTED YET
     return false;
 }
-bool    MultimediaManager::SetVideoAdaptationLogic      (libdash::framework::adaptation::LogicType type)
+bool    MultimediaManager::SetVideoAdaptationLogic          (libdash::framework::adaptation::LogicType type)
 {
     //Currently unused, always using ManualAdaptation.
     return true;
 }
-bool    MultimediaManager::SetAudioAdaptationLogic      (libdash::framework::adaptation::LogicType type)
+bool    MultimediaManager::SetAudioAdaptationLogic          (libdash::framework::adaptation::LogicType type)
 {
     /* MUST NOT BE IMPLEMENTED YET */
     return false;
 }
-void    MultimediaManager::NotifyVideoObservers         ()
+void    MultimediaManager::NotifyVideoObservers             ()
 {
     /* Notify DASHPLayer onVideoDataAvailable which does the scaling and forwards the frame to the renderer */
 }
-void    MultimediaManager::NotifyAudioObservers         ()
+void    MultimediaManager::NotifyAudioObservers             ()
 {
     /* MUST NOT BE IMPLEMENTED YET */
 }
-void    MultimediaManager::AttachVideoBufferObserver    (IBufferObserver *videoBufferObserver)
+void    MultimediaManager::AttachVideoBufferObserver        (IBufferObserver *videoBufferObserver)
 {
     this->videoBufferObservers.push_back(videoBufferObserver);
 }
-void    MultimediaManager::AttachAudioBufferObserver    (IBufferObserver *audioBufferObserver)
+void    MultimediaManager::AttachAudioBufferObserver        (IBufferObserver *audioBufferObserver)
 {
 }
-void    MultimediaManager::NotifyVideoBufferObservers   ()
+void    MultimediaManager::NotifyVideoBufferObservers       ()
 {
 }
-void    MultimediaManager::NotifyAudioBufferObservers   ()
+void    MultimediaManager::NotifyAudioBufferObservers       ()
 {
 }
-void    MultimediaManager::InitVideoRendering           (uint32_t offset)
+void    MultimediaManager::InitVideoRendering               (uint32_t offset)
 {
     this->videoLogic = new ManualAdaptation(this->videoAdaptationSet, this->mpd);
     this->videoLogic->SetPosition(offset);
@@ -167,11 +167,11 @@ void    MultimediaManager::InitVideoRendering           (uint32_t offset)
         this->videoStream->AttachBufferObserver(this->videoBufferObservers.at(i));
     }
 }
-void    MultimediaManager::OnVideoSegmentDecoded        ()
+void    MultimediaManager::OnVideoSegmentDecodingStarted    ()
 {
-    this->videoSegmentsDecoded++;
+    this->videoSegmentsDecodingStarted++;
 }
-void    MultimediaManager::OnVideoSegmentDownloaded     ()
+void    MultimediaManager::OnVideoSegmentDownloaded         ()
 {
     this->videoSegmentsDownloaded++;
 }

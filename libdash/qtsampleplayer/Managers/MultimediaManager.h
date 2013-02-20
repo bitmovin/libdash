@@ -45,8 +45,8 @@ namespace sampleplayer
                 void AttachVideoBufferObserver  (libdash::framework::buffer::IBufferObserver *videoBufferObserver);
                 void AttachAudioBufferObserver  (libdash::framework::buffer::IBufferObserver *audioBufferObserver);
 
-                void OnVideoSegmentDecoded      ();
-                void OnVideoSegmentDownloaded   ();
+                void OnVideoSegmentDecodingStarted  ();
+                void OnVideoSegmentDownloaded       ();
 
                 void NotifyVideoObservers       ();
                 void NotifyAudioObservers       ();
@@ -65,7 +65,7 @@ namespace sampleplayer
                 std::vector<libdash::framework::buffer::IBufferObserver* >  videoBufferObservers;
                 bool                                                        isStarted;
                 uint64_t                                                    framesDisplayed;
-                uint64_t                                                    videoSegmentsDecoded;
+                uint64_t                                                    videoSegmentsDecodingStarted;
                 uint64_t                                                    videoSegmentsDownloaded;
 
                 void InitVideoRendering (uint32_t offset);

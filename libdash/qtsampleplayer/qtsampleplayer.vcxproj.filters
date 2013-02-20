@@ -189,6 +189,9 @@
     <ClInclude Include="libdashframework\MPD\RepresentationHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="libdashframework\Input\IDASHReceiverObserver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Authors.txt" />

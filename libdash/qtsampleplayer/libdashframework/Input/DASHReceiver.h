@@ -16,6 +16,7 @@
 #include "../Buffer/MediaObjectBuffer.h"
 #include "../Adaptation/IAdaptationLogic.h"
 
+#include "IDASHReceiverObserver.h"
 #include "IDownloadObserver.h"
 #include "libdash.h"
 #include <string>
@@ -33,20 +34,24 @@ namespace libdash
                     DASHReceiver            (uint32_t maxcapacity, adaptation::IAdaptationLogic *logic);
                     virtual ~DASHReceiver   ();
 
-                    bool        Start               ();
-                    void        Stop                ();
-                    uint32_t    GetPosition         ();
-                    void        Clear               ();
-                    void        AtachBufferObserver (buffer::IBufferObserver *observer);
-                    virtual int Read                (uint8_t *buf, int buf_size);
+                    bool        Start                           ();
+                    void        Stop                            ();
+                    uint32_t    GetPosition                     ();
+                    void        Clear                           ();
+                    void        AtachBufferObserver             (buffer::IBufferObserver *observer);
+                    void        AttachDownloadObserver          (IDASHReceiverObserver *observer);
+                    void        NotifySegmentDownloaded         ();
+                    void        NotifySegmentDecodingStarted    ();
+                    virtual int Read                            (uint8_t *buf, int buf_size);
 
                 private:
-                    buffer::MediaObjectBuffer       *buffer;
-                    uint32_t                        readSegmentCount;
-                    uint32_t                        maxcapacity;
-                    adaptation::IAdaptationLogic    *logic;
-                    THREAD_HANDLE                   bufferingThread;
-                    bool                            isDownloading;
+                    std::vector<IDASHReceiverObserver *>    observers;
+                    buffer::MediaObjectBuffer               *buffer;
+                    uint32_t                                readSegmentCount;
+                    uint32_t                                maxcapacity;
+                    adaptation::IAdaptationLogic            *logic;
+                    THREAD_HANDLE                           bufferingThread;
+                    bool                                    isDownloading;
 
                     /* Thread that does the buffering of segments */
                     static void* DoBuffering (void *receiver);

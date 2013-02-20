@@ -16,6 +16,7 @@
 #include "IStreamObserver.h"
 #include "DecodingThread.h"
 #include "../libdashframework/Input/DASHReceiver.h"
+#include "../libdashframework/Input/IDASHReceiverObserver.h"
 #include "../libdashframework/Buffer/IBufferObserver.h"
 #include "../libdashframework/Adaptation/IAdaptationLogic.h"
 #include "../Decoder/IAudioObserver.h"
@@ -27,7 +28,7 @@ namespace sampleplayer
 {
     namespace managers
     {
-        class MultimediaStream : public decoder::IAudioObserver, public decoder::IVideoObserver
+        class MultimediaStream : public decoder::IAudioObserver, public decoder::IVideoObserver, public libdash::framework::input::IDASHReceiverObserver
         {
             public:
                 MultimediaStream            (dash::mpd::IAdaptationSet *adaptationSet, libdash::framework::adaptation::IAdaptationLogic *logic, uint32_t bufferSize, uint32_t width, uint32_t height);
@@ -44,8 +45,11 @@ namespace sampleplayer
                 void        AttachBufferObserver    (libdash::framework::buffer::IBufferObserver *observer);
                 void        NotifyVideoObservers    (const QImage& image);
 
-                virtual void OnAudioDataAvailable (const uint8_t **data, decoder::audioFrameProperties* props);
-                virtual void OnVideoDataAvailable (const uint8_t **data, decoder::videoFrameProperties* props);
+                virtual void OnAudioDataAvailable       (const uint8_t **data, decoder::audioFrameProperties* props);
+                virtual void OnVideoDataAvailable       (const uint8_t **data, decoder::videoFrameProperties* props);
+
+                virtual void OnSegmentDecodingStarted   ();
+                virtual void OnSegmentDownloaded        ();
 
             private:
                 std::vector<IStreamObserver *>                      observers;
