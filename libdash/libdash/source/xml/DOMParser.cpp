@@ -14,7 +14,9 @@
 using namespace dash::xml;
 
 DOMParser::DOMParser    (std::string url) :
-           url          (url)
+           url          (url),
+           reader       (NULL),
+           root         (NULL)
 {
     this->Init();
 }
@@ -38,6 +40,9 @@ bool    DOMParser::Parse                    ()
     if(xmlTextReaderRead(this->reader))
         this->root = this->ProcessNode();
 
+    if(this->root == NULL)
+        return false;
+
     xmlFreeTextReader(this->reader);
 
     return true;
@@ -50,6 +55,9 @@ Node*   DOMParser::ProcessNode              ()
     {
         Node *node = new Node();
         node->SetType(type);
+
+        if(xmlTextReaderConstName(this->reader) == NULL)
+            return NULL;
 
         std::string name    = (const char *) xmlTextReaderConstName(this->reader);
         int         isEmpty = xmlTextReaderIsEmptyElement(this->reader);
