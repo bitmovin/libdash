@@ -65,6 +65,8 @@ namespace sampleplayer
                 std::vector<libdash::framework::buffer::IBufferObserver* >  videoBufferObservers;
                 bool                                                        isStarted;
                 uint64_t                                                    framesDisplayed;
+                uint64_t                                                    videoSegmentsDecoded;
+                uint64_t                                                    videoSegmentsDownloaded;
 
                 void InitVideoRendering (uint32_t offset);
         };

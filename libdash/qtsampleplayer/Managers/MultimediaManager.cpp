@@ -21,19 +21,21 @@ using namespace dash::mpd;
 
 #define SEGMENTBUFFER_SIZE 20
 
-MultimediaManager::MultimediaManager    (QTGLRenderer *videoelement) :
-                   videoelement         (videoelement),
-                   mpd                  (NULL),
-                   videoAdaptationSet   (NULL),
-                   videoRepresentation  (NULL),
-                   videoLogic           (NULL),
-                   videoStream          (NULL),
-                   isStarted            (false),
-                   framesDisplayed      (0)
+MultimediaManager::MultimediaManager        (QTGLRenderer *videoelement) :
+                   videoelement             (videoelement),
+                   mpd                      (NULL),
+                   videoAdaptationSet       (NULL),
+                   videoRepresentation      (NULL),
+                   videoLogic               (NULL),
+                   videoStream              (NULL),
+                   isStarted                (false),
+                   framesDisplayed          (0),
+                   videoSegmentsDownloaded  (0),
+                   videoSegmentsDecoded     (0)
 {
     this->manager = CreateDashManager();
 }
-MultimediaManager::~MultimediaManager   ()
+MultimediaManager::~MultimediaManager       ()
 {
     this->Stop();
 }
@@ -167,7 +169,9 @@ void    MultimediaManager::InitVideoRendering           (uint32_t offset)
 }
 void    MultimediaManager::OnVideoSegmentDecoded        ()
 {
+    this->videoSegmentsDecoded++;
 }
 void    MultimediaManager::OnVideoSegmentDownloaded     ()
 {
+    this->videoSegmentsDownloaded++;
 }
