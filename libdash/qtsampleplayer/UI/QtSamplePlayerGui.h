@@ -36,7 +36,6 @@ namespace sampleplayer
             virtual void                            UpdateKeyValue          (const std::string& key, const std::string& value);
             virtual void                            RemoveAllKeyValues      ();
             virtual void                            AddWidgetObserver       (IDASHPlayerGuiObserver* observer);
-            virtual void                            RemoveWidgetObserver    (IDASHPlayerGuiObserver* observer);
             virtual void                            SetStatusBar            (const std::string& text);
             virtual std::string                     GetUrl                  ();
             virtual bool                            GetAutomatic            ();
@@ -65,13 +64,14 @@ namespace sampleplayer
             std::map<std::string, std::vector<std::string> >    audio;
 
             Ui::QtSamplePlayerClass                 *ui;
-            std::vector<IDASHPlayerGuiObserver*>    observer;
+            std::vector<IDASHPlayerGuiObserver *>   observers;
             dash::mpd::IMPD                         *mpd;
 
-            void settingsChanged        ();
-            void lockUI                 ();
-            void unlockUI               ();
-            void updateRepresentation   (dash::mpd::IAdaptationSet* adaption, QComboBox* cb);
+            void settingsChanged            ();
+            void lockUI                     ();
+            void unlockUI                   ();
+            void updateRepresentation       (dash::mpd::IAdaptationSet* adaption, QComboBox* cb);
+            void NotifyMPDDownloadPressed   (const std::string &url);
     };
 }
 

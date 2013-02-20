@@ -38,6 +38,7 @@ namespace sampleplayer
             virtual void OnStopButtonPressed    (QtSamplePlayerGui* widget);
             virtual void OnCheckboxChanged      (QtSamplePlayerGui* widget, bool isAutomatic);
             virtual void OnBufferStateChanged   (uint32_t fillstateInPercent);
+            virtual void OnDownloadMPDPressed   (const std::string &url);
 
         private:
             dash::mpd::IMPD                             *mpd;

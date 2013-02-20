@@ -34,7 +34,7 @@ QtSamplePlayerGui::~QtSamplePlayerGui   ()
 
 void            QtSamplePlayerGui::on_button_mpd_clicked                            ()
 {
-    //parse mpd and setup gui fields
+    this->NotifyMPDDownloadPressed(this->GetUrl());
 }
 QTGLRenderer*   QtSamplePlayerGui::GetVideoElement                                  ()
 {
@@ -78,21 +78,9 @@ void            QtSamplePlayerGui::UpdateKeyValue                               
 void            QtSamplePlayerGui::RemoveAllKeyValues                               ()
 {
 }
-void            QtSamplePlayerGui::AddWidgetObserver                                (IDASHPlayerGuiObserver* observer)
+void            QtSamplePlayerGui::AddWidgetObserver                                (IDASHPlayerGuiObserver *observer)
 {
-    this->observer.push_back(observer);
-}
-void            QtSamplePlayerGui::RemoveWidgetObserver                             (IDASHPlayerGuiObserver* observer)
-{
-    std::vector<IDASHPlayerGuiObserver*>::iterator it;
-    for(it = this->observer.begin(); it != this->observer.end(); it++)
-    {
-        if((*it) == observer)
-        {
-            this->observer.erase(it);
-            break;
-        }
-    }
+    this->observers.push_back(observer);
 }
 void            QtSamplePlayerGui::SetStatusBar                                     (const std::string& text)
 {
@@ -143,18 +131,18 @@ void            QtSamplePlayerGui::on_button_start_clicked                      
 {
     this->ui->button_start->setEnabled(false);
     this->ui->button_stop->setEnabled(true);
-    for(unsigned int i=0; i < this->observer.size(); i++)
+    for(unsigned int i=0; i < this->observers.size(); i++)
     {
-        this->observer[i]->OnStartButtonPressed(this);
+        this->observers[i]->OnStartButtonPressed(this);
     }
 }
 void            QtSamplePlayerGui::on_button_stop_clicked                           ()
 {
     this->ui->button_start->setEnabled(true);
     this->ui->button_stop->setEnabled(false);
-    for(unsigned int i=0; i < this->observer.size(); i++)
+    for(unsigned int i=0; i < this->observers.size(); i++)
     {
-        this->observer[i]->OnStopButtonPressed(this);
+        this->observers[i]->OnStopButtonPressed(this);
     }
 }
 void            QtSamplePlayerGui::on_ckb_automatic_toggled                         (bool checked)
@@ -169,9 +157,9 @@ void            QtSamplePlayerGui::on_ckb_automatic_toggled                     
         this->ui->cb_video_representation->setEnabled(true);
     }
     
-    for(unsigned int i=0; i < this->observer.size(); i++)
+    for(unsigned int i=0; i < this->observers.size(); i++)
     {
-        this->observer[i]->OnCheckboxChanged(this, checked);
+        this->observers[i]->OnCheckboxChanged(this, checked);
     }
 }
 void            QtSamplePlayerGui::settingsChanged                                  ()
@@ -179,9 +167,9 @@ void            QtSamplePlayerGui::settingsChanged                              
     this->lockUI();
     int v_adaption = this->ui->cb_video_adaptationset->currentIndex();
     int v_representation = this->ui->cb_video_representation->currentIndex();
-    for(unsigned int i=0; i < this->observer.size(); i++)
+    for(unsigned int i=0; i < this->observers.size(); i++)
     {
-        this->observer[i]->OnSettingsChanged(this,v_adaption, v_representation);
+        this->observers[i]->OnSettingsChanged(this,v_adaption, v_representation);
     }
     this->unlockUI();
 }
@@ -218,4 +206,9 @@ std::string     QtSamplePlayerGui::GetUrl                                       
 bool            QtSamplePlayerGui::GetAutomatic                                     ()
 {
     return false;
+}
+void            QtSamplePlayerGui::NotifyMPDDownloadPressed                         (const std::string &url)
+{
+    for(size_t i = 0; i < this->observers.size(); i++)
+        this->observers.at(i)->OnDownloadMPDPressed(url);
 }

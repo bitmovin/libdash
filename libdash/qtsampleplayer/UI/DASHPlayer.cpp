@@ -82,3 +82,14 @@ void DASHPlayer::OnBufferStateChanged   (uint32_t fillstateInPercent)
 {
     emit FillStateChanged(fillstateInPercent);
 }
+void DASHPlayer::OnDownloadMPDPressed   (const std::string &url)
+{
+    if(!this->multimediaManager->Init(url))
+    {
+        this->gui->SetStatusBar("Error parsing mpd at: " + url);
+        return; // TODO dialog or symbol that indicates that error
+    }
+
+    this->gui->SetStatusBar("Successfully parsed MPD at: " + url);
+    this->gui->SetGuiFields(this->multimediaManager->GetMPD());
+}

@@ -28,6 +28,7 @@ namespace sampleplayer
             virtual void OnStartButtonPressed   (QtSamplePlayerGui* widget)                                                 = 0;
             virtual void OnStopButtonPressed    (QtSamplePlayerGui* widget)                                                 = 0;
             virtual void OnCheckboxChanged      (QtSamplePlayerGui* widget, bool state)                                     = 0;
+            virtual void OnDownloadMPDPressed   (const std::string &url)                                                    = 0;
     };
 }
 #endif /* IDASHPLAYERGUIOBSERVER_H_ */
