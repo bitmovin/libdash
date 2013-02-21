@@ -55,10 +55,6 @@ void DASHPlayer::OnStopButtonPressed    (QtSamplePlayerGui* widget)
 {
     this->multimediaManager->Stop();
 }
-void DASHPlayer::OnCheckboxChanged      (QtSamplePlayerGui* widget, bool isAutomatic)
-{
-
-}
 void DASHPlayer::OnSettingsChanged      (QtSamplePlayerGui* widget, int video_adaption, int video_representation)
 {
     if(this->multimediaManager->GetMPD() == NULL)

@@ -36,7 +36,6 @@ namespace sampleplayer
             virtual void OnSettingsChanged      (QtSamplePlayerGui* widget, int video_adaption, int video_representation);
             virtual void OnStartButtonPressed   (QtSamplePlayerGui* widget);
             virtual void OnStopButtonPressed    (QtSamplePlayerGui* widget);
-            virtual void OnCheckboxChanged      (QtSamplePlayerGui* widget, bool isAutomatic);
             virtual void OnBufferStateChanged   (uint32_t fillstateInPercent);
             virtual void OnDownloadMPDPressed   (const std::string &url);
 

@@ -80,12 +80,6 @@ void            QtSamplePlayerGui::SetBufferFillState                           
 {
     this->ui->progressBar->setValue(percentage);
 }
-void            QtSamplePlayerGui::UpdateKeyValue                                   (const std::string& key, const std::string& value)
-{
-}
-void            QtSamplePlayerGui::RemoveAllKeyValues                               ()
-{
-}
 void            QtSamplePlayerGui::AddWidgetObserver                                (IDASHPlayerGuiObserver *observer)
 {
     this->observers.push_back(observer);
@@ -168,10 +162,6 @@ std::string     QtSamplePlayerGui::GetUrl                                       
 
     this->UnLockUI();
     return ret;
-}
-bool            QtSamplePlayerGui::GetAutomatic                                     ()
-{
-    return false;
 }
 void            QtSamplePlayerGui::NotifyMPDDownloadPressed                         (const std::string &url)
 {

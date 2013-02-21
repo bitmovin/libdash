@@ -33,12 +33,9 @@ namespace sampleplayer
             virtual ~QtSamplePlayerGui  ();
 
             void                                    SetGuiFields            (dash::mpd::IMPD* mpd);
-            virtual void                            UpdateKeyValue          (const std::string& key, const std::string& value);
-            virtual void                            RemoveAllKeyValues      ();
             virtual void                            AddWidgetObserver       (IDASHPlayerGuiObserver* observer);
             virtual void                            SetStatusBar            (const std::string& text);
             virtual std::string                     GetUrl                  ();
-            virtual bool                            GetAutomatic            ();
             sampleplayer::renderer::QTGLRenderer*   GetVideoElement         ();
 
         private slots:
