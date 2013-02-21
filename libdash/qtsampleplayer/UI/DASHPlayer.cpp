@@ -19,8 +19,8 @@ using namespace sampleplayer::managers;
 using namespace dash::mpd;
 using namespace std;
 
-DASHPlayer::DASHPlayer  (QtSamplePlayerGui& gui) : 
-                        gui(&gui)
+DASHPlayer::DASHPlayer  (QtSamplePlayerGui &gui) :
+            gui         (&gui)
 {
     this->videoElement      = gui.GetVideoElement();
     this->multimediaManager = new MultimediaManager(this->videoElement);
@@ -36,7 +36,7 @@ DASHPlayer::~DASHPlayer ()
     delete(this->multimediaManager);
 }
 
-void DASHPlayer::OnStartButtonPressed   (QtSamplePlayerGui* widget)
+void DASHPlayer::OnStartButtonPressed   ()
 {
     std::string url = this->gui->GetUrl();
     if(!this->multimediaManager->Init(url))
@@ -51,11 +51,11 @@ void DASHPlayer::OnStartButtonPressed   (QtSamplePlayerGui* widget)
     this->InitMultimediaStreams();
     this->multimediaManager->Start();
 }
-void DASHPlayer::OnStopButtonPressed    (QtSamplePlayerGui* widget)
+void DASHPlayer::OnStopButtonPressed    ()
 {
     this->multimediaManager->Stop();
 }
-void DASHPlayer::OnSettingsChanged      (QtSamplePlayerGui* widget, int video_adaption, int video_representation)
+void DASHPlayer::OnSettingsChanged      (int video_adaption, int video_representation)
 {
     if(this->multimediaManager->GetMPD() == NULL)
         return; // TODO dialog or symbol that indicates that error

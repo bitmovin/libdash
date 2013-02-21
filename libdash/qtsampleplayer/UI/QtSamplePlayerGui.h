@@ -63,14 +63,20 @@ namespace sampleplayer
             std::vector<IDASHPlayerGuiObserver *>   observers;
             dash::mpd::IMPD                         *mpd;
 
-            void NotifySettingsChanged      ();
             void LockUI                     ();
             void UnLockUI                   ();
+
             void SetPeriodComboBox          (dash::mpd::IMPD *mpd, QComboBox *cb);
             void SetAdaptationSetComboBox   (dash::mpd::IPeriod *period, QComboBox *cb);
             void SetRepresentationComoboBox (dash::mpd::IAdaptationSet *adaptationSet, QComboBox *cb);
-            void NotifyMPDDownloadPressed   (const std::string &url);
+
             void ClearComboBoxes            ();
+
+            void NotifySettingsChanged      ();
+            void NotifyMPDDownloadPressed   (const std::string &url);
+            void NotifyStartButtonPressed   ();
+            void NotifyStopButtonPressed    ();
+
     };
 }
 

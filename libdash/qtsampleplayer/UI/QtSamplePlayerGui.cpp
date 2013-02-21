@@ -89,18 +89,6 @@ void            QtSamplePlayerGui::SetStatusBar                                 
     QString str(text.c_str());
     this->ui->statusBar->showMessage(str);
 }
-void            QtSamplePlayerGui::NotifySettingsChanged                            ()
-{
-    this->LockUI();
-
-    int videoAdaptionSet    = this->ui->cb_video_adaptationset->currentIndex();
-    int videoRepresentation = this->ui->cb_video_representation->currentIndex();
-
-    for(size_t i = 0; i < this->observers.size(); i++)
-        this->observers.at(i)->OnSettingsChanged(this, videoAdaptionSet, videoRepresentation);
-
-    this->UnLockUI();
-}
 void            QtSamplePlayerGui::SetRepresentationComoboBox                       (dash::mpd::IAdaptationSet *adaptationSet, QComboBox *cb)
 {
     std::vector<IRepresentation *> represenations = adaptationSet->GetRepresentation();
@@ -163,10 +151,34 @@ std::string     QtSamplePlayerGui::GetUrl                                       
     this->UnLockUI();
     return ret;
 }
+
+/* Notifiers */
+void            QtSamplePlayerGui::NotifySettingsChanged                            ()
+{
+    this->LockUI();
+
+    int videoAdaptionSet    = this->ui->cb_video_adaptationset->currentIndex();
+    int videoRepresentation = this->ui->cb_video_representation->currentIndex();
+
+    for(size_t i = 0; i < this->observers.size(); i++)
+        this->observers.at(i)->OnSettingsChanged(videoAdaptionSet, videoRepresentation);
+
+    this->UnLockUI();
+}
 void            QtSamplePlayerGui::NotifyMPDDownloadPressed                         (const std::string &url)
 {
     for(size_t i = 0; i < this->observers.size(); i++)
         this->observers.at(i)->OnDownloadMPDPressed(url);
+}
+void            QtSamplePlayerGui::NotifyStartButtonPressed                         ()
+{
+    for(size_t i = 0; i < this->observers.size(); i++)
+        this->observers.at(i)->OnStartButtonPressed();
+}
+void            QtSamplePlayerGui::NotifyStopButtonPressed                          ()
+{
+    for(size_t i = 0; i < this->observers.size(); i++)
+        this->observers.at(i)->OnStopButtonPressed();
 }
 
 /* UI Slots */
@@ -240,17 +252,13 @@ void            QtSamplePlayerGui::on_button_start_clicked                      
 {
     this->ui->button_start->setEnabled(false);
     this->ui->button_stop->setEnabled(true);
-    for(unsigned int i=0; i < this->observers.size(); i++)
-    {
-        this->observers[i]->OnStartButtonPressed(this);
-    }
+
+    this->NotifyStartButtonPressed();
 }
 void            QtSamplePlayerGui::on_button_stop_clicked                           ()
 {
     this->ui->button_start->setEnabled(true);
     this->ui->button_stop->setEnabled(false);
-    for(unsigned int i=0; i < this->observers.size(); i++)
-    {
-        this->observers[i]->OnStopButtonPressed(this);
-    }
+
+    this->NotifyStopButtonPressed();
 }

@@ -24,10 +24,10 @@ namespace sampleplayer
         public:
             virtual ~IDASHPlayerGuiObserver() {}
 
-            virtual void OnSettingsChanged      (QtSamplePlayerGui* widget, int video_adaption, int video_representation)   = 0;
-            virtual void OnStartButtonPressed   (QtSamplePlayerGui* widget)                                                 = 0;
-            virtual void OnStopButtonPressed    (QtSamplePlayerGui* widget)                                                 = 0;
-            virtual void OnDownloadMPDPressed   (const std::string &url)                                                    = 0;
+            virtual void OnSettingsChanged      (int video_adaption, int video_representation)  = 0;
+            virtual void OnStartButtonPressed   ()                                              = 0;
+            virtual void OnStopButtonPressed    ()                                              = 0;
+            virtual void OnDownloadMPDPressed   (const std::string &url)                        = 0;
     };
 }
 #endif /* IDASHPLAYERGUIOBSERVER_H_ */
