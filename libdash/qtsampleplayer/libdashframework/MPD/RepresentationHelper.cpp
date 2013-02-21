@@ -28,6 +28,10 @@ ISegment*   RepresentationHelper::GetInitSegment    (IRepresentation *representa
     if(representation->GetSegmentTemplate())
         return representation->GetSegmentTemplate()->ToInitializationSegment(baseurls, "", 0);
 
+    /* Check for base url only */
+    if(representation->GetBaseURLs().size() > 0)
+        return representation->GetBaseURLs().at(0)->ToMediaSegment(baseurls);
+
     return NULL;
 }
 ISegment*   RepresentationHelper::GetSegment        (IRepresentation *representation, const std::vector<IBaseUrl *>& baseurls, uint32_t number)
