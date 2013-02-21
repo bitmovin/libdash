@@ -51,7 +51,6 @@ namespace sampleplayer
             void on_button_mpd_clicked                          ();
             void on_button_start_clicked                        ();
             void on_button_stop_clicked                         ();
-            void on_ckb_automatic_toggled                       (bool checked);
 
 
         public slots:
@@ -67,11 +66,14 @@ namespace sampleplayer
             std::vector<IDASHPlayerGuiObserver *>   observers;
             dash::mpd::IMPD                         *mpd;
 
-            void settingsChanged            ();
-            void lockUI                     ();
-            void unlockUI                   ();
-            void updateRepresentation       (dash::mpd::IAdaptationSet* adaption, QComboBox* cb);
+            void NotifySettingsChanged      ();
+            void LockUI                     ();
+            void UnLockUI                   ();
+            void SetPeriodComboBox          (dash::mpd::IMPD *mpd, QComboBox *cb);
+            void SetAdaptationSetComboBox   (dash::mpd::IPeriod *period, QComboBox *cb);
+            void SetRepresentationComoboBox (dash::mpd::IAdaptationSet *adaptationSet, QComboBox *cb);
             void NotifyMPDDownloadPressed   (const std::string &url);
+            void ClearComboBoxes            ();
     };
 }
 

@@ -20,8 +20,10 @@ using namespace sampleplayer;
 using namespace sampleplayer::renderer;
 using namespace dash::mpd;
 
-QtSamplePlayerGui::QtSamplePlayerGui    (QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::QtSamplePlayerClass)
+QtSamplePlayerGui::QtSamplePlayerGui    (QWidget *parent) : 
+                   QMainWindow          (parent),
+                   ui                   (new Ui::QtSamplePlayerClass),
+                   mpd                  (NULL)
 {
     this->ui->setupUi(this);
     this->SetBufferFillState(0);
@@ -32,9 +34,15 @@ QtSamplePlayerGui::~QtSamplePlayerGui   ()
     delete this->ui;
 }
 
-void            QtSamplePlayerGui::on_button_mpd_clicked                            ()
+void            QtSamplePlayerGui::ClearComboBoxes                                  ()
 {
-    this->NotifyMPDDownloadPressed(this->GetUrl());
+    this->ui->cb_period->clear();
+
+    this->ui->cb_video_adaptationset->clear();
+    this->ui->cb_video_representation->clear();
+
+    this->ui->cb_audio_adaptationset->clear();
+    this->ui->cb_audio_represenation->clear();
 }
 QTGLRenderer*   QtSamplePlayerGui::GetVideoElement                                  ()
 {
@@ -42,31 +50,28 @@ QTGLRenderer*   QtSamplePlayerGui::GetVideoElement                              
 }
 void            QtSamplePlayerGui::SetGuiFields                                     (dash::mpd::IMPD* mpd)
 {
-    this->ui->cb_video_adaptationset->clear();
-    this->ui->cb_video_representation->clear();
-    this->RemoveAllKeyValues();
-
-    this->setEnabled(false);
-
-    std::vector<IAdaptationSet*> adaptationSets = mpd->GetPeriods().at(0)->GetAdaptationSets();
-
-    for(size_t i = 0; i < adaptationSets.size(); i++)
+    this->LockUI();
+    this->ClearComboBoxes();
+    this->SetPeriodComboBox(mpd, this->ui->cb_period);
+    
+    if(mpd->GetPeriods().size() > 0)
     {
-        IAdaptationSet* adaptationSet = adaptationSets.at(i);
-        QString str(adaptationSet->GetContentType().c_str());
-        this->ui->cb_video_adaptationset->addItem(str);
-       
+        IPeriod *period = mpd->GetPeriods().at(0);
+
+        this->SetAdaptationSetComboBox(period, this->ui->cb_video_adaptationset);
+        this->SetAdaptationSetComboBox(period, this->ui->cb_audio_adaptationset);
+
+        if(period->GetAdaptationSets().at(0))
+        {
+            IAdaptationSet *adaptationSet = period->GetAdaptationSets().at(0);
+
+            this->SetRepresentationComoboBox(adaptationSet, this->ui->cb_video_representation);
+            this->SetRepresentationComoboBox(adaptationSet, this->ui->cb_audio_represenation);
+        }
     }
 
-    this->updateRepresentation(adaptationSets.at(0), this->ui->cb_video_representation);
-
-    /* Disabled Audio
-    {
-        this->ui->cb_audio_adaption->addItem(str);
-        this->updateRepresentation(adaptation,this->ui->cb_audio_representation);
-    }*/
     this->mpd = mpd;
-    this->setEnabled(true);
+    this->UnLockUI();
 }
 void            QtSamplePlayerGui::SetBufferFillState                               (int percentage)
 {
@@ -87,8 +92,108 @@ void            QtSamplePlayerGui::SetStatusBar                                 
     QString str(text.c_str());
     this->ui->statusBar->showMessage(str);
 }
+void            QtSamplePlayerGui::NotifySettingsChanged                            ()
+{
+    this->LockUI();
+
+    int videoAdaptionSet    = this->ui->cb_video_adaptationset->currentIndex();
+    int videoRepresentation = this->ui->cb_video_representation->currentIndex();
+
+    for(size_t i = 0; i < this->observers.size(); i++)
+        this->observers.at(i)->OnSettingsChanged(this, videoAdaptionSet, videoRepresentation);
+
+    this->UnLockUI();
+}
+void            QtSamplePlayerGui::SetRepresentationComoboBox                       (dash::mpd::IAdaptationSet *adaptationSet, QComboBox *cb)
+{
+    std::vector<IRepresentation *> represenations = adaptationSet->GetRepresentation();
+    cb->clear();
+
+    for(size_t i = 0; i < represenations.size(); i++)
+    {
+        IRepresentation *representation = represenations.at(i);
+
+        std::stringstream ss;
+        ss << representation->GetId() << " " << representation->GetBandwidth() << " bps "  << representation->GetWidth() << "x" << representation->GetHeight();
+
+        cb->addItem(QString(ss.str().c_str()));
+    }
+}
+void            QtSamplePlayerGui::SetAdaptationSetComboBox                         (dash::mpd::IPeriod *period, QComboBox *cb)
+{
+    std::vector<IAdaptationSet *> adaptationSets = period->GetAdaptationSets();
+    cb->clear();
+
+    for(size_t i = 0; i < adaptationSets.size(); i++)
+    {
+        IAdaptationSet *adaptationSet = adaptationSets.at(i);
+
+        std::stringstream ss;
+        ss << "AdaptationSet " << i+1;
+
+        cb->addItem(QString(ss.str().c_str()));
+    }
+}
+void            QtSamplePlayerGui::SetPeriodComboBox                                (dash::mpd::IMPD *mpd, QComboBox *cb)
+{
+    std::vector<IPeriod *> periods = mpd->GetPeriods();
+    cb->clear();
+
+    for(size_t i = 0; i < periods.size(); i++)
+    {
+        IPeriod *period = periods.at(i);
+
+        std::stringstream ss;
+        ss << "Period " << i+1;
+
+        cb->addItem(QString(ss.str().c_str()));
+    }
+}
+void            QtSamplePlayerGui::LockUI                                           ()
+{
+    this->setEnabled(false);
+}
+void            QtSamplePlayerGui::UnLockUI                                         ()
+{
+    this->setEnabled(true);
+}
+std::string     QtSamplePlayerGui::GetUrl                                           ()
+{
+    this->LockUI();
+
+    std::string ret  = this->ui->lineEdit_mpd->text().toStdString();
+
+    this->UnLockUI();
+    return ret;
+}
+bool            QtSamplePlayerGui::GetAutomatic                                     ()
+{
+    return false;
+}
+void            QtSamplePlayerGui::NotifyMPDDownloadPressed                         (const std::string &url)
+{
+    for(size_t i = 0; i < this->observers.size(); i++)
+        this->observers.at(i)->OnDownloadMPDPressed(url);
+}
+
+/* UI Slots */
+void            QtSamplePlayerGui::on_button_mpd_clicked                            ()
+{
+    this->NotifyMPDDownloadPressed(this->GetUrl());
+}
 void            QtSamplePlayerGui::on_cb_period_currentIndexChanged                 (int index)
 {
+    if(index == -1 || this->mpd == NULL)
+        return; // No Item set
+
+    this->LockUI();
+
+    this->SetAdaptationSetComboBox(mpd->GetPeriods().at(index), ui->cb_audio_adaptationset);
+    this->SetAdaptationSetComboBox(mpd->GetPeriods().at(index), ui->cb_video_adaptationset);
+
+    this->NotifySettingsChanged();
+
+    this->UnLockUI();
 }
 void            QtSamplePlayerGui::on_cb_mpd_currentTextChanged                     (const QString &arg1)
 {
@@ -96,36 +201,47 @@ void            QtSamplePlayerGui::on_cb_mpd_currentTextChanged                 
 }
 void            QtSamplePlayerGui::on_cb_video_adaptationset_currentIndexChanged    (int index)
 {
-    if(index == -1)
+    if(index == -1 || this->mpd == NULL)
         return; // No Item set
 
-    if(this->isEnabled())
-    {
-        this->setEnabled(false);
-        this->ui->cb_video_representation->clear();
-        this->updateRepresentation(this->mpd->GetPeriods()[0]->GetAdaptationSets()[index], this->ui->cb_video_representation);
-        this->setEnabled(true);
-        this->settingsChanged();
-    }
+    this->LockUI();
+
+    IPeriod *period = this->mpd->GetPeriods().at(this->ui->cb_period->currentIndex());
+
+    this->SetRepresentationComoboBox(period->GetAdaptationSets().at(index), this->ui->cb_video_representation);
+
+    this->NotifySettingsChanged();
+
+    this->UnLockUI();
 }
 void            QtSamplePlayerGui::on_cb_video_representation_currentIndexChanged   (int index)
 {
     if(index == -1)
         return; // No Item set
 
-    if(this->isEnabled())
-        this->settingsChanged();
+    this->NotifySettingsChanged();
 }
 void            QtSamplePlayerGui::on_cb_audio_adaptationset_currentIndexChanged    (int index)
 {
+    if(index == -1 || this->mpd == NULL)
+        return; // No Item set
+
+    this->LockUI();
+
+    IPeriod *period = this->mpd->GetPeriods().at(this->ui->cb_period->currentIndex());
+
+    this->SetRepresentationComoboBox(period->GetAdaptationSets().at(index), this->ui->cb_audio_represenation);
+
+    this->NotifySettingsChanged();
+
+    this->UnLockUI();
 }
 void            QtSamplePlayerGui::on_cb_audio_representation_currentIndexChanged   (int index)
 {
     if(index == -1)
         return; // No Item set
 
-    if(this->isEnabled())
-        this->settingsChanged();
+    this->NotifySettingsChanged();
 }
 void            QtSamplePlayerGui::on_button_start_clicked                          ()
 {
@@ -144,71 +260,4 @@ void            QtSamplePlayerGui::on_button_stop_clicked                       
     {
         this->observers[i]->OnStopButtonPressed(this);
     }
-}
-void            QtSamplePlayerGui::on_ckb_automatic_toggled                         (bool checked)
-{
-    
-    if(checked)
-    {
-        this->ui->cb_video_representation->setEnabled(false);
-    }
-    else
-    {
-        this->ui->cb_video_representation->setEnabled(true);
-    }
-    
-    for(unsigned int i=0; i < this->observers.size(); i++)
-    {
-        this->observers[i]->OnCheckboxChanged(this, checked);
-    }
-}
-void            QtSamplePlayerGui::settingsChanged                                  ()
-{
-    this->lockUI();
-    int v_adaption = this->ui->cb_video_adaptationset->currentIndex();
-    int v_representation = this->ui->cb_video_representation->currentIndex();
-    for(unsigned int i=0; i < this->observers.size(); i++)
-    {
-        this->observers[i]->OnSettingsChanged(this,v_adaption, v_representation);
-    }
-    this->unlockUI();
-}
-void            QtSamplePlayerGui::updateRepresentation                             (dash::mpd::IAdaptationSet* adaptation, QComboBox* cb)
-{
-    std::vector<IRepresentation*> represenations = adaptation->GetRepresentation();
-    cb->clear();
-    for(unsigned int j=0; j < represenations.size(); j++)
-    {
-        IRepresentation* representation = represenations.at(j);
-        std::stringstream ss;
-        ss << representation->GetId() << " " << representation->GetBandwidth() << "kbps "  << representation->GetWidth() << "x" << representation->GetHeight();
-        QString str2(ss.str().c_str());
-        cb->addItem(str2);
-    }
-}
-void            QtSamplePlayerGui::lockUI                                           ()
-{
-    this->setEnabled(false);
-}
-void            QtSamplePlayerGui::unlockUI                                         ()
-{
-    this->setEnabled(true);
-}
-std::string     QtSamplePlayerGui::GetUrl                                           ()
-{
-    this->lockUI();
-
-    std::string ret  = this->ui->lineEdit_mpd->text().toStdString();
-
-    this->unlockUI();
-    return ret;
-}
-bool            QtSamplePlayerGui::GetAutomatic                                     ()
-{
-    return false;
-}
-void            QtSamplePlayerGui::NotifyMPDDownloadPressed                         (const std::string &url)
-{
-    for(size_t i = 0; i < this->observers.size(); i++)
-        this->observers.at(i)->OnDownloadMPDPressed(url);
 }
