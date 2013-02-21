@@ -72,7 +72,7 @@ namespace dash
                 virtual const std::string&  GetIndexRange   ()  const = 0;
 
                 /**
-                 *  Returns a pointer to a dash::mpd::ISegment object that represents a media segment and can be downloaded.
+                 *  Returns a pointer to a dash::mpd::ISegment object which represents a media segment that can be downloaded.
                  *  @param      baseurls    a vector of pointers to dash::mpd::IBaseUrl objects that represent the path to the media segment
                  *  @return     a pointer to a dash::mpd::ISegment object
                  */
