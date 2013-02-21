@@ -157,11 +157,12 @@ void            QtSamplePlayerGui::NotifySettingsChanged                        
 {
     this->LockUI();
 
+    int period              = this->ui->cb_period->currentIndex();
     int videoAdaptionSet    = this->ui->cb_video_adaptationset->currentIndex();
     int videoRepresentation = this->ui->cb_video_representation->currentIndex();
 
     for(size_t i = 0; i < this->observers.size(); i++)
-        this->observers.at(i)->OnSettingsChanged(videoAdaptionSet, videoRepresentation);
+        this->observers.at(i)->OnSettingsChanged(period, videoAdaptionSet, videoRepresentation);
 
     this->UnLockUI();
 }
@@ -172,8 +173,16 @@ void            QtSamplePlayerGui::NotifyMPDDownloadPressed                     
 }
 void            QtSamplePlayerGui::NotifyStartButtonPressed                         ()
 {
+    this->LockUI();
+
+    int period              = this->ui->cb_period->currentIndex();
+    int videoAdaptionSet    = this->ui->cb_video_adaptationset->currentIndex();
+    int videoRepresentation = this->ui->cb_video_representation->currentIndex();
+
     for(size_t i = 0; i < this->observers.size(); i++)
-        this->observers.at(i)->OnStartButtonPressed();
+        this->observers.at(i)->OnStartButtonPressed(period, videoAdaptionSet, videoRepresentation);
+
+    this->UnLockUI();
 }
 void            QtSamplePlayerGui::NotifyStopButtonPressed                          ()
 {

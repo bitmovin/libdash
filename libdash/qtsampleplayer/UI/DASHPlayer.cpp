@@ -36,7 +36,7 @@ DASHPlayer::~DASHPlayer ()
     delete(this->multimediaManager);
 }
 
-void DASHPlayer::OnStartButtonPressed   ()
+void DASHPlayer::OnStartButtonPressed   (int period, int videoAdaptationSet, int videoRepresentation)
 {
     std::string url = this->gui->GetUrl();
     if(!this->multimediaManager->Init(url))
@@ -46,33 +46,23 @@ void DASHPlayer::OnStartButtonPressed   ()
     }
 
     this->gui->SetStatusBar("Successfully parsed MPD at: " + url);
-    this->gui->SetGuiFields(this->multimediaManager->GetMPD());
 
-    this->InitMultimediaStreams();
+    this->OnSettingsChanged(period, videoAdaptationSet, videoRepresentation);
     this->multimediaManager->Start();
 }
 void DASHPlayer::OnStopButtonPressed    ()
 {
     this->multimediaManager->Stop();
 }
-void DASHPlayer::OnSettingsChanged      (int video_adaption, int video_representation)
+void DASHPlayer::OnSettingsChanged      (int period, int videoAdaptationSet, int videoRepresentation)
 {
     if(this->multimediaManager->GetMPD() == NULL)
         return; // TODO dialog or symbol that indicates that error
 
-    IPeriod *currentPeriod = this->multimediaManager->GetMPD()->GetPeriods().at(0);
+    IPeriod *currentPeriod = this->multimediaManager->GetMPD()->GetPeriods().at(period);
 
-    this->multimediaManager->SetVideoQuality(currentPeriod->GetAdaptationSets().at(video_adaption),
-                                             currentPeriod->GetAdaptationSets().at(video_adaption)->GetRepresentation().at(video_representation));
-}
-void DASHPlayer::InitMultimediaStreams  ()
-{
-    if(this->multimediaManager->GetMPD() == NULL)
-        return; // TODO dialog or symbol that indicates that error
-
-    IPeriod *currentPeriod = this->multimediaManager->GetMPD()->GetPeriods().at(0);
-    this->multimediaManager->SetVideoQuality(currentPeriod->GetAdaptationSets().at(0),
-                                             currentPeriod->GetAdaptationSets().at(0)->GetRepresentation().at(0));
+    this->multimediaManager->SetVideoQuality(currentPeriod->GetAdaptationSets().at(videoAdaptationSet),
+                                             currentPeriod->GetAdaptationSets().at(videoAdaptationSet)->GetRepresentation().at(videoRepresentation));
 }
 void DASHPlayer::OnBufferStateChanged   (uint32_t fillstateInPercent)
 {
