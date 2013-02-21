@@ -14,6 +14,7 @@
 
 #include "config.h"
 
+#include "Segment.h"
 #include "IBaseUrl.h"
 #include "AbstractMPDElement.h"
 
@@ -34,6 +35,8 @@ namespace dash
                 void    SetUrl              (const std::string& url);
                 void    SetServiceLocation  (const std::string& serviceLocation);
                 void    SetByteRange        (const std::string& byteRange);
+
+                virtual ISegment* ToMediaSegment (const std::vector<IBaseUrl *>& baseurls) const;
 
             private:
                 std::string url;

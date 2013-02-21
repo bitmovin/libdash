@@ -21,6 +21,7 @@
 #include "config.h"
 
 #include "IMPDElement.h"
+#include "ISegment.h"
 
 namespace dash
 {
@@ -53,6 +54,14 @@ namespace dash
                  *  @return     a reference to a string
                  */
                 virtual const std::string& GetByteRange         ()  const = 0;
+
+                 /**
+                 *  Returns a pointer to a dash::mpd::ISegment object which represents a media segment that can be downloaded. Should be used for single base urls inside 
+                 *  a representation.
+                 *  @param      baseurls    a vector of pointers to dash::mpd::IBaseUrl objects that represent the path to the media segment
+                 *  @return     a pointer to a dash::mpd::ISegment object
+                 */
+                virtual ISegment*           ToMediaSegment      (const std::vector<IBaseUrl *>& baseurls) const = 0;
         };
     }
 }
