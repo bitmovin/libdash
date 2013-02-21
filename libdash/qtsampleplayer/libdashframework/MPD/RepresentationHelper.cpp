@@ -20,6 +20,10 @@ ISegment*   RepresentationHelper::GetInitSegment    (IRepresentation *representa
     if(representation->GetSegmentBase())
         return representation->GetSegmentBase()->GetInitialization()->ToSegment(baseurls);
 
+    /* Check for segment list */
+    if(representation->GetSegmentList())
+        return representation->GetSegmentList()->GetInitialization()->ToSegment(baseurls);
+
     /* Check for segment template */
     if(representation->GetSegmentTemplate())
         return representation->GetSegmentTemplate()->ToInitializationSegment(baseurls, "", 0);
