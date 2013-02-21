@@ -28,6 +28,7 @@ QtSamplePlayerGui::QtSamplePlayerGui    (QWidget *parent) :
     this->ui->setupUi(this);
     this->SetBufferFillState(0);
     this->ui->button_stop->setEnabled(false);
+    this->ui->button_start->setEnabled(false);
 }
 QtSamplePlayerGui::~QtSamplePlayerGui   ()
 {
@@ -72,6 +73,8 @@ void            QtSamplePlayerGui::SetGuiFields                                 
 
     this->mpd = mpd;
     this->UnLockUI();
+
+    this->ui->button_start->setEnabled(true);
 }
 void            QtSamplePlayerGui::SetBufferFillState                               (int percentage)
 {
