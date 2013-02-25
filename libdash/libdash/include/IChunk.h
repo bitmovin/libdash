@@ -1,7 +1,8 @@
 /**
  *  @class      dash::network::IChunk
  *  @brief      This interface is needed for accessing the information belonging to a dash::network::IChunk object
- *  @details    ...
+ *  @details    Provides specific information of a chunk, e.g., URI, Hostname, Port, Path and optional Range that
+ *              that are needed to download this chunk.
  *
  *  @author     bitmovin Softwareentwicklung OG \n
  *              Email: libdash-dev@vicky.bitmovin.net
