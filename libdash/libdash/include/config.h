@@ -1,7 +1,7 @@
 /**
  *  config.h
  *
- *  @brief      ...
+ *  @brief      Standard includes that are used by the library
  *  @details    ...
  *
  *  @author     bitmovin Softwareentwicklung OG \n
