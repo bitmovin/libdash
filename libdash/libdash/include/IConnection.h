@@ -1,7 +1,7 @@
 /**
  *  @class      dash::network::IConnection
- *  @brief      ...
- *  @details    ...
+ *  @brief      The connection interface can be used to enable the download of segments through external connections.
+ *  @details    This interface enables the extension of libdash to download segment through, e.g., SPDY, CCN etc.
  *  @see        dash::network::IChunk
  *
  *  @author     bitmovin Softwareentwicklung OG \n
