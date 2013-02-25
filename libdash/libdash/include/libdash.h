@@ -1,7 +1,7 @@
 /**
  *  libdash.h
  *
- *  @brief      ...
+ *  @brief      The main interface to the libary that should be used to create a IDASHManager
  *  @details    ...
  *
  *  @author     bitmovin Softwareentwicklung OG \n
