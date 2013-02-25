@@ -30,20 +30,20 @@ namespace dash
                 virtual ~IConnection(){}
 
                 /**
-                 *  Reads ... and returns ...
-                 *  @param      data    ...
-                 *  @param      len     ...
-                 *  @param      chunk   a pointer to a dash::network::IChunk object
-                 *  @return     an integer
+                 *  This function should read a block of bytes from the specified chunk.
+                 *  @param      data    pointer to a block of memory
+                 *  @param      len     size of the memory block that can be used by the method
+                 *  @param      chunk   the dash::network::IChunk object from which data should be read
+                 *  @return     amount of data that has been read
                  */
                 virtual int Read (uint8_t *data, size_t len, IChunk *chunk)  = 0;
 
                 /**
-                 *  Peeks ... and returns ...
-                 *  @param      data    ...
-                 *  @param      len     ...
-                 *  @param      chunk   a pointer to a dash::network::IChunk object
-                 *  @return     an integer
+                 *  This function should peek a block of bytes from the specified chunk.
+                 *  @param      data    pointer to a block of memory
+                 *  @param      len     size of the memory block that can be used by the method
+                 *  @param      chunk   the dash::network::IChunk object from which data should be peeked
+                 *  @return     amount of data that has been peeked
                  */
                 virtual int Peek (uint8_t *data, size_t len, IChunk *chunk)  = 0;
         };
