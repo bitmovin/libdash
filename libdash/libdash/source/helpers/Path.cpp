@@ -74,19 +74,14 @@ bool                        Path::GetHostPortAndPath    (const std::string &url,
 }
 bool                        Path::GetStartAndEndBytes   (const std::string &byteRange, size_t &startByte, size_t &endByte)
 {
-    std::string range = "";
     size_t found = 0;
 
-    if (byteRange.substr(0, 6) == "bytes=")
+    found = byteRange.find('-');
+    if (found != std::string::npos && found < byteRange.size()-1 )
     {
-        range = byteRange.substr(6);
-        found = range.find('-');
-        if (found != std::string::npos && found < range.size()-1 )
-        {
-            startByte = strtoul(range.substr(0, found).c_str(), NULL, 10);
-            endByte = strtoul(range.substr(found+1, std::string::npos).c_str(), NULL, 10);
-            return (startByte <= endByte);
-        }
+        startByte = strtoul(byteRange.substr(0, found).c_str(), NULL, 10);
+        endByte = strtoul(byteRange.substr(found+1, std::string::npos).c_str(), NULL, 10);
+        return (startByte <= endByte);
     }
 
     return false;
