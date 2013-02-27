@@ -84,7 +84,6 @@ Node*   DOMParser::ProcessNode              ()
         {
             if(!strcmp(name.c_str(), (const char *) xmlTextReaderConstName(this->reader)))
             {
-                xmlTextReaderRead(this->reader);
                 return node;
             }
 
