@@ -9,6 +9,7 @@ libdash is a library that provides an object orient (OO) interface to the MPEG-D
 
 * Cross platform build system based on cmake that includes Windows, Linux and Mac.
 * Open source available and licensed under the LGPL.
+* Comprehensive doxygen documentation of the library availalbe at [bitmovin](http://www.bitmovin.net/wp-content/libdash/libdash_2_1_doxygen).
 * Implements the full MPEG-DASH standard according to ISO/IEC 23009-1, Information Technology Dynamic Adaptive Streaming over HTTP (DASH) Part 1: Media Presentation Description and Segment Formats
 * Handles the download and xml parsing of the MPD. Based on that it provides an OO based interface to the MPD.
 * Media elements, e.g., SegmentURL, SegmentTemplate, etc., are downloadable in that OO based structure and can be downloaded through libdash, which internally uses libcurl.
@@ -27,6 +28,10 @@ In a typical deployment, a DASH server provides segments in several bitrates and
 
 
 ![libdash architecture](http://www.bitmovin.net/wp-content/uploads/2013/01/libdash_arch-1024x483.png "libdash arch")
+
+## Documentation
+
+The doxygen documentation is online available at [bitmovin](http://www.bitmovin.net/wp-content/libdash/libdash_2_1_doxygen).
 
 ## Mailinglist
 
