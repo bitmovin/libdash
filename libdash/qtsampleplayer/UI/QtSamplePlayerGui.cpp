@@ -41,9 +41,6 @@ void            QtSamplePlayerGui::ClearComboBoxes                              
 
     this->ui->cb_video_adaptationset->clear();
     this->ui->cb_video_representation->clear();
-
-    this->ui->cb_audio_adaptationset->clear();
-    this->ui->cb_audio_represenation->clear();
 }
 QTGLRenderer*   QtSamplePlayerGui::GetVideoElement                                  ()
 {
@@ -60,14 +57,12 @@ void            QtSamplePlayerGui::SetGuiFields                                 
         IPeriod *period = mpd->GetPeriods().at(0);
 
         this->SetAdaptationSetComboBox(period, this->ui->cb_video_adaptationset);
-        this->SetAdaptationSetComboBox(period, this->ui->cb_audio_adaptationset);
 
         if(period->GetAdaptationSets().at(0))
         {
             IAdaptationSet *adaptationSet = period->GetAdaptationSets().at(0);
 
             this->SetRepresentationComoboBox(adaptationSet, this->ui->cb_video_representation);
-            this->SetRepresentationComoboBox(adaptationSet, this->ui->cb_audio_represenation);
         }
     }
 
@@ -175,6 +170,8 @@ void            QtSamplePlayerGui::NotifyStartButtonPressed                     
 {
     this->LockUI();
 
+    this->NotifyMPDDownloadPressed(this->GetUrl());
+
     int period              = this->ui->cb_period->currentIndex();
     int videoAdaptionSet    = this->ui->cb_video_adaptationset->currentIndex();
     int videoRepresentation = this->ui->cb_video_representation->currentIndex();
@@ -202,7 +199,6 @@ void            QtSamplePlayerGui::on_cb_period_currentIndexChanged             
 
     this->LockUI();
 
-    this->SetAdaptationSetComboBox(mpd->GetPeriods().at(index), ui->cb_audio_adaptationset);
     this->SetAdaptationSetComboBox(mpd->GetPeriods().at(index), ui->cb_video_adaptationset);
 
     this->NotifySettingsChanged();
@@ -243,8 +239,6 @@ void            QtSamplePlayerGui::on_cb_audio_adaptationset_currentIndexChanged
     this->LockUI();
 
     IPeriod *period = this->mpd->GetPeriods().at(this->ui->cb_period->currentIndex());
-
-    this->SetRepresentationComoboBox(period->GetAdaptationSets().at(index), this->ui->cb_audio_represenation);
 
     this->NotifySettingsChanged();
 
