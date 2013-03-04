@@ -184,6 +184,13 @@ namespace dash
                  *  @return     a reference to a string
                  */
                 virtual const std::string&                          GetMaxSubsegmentDuration        ()  const = 0;
+
+                /**
+                 *  Returns a pointer to a dash::mpd::IBaseUrl that specifies the absolute path to the MPD file. \n
+                 *  This absolute path is needed if there is no BaseURL specified and all other BaseURLs are relative.
+                 *  @return     a pointer to a dash::mpd::IBaseUrl
+                 */
+                virtual IBaseUrl*                                   GetMPDPathBaseUrl               ()  const = 0;
         };
     }
 }

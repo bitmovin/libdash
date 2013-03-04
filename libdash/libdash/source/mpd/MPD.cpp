@@ -175,3 +175,11 @@ void                                        MPD::SetMaxSubsegmentDuration       
 {
     this->maxSegmentDuration = maxSegmentDuration;
 }
+IBaseUrl*                                   MPD::GetMPDPathBaseUrl                  ()  const
+{
+    return this->mpdPathBaseUrl;
+}
+void                                        MPD::SetMPDPathBaseUrl                  (BaseUrl *mpdPath)
+{
+    this->mpdPathBaseUrl = mpdPath;
+}

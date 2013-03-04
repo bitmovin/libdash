@@ -82,7 +82,7 @@ dash::mpd::BaseUrl*                         Node::ToBaseUrl             ()  cons
     }
     if (this->GetText() == "./")
     {
-        baseUrl->SetUrl(this->mpdUrl);
+        baseUrl->SetUrl(this->mpdPath);
     }
     else 
     {
@@ -776,12 +776,16 @@ dash::mpd::MPD*                             Node::ToMPD                 ()  cons
         mpd->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
     }
 
+    dash::mpd::BaseUrl *mpdPathBaseUrl = new dash::mpd::BaseUrl();
+    mpdPathBaseUrl->SetUrl(mpdPath);
+    mpd->SetMPDPathBaseUrl(mpdPathBaseUrl);
+
     mpd->AddRawAttributes(this->attributes);
     return mpd;
 }
-void                                        Node::SetMPDUrl             (std::string url)
+void                                        Node::SetMPDPath            (std::string path)
 {
-    this->mpdUrl = url;
+    this->mpdPath = path;
 }
 
 const std::vector<INode*>&                  Node::GetNodes              ()  const

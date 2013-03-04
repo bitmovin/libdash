@@ -62,7 +62,7 @@ Node*   DOMParser::ProcessNode              ()
 
         Node *node = new Node();
         node->SetType(type);
-        node->SetMPDUrl(Path::GetDirectoryPath(url));
+        node->SetMPDPath(Path::GetDirectoryPath(url));
 
         if(xmlTextReaderConstName(this->reader) == NULL)
             return NULL;
