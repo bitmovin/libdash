@@ -50,7 +50,7 @@ void                BaseUrl::SetByteRange       (const std::string& byteRange)
 ISegment*           BaseUrl::ToMediaSegment     (const std::vector<IBaseUrl *>& baseurls) const
 {
     Segment *seg = new Segment();
-    
+
     if(seg->Init(baseurls, this->url, this->byteRange))
         return seg;
 
