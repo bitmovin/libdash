@@ -23,9 +23,12 @@ namespace libdash
             class RepresentationHelper
             {
                 public:
-                    static dash::mpd::ISegment* GetInitSegment      (dash::mpd::IRepresentation *representation, const std::vector<dash::mpd::IBaseUrl *>& baseurls);
-                    static dash::mpd::ISegment* GetSegment          (dash::mpd::IRepresentation *representation, const std::vector<dash::mpd::IBaseUrl *>& baseurls, uint32_t number);
+                    static dash::mpd::ISegment* GetInitSegment      (dash::mpd::IRepresentation *representation, dash::mpd::IMPD *mpd);
+                    static dash::mpd::ISegment* GetSegment          (dash::mpd::IRepresentation *representation, uint32_t number, dash::mpd::IMPD *mpd);
                     static uint32_t             GetSize             (dash::mpd::IRepresentation *representation);
+
+                private:
+                    static void                 CopyBaseUrls        (const std::vector<dash::mpd::IBaseUrl *>& source, std::vector<dash::mpd::IBaseUrl *>& dest);
             };
         }
     }

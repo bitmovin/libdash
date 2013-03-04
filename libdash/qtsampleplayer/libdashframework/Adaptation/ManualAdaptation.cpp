@@ -22,9 +22,6 @@ ManualAdaptation::ManualAdaptation          (dash::mpd::IAdaptationSet *adaptati
                   segmentNumber             (0),
                   invokeInitSegment         (false)
 {
-    if (this->mpd->GetBaseUrls().size() > 0)
-        this->baseurls.push_back(this->mpd->GetBaseUrls().at(0));
-
     this->representation = this->adaptationSet->GetRepresentation().at(0);
 }
 ManualAdaptation::~ManualAdaptation         ()
@@ -44,12 +41,12 @@ MediaObject*    ManualAdaptation::GetSegment            ()
 
     if(this->segmentNumber == 0 || this->invokeInitSegment)
     {
-        seg = RepresentationHelper::GetInitSegment(this->representation, this->baseurls);
+        seg = RepresentationHelper::GetInitSegment(this->representation, this->mpd);
         this->invokeInitSegment = false;
     }   
     else
     {
-        seg = RepresentationHelper::GetSegment(this->representation, this->baseurls, this->segmentNumber - 1);
+        seg = RepresentationHelper::GetSegment(this->representation, this->segmentNumber - 1, this->mpd);
     }
     
     if (seg != NULL)
