@@ -22,7 +22,9 @@ ManualAdaptation::ManualAdaptation          (dash::mpd::IAdaptationSet *adaptati
                   segmentNumber             (0),
                   invokeInitSegment         (false)
 {
-    this->baseurls.push_back(this->mpd->GetBaseUrls().at(0));
+    if (this->mpd->GetBaseUrls().size() > 0)
+        this->baseurls.push_back(this->mpd->GetBaseUrls().at(0));
+
     this->representation = this->adaptationSet->GetRepresentation().at(0);
 }
 ManualAdaptation::~ManualAdaptation         ()
@@ -50,9 +52,14 @@ MediaObject*    ManualAdaptation::GetSegment            ()
         seg = RepresentationHelper::GetSegment(this->representation, this->baseurls, this->segmentNumber - 1);
     }
     
-    MediaObject *media = new MediaObject(seg, this->representation);
-    this->segmentNumber++;
-    return media;
+    if (seg != NULL)
+    {
+        MediaObject *media = new MediaObject(seg, this->representation);
+        this->segmentNumber++;
+        return media;
+    }
+
+    return NULL;
 }
 uint32_t        ManualAdaptation::GetPosition           ()
 {
