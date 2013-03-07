@@ -15,8 +15,9 @@ using namespace dash::mpd;
 using namespace libdash::framework::adaptation;
 using namespace libdash::framework::mpd;
 
-ManualAdaptation::ManualAdaptation          (dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd) : 
-                  AbstractAdaptationLogic   (adaptationSet, mpd),
+ManualAdaptation::ManualAdaptation          (dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd) :
+                  AbstractAdaptationLogic   (period, adaptationSet, mpd),
+                  period                    (period),
                   adaptationSet             (adaptationSet),
                   mpd                       (mpd),
                   segmentNumber             (0),
@@ -41,12 +42,12 @@ MediaObject*    ManualAdaptation::GetSegment            ()
 
     if(this->segmentNumber == 0 || this->invokeInitSegment)
     {
-        seg = RepresentationHelper::GetInitSegment(this->representation, this->mpd);
+        seg = RepresentationHelper::GetInitSegment(this->period, this->adaptationSet, this->representation, this->mpd);
         this->invokeInitSegment = false;
     }   
     else
     {
-        seg = RepresentationHelper::GetSegment(this->representation, this->segmentNumber - 1, this->mpd);
+        seg = RepresentationHelper::GetSegment(this->period, this->adaptationSet, this->representation, this->segmentNumber - 1, this->mpd);
     }
     
     if (seg != NULL)

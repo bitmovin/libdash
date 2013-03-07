@@ -91,7 +91,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="libdashframework\Adaptation\AbstractAdaptationLogic.cpp" />
+    <ClCompile Include="libdashframework\Adaptation\AdaptationLogicFactory.cpp" />
     <ClCompile Include="libdashframework\Adaptation\ManualAdaptation.cpp" />
+    <ClCompile Include="libdashframework\MPD\BaseUrlResolver.cpp" />
     <ClCompile Include="libdashframework\MPD\RepresentationHelper.cpp" />
     <ClCompile Include="UI\DASHPlayer.cpp" />
     <ClCompile Include="UI\QtSamplePlayerGui.cpp" />
@@ -152,8 +154,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libdashframework\Adaptation\AbstractAdaptationLogic.h" />
+    <ClInclude Include="libdashframework\Adaptation\AdaptationLogicFactory.h" />
     <ClInclude Include="libdashframework\Adaptation\ManualAdaptation.h" />
     <ClInclude Include="libdashframework\Input\IDASHReceiverObserver.h" />
+    <ClInclude Include="libdashframework\MPD\BaseUrlResolver.h" />
     <ClInclude Include="libdashframework\MPD\RepresentationHelper.h" />
     <ClInclude Include="Managers\DecodingThread.h" />
     <ClInclude Include="Managers\IStreamObserver.h" />

@@ -14,8 +14,9 @@
 using namespace libdash::framework::adaptation;
 using namespace dash::mpd;
 
-AlwaysLowestLogic::AlwaysLowestLogic        (IAdaptationSet *adaptationSet, IMPD *mpd) :
-                   AbstractAdaptationLogic  (adaptationSet, mpd),
+AlwaysLowestLogic::AlwaysLowestLogic        (IPeriod *period, IAdaptationSet *adaptationSet, IMPD *mpd) :
+                   AbstractAdaptationLogic  (period, adaptationSet, mpd),
+                   period                   (period),
                    adaptationSet            (adaptationSet),
                    mpd                      (mpd),
                    segmentNumber            (0)

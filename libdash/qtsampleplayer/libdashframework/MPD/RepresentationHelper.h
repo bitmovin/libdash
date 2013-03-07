@@ -13,6 +13,7 @@
 #define LIBDASH_FRAMEWORK_MPD_REPRESENTATIONHELPER_H_
 
 #include "IMPD.h"
+#include "BaseUrlResolver.h"
 
 namespace libdash
 {
@@ -23,12 +24,9 @@ namespace libdash
             class RepresentationHelper
             {
                 public:
-                    static dash::mpd::ISegment* GetInitSegment      (dash::mpd::IRepresentation *representation, dash::mpd::IMPD *mpd);
-                    static dash::mpd::ISegment* GetSegment          (dash::mpd::IRepresentation *representation, uint32_t number, dash::mpd::IMPD *mpd);
+                    static dash::mpd::ISegment* GetInitSegment      (dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation, dash::mpd::IMPD *mpd);
+                    static dash::mpd::ISegment* GetSegment          (dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation, uint32_t number, dash::mpd::IMPD *mpd);
                     static uint32_t             GetSize             (dash::mpd::IRepresentation *representation);
-
-                private:
-                    static void                 CopyBaseUrls        (const std::vector<dash::mpd::IBaseUrl *>& source, std::vector<dash::mpd::IBaseUrl *>& dest);
             };
         }
     }

@@ -10,8 +10,6 @@
  *****************************************************************************/
 
 #include "MultimediaManager.h"
-#include "../libdashframework/Adaptation/ManualAdaptation.h"
-#include "../libdashframework/Adaptation/AlwaysLowestLogic.h"
 
 using namespace libdash::framework::adaptation;
 using namespace libdash::framework::buffer;
@@ -24,6 +22,7 @@ using namespace dash::mpd;
 MultimediaManager::MultimediaManager            (QTGLRenderer *videoelement) :
                    videoelement                 (videoelement),
                    mpd                          (NULL),
+                   period                       (NULL),
                    videoAdaptationSet           (NULL),
                    videoRepresentation          (NULL),
                    videoLogic                   (NULL),
@@ -60,8 +59,9 @@ bool    MultimediaManager::Init                             (const std::string& 
     if(this->mpd == NULL)
         return false;
 
-    this->videoAdaptationSet = this->mpd->GetPeriods().at(0)->GetAdaptationSets().at(0);
-    this->videoRepresentation = this->videoAdaptationSet->GetRepresentation().at(0);
+    this->period                = this->mpd->GetPeriods().at(0);
+    this->videoAdaptationSet    = this->mpd->GetPeriods().at(0)->GetAdaptationSets().at(0);
+    this->videoRepresentation   = this->videoAdaptationSet->GetRepresentation().at(0);
 
     return true;
 }
@@ -90,8 +90,12 @@ void    MultimediaManager::Stop                             ()
     }
     this->isStarted = false;
 }
-bool    MultimediaManager::SetVideoQuality                  (IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation)
+bool    MultimediaManager::SetVideoQuality                  (dash::mpd::IPeriod* period, IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation)
 {
+    if(this->period != period)
+    {
+        this->period = period;
+    }
     if(this->videoAdaptationSet != adaptationSet)
     {
         this->videoAdaptationSet  = adaptationSet;
@@ -116,7 +120,7 @@ bool    MultimediaManager::SetVideoQuality                  (IAdaptationSet *ada
 
     return true;
 }
-bool    MultimediaManager::SetAudioQuality                  (IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation)
+bool    MultimediaManager::SetAudioQuality                  (dash::mpd::IPeriod* period, IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation)
 {
     //MUST NOT BE IMPLEMENTED YET
     return false;
@@ -154,7 +158,7 @@ void    MultimediaManager::NotifyAudioBufferObservers       ()
 }
 void    MultimediaManager::InitVideoRendering               (uint32_t offset)
 {
-    this->videoLogic = new ManualAdaptation(this->videoAdaptationSet, this->mpd);
+    this->videoLogic = AdaptationLogicFactory::Create(libdash::framework::adaptation::Manual, this->period, this->videoAdaptationSet, this->mpd);
     this->videoLogic->SetPosition(offset);
     this->videoLogic->SetRepresentation(this->videoRepresentation);
     this->videoLogic->InvokeInitSegment(true);

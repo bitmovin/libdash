@@ -15,6 +15,7 @@
 #include "IMPD.h"
 #include "MultimediaStream.h"
 #include "../libdashframework/Adaptation/IAdaptationLogic.h"
+#include "../libdashframework/Adaptation/AdaptationLogicFactory.h"
 #include "../libdashframework/Buffer/IBufferObserver.h"
 #include "../Renderer/QTGLRenderer.h"
 
@@ -36,9 +37,9 @@ namespace sampleplayer
                 void OnVideoFrameAvailable  (const QImage& image, dash::mpd::IAdaptationSet *adaptationSet);
                 void OnAudioSampleAvailable ();
 
-                bool SetVideoQuality      (dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation);
-                bool SetAudioQuality      (dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation);
-               
+                bool SetVideoQuality      (dash::mpd::IPeriod* period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation);
+                bool SetAudioQuality      (dash::mpd::IPeriod* period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation);
+
                 bool SetVideoAdaptationLogic    (libdash::framework::adaptation::LogicType type);
                 bool SetAudioAdaptationLogic    (libdash::framework::adaptation::LogicType type);
 
@@ -58,6 +59,7 @@ namespace sampleplayer
                 dash::IDASHManager                                          *manager;
                 dash::mpd::IMPD                                             *mpd;
                 renderer::QTGLRenderer                                      *videoelement;
+                dash::mpd::IPeriod                                          *period;
                 dash::mpd::IAdaptationSet                                   *videoAdaptationSet;
                 dash::mpd::IRepresentation                                  *videoRepresentation;
                 libdash::framework::adaptation::IAdaptationLogic            *videoLogic;

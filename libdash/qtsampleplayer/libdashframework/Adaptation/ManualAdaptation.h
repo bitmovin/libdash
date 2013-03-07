@@ -24,7 +24,7 @@ namespace libdash
             class ManualAdaptation : public AbstractAdaptationLogic
             {
                 public:
-                    ManualAdaptation            (dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd);
+                    ManualAdaptation            (dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd);
                     virtual ~ManualAdaptation   ();
 
                     virtual MediaObject*    GetSegment          ();
@@ -35,8 +35,8 @@ namespace libdash
                     virtual void            InvokeInitSegment   (bool invoke);
 
                 private:
-                    std::vector<dash::mpd::IBaseUrl *>  baseurls;
                     dash::mpd::IRepresentation          *representation;
+                    dash::mpd::IPeriod                  *period;
                     dash::mpd::IAdaptationSet           *adaptationSet;
                     dash::mpd::IMPD                     *mpd;
                     uint32_t                            segmentNumber;

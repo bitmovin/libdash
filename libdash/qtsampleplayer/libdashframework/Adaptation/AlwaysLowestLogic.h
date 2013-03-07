@@ -24,7 +24,7 @@ namespace libdash
             class AlwaysLowestLogic : public AbstractAdaptationLogic
             {
                 public:
-                    AlwaysLowestLogic           (dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd);
+                    AlwaysLowestLogic           (dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd);
                     virtual ~AlwaysLowestLogic  ();
 
                     virtual MediaObject*    GetSegment          ();
@@ -33,6 +33,7 @@ namespace libdash
 
                 private:
                     std::vector<dash::mpd::IBaseUrl *>  baseurls;
+                    dash::mpd::IPeriod                  *period;
                     dash::mpd::IRepresentation          *representation;
                     dash::mpd::IAdaptationSet           *adaptationSet;
                     dash::mpd::IMPD                     *mpd;

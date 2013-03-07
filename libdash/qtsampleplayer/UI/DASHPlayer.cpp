@@ -61,7 +61,8 @@ void DASHPlayer::OnSettingsChanged      (int period, int videoAdaptationSet, int
 
     IPeriod *currentPeriod = this->multimediaManager->GetMPD()->GetPeriods().at(period);
 
-    this->multimediaManager->SetVideoQuality(currentPeriod->GetAdaptationSets().at(videoAdaptationSet),
+    this->multimediaManager->SetVideoQuality(currentPeriod,
+                                             currentPeriod->GetAdaptationSets().at(videoAdaptationSet),
                                              currentPeriod->GetAdaptationSets().at(videoAdaptationSet)->GetRepresentation().at(videoRepresentation));
 }
 void DASHPlayer::OnBufferStateChanged   (uint32_t fillstateInPercent)

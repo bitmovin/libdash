@@ -24,7 +24,7 @@ namespace libdash
             class AbstractAdaptationLogic : public IAdaptationLogic
             {
                 public:
-                    AbstractAdaptationLogic             (dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd);
+                    AbstractAdaptationLogic             (dash::mpd::IPeriod* period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd);
                     virtual ~AbstractAdaptationLogic    ();
 
                     virtual uint32_t        GetPosition         ();

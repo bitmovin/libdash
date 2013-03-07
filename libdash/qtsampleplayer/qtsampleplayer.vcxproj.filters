@@ -110,6 +110,12 @@
     <ClCompile Include="libdashframework\MPD\RepresentationHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="libdashframework\MPD\BaseUrlResolver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="libdashframework\Adaptation\AdaptationLogicFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="qtsampleplayer.ui">
@@ -190,6 +196,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="libdashframework\Input\IDASHReceiverObserver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libdashframework\MPD\BaseUrlResolver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libdashframework\Adaptation\AdaptationLogicFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
