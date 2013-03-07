@@ -16,8 +16,7 @@ using namespace libdash::framework::mpd;
 
 ISegment*   RepresentationHelper::GetInitSegment    (IPeriod *period, IAdaptationSet *adaptationSet, IRepresentation *representation, IMPD *mpd)
 {
-    std::vector<IBaseUrl *> baseurls;
-    BaseUrlResolver::ResolveBaseUrl(baseurls, period, adaptationSet, mpd);
+    std::vector<IBaseUrl *> baseurls = BaseUrlResolver::ResolveBaseUrl(period, adaptationSet, mpd, 0, 0, 0);
 
     /* Check for segment base */
     if(representation->GetSegmentBase())
@@ -39,7 +38,7 @@ ISegment*   RepresentationHelper::GetInitSegment    (IPeriod *period, IAdaptatio
 }
 ISegment*   RepresentationHelper::GetSegment        (IPeriod *period, IAdaptationSet *adaptationSet, IRepresentation *representation, uint32_t number, IMPD *mpd)
 {
-    std::vector<IBaseUrl *> baseurls;
+    std::vector<IBaseUrl *> baseurls = BaseUrlResolver::ResolveBaseUrl(period, adaptationSet, mpd, 0, 0, 0);
 
     /* Check for segment list */
     if(representation->GetSegmentList())

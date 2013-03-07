@@ -23,7 +23,8 @@ namespace libdash
             class BaseUrlResolver
             {
                 public:
-                    static void ResolveBaseUrl  (std::vector<dash::mpd::IBaseUrl *>& urls, dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd);
+                    static std::vector<dash::mpd::IBaseUrl *>   ResolveBaseUrl  (dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd,
+                                                                                 size_t mpdBaseUrl, size_t periodBaseUrl, size_t adaptationSetBaseUrl);
             };
         }
     }

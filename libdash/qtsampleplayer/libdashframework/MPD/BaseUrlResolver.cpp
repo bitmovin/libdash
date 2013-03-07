@@ -14,16 +14,31 @@
 using namespace dash::mpd;
 using namespace libdash::framework::mpd;
 
-void    BaseUrlResolver::ResolveBaseUrl(std::vector<dash::mpd::IBaseUrl *>& urls, IPeriod *period, IAdaptationSet *adaptationSet, IMPD* mpd)
+std::vector<dash::mpd::IBaseUrl *> BaseUrlResolver::ResolveBaseUrl(IPeriod *period, IAdaptationSet *adaptationSet, IMPD *mpd, size_t mpdBaseUrl, size_t periodBaseUrl, size_t adaptationSetBaseUrl)
 {
+    std::vector<dash::mpd::IBaseUrl *> urls;
+
     if (mpd->GetBaseUrls().size() > 0)
-        urls.push_back(mpd->GetBaseUrls().at(0));
-
+    {
+        if (mpd->GetBaseUrls().size() > mpdBaseUrl)
+            urls.push_back(mpd->GetBaseUrls().at(mpdBaseUrl));
+        else
+            urls.push_back(mpd->GetBaseUrls().at(0));
+    }
     if (period->GetBaseURLs().size() > 0)
-        urls.push_back(period->GetBaseURLs().at(0));
-
+    {
+        if (period->GetBaseURLs().size() > periodBaseUrl)
+            urls.push_back(period->GetBaseURLs().at(periodBaseUrl));
+        else
+            urls.push_back(period->GetBaseURLs().at(0));
+    }
     if (adaptationSet->GetBaseURLs().size() > 0)
-        urls.push_back(adaptationSet->GetBaseURLs().at(0));
+    {
+        if (adaptationSet->GetBaseURLs().size() > adaptationSetBaseUrl)
+            urls.push_back(adaptationSet->GetBaseURLs().at(adaptationSetBaseUrl));
+        else
+            urls.push_back(adaptationSet->GetBaseURLs().at(0));
+    }
 
     if (urls.size() > 0)
     {
@@ -43,4 +58,6 @@ void    BaseUrlResolver::ResolveBaseUrl(std::vector<dash::mpd::IBaseUrl *>& urls
     {
         urls.push_back(mpd->GetMPDPathBaseUrl());
     }
+
+    return urls;
 }
