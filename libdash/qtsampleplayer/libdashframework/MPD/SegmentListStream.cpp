@@ -31,29 +31,29 @@ ISegment*                   SegmentListStream::GetInitializationSegment     ()
 {
     if (this->segmentList->GetInitialization())
         return this->segmentList->GetInitialization()->ToSegment(this->baseUrls);
-    else
-        return NULL;
+
+    return NULL;
 }
 ISegment*                   SegmentListStream::GetIndexSegment              (size_t segmentNumber)
 {
     if (this->segmentList->GetSegmentURLs().size() > segmentNumber)
         return this->segmentList->GetSegmentURLs().at(segmentNumber)->ToIndexSegment(this->baseUrls);
-    else
-        return NULL;
+
+    return NULL;
 }
 ISegment*                   SegmentListStream::GetMediaSegment              (size_t segmentNumber)
 {
     if (this->segmentList->GetSegmentURLs().size() > segmentNumber)
         return this->segmentList->GetSegmentURLs().at(segmentNumber)->ToMediaSegment(this->baseUrls);
-    else
-        return NULL;
+
+    return NULL;
 }
 ISegment*                   SegmentListStream::GetBitstreamSwitchingSegment ()
 {
     if (this->segmentList->GetBitstreamSwitching())
         return this->segmentList->GetBitstreamSwitching()->ToSegment(baseUrls);
-    else
-        return NULL;
+
+    return NULL;
 }
 RepresentationStreamType    SegmentListStream::GetStreamType                ()
 {

@@ -46,7 +46,7 @@ ISegment*                   SegmentTemplateStream::GetIndexSegment              
         return NULL;
     }
 
-    /* number-based template: NOT implemented yet */
+    /* number-based template */
     return this->segmentTemplate->GetIndexSegmentFromNumber(baseUrls, representation->GetId(), representation->GetBandwidth(),
                                                                 this->segmentTemplate->GetStartNumber() + segmentNumber);
 }
@@ -95,39 +95,39 @@ ISegmentTemplate*           SegmentTemplateStream::FindSegmentTemplate          
 }
 void                        SegmentTemplateStream::CalculateSegmentStartTimes   ()
 {
+    if (!this->segmentTemplate->GetSegmentTimeline())
+        return;
+
     size_t   numOfTimelines = 0;
     uint32_t segStartTime   = 0;
     uint32_t segDuration    = 0;
     size_t   repeatCount    = 0;
 
-    if (this->segmentTemplate->GetSegmentTimeline())
+    numOfTimelines      = this->segmentTemplate->GetSegmentTimeline()->GetTimelines().size();
+
+    for (size_t i = 0; i < numOfTimelines; i++)
     {
-        numOfTimelines      = this->segmentTemplate->GetSegmentTimeline()->GetTimelines().size();
+        repeatCount     = this->segmentTemplate->GetSegmentTimeline()->GetTimelines().at(i)->GetRepeatCount();
+        segStartTime    = this->segmentTemplate->GetSegmentTimeline()->GetTimelines().at(i)->GetStartTime();
+        segDuration     = this->segmentTemplate->GetSegmentTimeline()->GetTimelines().at(i)->GetDuration();
 
-        for (size_t i = 0; i < numOfTimelines; i++)
+        if (repeatCount > 0)
         {
-            repeatCount     = this->segmentTemplate->GetSegmentTimeline()->GetTimelines().at(i)->GetRepeatCount();
-            segStartTime    = this->segmentTemplate->GetSegmentTimeline()->GetTimelines().at(i)->GetStartTime();
-            segDuration     = this->segmentTemplate->GetSegmentTimeline()->GetTimelines().at(i)->GetDuration();
-
-            if (repeatCount > 0)
+            for (size_t j = 0; j <= repeatCount; j++)
             {
-                for (size_t j = 0; j <= repeatCount; j++)
+                if (segStartTime > 0)
                 {
-                    if (segStartTime > 0)
-                    {
-                        this->segmentStartTimes.push_back(segStartTime + segDuration * j);
-                    }
-                    else
-                    {
-                        /* TODO: implement if SegmentTemplate.SegmentTimeline.S@t is not specified */
-                    }
+                    this->segmentStartTimes.push_back(segStartTime + segDuration * j);
+                }
+                else
+                {
+                    /* TODO: implement if SegmentTemplate.SegmentTimeline.S@t is not specified */
                 }
             }
-            else
-            {
-                this->segmentStartTimes.push_back(segStartTime);
-            }
+        }
+        else
+        {
+            this->segmentStartTimes.push_back(segStartTime);
         }
     }
 }

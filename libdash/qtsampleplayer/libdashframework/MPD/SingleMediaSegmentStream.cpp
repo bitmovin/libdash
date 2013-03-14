@@ -35,6 +35,7 @@ ISegment*                   SingleMediaSegmentStream::GetInitializationSegment  
         if (this->representation->GetSegmentBase()->GetInitialization())
             return this->representation->GetSegmentBase()->GetInitialization()->ToSegment(baseUrls);
     }
+
     return GetMediaSegment(0);
 }
 ISegment*                   SingleMediaSegmentStream::GetIndexSegment               (size_t segmentNumber)
@@ -45,6 +46,7 @@ ISegment*                   SingleMediaSegmentStream::GetIndexSegment           
         if (this->representation->GetSegmentBase()->GetRepresentationIndex())
             return this->representation->GetSegmentBase()->GetRepresentationIndex()->ToSegment(baseUrls);
     }
+
     return NULL;
 }
 ISegment*                   SingleMediaSegmentStream::GetMediaSegment               (size_t segmentNumber)
