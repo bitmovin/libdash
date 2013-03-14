@@ -9,11 +9,12 @@
  * and conditions of the applicable license agreement.
  *****************************************************************************/
 
-#ifndef LIBDASH_FRAMEWORK_ADAPTATION_FORCEDLOGIC_H_
-#define LIBDASH_FRAMEWORK_ADAPTATION_FORCEDLOGIC_H_
+#ifndef LIBDASH_FRAMEWORK_ADAPTATION_MANUALADAPTATION_H_
+#define LIBDASH_FRAMEWORK_ADAPTATION_MANUALADAPTATION_H_
 
 #include "../MPD/RepresentationHelper.h"
 #include "AbstractAdaptationLogic.h"
+#include "../MPD/AdaptationSetStream.h"
 
 namespace libdash
 {
@@ -35,15 +36,17 @@ namespace libdash
                     virtual void            InvokeInitSegment   (bool invoke);
 
                 private:
-                    dash::mpd::IRepresentation          *representation;
-                    dash::mpd::IPeriod                  *period;
-                    dash::mpd::IAdaptationSet           *adaptationSet;
-                    dash::mpd::IMPD                     *mpd;
-                    uint32_t                            segmentNumber;
-                    bool                                invokeInitSegment;
+                    dash::mpd::IMPD                                 *mpd;
+                    dash::mpd::IPeriod                              *period;
+                    dash::mpd::IAdaptationSet                       *adaptationSet;
+                    dash::mpd::IRepresentation                      *representation;
+                    libdash::framework::mpd::AdaptationSetStream    *adaptationSetStream;
+                    libdash::framework::mpd::IRepresentationStream  *representationStream;
+                    uint32_t                                        segmentNumber;
+                    bool                                            invokeInitSegment;
             };
         }
     }
 }
 
-#endif /* LIBDASH_FRAMEWORK_ADAPTATION_FORCEDLOGIC_H_ */
+#endif /* LIBDASH_FRAMEWORK_ADAPTATION_MANUALADAPTATION_H_ */

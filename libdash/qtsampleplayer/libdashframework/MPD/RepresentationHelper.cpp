@@ -16,7 +16,7 @@ using namespace libdash::framework::mpd;
 
 ISegment*   RepresentationHelper::GetInitSegment    (IPeriod *period, IAdaptationSet *adaptationSet, IRepresentation *representation, IMPD *mpd)
 {
-    std::vector<IBaseUrl *> baseurls = BaseUrlResolver::ResolveBaseUrl(period, adaptationSet, mpd, 0, 0, 0);
+    std::vector<IBaseUrl *> baseurls = BaseUrlResolver::ResolveBaseUrl(mpd, period, adaptationSet, 0, 0, 0);
 
     /* Check for segment base */
     if(representation->GetSegmentBase())
@@ -30,7 +30,14 @@ ISegment*   RepresentationHelper::GetInitSegment    (IPeriod *period, IAdaptatio
     if(representation->GetSegmentTemplate())
         return representation->GetSegmentTemplate()->ToInitializationSegment(baseurls, "", 0);
 
+    /*
+    es fehlt noch segtempl.initialization()
+    */
+
     /* Check for base url only */
+    /*
+     * Wird nicht mehr gehen, weil auch die BaseUrls aufgeloest werden im Resolver ... andere Strategie
+     */
     if(representation->GetBaseURLs().size() > 0)
         return representation->GetBaseURLs().at(0)->ToMediaSegment(baseurls);
 
@@ -38,7 +45,7 @@ ISegment*   RepresentationHelper::GetInitSegment    (IPeriod *period, IAdaptatio
 }
 ISegment*   RepresentationHelper::GetSegment        (IPeriod *period, IAdaptationSet *adaptationSet, IRepresentation *representation, uint32_t number, IMPD *mpd)
 {
-    std::vector<IBaseUrl *> baseurls = BaseUrlResolver::ResolveBaseUrl(period, adaptationSet, mpd, 0, 0, 0);
+    std::vector<IBaseUrl *> baseurls = BaseUrlResolver::ResolveBaseUrl(mpd, period, adaptationSet, 0, 0, 0);
 
     /* Check for segment list */
     if(representation->GetSegmentList())

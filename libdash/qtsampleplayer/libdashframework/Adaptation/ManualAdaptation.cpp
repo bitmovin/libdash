@@ -19,14 +19,19 @@ ManualAdaptation::ManualAdaptation          (dash::mpd::IPeriod *period, dash::m
                   AbstractAdaptationLogic   (period, adaptationSet, mpd),
                   period                    (period),
                   adaptationSet             (adaptationSet),
+                  adaptationSetStream       (NULL),
+                  representationStream      (NULL),
                   mpd                       (mpd),
                   segmentNumber             (0),
                   invokeInitSegment         (false)
 {
-    this->representation = this->adaptationSet->GetRepresentation().at(0);
+    this->representation        = this->adaptationSet->GetRepresentation().at(0);
+    this->adaptationSetStream   = new AdaptationSetStream(mpd, period, adaptationSet);
+    this->representationStream  = adaptationSetStream->GetRepresentationStream(this->representation);
 }
 ManualAdaptation::~ManualAdaptation         ()
 {
+    delete(adaptationSetStream);
 }
 
 LogicType       ManualAdaptation::GetType               ()
@@ -37,19 +42,19 @@ MediaObject*    ManualAdaptation::GetSegment            ()
 {
     ISegment *seg = NULL;
 
-    if(this->segmentNumber >= RepresentationHelper::GetSize(this->representation) + 1) 
+    if(this->segmentNumber >= this->representationStream->GetSize() + 1)
         return NULL;
 
     if(this->segmentNumber == 0 || this->invokeInitSegment)
     {
-        seg = RepresentationHelper::GetInitSegment(this->period, this->adaptationSet, this->representation, this->mpd);
+        seg = this->representationStream->GetInitializationSegment();
         this->invokeInitSegment = false;
-    }   
+    }
     else
     {
-        seg = RepresentationHelper::GetSegment(this->period, this->adaptationSet, this->representation, this->segmentNumber - 1, this->mpd);
+        seg = this->representationStream->GetMediaSegment(this->segmentNumber - 1);
     }
-    
+
     if (seg != NULL)
     {
         MediaObject *media = new MediaObject(seg, this->representation);
@@ -69,7 +74,8 @@ void            ManualAdaptation::SetPosition           (uint32_t segmentNumber)
 }
 void            ManualAdaptation::SetRepresentation     (dash::mpd::IRepresentation *representation)
 {
-    this->representation = representation;
+    this->representation        = representation;
+    this->representationStream  = adaptationSetStream->GetRepresentationStream(representation);
 }
 void            ManualAdaptation::InvokeInitSegment     (bool invoke)
 {

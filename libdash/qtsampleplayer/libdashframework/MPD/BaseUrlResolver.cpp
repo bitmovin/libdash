@@ -14,7 +14,8 @@
 using namespace dash::mpd;
 using namespace libdash::framework::mpd;
 
-std::vector<dash::mpd::IBaseUrl *> BaseUrlResolver::ResolveBaseUrl(IPeriod *period, IAdaptationSet *adaptationSet, IMPD *mpd, size_t mpdBaseUrl, size_t periodBaseUrl, size_t adaptationSetBaseUrl)
+std::vector<dash::mpd::IBaseUrl *> BaseUrlResolver::ResolveBaseUrl(IMPD *mpd, IPeriod *period, IAdaptationSet *adaptationSet,
+                                                                   size_t mpdBaseUrl, size_t periodBaseUrl, size_t adaptationSetBaseUrl)
 {
     std::vector<dash::mpd::IBaseUrl *> urls;
 

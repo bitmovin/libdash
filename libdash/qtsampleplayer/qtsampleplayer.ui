@@ -34,7 +34,7 @@
         <widget class="QComboBox" name="cb_mpd">
          <item>
           <property name="text">
-           <string notr="true">http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s_480p_only/bunny_Desktop.mpd</string>
+           <string>http://www-itec.aau.at/~cmueller/libdashtest/showcases/big_buck_bunny_480.mpd</string>
           </property>
          </item>
          <item>
@@ -132,7 +132,7 @@
        <item>
         <widget class="QLineEdit" name="lineEdit_mpd">
          <property name="text">
-          <string>http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s_480p_only/bunny_Desktop.mpd</string>
+          <string>http://www-itec.aau.at/~cmueller/libdashtest/showcases/big_buck_bunny_480.mpd</string>
          </property>
         </widget>
        </item>

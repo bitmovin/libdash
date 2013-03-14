@@ -116,6 +116,24 @@
     <ClCompile Include="libdashframework\Adaptation\AdaptationLogicFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="libdashframework\MPD\AdaptationSetStream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="libdashframework\MPD\AbstractRepresentationStream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="libdashframework\MPD\SegmentTemplateStream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="libdashframework\MPD\SegmentListStream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="libdashframework\MPD\RepresentationStreamFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="libdashframework\MPD\SingleMediaSegmentStream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="qtsampleplayer.ui">
@@ -202,6 +220,27 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="libdashframework\Adaptation\AdaptationLogicFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libdashframework\MPD\AdaptationSetStream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libdashframework\MPD\IRepresentationStream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libdashframework\MPD\AbstractRepresentationStream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libdashframework\MPD\SegmentTemplateStream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libdashframework\MPD\SegmentListStream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libdashframework\MPD\RepresentationStreamFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libdashframework\MPD\SingleMediaSegmentStream.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
