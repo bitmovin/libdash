@@ -50,6 +50,7 @@ namespace dash
                 virtual int     Read                    (uint8_t *data, size_t len);
                 virtual int     Peek                    (uint8_t *data, size_t len);
                 virtual void    AttachDownloadObserver  (IDownloadObserver *observer);
+                virtual void    DetachDownloadObserver  (IDownloadObserver *observer);
                 /*
                  * Observer Notification
                  */

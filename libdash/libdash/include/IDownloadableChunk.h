@@ -70,6 +70,12 @@ namespace dash
                  *  @param      observer    a dash::network::IDownloadObserver
                  */
                 virtual void    AttachDownloadObserver  (IDownloadObserver *observer)   = 0;
+
+                /**
+                 *  Detaches a dash::network::IDownloadObserver from this Chunk
+                 *  @param      observer    a dash::network::IDownloadObserver
+                 */
+                virtual void    DetachDownloadObserver  (IDownloadObserver *observer)   = 0;
         };
     }
 }
