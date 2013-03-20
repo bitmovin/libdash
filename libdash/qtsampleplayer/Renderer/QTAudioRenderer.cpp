@@ -27,14 +27,7 @@ QTAudioRenderer::~QTAudioRenderer()
 
 void                    QTAudioRenderer::SetAudioFormat (const QAudioFormat& format)
 {
-    /*this->audioOutput->stop();
-
-    // when to switch to new audiooutput if still "old" bytes left 
-    delete audioOutput;
-    this->format = format;
-    this->audioOutput = new QAudioOutput(this->deviceInfo, this->format, this->parent);
-
-    this->audioOutput->start(this->buffer);*/
+    /* NOT implemented YET */
 }
 const QAudioFormat&     QTAudioRenderer::AudioFormat    () const
 {
