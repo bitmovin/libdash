@@ -77,7 +77,7 @@ void    MultimediaManager::Start                            ()
     {
         this->Stop();
     }
-    
+
     this->InitVideoRendering(0);
 
     this->videoStream->Start();
