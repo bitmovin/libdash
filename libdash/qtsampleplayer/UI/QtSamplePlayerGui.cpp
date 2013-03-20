@@ -196,9 +196,11 @@ void            QtSamplePlayerGui::NotifySettingsChanged                        
     int period              = this->ui->cb_period->currentIndex();
     int videoAdaptionSet    = this->ui->cb_video_adaptationset->currentIndex();
     int videoRepresentation = this->ui->cb_video_representation->currentIndex();
+    int audioAdaptionSet    = this->ui->cb_audio_adaptationset->currentIndex();
+    int audioRepresentation = this->ui->cb_audio_represenation->currentIndex();
 
     for(size_t i = 0; i < this->observers.size(); i++)
-        this->observers.at(i)->OnSettingsChanged(period, videoAdaptionSet, videoRepresentation);
+        this->observers.at(i)->OnSettingsChanged(period, videoAdaptionSet, videoRepresentation, audioAdaptionSet, audioRepresentation);
 
     this->UnLockUI();
 }
@@ -214,9 +216,11 @@ void            QtSamplePlayerGui::NotifyStartButtonPressed                     
     int period              = this->ui->cb_period->currentIndex();
     int videoAdaptionSet    = this->ui->cb_video_adaptationset->currentIndex();
     int videoRepresentation = this->ui->cb_video_representation->currentIndex();
+    int audioAdaptionSet    = this->ui->cb_audio_adaptationset->currentIndex();
+    int audioRepresentation = this->ui->cb_audio_represenation->currentIndex();
 
     for(size_t i = 0; i < this->observers.size(); i++)
-        this->observers.at(i)->OnStartButtonPressed(period, videoAdaptionSet, videoRepresentation);
+        this->observers.at(i)->OnStartButtonPressed(period, videoAdaptionSet, videoRepresentation, audioAdaptionSet, audioRepresentation);
 
     this->UnLockUI();
 }

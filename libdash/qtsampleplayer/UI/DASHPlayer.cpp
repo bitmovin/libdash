@@ -42,7 +42,7 @@ DASHPlayer::~DASHPlayer ()
     delete(this->audioElement);
 }
 
-void DASHPlayer::OnStartButtonPressed   (int period, int videoAdaptationSet, int videoRepresentation)
+void DASHPlayer::OnStartButtonPressed   (int period, int videoAdaptationSet, int videoRepresentation, int audioAdaptationSet, int audioRepresentation)
 {
     std::string url = this->gui->GetUrl();
     if(!this->multimediaManager->Init(url))
@@ -53,14 +53,14 @@ void DASHPlayer::OnStartButtonPressed   (int period, int videoAdaptationSet, int
 
     this->gui->SetStatusBar("Successfully parsed MPD at: " + url);
 
-    this->OnSettingsChanged(period, videoAdaptationSet, videoRepresentation);
+    this->OnSettingsChanged(period, videoAdaptationSet, videoRepresentation, audioAdaptationSet, audioRepresentation);
     this->multimediaManager->Start();
 }
 void DASHPlayer::OnStopButtonPressed    ()
 {
     this->multimediaManager->Stop();
 }
-void DASHPlayer::OnSettingsChanged      (int period, int videoAdaptationSet, int videoRepresentation)
+void DASHPlayer::OnSettingsChanged      (int period, int videoAdaptationSet, int videoRepresentation, int audioAdaptationSet, int audioRepresentation)
 {
     if(this->multimediaManager->GetMPD() == NULL)
         return; // TODO dialog or symbol that indicates that error
