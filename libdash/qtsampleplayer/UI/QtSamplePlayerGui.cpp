@@ -56,20 +56,20 @@ void            QtSamplePlayerGui::SetGuiFields                                 
     this->ClearComboBoxes();
     this->SetPeriodComboBox(mpd, this->ui->cb_period);
     
-    if(mpd->GetPeriods().size() > 0)
+    if (mpd->GetPeriods().size() > 0)
     {
         IPeriod *period = mpd->GetPeriods().at(0);
 
         this->SetVideoAdaptationSetComboBox(period, this->ui->cb_video_adaptationset);
         this->SetAudioAdaptationSetComboBox(period, this->ui->cb_audio_adaptationset);
 
-        if(AdaptationSetHelper::GetVideoAdaptationSets(period).at(0))
+        if (!AdaptationSetHelper::GetVideoAdaptationSets(period).empty())
         {
             IAdaptationSet *adaptationSet = AdaptationSetHelper::GetVideoAdaptationSets(period).at(0);
 
             this->SetRepresentationComoboBox(adaptationSet, this->ui->cb_video_representation);
         }
-        if(AdaptationSetHelper::GetAudioAdaptationSets(period).at(0))
+        if (!AdaptationSetHelper::GetAudioAdaptationSets(period).empty())
         {
             IAdaptationSet *adaptationSet = AdaptationSetHelper::GetAudioAdaptationSets(period).at(0);
 

@@ -67,10 +67,15 @@ void DASHPlayer::OnSettingsChanged      (int period, int videoAdaptationSet, int
 
     IPeriod                         *currentPeriod      = this->multimediaManager->GetMPD()->GetPeriods().at(period);
     std::vector<IAdaptationSet *>   videoAdaptationSets = AdaptationSetHelper::GetVideoAdaptationSets(currentPeriod);
+    std::vector<IAdaptationSet *>   audioAdaptationSets = AdaptationSetHelper::GetAudioAdaptationSets(currentPeriod);
 
     this->multimediaManager->SetVideoQuality(currentPeriod,
                                              videoAdaptationSets.at(videoAdaptationSet),
                                              videoAdaptationSets.at(videoAdaptationSet)->GetRepresentation().at(videoRepresentation));
+
+    this->multimediaManager->SetAudioQuality(currentPeriod,
+                                             audioAdaptationSets.at(audioAdaptationSet),
+                                             audioAdaptationSets.at(audioAdaptationSet)->GetRepresentation().at(audioRepresentation));
 }
 void DASHPlayer::OnBufferStateChanged   (uint32_t fillstateInPercent)
 {
