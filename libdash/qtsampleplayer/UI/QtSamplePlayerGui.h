@@ -18,7 +18,7 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_qtsampleplayer.h"
 #include "libdash.h"
-
+#include "../libdashframework/MPD/AdaptationSetHelper.h"
 
 namespace sampleplayer
 {
@@ -66,9 +66,11 @@ namespace sampleplayer
             void LockUI                     ();
             void UnLockUI                   ();
 
-            void SetPeriodComboBox          (dash::mpd::IMPD *mpd, QComboBox *cb);
-            void SetAdaptationSetComboBox   (dash::mpd::IPeriod *period, QComboBox *cb);
-            void SetRepresentationComoboBox (dash::mpd::IAdaptationSet *adaptationSet, QComboBox *cb);
+            void SetPeriodComboBox              (dash::mpd::IMPD *mpd, QComboBox *cb);
+            void SetAdaptationSetComboBox       (dash::mpd::IPeriod *period, QComboBox *cb);
+            void SetVideoAdaptationSetComboBox  (dash::mpd::IPeriod *period, QComboBox *cb);
+            void SetAudioAdaptationSetComboBox  (dash::mpd::IPeriod *period, QComboBox *cb);
+            void SetRepresentationComoboBox     (dash::mpd::IAdaptationSet *adaptationSet, QComboBox *cb);
 
             void ClearComboBoxes            ();
 

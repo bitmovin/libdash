@@ -19,6 +19,7 @@
 using namespace sampleplayer;
 using namespace sampleplayer::renderer;
 using namespace dash::mpd;
+using namespace libdash::framework::mpd;
 
 QtSamplePlayerGui::QtSamplePlayerGui    (QWidget *parent) : 
                    QMainWindow          (parent),
@@ -59,14 +60,19 @@ void            QtSamplePlayerGui::SetGuiFields                                 
     {
         IPeriod *period = mpd->GetPeriods().at(0);
 
-        this->SetAdaptationSetComboBox(period, this->ui->cb_video_adaptationset);
-        this->SetAdaptationSetComboBox(period, this->ui->cb_audio_adaptationset);
+        this->SetVideoAdaptationSetComboBox(period, this->ui->cb_video_adaptationset);
+        this->SetAudioAdaptationSetComboBox(period, this->ui->cb_audio_adaptationset);
 
-        if(period->GetAdaptationSets().at(0))
+        if(AdaptationSetHelper::GetVideoAdaptationSets(period).at(0))
         {
-            IAdaptationSet *adaptationSet = period->GetAdaptationSets().at(0);
+            IAdaptationSet *adaptationSet = AdaptationSetHelper::GetVideoAdaptationSets(period).at(0);
 
             this->SetRepresentationComoboBox(adaptationSet, this->ui->cb_video_representation);
+        }
+        if(AdaptationSetHelper::GetAudioAdaptationSets(period).at(0))
+        {
+            IAdaptationSet *adaptationSet = AdaptationSetHelper::GetAudioAdaptationSets(period).at(0);
+
             this->SetRepresentationComoboBox(adaptationSet, this->ui->cb_audio_represenation);
         }
     }
@@ -107,6 +113,36 @@ void            QtSamplePlayerGui::SetRepresentationComoboBox                   
 void            QtSamplePlayerGui::SetAdaptationSetComboBox                         (dash::mpd::IPeriod *period, QComboBox *cb)
 {
     std::vector<IAdaptationSet *> adaptationSets = period->GetAdaptationSets();
+    cb->clear();
+
+    for(size_t i = 0; i < adaptationSets.size(); i++)
+    {
+        IAdaptationSet *adaptationSet = adaptationSets.at(i);
+
+        std::stringstream ss;
+        ss << "AdaptationSet " << i+1;
+
+        cb->addItem(QString(ss.str().c_str()));
+    }
+}
+void            QtSamplePlayerGui::SetAudioAdaptationSetComboBox                    (dash::mpd::IPeriod *period, QComboBox *cb)
+{
+    std::vector<IAdaptationSet *> adaptationSets = AdaptationSetHelper::GetAudioAdaptationSets(period);
+    cb->clear();
+
+    for(size_t i = 0; i < adaptationSets.size(); i++)
+    {
+        IAdaptationSet *adaptationSet = adaptationSets.at(i);
+
+        std::stringstream ss;
+        ss << "AdaptationSet " << i+1;
+
+        cb->addItem(QString(ss.str().c_str()));
+    }
+}
+void            QtSamplePlayerGui::SetVideoAdaptationSetComboBox                    (dash::mpd::IPeriod *period, QComboBox *cb)
+{
+    std::vector<IAdaptationSet *> adaptationSets = AdaptationSetHelper::GetVideoAdaptationSets(period);
     cb->clear();
 
     for(size_t i = 0; i < adaptationSets.size(); i++)
@@ -202,8 +238,8 @@ void            QtSamplePlayerGui::on_cb_period_currentIndexChanged             
 
     this->LockUI();
 
-    this->SetAdaptationSetComboBox(mpd->GetPeriods().at(index), ui->cb_audio_adaptationset);
-    this->SetAdaptationSetComboBox(mpd->GetPeriods().at(index), ui->cb_video_adaptationset);
+    this->SetAudioAdaptationSetComboBox(mpd->GetPeriods().at(index), ui->cb_audio_adaptationset);
+    this->SetVideoAdaptationSetComboBox(mpd->GetPeriods().at(index), ui->cb_video_adaptationset);
 
     this->NotifySettingsChanged();
 
@@ -222,7 +258,7 @@ void            QtSamplePlayerGui::on_cb_video_adaptationset_currentIndexChanged
 
     IPeriod *period = this->mpd->GetPeriods().at(this->ui->cb_period->currentIndex());
 
-    this->SetRepresentationComoboBox(period->GetAdaptationSets().at(index), this->ui->cb_video_representation);
+    this->SetRepresentationComoboBox(AdaptationSetHelper::GetVideoAdaptationSets(period).at(index), this->ui->cb_video_representation);
 
     this->NotifySettingsChanged();
 
@@ -244,7 +280,7 @@ void            QtSamplePlayerGui::on_cb_audio_adaptationset_currentIndexChanged
 
     IPeriod *period = this->mpd->GetPeriods().at(this->ui->cb_period->currentIndex());
 
-    this->SetRepresentationComoboBox(period->GetAdaptationSets().at(index), this->ui->cb_audio_represenation);
+    this->SetRepresentationComoboBox(AdaptationSetHelper::GetAudioAdaptationSets(period).at(index), this->ui->cb_audio_represenation);
 
     this->NotifySettingsChanged();
 

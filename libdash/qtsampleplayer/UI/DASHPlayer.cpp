@@ -13,6 +13,7 @@
 #include <iostream>
 
 using namespace libdash::framework::adaptation;
+using namespace libdash::framework::mpd;
 using namespace sampleplayer;
 using namespace sampleplayer::renderer;
 using namespace sampleplayer::managers;
@@ -64,11 +65,12 @@ void DASHPlayer::OnSettingsChanged      (int period, int videoAdaptationSet, int
     if(this->multimediaManager->GetMPD() == NULL)
         return; // TODO dialog or symbol that indicates that error
 
-    IPeriod *currentPeriod = this->multimediaManager->GetMPD()->GetPeriods().at(period);
+    IPeriod                         *currentPeriod      = this->multimediaManager->GetMPD()->GetPeriods().at(period);
+    std::vector<IAdaptationSet *>   videoAdaptationSets = AdaptationSetHelper::GetVideoAdaptationSets(currentPeriod);
 
     this->multimediaManager->SetVideoQuality(currentPeriod,
-                                             currentPeriod->GetAdaptationSets().at(videoAdaptationSet),
-                                             currentPeriod->GetAdaptationSets().at(videoAdaptationSet)->GetRepresentation().at(videoRepresentation));
+                                             videoAdaptationSets.at(videoAdaptationSet),
+                                             videoAdaptationSets.at(videoAdaptationSet)->GetRepresentation().at(videoRepresentation));
 }
 void DASHPlayer::OnBufferStateChanged   (uint32_t fillstateInPercent)
 {

@@ -23,6 +23,7 @@
 #include "../libdashframework/Adaptation/AlwaysLowestLogic.h"
 #include "../libdashframework/Adaptation/ManualAdaptation.h"
 #include "../libdashframework/Buffer/IBufferObserver.h"
+#include "../libdashframework/MPD/AdaptationSetHelper.h"
 
 namespace sampleplayer
 {
