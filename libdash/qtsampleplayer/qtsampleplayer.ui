@@ -167,6 +167,12 @@
        </property>
        <item>
         <widget class="QWidget" name="w_boxes" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>200</width>
+           <height>0</height>
+          </size>
+         </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <property name="topMargin">
            <number>0</number>
@@ -220,10 +226,10 @@
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="cb_video_representation">
+           <widget class="QComboBox" name="cb_video_rep">
             <property name="minimumSize">
              <size>
-              <width>200</width>
+              <width>0</width>
               <height>0</height>
              </size>
             </property>
@@ -247,7 +253,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="cb_audio_represenation"/>
+           <widget class="QComboBox" name="cb_audio_representation"/>
           </item>
           <item>
            <widget class="QLabel" name="label_5">

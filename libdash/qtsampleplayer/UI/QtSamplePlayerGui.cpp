@@ -41,10 +41,10 @@ void            QtSamplePlayerGui::ClearComboBoxes                              
     this->ui->cb_period->clear();
 
     this->ui->cb_video_adaptationset->clear();
-    this->ui->cb_video_representation->clear();
+    this->ui->cb_video_rep->clear();
 
     this->ui->cb_audio_adaptationset->clear();
-    this->ui->cb_audio_represenation->clear();
+    this->ui->cb_audio_representation->clear();
 }
 QTGLRenderer*   QtSamplePlayerGui::GetVideoElement                                  ()
 {
@@ -67,13 +67,13 @@ void            QtSamplePlayerGui::SetGuiFields                                 
         {
             IAdaptationSet *adaptationSet = AdaptationSetHelper::GetVideoAdaptationSets(period).at(0);
 
-            this->SetRepresentationComoboBox(adaptationSet, this->ui->cb_video_representation);
+            this->SetRepresentationComoboBox(adaptationSet, this->ui->cb_video_rep);
         }
         if (!AdaptationSetHelper::GetAudioAdaptationSets(period).empty())
         {
             IAdaptationSet *adaptationSet = AdaptationSetHelper::GetAudioAdaptationSets(period).at(0);
 
-            this->SetRepresentationComoboBox(adaptationSet, this->ui->cb_audio_represenation);
+            this->SetRepresentationComoboBox(adaptationSet, this->ui->cb_audio_representation);
         }
     }
 
@@ -195,9 +195,9 @@ void            QtSamplePlayerGui::NotifySettingsChanged                        
 
     int period              = this->ui->cb_period->currentIndex();
     int videoAdaptionSet    = this->ui->cb_video_adaptationset->currentIndex();
-    int videoRepresentation = this->ui->cb_video_representation->currentIndex();
+    int videoRepresentation = this->ui->cb_video_rep->currentIndex();
     int audioAdaptionSet    = this->ui->cb_audio_adaptationset->currentIndex();
-    int audioRepresentation = this->ui->cb_audio_represenation->currentIndex();
+    int audioRepresentation = this->ui->cb_audio_representation->currentIndex();
 
     for(size_t i = 0; i < this->observers.size(); i++)
         this->observers.at(i)->OnSettingsChanged(period, videoAdaptionSet, videoRepresentation, audioAdaptionSet, audioRepresentation);
@@ -215,9 +215,9 @@ void            QtSamplePlayerGui::NotifyStartButtonPressed                     
 
     int period              = this->ui->cb_period->currentIndex();
     int videoAdaptionSet    = this->ui->cb_video_adaptationset->currentIndex();
-    int videoRepresentation = this->ui->cb_video_representation->currentIndex();
+    int videoRepresentation = this->ui->cb_video_rep->currentIndex();
     int audioAdaptionSet    = this->ui->cb_audio_adaptationset->currentIndex();
-    int audioRepresentation = this->ui->cb_audio_represenation->currentIndex();
+    int audioRepresentation = this->ui->cb_audio_representation->currentIndex();
 
     for(size_t i = 0; i < this->observers.size(); i++)
         this->observers.at(i)->OnStartButtonPressed(period, videoAdaptionSet, videoRepresentation, audioAdaptionSet, audioRepresentation);
@@ -262,7 +262,7 @@ void            QtSamplePlayerGui::on_cb_video_adaptationset_currentIndexChanged
 
     IPeriod *period = this->mpd->GetPeriods().at(this->ui->cb_period->currentIndex());
 
-    this->SetRepresentationComoboBox(AdaptationSetHelper::GetVideoAdaptationSets(period).at(index), this->ui->cb_video_representation);
+    this->SetRepresentationComoboBox(AdaptationSetHelper::GetVideoAdaptationSets(period).at(index), this->ui->cb_video_rep);
 
     this->NotifySettingsChanged();
 
@@ -284,7 +284,7 @@ void            QtSamplePlayerGui::on_cb_audio_adaptationset_currentIndexChanged
 
     IPeriod *period = this->mpd->GetPeriods().at(this->ui->cb_period->currentIndex());
 
-    this->SetRepresentationComoboBox(AdaptationSetHelper::GetAudioAdaptationSets(period).at(index), this->ui->cb_audio_represenation);
+    this->SetRepresentationComoboBox(AdaptationSetHelper::GetAudioAdaptationSets(period).at(index), this->ui->cb_audio_representation);
 
     this->NotifySettingsChanged();
 
