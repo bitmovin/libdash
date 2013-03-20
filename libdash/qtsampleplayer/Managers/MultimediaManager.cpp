@@ -19,8 +19,9 @@ using namespace dash::mpd;
 
 #define SEGMENTBUFFER_SIZE 20
 
-MultimediaManager::MultimediaManager            (QTGLRenderer *videoelement) :
+MultimediaManager::MultimediaManager            (QTGLRenderer *videoelement, QTAudioRenderer *audioElement) :
                    videoelement                 (videoelement),
+                   audioElement                 (audioElement),
                    mpd                          (NULL),
                    period                       (NULL),
                    videoAdaptationSet           (NULL),
@@ -45,8 +46,12 @@ void    MultimediaManager::OnVideoFrameAvailable            (const QImage& image
     this->videoelement->setImage(image);
     this->videoelement->update();
 }
-void    MultimediaManager::OnAudioSampleAvailable           ()
+void    MultimediaManager::OnAudioSampleAvailable           (const QAudioFormat& format, const char* data, qint64 len)
 {
+    if (this->audioElement->AudioFormat() != format)
+        this->audioElement->SetAudioFormat(format);
+
+    this->audioElement->WriteToBuffer(data, len);
 }
 IMPD*   MultimediaManager::GetMPD                           ()
 {
@@ -76,6 +81,7 @@ void    MultimediaManager::Start                            ()
     this->InitVideoRendering(0);
 
     this->videoStream->Start();
+    this->audioElement->StartPlayback();
     this->isStarted = true;
 }
 void    MultimediaManager::Stop                             ()
@@ -170,6 +176,10 @@ void    MultimediaManager::InitVideoRendering               (uint32_t offset)
     {
         this->videoStream->AttachBufferObserver(this->videoBufferObservers.at(i));
     }
+}
+void    MultimediaManager::SetNewQAudioFormat               (const QAudioFormat& format)
+{
+    /* create new AudioOutput and set format */
 }
 void    MultimediaManager::OnVideoSegmentDecodingStarted    ()
 {

@@ -18,6 +18,7 @@
 #include "libdash.h"
 #include "IDASHPlayerGuiObserver.h"
 #include "../Renderer/QTGLRenderer.h"
+#include "../Renderer/QTAudioRenderer.h"
 #include "../Managers/MultimediaManager.h"
 #include "../libdashframework/Adaptation/AlwaysLowestLogic.h"
 #include "../libdashframework/Adaptation/ManualAdaptation.h"
@@ -42,6 +43,7 @@ namespace sampleplayer
         private:
             dash::mpd::IMPD                             *mpd;
             sampleplayer::renderer::QTGLRenderer        *videoElement;
+            sampleplayer::renderer::QTAudioRenderer     *audioElement;
             QtSamplePlayerGui                           *gui;
             sampleplayer::managers::MultimediaManager   *multimediaManager;
 

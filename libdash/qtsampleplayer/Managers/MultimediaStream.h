@@ -21,6 +21,7 @@
 #include "../libdashframework/Adaptation/IAdaptationLogic.h"
 #include "../Decoder/IAudioObserver.h"
 #include "../Decoder/IVideoObserver.h"
+#include <QtMultimedia/qaudioformat.h>
 
 #include <vector>
 
@@ -44,6 +45,7 @@ namespace sampleplayer
                 void        AttachStreamObserver    (IStreamObserver *observer);
                 void        AttachBufferObserver    (libdash::framework::buffer::IBufferObserver *observer);
                 void        NotifyVideoObservers    (const QImage& image);
+                void        NotifyAudioObservers    (const QAudioFormat& format, const char *data, qint64 len);
 
                 virtual void OnAudioDataAvailable       (const uint8_t **data, decoder::audioFrameProperties* props);
                 virtual void OnVideoDataAvailable       (const uint8_t **data, decoder::videoFrameProperties* props);

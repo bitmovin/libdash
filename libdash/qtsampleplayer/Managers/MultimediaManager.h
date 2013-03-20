@@ -18,6 +18,8 @@
 #include "../libdashframework/Adaptation/AdaptationLogicFactory.h"
 #include "../libdashframework/Buffer/IBufferObserver.h"
 #include "../Renderer/QTGLRenderer.h"
+#include "../Renderer/QTAudioRenderer.h"
+#include <QtMultimedia/qaudiooutput.h>
 
 namespace sampleplayer
 {
@@ -26,7 +28,7 @@ namespace sampleplayer
         class MultimediaManager : public IStreamObserver
         {
             public:
-                MultimediaManager           (renderer::QTGLRenderer *videoelement);
+                MultimediaManager           (renderer::QTGLRenderer *videoelement, renderer::QTAudioRenderer *audioElement);
                 virtual ~MultimediaManager  ();
 
                 bool                Init    (const std::string& url);
@@ -35,7 +37,7 @@ namespace sampleplayer
                 dash::mpd::IMPD*    GetMPD  ();
 
                 void OnVideoFrameAvailable  (const QImage& image, dash::mpd::IAdaptationSet *adaptationSet);
-                void OnAudioSampleAvailable ();
+                void OnAudioSampleAvailable (const QAudioFormat& format, const char* data, qint64 len);
 
                 bool SetVideoQuality      (dash::mpd::IPeriod* period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation);
                 bool SetAudioQuality      (dash::mpd::IPeriod* period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation);
@@ -59,6 +61,7 @@ namespace sampleplayer
                 dash::IDASHManager                                          *manager;
                 dash::mpd::IMPD                                             *mpd;
                 renderer::QTGLRenderer                                      *videoelement;
+                renderer::QTAudioRenderer                                   *audioElement;
                 dash::mpd::IPeriod                                          *period;
                 dash::mpd::IAdaptationSet                                   *videoAdaptationSet;
                 dash::mpd::IRepresentation                                  *videoRepresentation;
@@ -71,6 +74,7 @@ namespace sampleplayer
                 uint64_t                                                    videoSegmentsDownloaded;
 
                 void InitVideoRendering (uint32_t offset);
+                void SetNewQAudioFormat (const QAudioFormat& format);
         };
     }
 }

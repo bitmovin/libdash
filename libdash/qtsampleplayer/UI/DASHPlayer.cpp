@@ -23,7 +23,8 @@ DASHPlayer::DASHPlayer  (QtSamplePlayerGui &gui) :
             gui         (&gui)
 {
     this->videoElement      = gui.GetVideoElement();
-    this->multimediaManager = new MultimediaManager(this->videoElement);
+    this->audioElement      = new QTAudioRenderer(&gui);
+    this->multimediaManager = new MultimediaManager(this->videoElement, this->audioElement);
 
     this->multimediaManager->AttachVideoBufferObserver(this);
     this->gui->AddWidgetObserver(this);
@@ -33,7 +34,11 @@ DASHPlayer::DASHPlayer  (QtSamplePlayerGui &gui) :
 DASHPlayer::~DASHPlayer ()
 {
     this->multimediaManager->Stop();
+    this->audioElement->StopPlayback();
+    this->audioElement = NULL;
+
     delete(this->multimediaManager);
+    delete(this->audioElement);
 }
 
 void DASHPlayer::OnStartButtonPressed   (int period, int videoAdaptationSet, int videoRepresentation)

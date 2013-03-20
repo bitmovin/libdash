@@ -14,6 +14,7 @@
 
 #include <IMPD.h>
 #include <QImage.h>
+#include <QtMultimedia/qaudioformat.h>
 
 namespace sampleplayer
 {
@@ -27,7 +28,7 @@ namespace sampleplayer
                 virtual void OnVideoFrameAvailable          (const QImage& image, dash::mpd::IAdaptationSet *adaptationSet) = 0;
                 virtual void OnVideoSegmentDecodingStarted  ()                                                              = 0;
                 virtual void OnVideoSegmentDownloaded       ()                                                              = 0;
-                virtual void OnAudioSampleAvailable         ()                                                              = 0;
+                virtual void OnAudioSampleAvailable         (const QAudioFormat& format, const char *data, qint64 len)      = 0;
         };
     }
 }

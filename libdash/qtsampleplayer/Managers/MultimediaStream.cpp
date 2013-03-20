@@ -88,8 +88,23 @@ void        MultimediaStream::NotifyVideoObservers      (const QImage& image)
     for(size_t i = 0; i < this->observers.size(); i++)
         this->observers.at(i)->OnVideoFrameAvailable(image, this->adaptationSet);
 }
+void        MultimediaStream::NotifyAudioObservers      (const QAudioFormat& format, const char *data, qint64 len)
+{
+    for(size_t i = 0; i < this->observers.size(); i++)
+        this->observers.at(i)->OnAudioSampleAvailable(format, data, len);
+}
 void        MultimediaStream::OnAudioDataAvailable      (const uint8_t **data, audioFrameProperties* props)
 {
+    /* create QAudioFormat and hand over to notifyAudioObs */
+    QAudioFormat format;
+    format.setSampleRate(props->sampleRate);
+    format.setChannelCount(props->channels);
+    format.setSampleSize(16);
+    format.setCodec("audio/pcm");
+    format.setByteOrder(QAudioFormat::LittleEndian);
+    format.setSampleType(QAudioFormat::SignedInt);
+
+    this->NotifyAudioObservers(format, (char*)data[0], props->linesize);
 }
 void        MultimediaStream::OnVideoDataAvailable      (const uint8_t **data, videoFrameProperties* props)
 {
@@ -114,7 +129,7 @@ void        MultimediaStream::OnVideoDataAvailable      (const uint8_t **data, v
     QImage image(w, h, QImage::Format_RGB32);
     int x, y;
     int *src = (int*)rgbframe->data[0];
- 
+
     for (y = 0; y < h; y++)
     {
         for (x = 0; x < w; x++)
