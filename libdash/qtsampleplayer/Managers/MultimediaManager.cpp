@@ -81,7 +81,7 @@ void    MultimediaManager::Start                            ()
     this->InitVideoRendering(0);
 
     this->videoStream->Start();
-    this->audioElement->StartPlayback();
+    //this->audioElement->StartPlayback();
     this->isStarted = true;
 }
 void    MultimediaManager::Stop                             ()
