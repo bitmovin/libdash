@@ -157,31 +157,44 @@ StreamConfig*       LibavDecoder::GetNextFrame            (AVFormatContext* avFo
     }
     return tempConfig;
 }
-int                 LibavDecoder::DecodeFrame             (AVFrame *picture, AVPacket* avpkt, StreamConfig* decConfig)
+int                 LibavDecoder::DecodeFrame             (AVFrame *frame, AVPacket* avpkt, StreamConfig* decConfig)
 {
     int len         = 0;
-    int got_picture = 0;
+    int got_frame   = 0;
     int ret         = 0;
     while ((avpkt->size > 0) && (ret == 0))
     {
-       len = avcodec_decode_video2(decConfig->codecContext, picture, &got_picture, avpkt);
+        switch(decConfig->stream->codec->codec_type)
+        {
+            case AVMEDIA_TYPE_VIDEO:
+                len = avcodec_decode_video2(decConfig->codecContext, frame, &got_frame, avpkt);
+                break;
+            case AVMEDIA_TYPE_AUDIO:
+                len = avcodec_decode_audio4(decConfig->codecContext, frame, &got_frame, avpkt);
+                break;
+            case AVMEDIA_TYPE_SUBTITLE:
+                break;
+            case AVMEDIA_TYPE_UNKNOWN:
+                break;
+            default:
+                len = -1;
+        }
+        if(len < 0)
+        {
+            this->Error("Error while decoding frame", len);
+            ret = -1;
+        }
+        if(got_frame)
+        {
+            if(decConfig->stream->codec->codec_type == AVMEDIA_TYPE_VIDEO)
+                this->NotifyVideo(frame, decConfig);
+            if(decConfig->stream->codec->codec_type == AVMEDIA_TYPE_AUDIO)
+                this->NotifyAudio(frame, decConfig);
 
-       if(len < 0)
-       {
-           this->Error("Error while decoding frame", len);
-           ret = -1;
-       }
-       if(got_picture)
-       {
-           if(decConfig->stream->codec->codec_type == AVMEDIA_TYPE_VIDEO)
-               this->NotifyVideo(picture, decConfig);
-           if(decConfig->stream->codec->codec_type == AVMEDIA_TYPE_AUDIO)
-               this->NotifyAudio(picture, decConfig);
-
-           decConfig->frameCnt++;
-       }
-       avpkt->size -= len;
-       avpkt->data += len;
+            decConfig->frameCnt++;
+        }
+        avpkt->size -= len;
+        avpkt->data += len;
     }
     return ret;
 }
@@ -194,7 +207,7 @@ bool                LibavDecoder::Init                    ()
     if (this->errorHappened)
         return false;
 
-    this->picture = avcodec_alloc_frame();
+    this->frame = avcodec_alloc_frame();
 
     av_init_packet(&this->avpkt);
     this->InitStreams(avFormatContextPtr);
@@ -208,7 +221,7 @@ bool                LibavDecoder::Decode                  ()
     if(decConfig == 0)
         return false;
 
-    if(this->DecodeFrame(picture, &avpkt, decConfig) < 0)
+    if(this->DecodeFrame(this->frame, &avpkt, decConfig) < 0)
         return false;
 
     Sleep((1 / (double)this->framerate) * 1000);
@@ -221,7 +234,7 @@ void                LibavDecoder::Stop                    ()
 
     this->FreeConfigs();
     avformat_close_input(&this->avFormatContextPtr);
-    av_free(this->picture);
+    av_free(this->frame);
 }
 void                LibavDecoder::FreeConfigs             ()
 {

@@ -62,7 +62,7 @@ namespace sampleplayer
                 int                                         bufferSize;
                 int                                         framerate;
                 AVFormatContext                             *avFormatContextPtr;
-                AVFrame                                     *picture;
+                AVFrame                                     *frame;
                 AVPacket                                    avpkt;
 
                 AVFormatContext*    OpenInput       ();
