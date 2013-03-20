@@ -143,6 +143,9 @@
     <ClCompile Include="GeneratedFiles\Release\moc_QTAudioRenderer.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="libdashframework\MPD\AdaptationSetHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="qtsampleplayer.ui">
@@ -253,6 +256,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="libdashframework\MPD\SingleMediaSegmentStream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libdashframework\MPD\AdaptationSetHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
