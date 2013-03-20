@@ -226,7 +226,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="cb_video_rep">
+           <widget class="QComboBox" name="cb_video_representation">
             <property name="minimumSize">
              <size>
               <width>0</width>
