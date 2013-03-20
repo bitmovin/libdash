@@ -17,7 +17,6 @@
 #include <qbuffer.h>
 #include <qwidget.h>
 #include <QtMultimedia/qaudiodeviceinfo.h>
-#include <qfile.h>
 
 namespace sampleplayer
 {
@@ -43,6 +42,7 @@ namespace sampleplayer
                 QAudioFormat        format;
                 QAudioDeviceInfo    deviceInfo;
                 QObject             *parent;
+                QByteArray          byteArray;
 
                 void    Init();
         };

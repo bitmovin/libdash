@@ -27,16 +27,14 @@ QTAudioRenderer::~QTAudioRenderer()
 
 void                    QTAudioRenderer::SetAudioFormat (const QAudioFormat& format)
 {
-    /*
-    this->audioOutput->stop();
+    /*this->audioOutput->stop();
 
     // when to switch to new audiooutput if still "old" bytes left 
     delete audioOutput;
     this->format = format;
     this->audioOutput = new QAudioOutput(this->deviceInfo, this->format, this->parent);
 
-    this->audioOutput->start(this->buffer);
-    */
+    this->audioOutput->start(this->buffer);*/
 }
 const QAudioFormat&     QTAudioRenderer::AudioFormat    () const
 {
@@ -55,14 +53,13 @@ void                    QTAudioRenderer::StopPlayback   () const
 }
 void                    QTAudioRenderer::WriteToBuffer  (const char *data, qint64 len)
 {
-    /* write to file for testing */
-
-    this->buffer->write(data, len);
+    this->byteArray.append(data, len);
 }
 void                    QTAudioRenderer::Init           ()
 {
+    byteArray         = QByteArray();
     this->format      = QAudioFormat();
-    this->buffer      = new QBuffer();
+    this->buffer      = new QBuffer(&byteArray);
     this->deviceInfo  = QAudioDeviceInfo(QAudioDeviceInfo::defaultOutputDevice());
 
     this->buffer->open(QIODevice::ReadWrite);
@@ -75,7 +72,6 @@ void                    QTAudioRenderer::Init           ()
     this->format.setSampleType(QAudioFormat::SignedInt);
 
     if (!this->deviceInfo.isFormatSupported(this->format)) {
-        //qDebug()<<"raw audio format not supported by backend, cannot play audio.";
         format = this->deviceInfo.nearestFormat(this->format);
     }
 
