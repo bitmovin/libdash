@@ -52,11 +52,11 @@ public:
     QLabel *label;
     QComboBox *cb_video_adaptationset;
     QLabel *label_2;
-    QComboBox *cb_video_representation;
+    QComboBox *cb_video_rep;
     QLabel *label_audio_adaptationset;
     QComboBox *cb_audio_adaptationset;
     QLabel *label_audio_representation;
-    QComboBox *cb_audio_represenation;
+    QComboBox *cb_audio_representation;
     QLabel *label_5;
     QProgressBar *progressBar;
     QSpacerItem *verticalSpacer;
@@ -120,6 +120,7 @@ public:
         verticalLayout->setContentsMargins(-1, 0, -1, -1);
         w_boxes = new QWidget(w_controls);
         w_boxes->setObjectName(QStringLiteral("w_boxes"));
+        w_boxes->setMinimumSize(QSize(200, 0));
         verticalLayout_2 = new QVBoxLayout(w_boxes);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -165,11 +166,11 @@ public:
 
         verticalLayout_2->addWidget(label_2);
 
-        cb_video_representation = new QComboBox(w_boxes);
-        cb_video_representation->setObjectName(QStringLiteral("cb_video_representation"));
-        cb_video_representation->setMinimumSize(QSize(200, 0));
+        cb_video_rep = new QComboBox(w_boxes);
+        cb_video_rep->setObjectName(QStringLiteral("cb_video_rep"));
+        cb_video_rep->setMinimumSize(QSize(0, 0));
 
-        verticalLayout_2->addWidget(cb_video_representation);
+        verticalLayout_2->addWidget(cb_video_rep);
 
         label_audio_adaptationset = new QLabel(w_boxes);
         label_audio_adaptationset->setObjectName(QStringLiteral("label_audio_adaptationset"));
@@ -186,10 +187,10 @@ public:
 
         verticalLayout_2->addWidget(label_audio_representation);
 
-        cb_audio_represenation = new QComboBox(w_boxes);
-        cb_audio_represenation->setObjectName(QStringLiteral("cb_audio_represenation"));
+        cb_audio_representation = new QComboBox(w_boxes);
+        cb_audio_representation->setObjectName(QStringLiteral("cb_audio_representation"));
 
-        verticalLayout_2->addWidget(cb_audio_represenation);
+        verticalLayout_2->addWidget(cb_audio_representation);
 
         label_5 = new QLabel(w_boxes);
         label_5->setObjectName(QStringLiteral("label_5"));
