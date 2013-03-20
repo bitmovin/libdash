@@ -78,6 +78,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="libdashframework\MPD\AdaptationSetHelper.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_DASHPlayer.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -166,6 +167,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="libdashframework\MPD\AdaptationSetHelper.h" />
     <ClInclude Include="libdashframework\Adaptation\AbstractAdaptationLogic.h" />
     <ClInclude Include="libdashframework\Adaptation\AdaptationLogicFactory.h" />
     <ClInclude Include="libdashframework\Adaptation\ManualAdaptation.h" />
