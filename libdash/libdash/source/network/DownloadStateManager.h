@@ -33,6 +33,7 @@ namespace dash
                 void            CheckAndSet     (DownloadState check, DownloadState set);
                 void            State           (DownloadState state);
                 void            Attach          (IDownloadObserver *observer);
+                void            Detach          (IDownloadObserver *observer);
 
             private:
                 DownloadState               state;

@@ -117,9 +117,9 @@ void*   DASHReceiver::DoBuffering   (void *receiver)
     while(media != NULL && dashreceiver->isDownloading)
     {
         media->StartDownload();
+        dashreceiver->buffer->Push(media);
         media->WaitFinished();
 
-        dashreceiver->buffer->Push(media);
         dashreceiver->NotifySegmentDownloaded();
 
         media = dashreceiver->logic->GetSegment();

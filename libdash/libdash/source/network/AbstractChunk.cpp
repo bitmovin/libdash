@@ -86,6 +86,19 @@ void    AbstractChunk::AttachDownloadObserver       (IDownloadObserver *observer
     this->observers.push_back(observer);
     this->stateManager.Attach(observer);
 }
+void    AbstractChunk::DetachDownloadObserver       (IDownloadObserver *observer)
+{
+    uint32_t pos = -1;
+
+    for(size_t i = 0; i < this->observers.size(); i++)
+        if(this->observers.at(i) == observer)
+            pos = i;
+
+    if(pos != -1)
+        this->observers.erase(this->observers.begin() + pos);
+
+    this->stateManager.Detach(observer);
+}
 void*   AbstractChunk::DownloadExternalConnection   (void *abstractchunk)
 {
     AbstractChunk   *chunk  = (AbstractChunk *) abstractchunk;

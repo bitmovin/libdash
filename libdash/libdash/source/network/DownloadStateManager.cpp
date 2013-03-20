@@ -70,6 +70,21 @@ void            DownloadStateManager::Attach        (IDownloadObserver *observer
     this->observers.push_back(observer);
     LeaveCriticalSection(&this->stateLock);
 }
+void            DownloadStateManager::Detach        (IDownloadObserver *observer)
+{
+    EnterCriticalSection(&this->stateLock);
+
+    uint32_t pos = -1;
+
+    for(size_t i = 0; i < this->observers.size(); i++)
+        if(this->observers.at(i) == observer)
+            pos = i;
+
+    if(pos != -1)
+        this->observers.erase(this->observers.begin() + pos);
+
+    LeaveCriticalSection(&this->stateLock);
+}
 void            DownloadStateManager::Notify        ()
 {
     for(size_t i = 0; i < this->observers.size(); i++)
