@@ -95,7 +95,6 @@ void        MultimediaStream::NotifyAudioObservers      (const QAudioFormat& for
 }
 void        MultimediaStream::OnAudioDataAvailable      (const uint8_t **data, audioFrameProperties* props)
 {
-    /* create QAudioFormat and hand over to notifyAudioObs */
     QAudioFormat format;
     format.setSampleRate(props->sampleRate);
     format.setChannelCount(props->channels);
