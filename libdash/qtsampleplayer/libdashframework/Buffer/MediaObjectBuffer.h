@@ -12,7 +12,7 @@
 #ifndef LIBDASH_FRAMEWORK_BUFFER_MEDIAOBJECTBUFFER_H_
 #define LIBDASH_FRAMEWORK_BUFFER_MEDIAOBJECTBUFFER_H_
 
-#include "../Adaptation/MediaObject.h"
+#include "../Input/MediaObject.h"
 #include "../Portable/MultiThreading.h"
 #include "IBufferObserver.h"
 #include <queue>
@@ -29,8 +29,8 @@ namespace libdash
                     MediaObjectBuffer                           (uint32_t maxcapacity);
                     virtual ~MediaObjectBuffer                  ();
 
-                    void                        Push            (adaptation::MediaObject *media);
-                    adaptation::MediaObject*    Front           ();
+                    void                        Push            (input::MediaObject *media);
+                    input::MediaObject*         Front           ();
                     void                        Pop             ();
                     void                        ClearTail       ();
                     void                        Clear           ();
@@ -41,7 +41,7 @@ namespace libdash
                     void                        Notify          ();
 
                 private:
-                    std::queue<adaptation::MediaObject *>   mediaobjects;
+                    std::queue<input::MediaObject *>   mediaobjects;
                     std::vector<IBufferObserver*>           observer;
                     bool                                    eos;
                     uint32_t                                maxcapacity;

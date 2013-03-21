@@ -12,7 +12,7 @@
 #ifndef LIBDASH_FRAMEWORK_ADAPTATION_IADAPTATIONLOGIC_H_
 #define LIBDASH_FRAMEWORK_ADAPTATION_IADAPTATIONLOGIC_H_
 
-#include "MediaObject.h"
+#include "../Input/MediaObject.h"
 #include "IRepresentation.h"
 
 namespace libdash
@@ -32,12 +32,12 @@ namespace libdash
                 public:
                     virtual ~IAdaptationLogic () {}
 
-                    virtual MediaObject*    GetSegment          ()                                              = 0;
-                    virtual uint32_t        GetPosition         ()                                              = 0;
-                    virtual void            SetPosition         (uint32_t segmentNumber)                        = 0;
-                    virtual void            SetRepresentation   (dash::mpd::IRepresentation *representation)    = 0;
-                    virtual void            InvokeInitSegment   (bool invoke)                                   = 0;
-                    virtual LogicType       GetType             ()                                              = 0;
+                    virtual input::MediaObject*     GetSegment          ()                                              = 0;
+                    virtual uint32_t                GetPosition         ()                                              = 0;
+                    virtual void                    SetPosition         (uint32_t segmentNumber)                        = 0;
+                    virtual void                    SetRepresentation   (dash::mpd::IRepresentation *representation)    = 0;
+                    virtual void                    InvokeInitSegment   (bool invoke)                                   = 0;
+                    virtual LogicType               GetType             ()                                              = 0;
             };
         }
     }

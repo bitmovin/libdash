@@ -13,6 +13,7 @@
 
 using namespace dash::mpd;
 using namespace libdash::framework::adaptation;
+using namespace libdash::framework::input;
 using namespace libdash::framework::mpd;
 
 ManualAdaptation::ManualAdaptation          (dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd) :

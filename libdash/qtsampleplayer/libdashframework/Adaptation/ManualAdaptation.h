@@ -28,12 +28,12 @@ namespace libdash
                     ManualAdaptation            (dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd);
                     virtual ~ManualAdaptation   ();
 
-                    virtual MediaObject*    GetSegment          ();
-                    virtual uint32_t        GetPosition         ();
-                    virtual void            SetPosition         (uint32_t segmentNumber);
-                    virtual void            SetRepresentation   (dash::mpd::IRepresentation *representation);
-                    virtual LogicType       GetType             ();
-                    virtual void            InvokeInitSegment   (bool invoke);
+                    virtual input::MediaObject*     GetSegment          ();
+                    virtual uint32_t                GetPosition         ();
+                    virtual void                    SetPosition         (uint32_t segmentNumber);
+                    virtual void                    SetRepresentation   (dash::mpd::IRepresentation *representation);
+                    virtual LogicType               GetType             ();
+                    virtual void                    InvokeInitSegment   (bool invoke);
 
                 private:
                     dash::mpd::IMPD                                 *mpd;

@@ -20,7 +20,7 @@ namespace libdash
 {
     namespace framework
     {
-        namespace adaptation
+        namespace input
         {
             class MediaObject : public dash::network::IDownloadObserver
             {

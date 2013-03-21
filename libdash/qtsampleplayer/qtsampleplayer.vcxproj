@@ -79,6 +79,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="libdashframework\Input\DASHManager.cpp" />
+    <ClCompile Include="libdashframework\Input\DASHReceiver.cpp" />
     <ClCompile Include="libdashframework\MPD\AdaptationSetHelper.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_DASHPlayer.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -134,7 +135,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="libdashframework\Adaptation\AlwaysLowestLogic.cpp" />
-    <ClCompile Include="libdashframework\Adaptation\MediaObject.cpp" />
+    <ClCompile Include="libdashframework\Input\MediaObject.cpp" />
     <ClCompile Include="libdashframework\Buffer\MediaObjectBuffer.cpp" />
     <ClCompile Include="libdashframework\Portable\MultiThreading.cpp" />
     <ClCompile Include="main.cpp" />
@@ -168,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libdashframework\Input\DASHManager.h" />
+    <ClInclude Include="libdashframework\Input\DASHReceiver.h" />
     <ClInclude Include="libdashframework\MPD\AdaptationSetHelper.h" />
     <ClInclude Include="libdashframework\Adaptation\AbstractAdaptationLogic.h" />
     <ClInclude Include="libdashframework\Adaptation\AdaptationLogicFactory.h" />
@@ -191,7 +193,7 @@
     <ClInclude Include="libdashframework\Adaptation\IAdaptationLogic.h" />
     <ClInclude Include="libdashframework\Buffer\IBufferObserver.h" />
     <ClInclude Include="libdashframework\Input\IDataReceiver.h" />
-    <ClInclude Include="libdashframework\Adaptation\MediaObject.h" />
+    <ClInclude Include="libdashframework\Input\MediaObject.h" />
     <ClInclude Include="libdashframework\Buffer\MediaObjectBuffer.h" />
     <ClInclude Include="libdashframework\Portable\MultiThreading.h" />
     <CustomBuild Include="Renderer\QTAudioRenderer.h">

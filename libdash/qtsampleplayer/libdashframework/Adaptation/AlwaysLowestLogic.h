@@ -27,9 +27,9 @@ namespace libdash
                     AlwaysLowestLogic           (dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd);
                     virtual ~AlwaysLowestLogic  ();
 
-                    virtual MediaObject*    GetSegment          ();
-                    virtual LogicType       GetType             ();
-                    virtual void            InvokeInitSegment   (bool invoke);
+                    virtual input::MediaObject*     GetSegment          ();
+                    virtual LogicType               GetType             ();
+                    virtual void                    InvokeInitSegment   (bool invoke);
 
                 private:
                     std::vector<dash::mpd::IBaseUrl *>  baseurls;

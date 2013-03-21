@@ -11,7 +11,7 @@
 
 #include "MediaObject.h"
 
-using namespace libdash::framework::adaptation;
+using namespace libdash::framework::input;
 
 using namespace dash::mpd;
 using namespace dash::network;
