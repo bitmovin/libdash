@@ -252,6 +252,7 @@ void            QtSamplePlayerGui::on_cb_period_currentIndexChanged             
 }
 void            QtSamplePlayerGui::on_cb_mpd_currentTextChanged                     (const QString &arg1)
 {
+    this->ui->button_start->setDisabled(true);
     this->ui->lineEdit_mpd->setText(arg1);
 }
 void            QtSamplePlayerGui::on_cb_video_adaptationset_currentIndexChanged    (int index)
