@@ -67,9 +67,11 @@ MediaObject*    MediaObjectBuffer::Front            ()
         return NULL;
     }
 
+    MediaObject *object = this->mediaobjects.front();
+
     LeaveCriticalSection(&this->monitorMutex);
 
-    return this->mediaobjects.front();
+    return object;
 }
 uint32_t        MediaObjectBuffer::Length           ()
 {
@@ -108,10 +110,8 @@ void            MediaObjectBuffer::AttachObserver   (IBufferObserver *observer)
 }
 void            MediaObjectBuffer::Notify           ()
 {
-    for(int i=0; i < this->observer.size(); i++)
-    {
+    for(size_t i = 0; i < this->observer.size(); i++)
         this->observer.at(i)->OnBufferStateChanged((int)((double)this->mediaobjects.size()/(double)this->maxcapacity*100.0));
-    }
 }
 void            MediaObjectBuffer::ClearTail        ()
 {
