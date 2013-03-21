@@ -136,6 +136,20 @@ void            MediaObjectBuffer::ClearTail        ()
     WakeAllConditionVariable(&this->full);
     LeaveCriticalSection(&this->monitorMutex);
 }
+void            MediaObjectBuffer::Clear            ()
+{
+    EnterCriticalSection(&this->monitorMutex);
+
+    for(int i=0; i < this->mediaobjects.size(); i++)
+    {
+        delete this->mediaobjects.front();
+        this->mediaobjects.pop();
+    }
+
+    WakeAllConditionVariable(&this->empty);
+    WakeAllConditionVariable(&this->full);
+    LeaveCriticalSection(&this->monitorMutex);
+}
 uint32_t        MediaObjectBuffer::Capacity         ()
 {
     return this->maxcapacity;
