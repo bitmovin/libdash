@@ -73,6 +73,26 @@ MediaObject*    MediaObjectBuffer::Front            ()
 
     return object;
 }
+MediaObject*    MediaObjectBuffer::GetFront         ()
+{
+    EnterCriticalSection(&this->monitorMutex);
+
+    while(this->mediaobjects.size() == 0 && !this->eos)
+        SleepConditionVariableCS(&this->full, &this->monitorMutex, INFINITE);
+
+    if(this->mediaobjects.size() == 0)
+    {
+        LeaveCriticalSection(&this->monitorMutex);
+        return NULL;
+    }
+
+    MediaObject *object = this->mediaobjects.front();
+    this->mediaobjects.pop_front();
+
+    LeaveCriticalSection(&this->monitorMutex);
+
+    return object;
+}
 uint32_t        MediaObjectBuffer::Length           ()
 {
     EnterCriticalSection(&this->monitorMutex);

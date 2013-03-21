@@ -31,6 +31,7 @@ namespace libdash
 
                     void                        PushBack        (input::MediaObject *media);
                     input::MediaObject*         Front           ();
+                    input::MediaObject*         GetFront        ();
                     void                        PopFront        ();
                     void                        ClearTail       ();
                     void                        Clear           ();
