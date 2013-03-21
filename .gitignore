@@ -1,7 +1,7 @@
 # General VC
 *.user
 *.suo
-*.filter
+*.filters
 *.sdf
 *.opensdf
 
