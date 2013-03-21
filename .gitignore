@@ -1,3 +1,10 @@
+# General VC
+*.user
+*.suo
+*.filter
+*.sdf
+*.opensdf
+
 # Compiled Object files
 *.slo
 *.lo
