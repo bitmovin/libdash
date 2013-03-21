@@ -48,7 +48,7 @@ void            MediaObjectBuffer::Push             (MediaObject *media)
         return;
     }
 
-    this->mediaobjects.push(media);
+    this->mediaobjects.push_back(media);
 
     WakeAllConditionVariable(&this->full);
     LeaveCriticalSection(&this->monitorMutex);
@@ -88,7 +88,7 @@ void            MediaObjectBuffer::Pop              ()
     EnterCriticalSection(&this->monitorMutex);
 
     delete(this->mediaobjects.front());
-    this->mediaobjects.pop();
+    this->mediaobjects.pop_front();
 
     WakeAllConditionVariable(&this->empty);
     LeaveCriticalSection(&this->monitorMutex);
@@ -120,14 +120,14 @@ void            MediaObjectBuffer::ClearTail        ()
     int size = this->mediaobjects.size() - 1;
 
     MediaObject* object = this->mediaobjects.front();
-    this->mediaobjects.pop();
+    this->mediaobjects.pop_front();
     for(int i=0; i < size; i++)
     {
         delete this->mediaobjects.front();
-        this->mediaobjects.pop();
+        this->mediaobjects.pop_front();
     }
 
-    this->mediaobjects.push(object);
+    this->mediaobjects.push_back(object);
     WakeAllConditionVariable(&this->empty);
     WakeAllConditionVariable(&this->full);
     LeaveCriticalSection(&this->monitorMutex);
@@ -139,7 +139,7 @@ void            MediaObjectBuffer::Clear            ()
     for(int i=0; i < this->mediaobjects.size(); i++)
     {
         delete this->mediaobjects.front();
-        this->mediaobjects.pop();
+        this->mediaobjects.pop_front();
     }
 
     WakeAllConditionVariable(&this->empty);

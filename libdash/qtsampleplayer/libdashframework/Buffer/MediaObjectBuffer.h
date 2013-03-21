@@ -15,7 +15,7 @@
 #include "../Input/MediaObject.h"
 #include "../Portable/MultiThreading.h"
 #include "IBufferObserver.h"
-#include <queue>
+#include <deque>
 
 namespace libdash
 {
@@ -41,13 +41,13 @@ namespace libdash
                     void                        Notify          ();
 
                 private:
-                    std::queue<input::MediaObject *>   mediaobjects;
-                    std::vector<IBufferObserver*>           observer;
-                    bool                                    eos;
-                    uint32_t                                maxcapacity;
-                    mutable CRITICAL_SECTION                monitorMutex;
-                    mutable CONDITION_VARIABLE              full;
-                    mutable CONDITION_VARIABLE              empty;
+                    std::deque<input::MediaObject *>    mediaobjects;
+                    std::vector<IBufferObserver*>       observer;
+                    bool                                eos;
+                    uint32_t                            maxcapacity;
+                    mutable CRITICAL_SECTION            monitorMutex;
+                    mutable CONDITION_VARIABLE          full;
+                    mutable CONDITION_VARIABLE          empty;
             };
         }
     }
