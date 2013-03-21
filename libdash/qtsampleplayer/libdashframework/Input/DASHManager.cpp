@@ -1,5 +1,5 @@
 /*
- * DASHReceiver.cpp
+ * DASHManager.cpp
  *****************************************************************************
  * Copyright (C) 2012, bitmovin Softwareentwicklung OG, All Rights Reserved
  *
@@ -9,7 +9,7 @@
  * and conditions of the applicable license agreement.
  *****************************************************************************/
 
-#include "DASHReceiver.h"
+#include "DASHManager.h"
 
 using namespace libdash::framework::input;
 using namespace libdash::framework::adaptation;
@@ -19,7 +19,7 @@ using namespace dash;
 using namespace dash::network;
 using namespace dash::mpd;
 
-DASHReceiver::DASHReceiver      (uint32_t maxcapacity, IAdaptationLogic* logic) :
+DASHManager::DASHManager        (uint32_t maxcapacity, IAdaptationLogic* logic) :
               readSegmentCount  (0),
               maxcapacity       (maxcapacity),
               logic             (logic),
@@ -27,12 +27,12 @@ DASHReceiver::DASHReceiver      (uint32_t maxcapacity, IAdaptationLogic* logic) 
 {
     this->buffer = new MediaObjectBuffer(this->maxcapacity);
 }
-DASHReceiver::~DASHReceiver     ()
+DASHManager::~DASHManager       ()
 {
     this->Stop();
 }
 
-bool        DASHReceiver::Start                         ()
+bool        DASHManager::Start                          ()
 {
     if(this->isDownloading)
         return false;
@@ -48,12 +48,14 @@ bool        DASHReceiver::Start                         ()
 
     return true;
 }
-void        DASHReceiver::Stop                          ()
+void        DASHManager::Stop                           ()
 {
     if(!this->isDownloading)
         return;
 
+    this->buffer->SetEOS(true);
     this->isDownloading = false;
+    this->buffer->Clear();
 
     if(this->bufferingThread != NULL)
     {
@@ -61,15 +63,15 @@ void        DASHReceiver::Stop                          ()
         DestroyThreadPortable(this->bufferingThread);
     }
 }
-void        DASHReceiver::AttachBufferObserver          (IBufferObserver* observer)
+void        DASHManager::AttachBufferObserver           (IBufferObserver* observer)
 {
     this->buffer->AttachObserver(observer);
 }
-void        DASHReceiver::AttachDownloadObserver        (IDASHReceiverObserver *observer)
+void        DASHManager::AttachDownloadObserver         (IDASHReceiverObserver *observer)
 {
     this->observers.push_back(observer);
 }
-int         DASHReceiver::Read                          (uint8_t *buf, int buf_size)
+int         DASHManager::Read                           (uint8_t *buf, int buf_size)
 {
     /* FFMpeg callback that consumes data from the buffer for decoding */
     MediaObject *media = this->buffer->Front();
@@ -88,43 +90,43 @@ int         DASHReceiver::Read                          (uint8_t *buf, int buf_s
     this->NotifySegmentDecodingStarted();
     return this->Read(buf, buf_size);
 }
-void        DASHReceiver::Clear                         ()
+void        DASHManager::Clear                          ()
 {
     this->buffer->ClearTail();
 }
-uint32_t    DASHReceiver::GetPosition                   ()
+uint32_t    DASHManager::GetPosition                    ()
 {
     return this->readSegmentCount;
 }
-void        DASHReceiver::NotifySegmentDownloaded       ()
+void        DASHManager::NotifySegmentDownloaded        ()
 {
     for(size_t i = 0; i < this->observers.size(); i++)
         this->observers.at(i)->OnSegmentDownloaded();
 }
-void        DASHReceiver::NotifySegmentDecodingStarted  ()
+void        DASHManager::NotifySegmentDecodingStarted   ()
 {
     for(size_t i = 0; i < this->observers.size(); i++)
         this->observers.at(i)->OnSegmentDecodingStarted();
 }
 
 /* Thread that does the buffering of segments */
-void*   DASHReceiver::DoBuffering   (void *receiver)
+void*   DASHManager::DoBuffering   (void *receiver)
 {
-    DASHReceiver *dashreceiver = (DASHReceiver *) receiver;
+    DASHManager *dashmanager = (DASHManager *) receiver;
 
-    MediaObject *media = dashreceiver->logic->GetSegment();
+    MediaObject *media = dashmanager->logic->GetSegment();
 
-    while(media != NULL && dashreceiver->isDownloading)
+    while(media != NULL && dashmanager->isDownloading)
     {
         media->StartDownload();
-        dashreceiver->buffer->Push(media);
+        dashmanager->buffer->Push(media);
         media->WaitFinished();
 
-        dashreceiver->NotifySegmentDownloaded();
+        dashmanager->NotifySegmentDownloaded();
 
-        media = dashreceiver->logic->GetSegment();
+        media = dashmanager->logic->GetSegment();
     }
 
-    dashreceiver->buffer->SetEOS(true);
+    dashmanager->buffer->SetEOS(true);
     return NULL;
 }

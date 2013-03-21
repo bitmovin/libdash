@@ -1,5 +1,5 @@
 /*
- * DASHReceiver.h
+ * DASHManager.h
  *****************************************************************************
  * Copyright (C) 2012, bitmovin Softwareentwicklung OG, All Rights Reserved
  *
@@ -9,8 +9,8 @@
  * and conditions of the applicable license agreement.
  *****************************************************************************/
 
-#ifndef LIBDASH_FRAMEWORK_INPUT_DASHRECEIVER_H_
-#define LIBDASH_FRAMEWORK_INPUT_DASHRECEIVER_H_
+#ifndef LIBDASH_FRAMEWORK_INPUT_DASHMANAGER_H_
+#define LIBDASH_FRAMEWORK_INPUT_DASHMANAGER_H_
 
 #include "IDataReceiver.h"
 #include "../Buffer/MediaObjectBuffer.h"
@@ -28,11 +28,11 @@ namespace libdash
     {
         namespace input
         {
-            class DASHReceiver : public IDataReceiver
+            class DASHManager : public IDataReceiver
             {
                 public:
-                    DASHReceiver            (uint32_t maxcapacity, adaptation::IAdaptationLogic *logic);
-                    virtual ~DASHReceiver   ();
+                    DASHManager             (uint32_t maxcapacity, adaptation::IAdaptationLogic *logic);
+                    virtual ~DASHManager    ();
 
                     bool        Start                           ();
                     void        Stop                            ();
@@ -60,4 +60,4 @@ namespace libdash
     }
 }
 
-#endif /* LIBDASH_FRAMEWORK_INPUT_DASHRECEIVER_H_ */
+#endif /* LIBDASH_FRAMEWORK_INPUT_DASHMANAGER_H_ */

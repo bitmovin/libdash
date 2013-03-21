@@ -15,7 +15,7 @@
 #include "IMPD.h"
 #include "IStreamObserver.h"
 #include "DecodingThread.h"
-#include "../libdashframework/Input/DASHReceiver.h"
+#include "../libdashframework/Input/DASHManager.h"
 #include "../libdashframework/Input/IDASHReceiverObserver.h"
 #include "../libdashframework/Buffer/IBufferObserver.h"
 #include "../libdashframework/Adaptation/IAdaptationLogic.h"
@@ -57,7 +57,7 @@ namespace sampleplayer
                 std::vector<IStreamObserver *>                      observers;
                 dash::mpd::IAdaptationSet                           *adaptationSet;
                 libdash::framework::adaptation::IAdaptationLogic    *logic;
-                libdash::framework::input::DASHReceiver             *receiver;
+                libdash::framework::input::DASHManager              *receiver;
                 DecodingThread                                      *decodingThread;
                 uint32_t                                            bufferSize;
                 uint32_t                                            width;
