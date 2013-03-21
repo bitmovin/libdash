@@ -107,7 +107,6 @@ void            MediaObjectBuffer::PopFront         ()
 {
     EnterCriticalSection(&this->monitorMutex);
 
-    delete(this->mediaobjects.front());
     this->mediaobjects.pop_front();
 
     WakeAllConditionVariable(&this->empty);
