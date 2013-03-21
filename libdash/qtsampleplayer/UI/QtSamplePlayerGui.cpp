@@ -33,7 +33,7 @@ QtSamplePlayerGui::QtSamplePlayerGui    (QWidget *parent) :
 }
 QtSamplePlayerGui::~QtSamplePlayerGui   ()
 {
-    delete this->ui;
+    delete (this->ui);
 }
 
 void            QtSamplePlayerGui::ClearComboBoxes                                  ()
@@ -233,6 +233,7 @@ void            QtSamplePlayerGui::NotifyStopButtonPressed                      
 /* UI Slots */
 void            QtSamplePlayerGui::on_button_mpd_clicked                            ()
 {
+    this->mpd = NULL;
     this->NotifyMPDDownloadPressed(this->GetUrl());
 }
 void            QtSamplePlayerGui::on_cb_period_currentIndexChanged                 (int index)
