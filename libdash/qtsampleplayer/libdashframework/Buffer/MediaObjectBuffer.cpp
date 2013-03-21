@@ -27,15 +27,11 @@ MediaObjectBuffer::MediaObjectBuffer    (uint32_t maxcapacity) :
 }
 MediaObjectBuffer::~MediaObjectBuffer   ()
 {
+    this->Clear();
+
     DeleteConditionVariable (&this->full);
     DeleteConditionVariable (&this->empty);
     DeleteCriticalSection   (&this->monitorMutex);
-
-    while(!this->mediaobjects.empty())
-    {
-        delete(this->mediaobjects.front());
-        this->mediaobjects.pop();
-    }
 }
 
 void            MediaObjectBuffer::Push             (MediaObject *media)
