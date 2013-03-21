@@ -32,7 +32,7 @@ namespace libdash
                     void                        Push            (adaptation::MediaObject *media);
                     adaptation::MediaObject*    Front           ();
                     void                        Pop             ();
-                    void                        Clear           ();
+                    void                        ClearTail       ();
                     void                        SetEOS          (bool value);
                     uint32_t                    Length          ();
                     uint32_t                    Capacity        ();

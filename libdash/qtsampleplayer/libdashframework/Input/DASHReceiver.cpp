@@ -90,7 +90,7 @@ int         DASHReceiver::Read                          (uint8_t *buf, int buf_s
 }
 void        DASHReceiver::Clear                         ()
 {
-    this->buffer->Clear();
+    this->buffer->ClearTail();
 }
 uint32_t    DASHReceiver::GetPosition                   ()
 {

@@ -117,7 +117,7 @@ void            MediaObjectBuffer::Notify           ()
         this->observer.at(i)->OnBufferStateChanged((int)((double)this->mediaobjects.size()/(double)this->maxcapacity*100.0));
     }
 }
-void            MediaObjectBuffer::Clear            ()
+void            MediaObjectBuffer::ClearTail        ()
 {
     EnterCriticalSection(&this->monitorMutex);
 
