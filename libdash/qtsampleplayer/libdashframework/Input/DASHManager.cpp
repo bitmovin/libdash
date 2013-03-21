@@ -82,7 +82,7 @@ int         DASHManager::Read                           (uint8_t *buf, int buf_s
     int ret = media->Read(buf, buf_size);
 
     if(ret == 0)
-        this->buffer->Pop();
+        this->buffer->PopFront();
     else
         return ret;
 
@@ -119,7 +119,7 @@ void*   DASHManager::DoBuffering   (void *receiver)
     while(media != NULL && dashmanager->isDownloading)
     {
         media->StartDownload();
-        dashmanager->buffer->Push(media);
+        dashmanager->buffer->PushBack(media);
         media->WaitFinished();
 
         dashmanager->NotifySegmentDownloaded();

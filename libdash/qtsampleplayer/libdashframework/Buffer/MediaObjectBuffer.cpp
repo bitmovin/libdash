@@ -34,7 +34,7 @@ MediaObjectBuffer::~MediaObjectBuffer   ()
     DeleteCriticalSection   (&this->monitorMutex);
 }
 
-void            MediaObjectBuffer::Push             (MediaObject *media)
+void            MediaObjectBuffer::PushBack         (MediaObject *media)
 {
     EnterCriticalSection(&this->monitorMutex);
 
@@ -83,7 +83,7 @@ uint32_t        MediaObjectBuffer::Length           ()
 
     return ret;
 }
-void            MediaObjectBuffer::Pop              ()
+void            MediaObjectBuffer::PopFront         ()
 {
     EnterCriticalSection(&this->monitorMutex);
 
