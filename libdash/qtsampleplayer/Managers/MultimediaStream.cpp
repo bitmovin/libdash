@@ -83,17 +83,17 @@ void        MultimediaStream::Clear                     ()
 {
     this->receiver->Clear();
 }
-void        MultimediaStream::NotifyVideoObservers      (const QImage& image)
+void        MultimediaStream::NotifyVideoObservers      (const QImage &image)
 {
     for(size_t i = 0; i < this->observers.size(); i++)
         this->observers.at(i)->OnVideoFrameAvailable(image, this->adaptationSet);
 }
-void        MultimediaStream::NotifyAudioObservers      (const QAudioFormat& format, const char *data, qint64 len)
+void        MultimediaStream::NotifyAudioObservers      (const QAudioFormat &format, const char *data, qint64 len)
 {
     for(size_t i = 0; i < this->observers.size(); i++)
         this->observers.at(i)->OnAudioSampleAvailable(format, data, len);
 }
-void        MultimediaStream::OnAudioDataAvailable      (const uint8_t **data, audioFrameProperties* props)
+void        MultimediaStream::OnAudioDataAvailable      (const uint8_t **data, audioFrameProperties *props)
 {
     QAudioFormat format;
     format.setSampleRate(props->sampleRate);
@@ -105,7 +105,7 @@ void        MultimediaStream::OnAudioDataAvailable      (const uint8_t **data, a
 
     this->NotifyAudioObservers(format, (char*)data[0], props->linesize);
 }
-void        MultimediaStream::OnVideoDataAvailable      (const uint8_t **data, videoFrameProperties* props)
+void        MultimediaStream::OnVideoDataAvailable      (const uint8_t **data, videoFrameProperties *props)
 {
     int w = props->width;
     int h = props->height;
