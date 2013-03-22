@@ -77,8 +77,11 @@ namespace sampleplayer
                 uint64_t                                                    videoSegmentsDecodingStarted;
                 uint64_t                                                    videoSegmentsDownloaded;
 
-                void InitVideoRendering (uint32_t offset);
-                void SetNewQAudioFormat (const QAudioFormat& format);
+                void    InitVideoRendering  (uint32_t offset);
+                void    InitAudioPlayback   (uint32_t offset);
+                void    SetNewQAudioFormat  (const QAudioFormat& format);
+                void    StopVideo           ();
+                void    StopAudio           ();
         };
     }
 }

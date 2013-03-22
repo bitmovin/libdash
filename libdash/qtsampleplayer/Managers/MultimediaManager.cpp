@@ -74,28 +74,56 @@ bool    MultimediaManager::Init                             (const std::string& 
 void    MultimediaManager::Start                            ()
 {
     /* Global Start button for start must be added to interface*/
-    if(this->isStarted)
-    {
+    if (this->isStarted)
         this->Stop();
+
+    if (this->videoAdaptationSet && this->videoRepresentation)
+    {
+        this->InitVideoRendering(0);
+        this->videoStream->Start();
     }
 
-    this->InitVideoRendering(0);
+    if (this->audioAdaptationSet && this->audioRepresentation)
+    {
+        this->InitAudioPlayback(0);
+        this->audioStream->Start();
+        this->audioElement->StartPlayback();
+    }
 
-    this->videoStream->Start();
-    //this->audioElement->StartPlayback();
     this->isStarted = true;
 }
 void    MultimediaManager::Stop                             ()
 {
-    if(this->isStarted)
+    this->StopVideo();
+    this->StopAudio();
+
+    this->isStarted = false;
+}
+void    MultimediaManager::StopVideo                        ()
+{
+    if(this->isStarted && this->videoStream)
     {
         this->videoStream->Stop();
+
         delete this->videoStream;
         delete this->videoLogic;
+
         this->videoStream = NULL;
         this->videoLogic = NULL;
     }
-    this->isStarted = false;
+}
+void    MultimediaManager::StopAudio                        ()
+{
+    if (this->isStarted && this->audioStream)
+    {
+        this->audioStream->Stop();
+
+        delete this->audioStream;
+        delete this->audioLogic;
+
+        this->audioStream = NULL;
+        this->audioLogic = NULL;
+    }
 }
 bool    MultimediaManager::SetVideoQuality                  (dash::mpd::IPeriod* period, IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation)
 {
@@ -109,7 +137,7 @@ bool    MultimediaManager::SetVideoQuality                  (dash::mpd::IPeriod*
     if(this->isStarted)
     {
         int position = this->videoSegmentsDecodingStarted;
-        this->Stop();
+        this->StopVideo();
 
         this->InitVideoRendering(position);
         this->videoStream->Start();
@@ -122,8 +150,14 @@ bool    MultimediaManager::SetVideoQuality                  (dash::mpd::IPeriod*
 }
 bool    MultimediaManager::SetAudioQuality                  (dash::mpd::IPeriod* period, IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation)
 {
-    //MUST NOT BE IMPLEMENTED YET
-    return false;
+    if (!this->isStarted)
+    {
+        this->period                = period;
+        this->audioAdaptationSet    = adaptationSet;
+        this->audioRepresentation   = representation;
+    }
+
+    return true;
 }
 bool    MultimediaManager::SetVideoAdaptationLogic          (libdash::framework::adaptation::LogicType type)
 {
@@ -170,6 +204,16 @@ void    MultimediaManager::InitVideoRendering               (uint32_t offset)
     {
         this->videoStream->AttachBufferObserver(this->videoBufferObservers.at(i));
     }
+}
+void    MultimediaManager::InitAudioPlayback                (uint32_t offset)
+{
+    this->audioLogic = AdaptationLogicFactory::Create(libdash::framework::adaptation::Manual, this->period, this->audioAdaptationSet, this->mpd);
+    this->audioLogic->SetPosition(offset);
+    this->audioLogic->SetRepresentation(this->audioRepresentation);
+    this->audioLogic->InvokeInitSegment(true);
+
+    this->audioStream = new MultimediaStream(this->audioAdaptationSet, this->audioLogic, SEGMENTBUFFER_SIZE, 0, 0);
+    this->audioStream->AttachStreamObserver(this);
 }
 void    MultimediaManager::SetNewQAudioFormat               (const QAudioFormat& format)
 {
