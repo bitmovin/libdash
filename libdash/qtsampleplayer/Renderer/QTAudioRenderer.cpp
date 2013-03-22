@@ -46,7 +46,7 @@ void                    QTAudioRenderer::StopPlayback   () const
 }
 void                    QTAudioRenderer::WriteToBuffer  (const char *data, qint64 len)
 {
-    this->byteArray.append(data, len);
+    this->byteArray.append(data, len); /* MAJOR LEAKAGE MUST BE FIXED */
 }
 void                    QTAudioRenderer::Init           ()
 {
