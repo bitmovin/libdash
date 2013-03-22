@@ -23,7 +23,8 @@ DASHManager::DASHManager        (uint32_t maxcapacity, IAdaptationLogic* logic) 
               readSegmentCount  (0),
               maxcapacity       (maxcapacity),
               logic             (logic),
-              isDownloading     (false)
+              isDownloading     (false),
+              bufferingThread   (NULL)
 {
     this->buffer = new MediaObjectBuffer(this->maxcapacity);
 }
