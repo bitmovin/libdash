@@ -228,8 +228,6 @@ bool                LibavDecoder::Decode                  ()
 }
 void                LibavDecoder::Stop                    ()
 {
-    //av_free_packet(&this->avpkt);
-
     this->FreeConfigs();
     avformat_close_input(&this->avFormatContextPtr);
     av_free(this->frame);
