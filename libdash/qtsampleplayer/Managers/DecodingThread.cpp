@@ -56,10 +56,7 @@ void* DecodingThread::Decode (void *data)
 
     bool eos = false;
 
-    while(!eos && decodingThread->run)
-    {
-        eos = !decodingThread->decoder->Decode();
-    }
+    while(decodingThread->decoder->Decode() && decodingThread->run);
 
     decodingThread->decoder->Stop();
 
