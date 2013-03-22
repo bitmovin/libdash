@@ -34,6 +34,7 @@ MultimediaManager::MultimediaManager            (QTGLRenderer *videoelement, QTA
                    videoSegmentsDecodingStarted (0)
 {
     this->manager = CreateDashManager();
+    av_register_all();
 }
 MultimediaManager::~MultimediaManager           ()
 {
