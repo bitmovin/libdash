@@ -49,8 +49,6 @@ namespace sampleplayer
                 void Stop                   ();
                 void AttachVideoObserver    (IVideoObserver *observer);
                 void AttachAudioObserver    (IAudioObserver *observer);
-                void NotifyVideo            (AVFrame *frame, StreamConfig *config);
-                void NotifyAudio            (AVFrame *frame, StreamConfig *config);
                 void SetFrameRate           (uint8_t rate);
 
             private:
@@ -71,7 +69,10 @@ namespace sampleplayer
                 int                 DecodeFrame     (AVFrame *frame, AVPacket *pkt, StreamConfig *streamCfg);
                 void                FreeConfigs     ();
                 void                Error           (std::string errormsg, int errorcode);
-                bool                errorHappened;
+                void                NotifyVideo     (AVFrame *frame, StreamConfig *config);
+                void                NotifyAudio     (AVFrame *frame, StreamConfig *config);
+
+                bool errorHappened;
         };
     }
 }
