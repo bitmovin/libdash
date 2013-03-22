@@ -64,9 +64,8 @@ void                    QTAudioRenderer::Init           ()
     this->format.setByteOrder(QAudioFormat::LittleEndian);
     this->format.setSampleType(QAudioFormat::SignedInt);
 
-    if (!this->deviceInfo.isFormatSupported(this->format)) {
+    if (!this->deviceInfo.isFormatSupported(this->format))
         format = this->deviceInfo.nearestFormat(this->format);
-    }
 
     this->audioOutput = new QAudioOutput(this->deviceInfo, this->format, this->parent);
 }
