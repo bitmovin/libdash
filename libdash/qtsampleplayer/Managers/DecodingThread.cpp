@@ -28,6 +28,7 @@ DecodingThread::DecodingThread  (IDataReceiver *receiver, IAudioObserver *audioO
 }
 DecodingThread::~DecodingThread ()
 {
+    this->Stop();
     delete(this->decoder);
 }
 
