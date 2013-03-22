@@ -56,13 +56,14 @@ void        DASHManager::Stop                           ()
 
     this->buffer->SetEOS(true);
     this->isDownloading = false;
-    this->buffer->Clear();
 
     if(this->bufferingThread != NULL)
     {
         WaitForSingleObject(this->bufferingThread, INFINITE);
         DestroyThreadPortable(this->bufferingThread);
     }
+
+    this->buffer->Clear();
 }
 void        DASHManager::AttachBufferObserver           (IBufferObserver* observer)
 {
