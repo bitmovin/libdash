@@ -117,6 +117,9 @@ void            MediaObjectBuffer::SetEOS           (bool value)
 {
     EnterCriticalSection(&this->monitorMutex);
 
+    for (size_t i = 0; i < this->mediaobjects.size(); i++)
+        this->mediaobjects.at(i)->AbortDownload();
+
     this->eos = value;
 
     WakeAllConditionVariable(&this->empty);

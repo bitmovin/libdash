@@ -54,8 +54,8 @@ void        DASHManager::Stop                           ()
     if(!this->isDownloading)
         return;
 
-    this->buffer->SetEOS(true);
     this->isDownloading = false;
+    this->buffer->SetEOS(true);
 
     if(this->bufferingThread != NULL)
     {
@@ -121,7 +121,10 @@ void*   DASHManager::DoBuffering   (void *receiver)
     while(media != NULL && dashmanager->isDownloading)
     {
         media->StartDownload();
-        dashmanager->buffer->PushBack(media);
+        
+        if (!dashmanager->buffer->PushBack(media))
+            return NULL;
+
         media->WaitFinished();
 
         dashmanager->NotifySegmentDownloaded();

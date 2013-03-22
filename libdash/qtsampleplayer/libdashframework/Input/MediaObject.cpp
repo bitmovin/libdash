@@ -37,6 +37,11 @@ MediaObject::~MediaObject   ()
     DeleteCriticalSection   (&this->stateLock);
 }
 
+void    MediaObject::AbortDownload          ()
+{
+    this->segment->AbortDownload();
+    this->OnDownloadStateChanged(ABORTED);
+}
 bool    MediaObject::StartDownload          ()
 {
     this->segment->AttachDownloadObserver(this);
