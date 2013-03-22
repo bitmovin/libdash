@@ -303,6 +303,11 @@ void            QtSamplePlayerGui::on_button_start_clicked                      
 {
     this->ui->button_start->setEnabled(false);
     this->ui->button_stop->setEnabled(true);
+    this->ui->cb_audio_adaptationset->setDisabled(true);
+    this->ui->cb_audio_representation->setDisabled(true);
+    this->ui->cb_mpd->setDisabled(true);
+    this->ui->lineEdit_mpd->setDisabled(true);
+    this->ui->button_mpd->setDisabled(true);
 
     this->NotifyStartButtonPressed();
 }
@@ -310,6 +315,11 @@ void            QtSamplePlayerGui::on_button_stop_clicked                       
 {
     this->ui->button_start->setEnabled(true);
     this->ui->button_stop->setEnabled(false);
+    this->ui->cb_audio_adaptationset->setDisabled(false);
+    this->ui->cb_audio_representation->setDisabled(false);
+    this->ui->cb_mpd->setDisabled(false);
+    this->ui->lineEdit_mpd->setDisabled(false);
+    this->ui->button_mpd->setDisabled(false);
 
     this->NotifyStopButtonPressed();
 }
