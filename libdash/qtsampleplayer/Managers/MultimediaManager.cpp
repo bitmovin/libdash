@@ -102,7 +102,7 @@ bool    MultimediaManager::SetVideoQuality                  (dash::mpd::IPeriod*
     {
         this->period = period;
     }
-    if(this->videoAdaptationSet != adaptationSet)
+    if(this->videoRepresentation->GetHeight() != representation->GetHeight())
     {
         this->videoAdaptationSet  = adaptationSet;
         this->videoRepresentation = representation;
