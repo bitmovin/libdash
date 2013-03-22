@@ -67,6 +67,10 @@ namespace sampleplayer
                 dash::mpd::IRepresentation                                  *videoRepresentation;
                 libdash::framework::adaptation::IAdaptationLogic            *videoLogic;
                 MultimediaStream                                            *videoStream;
+                dash::mpd::IAdaptationSet                                   *audioAdaptationSet;
+                dash::mpd::IRepresentation                                  *audioRepresentation;
+                libdash::framework::adaptation::IAdaptationLogic            *audioLogic;
+                MultimediaStream                                            *audioStream;
                 std::vector<libdash::framework::buffer::IBufferObserver* >  videoBufferObservers;
                 bool                                                        isStarted;
                 uint64_t                                                    framesDisplayed;

@@ -31,7 +31,11 @@ MultimediaManager::MultimediaManager            (QTGLRenderer *videoelement, QTA
                    isStarted                    (false),
                    framesDisplayed              (0),
                    videoSegmentsDownloaded      (0),
-                   videoSegmentsDecodingStarted (0)
+                   videoSegmentsDecodingStarted (0),
+                   audioAdaptationSet           (NULL),
+                   audioRepresentation          (NULL),
+                   audioLogic                   (NULL),
+                   audioStream                  (NULL)
 {
     this->manager = CreateDashManager();
     av_register_all();
@@ -103,25 +107,18 @@ bool    MultimediaManager::SetVideoQuality                  (dash::mpd::IPeriod*
     {
         this->period = period;
     }
-    if(this->videoRepresentation->GetHeight() != representation->GetHeight())
-    {
-        this->videoAdaptationSet  = adaptationSet;
-        this->videoRepresentation = representation;
-        if(this->isStarted)
-        {
-            int position = this->videoSegmentsDecodingStarted;
-            this->Stop();
 
-            this->InitVideoRendering(position);
-            this->videoStream->Start();
-
-            this->isStarted = true;
-        }
-    }
-    if(this->isStarted && representation != this->videoRepresentation)
+    this->videoAdaptationSet  = adaptationSet;
+    this->videoRepresentation = representation;
+    if(this->isStarted)
     {
-        this->videoStream->Clear();
-        this->videoLogic->SetRepresentation(representation);
+        int position = this->videoSegmentsDecodingStarted;
+        this->Stop();
+
+        this->InitVideoRendering(position);
+        this->videoStream->Start();
+
+        this->isStarted = true;
     }
     this->videoRepresentation = representation;
 
