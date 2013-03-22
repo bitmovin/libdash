@@ -132,8 +132,8 @@ bool    MultimediaManager::SetVideoAdaptationLogic          (libdash::framework:
 }
 bool    MultimediaManager::SetAudioAdaptationLogic          (libdash::framework::adaptation::LogicType type)
 {
-    /* MUST NOT BE IMPLEMENTED YET */
-    return false;
+    //Currently unused, always using ManualAdaptation.
+    return true;
 }
 void    MultimediaManager::NotifyVideoObservers             ()
 {
