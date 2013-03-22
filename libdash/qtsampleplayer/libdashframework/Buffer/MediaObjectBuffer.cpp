@@ -34,7 +34,7 @@ MediaObjectBuffer::~MediaObjectBuffer   ()
     DeleteCriticalSection   (&this->monitorMutex);
 }
 
-void            MediaObjectBuffer::PushBack         (MediaObject *media)
+bool            MediaObjectBuffer::PushBack         (MediaObject *media)
 {
     EnterCriticalSection(&this->monitorMutex);
 
@@ -43,9 +43,8 @@ void            MediaObjectBuffer::PushBack         (MediaObject *media)
 
     if(this->mediaobjects.size() >= this->maxcapacity)
     {
-        delete(media);
         LeaveCriticalSection(&this->monitorMutex);
-        return;
+        return false;
     }
 
     this->mediaobjects.push_back(media);
@@ -53,6 +52,7 @@ void            MediaObjectBuffer::PushBack         (MediaObject *media)
     WakeAllConditionVariable(&this->full);
     LeaveCriticalSection(&this->monitorMutex);
     this->Notify();
+    return true;
 }
 MediaObject*    MediaObjectBuffer::Front            ()
 {

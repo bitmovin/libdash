@@ -29,7 +29,7 @@ namespace libdash
                     MediaObjectBuffer                           (uint32_t maxcapacity);
                     virtual ~MediaObjectBuffer                  ();
 
-                    void                        PushBack        (input::MediaObject *media);
+                    bool                        PushBack        (input::MediaObject *media);
                     input::MediaObject*         Front           ();
                     input::MediaObject*         GetFront        ();
                     void                        PopFront        ();
