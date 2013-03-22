@@ -76,6 +76,7 @@ namespace sampleplayer
                 uint64_t                                                    framesDisplayed;
                 uint64_t                                                    videoSegmentsDecodingStarted;
                 uint64_t                                                    videoSegmentsDownloaded;
+                CRITICAL_SECTION                                            monitorMutex;
 
                 void    InitVideoRendering  (uint32_t offset);
                 void    InitAudioPlayback   (uint32_t offset);

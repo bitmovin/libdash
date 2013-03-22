@@ -37,12 +37,16 @@ MultimediaManager::MultimediaManager            (QTGLRenderer *videoelement, QTA
                    audioLogic                   (NULL),
                    audioStream                  (NULL)
 {
+    InitializeCriticalSection (&this->monitorMutex);
+
     this->manager = CreateDashManager();
     av_register_all();
 }
 MultimediaManager::~MultimediaManager           ()
 {
     this->Stop();
+
+    DeleteCriticalSection (&this->monitorMutex);
 }
 
 void    MultimediaManager::OnVideoFrameAvailable            (const QImage& image, dash::mpd::IAdaptationSet *adaptationSet)
@@ -64,11 +68,17 @@ IMPD*   MultimediaManager::GetMPD                           ()
 }
 bool    MultimediaManager::Init                             (const std::string& url)
 {
+    EnterCriticalSection(&this->monitorMutex);
+
     this->mpd = this->manager->Open((char *)url.c_str());
 
     if(this->mpd == NULL)
+    {
+        LeaveCriticalSection(&this->monitorMutex);
         return false;
+    }
 
+    LeaveCriticalSection(&this->monitorMutex);
     return true;
 }
 void    MultimediaManager::Start                            ()
@@ -76,6 +86,8 @@ void    MultimediaManager::Start                            ()
     /* Global Start button for start must be added to interface*/
     if (this->isStarted)
         this->Stop();
+
+    EnterCriticalSection(&this->monitorMutex);
 
     if (this->videoAdaptationSet && this->videoRepresentation)
     {
@@ -91,13 +103,19 @@ void    MultimediaManager::Start                            ()
     }
 
     this->isStarted = true;
+
+    LeaveCriticalSection(&this->monitorMutex);
 }
 void    MultimediaManager::Stop                             ()
 {
+    EnterCriticalSection(&this->monitorMutex);
+
     this->StopVideo();
     this->StopAudio();
 
     this->isStarted = false;
+
+    LeaveCriticalSection(&this->monitorMutex);
 }
 void    MultimediaManager::StopVideo                        ()
 {
@@ -127,6 +145,8 @@ void    MultimediaManager::StopAudio                        ()
 }
 bool    MultimediaManager::SetVideoQuality                  (dash::mpd::IPeriod* period, IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation)
 {
+    EnterCriticalSection(&this->monitorMutex);
+
     if(this->period != period)
     {
         this->period = period;
@@ -146,10 +166,13 @@ bool    MultimediaManager::SetVideoQuality                  (dash::mpd::IPeriod*
     }
     this->videoRepresentation = representation;
 
+    LeaveCriticalSection(&this->monitorMutex);
     return true;
 }
 bool    MultimediaManager::SetAudioQuality                  (dash::mpd::IPeriod* period, IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation)
 {
+    EnterCriticalSection(&this->monitorMutex);
+
     if (!this->isStarted)
     {
         this->period                = period;
@@ -157,6 +180,7 @@ bool    MultimediaManager::SetAudioQuality                  (dash::mpd::IPeriod*
         this->audioRepresentation   = representation;
     }
 
+    LeaveCriticalSection(&this->monitorMutex);
     return true;
 }
 bool    MultimediaManager::SetVideoAdaptationLogic          (libdash::framework::adaptation::LogicType type)
