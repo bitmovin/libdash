@@ -182,7 +182,7 @@ int                 LibavDecoder::DecodeFrame             (AVFrame *frame, AVPac
         if(len < 0)
         {
             this->Error("Error while decoding frame", len);
-            ret = -1;
+            return -1;
         }
         if(got_frame)
         {
