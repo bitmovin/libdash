@@ -50,8 +50,6 @@ void                    QTAudioRenderer::WriteToBuffer  (const char *data, qint6
 }
 void                    QTAudioRenderer::Init           ()
 {
-    byteArray         = QByteArray();
-    this->format      = QAudioFormat();
     this->buffer      = new QBuffer(&byteArray);
     this->deviceInfo  = QAudioDeviceInfo(QAudioDeviceInfo::defaultOutputDevice());
 
