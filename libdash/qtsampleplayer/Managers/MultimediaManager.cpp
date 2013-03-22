@@ -17,7 +17,7 @@ using namespace sampleplayer::managers;
 using namespace sampleplayer::renderer;
 using namespace dash::mpd;
 
-#define SEGMENTBUFFER_SIZE 20
+#define SEGMENTBUFFER_SIZE 10
 
 MultimediaManager::MultimediaManager            (QTGLRenderer *videoelement, QTAudioRenderer *audioElement) :
                    videoelement                 (videoelement),
