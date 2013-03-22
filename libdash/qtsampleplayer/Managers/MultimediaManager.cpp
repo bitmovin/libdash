@@ -65,13 +65,9 @@ IMPD*   MultimediaManager::GetMPD                           ()
 bool    MultimediaManager::Init                             (const std::string& url)
 {
     this->mpd = this->manager->Open((char *)url.c_str());
-    
+
     if(this->mpd == NULL)
         return false;
-
-    this->period                = this->mpd->GetPeriods().at(0);
-    this->videoAdaptationSet    = this->mpd->GetPeriods().at(0)->GetAdaptationSets().at(0);
-    this->videoRepresentation   = this->videoAdaptationSet->GetRepresentation().at(0);
 
     return true;
 }
