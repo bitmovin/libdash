@@ -110,32 +110,29 @@ void        MultimediaStream::OnVideoDataAvailable      (const uint8_t **data, v
     int w = props->width;
     int h = props->height;
 
-    if(this->width > 0)
-        w = this->width;
-    if(this->height > 0)
-        h = this->height;
-
     AVFrame *rgbframe   = avcodec_alloc_frame();
-    int     numBytes    = avpicture_get_size(PIX_FMT_RGB32, w, h);
+    int     numBytes    = avpicture_get_size(PIX_FMT_RGB24, w, h);
     uint8_t *buffer     = (uint8_t*)av_malloc(numBytes);
 
-    avpicture_fill((AVPicture*)rgbframe, buffer, PIX_FMT_RGB32, w, h);
+    avpicture_fill((AVPicture*)rgbframe, buffer, PIX_FMT_RGB24, w, h);
 
-    SwsContext *imgConvertCtx = sws_getContext(props->width, props->height, (PixelFormat)props->pxlFmt, w, h, PIX_FMT_RGB32, SWS_BICUBIC, NULL, NULL, NULL);
+    SwsContext *imgConvertCtx = sws_getContext(props->width, props->height, (PixelFormat)props->pxlFmt, w, h, PIX_FMT_RGB24, SWS_BICUBIC, NULL, NULL, NULL);
 
     sws_scale(imgConvertCtx, data, props->linesize, 0, h, rgbframe->data, rgbframe->linesize);
 
     QImage image(w, h, QImage::Format_RGB32);
     int x, y;
-    int *src = (int*)rgbframe->data[0];
+    unsigned char *src = (unsigned char *)rgbframe->data[0];
 
-    for (y = 0; y < h; y++)
+    for (int y = 0; y < h; y++)
     {
-        for (x = 0; x < w; x++)
+        QRgb *scanLine = (QRgb *)image.scanLine(y);
+
+        for (int x = 0; x < w; x++)
         {
-            image.setPixel(x, y, src[x] & 0x00ffffff);
+            scanLine[x] = qRgb(src[3*x], src[3*x+1], src[3*x+2]);
         }
-        src += w;
+        src += rgbframe->linesize[0];
     }
 
     this->NotifyVideoObservers(image);
