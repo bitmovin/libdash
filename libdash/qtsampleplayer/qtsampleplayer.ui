@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>898</width>
-    <height>516</height>
+    <height>551</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -272,6 +272,44 @@
            <widget class="QProgressBar" name="progressBar">
             <property name="value">
              <number>24</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="bitmovinLogo">
+            <property name="maximumSize">
+             <size>
+              <width>182</width>
+              <height>49</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="pixmap">
+             <pixmap>../bin/bitmovin.png</pixmap>
+            </property>
+            <property name="scaledContents">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="libdashLogo">
+            <property name="maximumSize">
+             <size>
+              <width>182</width>
+              <height>62</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="pixmap">
+             <pixmap>../bin/libdash.png</pixmap>
+            </property>
+            <property name="scaledContents">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
