@@ -119,17 +119,15 @@ void        MultimediaStream::OnVideoDataAvailable      (const uint8_t **data, v
     sws_scale(imgConvertCtx, data, props->linesize, 0, h, rgbframe->data, rgbframe->linesize);
 
     QImage image(w, h, QImage::Format_RGB32);
-    int x, y;
-    unsigned char *src = (unsigned char *)rgbframe->data[0];
+    uint8_t *src = (uint8_t *)rgbframe->data[0];
 
-    for (int y = 0; y < h; y++)
+    for (size_t y = 0; y < h; y++)
     {
         QRgb *scanLine = (QRgb *)image.scanLine(y);
 
-        for (int x = 0; x < w; x++)
-        {
-            scanLine[x] = qRgb(src[3*x], src[3*x+1], src[3*x+2]);
-        }
+        for (size_t x = 0; x < w; x++)
+            scanLine[x] = qRgb(src[3 * x], src[3 * x + 1], src[3 * x + 2]);
+
         src += rgbframe->linesize[0];
     }
 
