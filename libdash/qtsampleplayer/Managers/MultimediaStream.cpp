@@ -17,12 +17,10 @@ using namespace libdash::framework::adaptation;
 using namespace libdash::framework::input;
 using namespace dash::mpd;
 
-MultimediaStream::MultimediaStream  (IAdaptationSet *adaptationSet, IAdaptationLogic *logic, uint32_t bufferSize, uint32_t width, uint32_t height) :
+MultimediaStream::MultimediaStream  (IAdaptationSet *adaptationSet, IAdaptationLogic *logic, uint32_t bufferSize) :
                   adaptationSet     (adaptationSet),
                   logic             (logic),
                   bufferSize        (bufferSize),
-                  width             (width),
-                  height            (height),
                   receiver          (NULL),
                   decodingThread    (NULL)
 {

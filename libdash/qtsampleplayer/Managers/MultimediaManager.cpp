@@ -221,7 +221,7 @@ void    MultimediaManager::InitVideoRendering               (uint32_t offset)
     this->videoLogic->SetRepresentation(this->videoRepresentation);
     this->videoLogic->InvokeInitSegment(true);
 
-    this->videoStream = new MultimediaStream(this->videoAdaptationSet, this->videoLogic, SEGMENTBUFFER_SIZE, 0, 0);
+    this->videoStream = new MultimediaStream(this->videoAdaptationSet, this->videoLogic, SEGMENTBUFFER_SIZE);
     this->videoStream->AttachStreamObserver(this);
 
     for(int i=0; i < this->videoBufferObservers.size(); i++)
@@ -236,7 +236,7 @@ void    MultimediaManager::InitAudioPlayback                (uint32_t offset)
     this->audioLogic->SetRepresentation(this->audioRepresentation);
     this->audioLogic->InvokeInitSegment(true);
 
-    this->audioStream = new MultimediaStream(this->audioAdaptationSet, this->audioLogic, SEGMENTBUFFER_SIZE, 0, 0);
+    this->audioStream = new MultimediaStream(this->audioAdaptationSet, this->audioLogic, SEGMENTBUFFER_SIZE);
     this->audioStream->AttachStreamObserver(this);
 }
 void    MultimediaManager::SetNewQAudioFormat               (const QAudioFormat& format)
