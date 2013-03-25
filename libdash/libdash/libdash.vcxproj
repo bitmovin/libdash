@@ -15,6 +15,9 @@
     <ClCompile Include="source\helpers\Path.cpp" />
     <ClCompile Include="source\helpers\String.cpp" />
     <ClCompile Include="source\helpers\SyncedBlockStream.cpp" />
+    <ClCompile Include="source\metrics\HTTPTransaction.cpp" />
+    <ClCompile Include="source\metrics\TCPConnection.cpp" />
+    <ClCompile Include="source\metrics\ThroughputMeasurement.cpp" />
     <ClCompile Include="source\mpd\AbstractMPDElement.cpp" />
     <ClCompile Include="source\mpd\BaseUrl.cpp" />
     <ClCompile Include="source\mpd\ContentComponent.cpp" />
@@ -56,6 +59,7 @@
     <ClInclude Include="include\IDescriptor.h" />
     <ClInclude Include="include\IDownloadableChunk.h" />
     <ClInclude Include="include\IDownloadObserver.h" />
+    <ClInclude Include="include\IHTTPTransaction.h" />
     <ClInclude Include="include\IMetrics.h" />
     <ClInclude Include="include\IMPD.h" />
     <ClInclude Include="include\IMultipleSegmentBase.h" />
@@ -73,6 +77,8 @@
     <ClInclude Include="include\ISegmentURL.h" />
     <ClInclude Include="include\ISubRepresentation.h" />
     <ClInclude Include="include\ISubset.h" />
+    <ClInclude Include="include\ITCPConnection.h" />
+    <ClInclude Include="include\IThroughputMeasurement.h" />
     <ClInclude Include="include\ITimeline.h" />
     <ClInclude Include="include\IURLType.h" />
     <ClInclude Include="include\IMPDElement.h" />
@@ -82,6 +88,9 @@
     <ClInclude Include="include\IChunk.h" />
     <ClInclude Include="source\helpers\String.h" />
     <ClInclude Include="source\helpers\SyncedBlockStream.h" />
+    <ClInclude Include="source\metrics\HTTPTransaction.h" />
+    <ClInclude Include="source\metrics\TCPConnection.h" />
+    <ClInclude Include="source\metrics\ThroughputMeasurement.h" />
     <ClInclude Include="source\mpd\AbstractMPDElement.h" />
     <ClInclude Include="source\mpd\ContentComponent.h" />
     <ClInclude Include="source\mpd\Descriptor.h" />

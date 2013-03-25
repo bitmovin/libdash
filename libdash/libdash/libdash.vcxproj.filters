@@ -123,6 +123,15 @@
     <ClCompile Include="source\network\DownloadStateManager.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="source\metrics\HTTPTransaction.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="source\metrics\TCPConnection.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="source\metrics\ThroughputMeasurement.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\targetver.h">
@@ -327,6 +336,24 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="include\config.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="source\metrics\HTTPTransaction.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IHTTPTransaction.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="source\metrics\TCPConnection.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ITCPConnection.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="source\metrics\ThroughputMeasurement.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IThroughputMeasurement.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
