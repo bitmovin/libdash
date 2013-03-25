@@ -80,7 +80,6 @@ namespace sampleplayer
 
                 void    InitVideoRendering  (uint32_t offset);
                 void    InitAudioPlayback   (uint32_t offset);
-                void    SetNewQAudioFormat  (const QAudioFormat& format);
                 void    StopVideo           ();
                 void    StopAudio           ();
         };

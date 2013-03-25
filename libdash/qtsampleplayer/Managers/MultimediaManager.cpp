@@ -239,10 +239,6 @@ void    MultimediaManager::InitAudioPlayback                (uint32_t offset)
     this->audioStream = new MultimediaStream(this->audioAdaptationSet, this->audioLogic, SEGMENTBUFFER_SIZE);
     this->audioStream->AttachStreamObserver(this);
 }
-void    MultimediaManager::SetNewQAudioFormat               (const QAudioFormat& format)
-{
-    /* create new AudioOutput and set format */
-}
 void    MultimediaManager::OnVideoSegmentDecodingStarted    ()
 {
     this->videoSegmentsDecodingStarted++;
