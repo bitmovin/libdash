@@ -134,6 +134,8 @@ void    MultimediaManager::StopAudio                        ()
 {
     if (this->isStarted && this->audioStream)
     {
+        this->audioElement->StopPlayback();
+
         this->audioStream->Stop();
 
         delete this->audioStream;
