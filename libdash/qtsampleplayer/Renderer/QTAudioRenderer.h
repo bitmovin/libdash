@@ -32,13 +32,13 @@ namespace sampleplayer
 
                 void                    SetAudioFormat  (const QAudioFormat& format);
                 const QAudioFormat&     AudioFormat     () const;
-                void                    StartPlayback   () const;
-                void                    StopPlayback    () const;
+                void                    StartPlayback   ();
+                void                    StopPlayback    ();
                 void                    WriteToBuffer   (const char *data, qint64 len);
 
             private:
                 QAudioOutput        *audioOutput;
-                QBuffer             *buffer;
+                QBuffer             buffer;
                 QAudioFormat        format;
                 QAudioDeviceInfo    deviceInfo;
                 QObject             *parent;

@@ -22,7 +22,7 @@ QTAudioRenderer::QTAudioRenderer(QWidget *parent) :
 QTAudioRenderer::~QTAudioRenderer()
 {
     delete this->audioOutput;
-    delete this->buffer;
+    this->audioOutput = NULL;
 }
 
 void                    QTAudioRenderer::SetAudioFormat (const QAudioFormat& format)
@@ -33,16 +33,14 @@ const QAudioFormat&     QTAudioRenderer::AudioFormat    () const
 {
     return this->format;
 }
-void                    QTAudioRenderer::StartPlayback  () const
+void                    QTAudioRenderer::StartPlayback  ()
 {
-    this->audioOutput->start(this->buffer);
+    this->audioOutput->start(&this->buffer);
 }
-void                    QTAudioRenderer::StopPlayback   () const
+void                    QTAudioRenderer::StopPlayback   ()
 {
     if (this->audioOutput->state() == QAudio::ActiveState)
         this->audioOutput->stop();
-
-    this->buffer->close();
 }
 void                    QTAudioRenderer::WriteToBuffer  (const char *data, qint64 len)
 {
@@ -50,10 +48,10 @@ void                    QTAudioRenderer::WriteToBuffer  (const char *data, qint6
 }
 void                    QTAudioRenderer::Init           ()
 {
-    this->buffer      = new QBuffer(&byteArray);
-    this->deviceInfo  = QAudioDeviceInfo(QAudioDeviceInfo::defaultOutputDevice());
+    this->buffer.setBuffer(&byteArray);
+    this->buffer.open(QIODevice::ReadWrite);
 
-    this->buffer->open(QIODevice::ReadWrite);
+    this->deviceInfo  = QAudioDeviceInfo(QAudioDeviceInfo::defaultOutputDevice());
 
     this->format.setSampleRate(48000);
     this->format.setChannelCount(2);
