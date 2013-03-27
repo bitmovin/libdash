@@ -15,11 +15,7 @@ using namespace dash::mpd;
 using namespace libdash::framework::mpd;
 
 SingleMediaSegmentStream::SingleMediaSegmentStream      (IMPD *mpd, IPeriod *period, IAdaptationSet *adaptationSet, IRepresentation *representation) :
-                          AbstractRepresentationStream  (mpd, period, adaptationSet, representation),
-                          mpd                           (mpd),
-                          period                        (period),
-                          adaptationSet                 (adaptationSet),
-                          representation                (representation)
+                          AbstractRepresentationStream  (mpd, period, adaptationSet, representation)
 {
     this->baseUrls = BaseUrlResolver::ResolveBaseUrl(mpd, period, adaptationSet, 0, 0, 0);
 }
@@ -65,4 +61,16 @@ ISegment*                   SingleMediaSegmentStream::GetBitstreamSwitchingSegme
 RepresentationStreamType    SingleMediaSegmentStream::GetStreamType                 ()
 {
     return SingleMediaSegment;
+}
+uint32_t                    SingleMediaSegmentStream::GetFirstSegmentNumber           ()
+{
+    return 0;
+}
+uint32_t                    SingleMediaSegmentStream::GetCurrentSegmentNumber         ()
+{
+    return 0;
+}
+uint32_t                    SingleMediaSegmentStream::GetLastSegmentNumber            ()
+{
+    return 0;
 }

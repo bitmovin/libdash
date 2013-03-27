@@ -15,11 +15,7 @@ using namespace dash::mpd;
 using namespace libdash::framework::mpd;
 
 SegmentListStream::SegmentListStream            (IMPD *mpd, IPeriod *period, IAdaptationSet *adaptationSet, IRepresentation *representation) :
-                   AbstractRepresentationStream (mpd, period, adaptationSet, representation),
-                   mpd                          (mpd),
-                   period                       (period),
-                   adaptationSet                (adaptationSet),
-                   representation               (representation)
+                   AbstractRepresentationStream (mpd, period, adaptationSet, representation)
 {
     this->baseUrls      = BaseUrlResolver::ResolveBaseUrl(mpd, period, adaptationSet, 0, 0, 0);
     this->segmentList   = FindSegmentList(); 
@@ -75,4 +71,9 @@ ISegmentList*               SegmentListStream::FindSegmentList              ()
         return this->period->GetSegmentList();
 
     return NULL;
+}
+uint32_t                    SegmentListStream::GetAverageSegmentDuration    ()
+{
+    /* TODO calculate average segment durations for SegmentTimeline */
+    return this->segmentList->GetDuration();
 }

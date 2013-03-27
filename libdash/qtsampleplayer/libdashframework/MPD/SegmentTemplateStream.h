@@ -36,14 +36,12 @@ namespace libdash
                     virtual RepresentationStreamType    GetStreamType                   ();
                     virtual uint32_t                    GetSize                         ();
 
+                    virtual uint32_t                    GetAverageSegmentDuration       ();
+
                 private:
                     dash::mpd::ISegmentTemplate*        FindSegmentTemplate             ();
                     void                                CalculateSegmentStartTimes      ();
 
-                    dash::mpd::IMPD             *mpd;
-                    dash::mpd::IPeriod          *period;
-                    dash::mpd::IAdaptationSet   *adaptationSet;
-                    dash::mpd::IRepresentation  *representation;
                     dash::mpd::ISegmentTemplate *segmentTemplate;
                     std::vector<uint32_t>       segmentStartTimes;
             };

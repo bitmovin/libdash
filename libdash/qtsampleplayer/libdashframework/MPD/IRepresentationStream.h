@@ -39,6 +39,10 @@ namespace libdash
                     virtual dash::mpd::ISegment*        GetBitstreamSwitchingSegment    () = 0;
                     virtual RepresentationStreamType    GetStreamType                   () = 0;
                     virtual uint32_t                    GetSize                         () = 0;
+                    virtual uint32_t                    GetFirstSegmentNumber           () = 0;
+                    virtual uint32_t                    GetCurrentSegmentNumber         () = 0;
+                    virtual uint32_t                    GetLastSegmentNumber            () = 0;
+                    virtual uint32_t                    GetAverageSegmentDuration       () = 0;
             };
         }
     }

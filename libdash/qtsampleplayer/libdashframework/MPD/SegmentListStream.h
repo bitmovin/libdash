@@ -35,15 +35,13 @@ namespace libdash
                     virtual dash::mpd::ISegment*        GetBitstreamSwitchingSegment    ();
                     virtual RepresentationStreamType    GetStreamType                   ();
                     virtual uint32_t                    GetSize                         ();
+                    virtual uint32_t                    GetAverageSegmentDuration       ();
 
                 private:
                     dash::mpd::ISegmentList*            FindSegmentList                 ();
 
-                    dash::mpd::IMPD             *mpd;
-                    dash::mpd::IPeriod          *period;
-                    dash::mpd::IAdaptationSet   *adaptationSet;
-                    dash::mpd::IRepresentation  *representation;
-                    dash::mpd::ISegmentList     *segmentList;
+                    dash::mpd::ISegmentList             *segmentList;
+
             };
         }
     }

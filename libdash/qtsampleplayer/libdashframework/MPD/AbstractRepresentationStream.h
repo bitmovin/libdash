@@ -19,6 +19,7 @@
 #include "IMPD.h"
 #include "IPeriod.h"
 #include "BaseUrlResolver.h"
+#include "TimeResolver.h"
 
 namespace libdash
 {
@@ -40,11 +41,19 @@ namespace libdash
                     virtual RepresentationStreamType    GetStreamType                   () = 0;
 
                     virtual uint32_t                    GetSize                         ();
+                    virtual uint32_t                    GetFirstSegmentNumber           ();
+                    virtual uint32_t                    GetCurrentSegmentNumber         ();
+                    virtual uint32_t                    GetLastSegmentNumber            ();
+                    virtual uint32_t                    GetAverageSegmentDuration       ();
 
                 protected:
                     virtual void                        SetBaseUrls                     (const std::vector<dash::mpd::IBaseUrl *> baseurls);
-                    std::vector<dash::mpd::IBaseUrl *>  baseUrls;
 
+                    std::vector<dash::mpd::IBaseUrl *>  baseUrls;
+                    dash::mpd::IMPD                     *mpd;
+                    dash::mpd::IPeriod                  *period;
+                    dash::mpd::IAdaptationSet           *adaptationSet;
+                    dash::mpd::IRepresentation          *representation;
             };
         }
     }

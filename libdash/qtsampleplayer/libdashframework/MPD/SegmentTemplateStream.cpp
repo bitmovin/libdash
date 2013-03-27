@@ -15,11 +15,7 @@ using namespace dash::mpd;
 using namespace libdash::framework::mpd;
 
 SegmentTemplateStream::SegmentTemplateStream            (IMPD *mpd, IPeriod *period, IAdaptationSet *adaptationSet, IRepresentation *representation) :
-                       AbstractRepresentationStream     (mpd, period, adaptationSet, representation),
-                       mpd                              (mpd),
-                       period                           (period),
-                       adaptationSet                    (adaptationSet),
-                       representation                   (representation)
+                       AbstractRepresentationStream     (mpd, period, adaptationSet, representation)
 {
     this->baseUrls          = BaseUrlResolver::ResolveBaseUrl(mpd, period, adaptationSet, 0, 0, 0);
     this->segmentTemplate   = FindSegmentTemplate();
@@ -64,6 +60,7 @@ ISegment*                   SegmentTemplateStream::GetMediaSegment              
     /* number-based template */
     return this->segmentTemplate->GetMediaSegmentFromNumber(baseUrls, representation->GetId(), representation->GetBandwidth(),
                                                             this->segmentTemplate->GetStartNumber() + segmentNumber);
+
 }
 ISegment*                   SegmentTemplateStream::GetBitstreamSwitchingSegment ()
 {
@@ -79,6 +76,11 @@ RepresentationStreamType    SegmentTemplateStream::GetStreamType                
 uint32_t                    SegmentTemplateStream::GetSize                      ()
 {
     return this->segmentStartTimes.size() ? this->segmentStartTimes.size() : UINT32_MAX - 1;
+}
+uint32_t                    SegmentTemplateStream::GetAverageSegmentDuration    ()
+{
+    /* TODO calculate average segment durations for SegmentTimeline */
+    return this->segmentTemplate->GetDuration();
 }
 ISegmentTemplate*           SegmentTemplateStream::FindSegmentTemplate          ()
 {
