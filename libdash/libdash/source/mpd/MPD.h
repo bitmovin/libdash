@@ -49,6 +49,7 @@ namespace dash
                 const std::string&                          GetMaxSegmentDuration           ()  const;
                 const std::string&                          GetMaxSubsegmentDuration        ()  const;
                 IBaseUrl*                                   GetMPDPathBaseUrl               ()  const;
+                uint32_t                                    GetFetchTime                    ()  const;
 
                 void    AddProgramInformation           (ProgramInformation *programInformation);
                 void    AddBaseUrl                      (BaseUrl *url);
@@ -68,6 +69,7 @@ namespace dash
                 void    SetMaxSegmentDuration           (const std::string& maxSegmentDuration);
                 void    SetMaxSubsegmentDuration        (const std::string& maxSubsegmentDuration);
                 void    SetMPDPathBaseUrl               (BaseUrl *path);
+                void    SetFetchTime                    (uint32_t fetchTimeInSec);
 
             private:
                 std::vector<ProgramInformation *>   programInformations;
@@ -88,6 +90,7 @@ namespace dash
                 std::string                         maxSegmentDuration;
                 std::string                         maxSubsegmentDuration;
                 BaseUrl                             *mpdPathBaseUrl;
+                uint32_t                            fetchTime;
         };
     }
 }

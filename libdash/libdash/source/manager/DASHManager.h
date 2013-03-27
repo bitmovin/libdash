@@ -17,6 +17,7 @@
 #include "../xml/Node.h"
 #include "../xml/DOMParser.h"
 #include "IDASHManager.h"
+#include "../helpers/Time.h"
 
 namespace dash
 {

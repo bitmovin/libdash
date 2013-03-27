@@ -15,6 +15,7 @@ using namespace dash;
 using namespace dash::xml;
 using namespace dash::mpd;
 using namespace dash::network;
+using namespace dash::helpers;
 
 DASHManager::DASHManager            ()
 {
@@ -26,10 +27,15 @@ IMPD*           DASHManager::Open           (char *path)
 {
     DOMParser parser(path);
 
+    uint32_t fetchTime = Time::GetCurrentTimeInSec();
+
     if(!parser.Parse())
         return NULL;
 
     IMPD* mpd = parser.GetRootNode()->ToMPD();
+
+    if (mpd)
+        mpd->SetFetchTime(fetchTime);
 
     return mpd;
 }

@@ -15,6 +15,7 @@
     <ClCompile Include="source\helpers\Path.cpp" />
     <ClCompile Include="source\helpers\String.cpp" />
     <ClCompile Include="source\helpers\SyncedBlockStream.cpp" />
+    <ClCompile Include="source\helpers\Time.cpp" />
     <ClCompile Include="source\metrics\HTTPTransaction.cpp" />
     <ClCompile Include="source\metrics\TCPConnection.cpp" />
     <ClCompile Include="source\metrics\ThroughputMeasurement.cpp" />
@@ -88,6 +89,7 @@
     <ClInclude Include="include\IChunk.h" />
     <ClInclude Include="source\helpers\String.h" />
     <ClInclude Include="source\helpers\SyncedBlockStream.h" />
+    <ClInclude Include="source\helpers\Time.h" />
     <ClInclude Include="source\metrics\HTTPTransaction.h" />
     <ClInclude Include="source\metrics\TCPConnection.h" />
     <ClInclude Include="source\metrics\ThroughputMeasurement.h" />

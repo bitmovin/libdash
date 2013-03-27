@@ -132,6 +132,9 @@
     <ClCompile Include="source\metrics\ThroughputMeasurement.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="source\helpers\Time.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\targetver.h">
@@ -354,6 +357,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="include\IThroughputMeasurement.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="source\helpers\Time.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

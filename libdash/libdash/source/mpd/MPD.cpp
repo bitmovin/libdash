@@ -183,3 +183,11 @@ void                                        MPD::SetMPDPathBaseUrl              
 {
     this->mpdPathBaseUrl = mpdPath;
 }
+uint32_t                                    MPD::GetFetchTime                       ()  const
+{
+    return this->fetchTime;
+}
+void                                        MPD::SetFetchTime                       (uint32_t fetchTimeInSec)
+{
+    this->fetchTime = fetchTimeInSec;
+}
