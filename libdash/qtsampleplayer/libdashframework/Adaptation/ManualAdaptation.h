@@ -25,7 +25,7 @@ namespace libdash
             class ManualAdaptation : public AbstractAdaptationLogic
             {
                 public:
-                    ManualAdaptation            (dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd);
+                    ManualAdaptation            (dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd, uint32_t bufferSize);
                     virtual ~ManualAdaptation   ();
 
                     virtual input::MediaObject*     GetSegment          ();
@@ -36,6 +36,8 @@ namespace libdash
                     virtual void                    InvokeInitSegment   (bool invoke);
 
                 private:
+                    uint32_t                        CalculateSegmentOffset ();
+
                     dash::mpd::IMPD                                 *mpd;
                     dash::mpd::IPeriod                              *period;
                     dash::mpd::IAdaptationSet                       *adaptationSet;

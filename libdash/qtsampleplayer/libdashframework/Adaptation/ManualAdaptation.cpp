@@ -16,8 +16,8 @@ using namespace libdash::framework::adaptation;
 using namespace libdash::framework::input;
 using namespace libdash::framework::mpd;
 
-ManualAdaptation::ManualAdaptation          (dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd) :
-                  AbstractAdaptationLogic   (period, adaptationSet, mpd),
+ManualAdaptation::ManualAdaptation          (dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd, uint32_t bufferSize) :
+                  AbstractAdaptationLogic   (period, adaptationSet, mpd, bufferSize),
                   period                    (period),
                   adaptationSet             (adaptationSet),
                   adaptationSetStream       (NULL),
@@ -29,6 +29,7 @@ ManualAdaptation::ManualAdaptation          (dash::mpd::IPeriod *period, dash::m
     this->representation        = this->adaptationSet->GetRepresentation().at(0);
     this->adaptationSetStream   = new AdaptationSetStream(mpd, period, adaptationSet);
     this->representationStream  = adaptationSetStream->GetRepresentationStream(this->representation);
+    this->segmentOffset         = CalculateSegmentOffset();
 }
 ManualAdaptation::~ManualAdaptation         ()
 {
@@ -53,7 +54,7 @@ MediaObject*    ManualAdaptation::GetSegment            ()
     }
     else
     {
-        seg = this->representationStream->GetMediaSegment(this->segmentNumber - 1);
+        seg = this->representationStream->GetMediaSegment(this->segmentNumber - 1 + segmentOffset);
     }
 
     if (seg != NULL)
@@ -81,4 +82,15 @@ void            ManualAdaptation::SetRepresentation     (dash::mpd::IRepresentat
 void            ManualAdaptation::InvokeInitSegment     (bool invoke)
 {
     this->invokeInitSegment = invoke;
+}
+uint32_t        ManualAdaptation::CalculateSegmentOffset()
+{
+    if (mpd->GetType() == "static")
+        return 0;
+
+    uint32_t firstSegNum = this->representationStream->GetFirstSegmentNumber();
+    uint32_t currSegNum  = this->representationStream->GetCurrentSegmentNumber();
+    uint32_t startSegNum = currSegNum - 2*bufferSize;
+
+    return (startSegNum > firstSegNum) ? startSegNum : firstSegNum;
 }

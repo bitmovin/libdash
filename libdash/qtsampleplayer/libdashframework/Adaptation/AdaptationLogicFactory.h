@@ -25,7 +25,9 @@ namespace libdash
             class AdaptationLogicFactory
             {
                 public:
-                    static IAdaptationLogic* Create(libdash::framework::adaptation::LogicType logic, dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd);
+                    static IAdaptationLogic* Create(libdash::framework::adaptation::LogicType logic, 
+                                                    dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, 
+                                                    dash::mpd::IMPD *mpd, uint32_t bufferSize);
             };
         }
     }

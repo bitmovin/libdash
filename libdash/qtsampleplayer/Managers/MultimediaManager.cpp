@@ -218,7 +218,7 @@ void    MultimediaManager::NotifyAudioBufferObservers       ()
 }
 void    MultimediaManager::InitVideoRendering               (uint32_t offset)
 {
-    this->videoLogic = AdaptationLogicFactory::Create(libdash::framework::adaptation::Manual, this->period, this->videoAdaptationSet, this->mpd);
+    this->videoLogic = AdaptationLogicFactory::Create(libdash::framework::adaptation::Manual, this->period, this->videoAdaptationSet, this->mpd, SEGMENTBUFFER_SIZE);
     this->videoLogic->SetPosition(offset);
     this->videoLogic->SetRepresentation(this->videoRepresentation);
     this->videoLogic->InvokeInitSegment(true);
@@ -233,7 +233,7 @@ void    MultimediaManager::InitVideoRendering               (uint32_t offset)
 }
 void    MultimediaManager::InitAudioPlayback                (uint32_t offset)
 {
-    this->audioLogic = AdaptationLogicFactory::Create(libdash::framework::adaptation::Manual, this->period, this->audioAdaptationSet, this->mpd);
+    this->audioLogic = AdaptationLogicFactory::Create(libdash::framework::adaptation::Manual, this->period, this->audioAdaptationSet, this->mpd, SEGMENTBUFFER_SIZE);
     this->audioLogic->SetPosition(offset);
     this->audioLogic->SetRepresentation(this->audioRepresentation);
     this->audioLogic->InvokeInitSegment(true);

@@ -24,7 +24,7 @@ namespace libdash
             class AlwaysLowestLogic : public AbstractAdaptationLogic
             {
                 public:
-                    AlwaysLowestLogic           (dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd);
+                    AlwaysLowestLogic           (dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd, uint32_t bufferSize);
                     virtual ~AlwaysLowestLogic  ();
 
                     virtual input::MediaObject*     GetSegment          ();

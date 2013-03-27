@@ -14,7 +14,9 @@
 using namespace libdash::framework::adaptation;
 using namespace dash::mpd;
 
-AbstractAdaptationLogic::AbstractAdaptationLogic        (dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd)
+AbstractAdaptationLogic::AbstractAdaptationLogic        (dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd, uint32_t bufSize) :
+                         segmentOffset                  (0),
+                         bufferSize                     (bufSize)
 {
 }
 AbstractAdaptationLogic::~AbstractAdaptationLogic       ()

@@ -24,7 +24,7 @@ namespace libdash
             class AbstractAdaptationLogic : public IAdaptationLogic
             {
                 public:
-                    AbstractAdaptationLogic             (dash::mpd::IPeriod* period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd);
+                    AbstractAdaptationLogic             (dash::mpd::IPeriod* period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd, uint32_t bufferSize);
                     virtual ~AbstractAdaptationLogic    ();
 
                     virtual uint32_t        GetPosition         ();
@@ -34,6 +34,9 @@ namespace libdash
                     virtual input::MediaObject*     GetSegment  ()  = 0;
                     virtual LogicType               GetType     ()  = 0;
 
+                protected:
+                    uint32_t    segmentOffset;
+                    uint32_t    bufferSize;
             };
         }
     }
