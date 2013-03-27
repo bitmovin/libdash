@@ -362,6 +362,9 @@
     <ClInclude Include="source\helpers\Time.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="include\IDASHMetrics.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="authors.txt" />

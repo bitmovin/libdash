@@ -91,6 +91,7 @@
     <ClInclude Include="source\helpers\SyncedBlockStream.h" />
     <ClInclude Include="source\helpers\Time.h" />
     <ClInclude Include="source\metrics\HTTPTransaction.h" />
+    <ClInclude Include="include\IDASHMetrics.h" />
     <ClInclude Include="source\metrics\TCPConnection.h" />
     <ClInclude Include="source\metrics\ThroughputMeasurement.h" />
     <ClInclude Include="source\mpd\AbstractMPDElement.h" />

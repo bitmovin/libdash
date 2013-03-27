@@ -13,6 +13,7 @@
 
 using namespace dash::network;
 using namespace dash::helpers;
+using namespace dash::metrics;
 
 uint32_t AbstractChunk::BLOCKSIZE = 32768;
 
@@ -173,4 +174,13 @@ size_t  AbstractChunk::CurlResponseCallback         (void *contents, size_t size
     chunk->NotifyDownloadRateChanged();
 
     return realsize;
+}
+
+const std::vector<ITCPConnection *>&    AbstractChunk::GetTCPConnectionList    () const
+{
+    return (std::vector<ITCPConnection *> &) this->tcpConnections;
+}
+const std::vector<IHTTPTransaction *>&  AbstractChunk::GetHTTPTransactionList  () const
+{
+    return (std::vector<IHTTPTransaction *> &) this->httpTransactions;
 }

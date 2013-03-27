@@ -19,12 +19,13 @@
 #include "config.h"
 
 #include "IChunk.h"
+#include "IDASHMetrics.h"
 
 namespace dash
 {
     namespace network
     {
-        class IConnection
+        class IConnection : public virtual dash::metrics::IDASHMetrics
         {
             public:
                 virtual ~IConnection(){}

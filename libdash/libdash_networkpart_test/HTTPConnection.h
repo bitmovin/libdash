@@ -34,6 +34,12 @@ namespace libdashtest
             virtual bool    Schedule    (dash::network::IChunk *chunk);
             virtual void    CloseSocket ();
 
+            /*
+             *  IDASHMetrics
+             */
+            const std::vector<dash::metrics::ITCPConnection *>&     GetTCPConnectionList    () const;
+            const std::vector<dash::metrics::IHTTPTransaction *>&   GetHTTPTransactionList  () const;
+
         protected:
             int                 httpSocket;
             struct sockaddr_in  addr;
@@ -43,6 +49,9 @@ namespace libdashtest
             int                 contentLength;
             bool                isInit;
             bool                isScheduled;
+
+            std::vector<dash::metrics::ITCPConnection *>    tcpConnections;
+            std::vector<dash::metrics::IHTTPTransaction *>  httpTransactions;
 
             virtual std::string PrepareRequest  (dash::network::IChunk *chunk);
             virtual bool        SendData        (std::string data);

@@ -29,10 +29,10 @@ IMPD*           DASHManager::Open           (char *path)
 
     uint32_t fetchTime = Time::GetCurrentTimeInSec();
 
-    if(!parser.Parse())
+    if (!parser.Parse())
         return NULL;
 
-    IMPD* mpd = parser.GetRootNode()->ToMPD();
+    MPD* mpd = parser.GetRootNode()->ToMPD();
 
     if (mpd)
         mpd->SetFetchTime(fetchTime);

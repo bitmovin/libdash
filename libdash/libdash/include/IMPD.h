@@ -39,12 +39,13 @@
 #include "IBaseUrl.h"
 #include "IPeriod.h"
 #include "IMetrics.h"
+#include "IDASHMetrics.h"
 
 namespace dash
 {
     namespace mpd
     {
-        class IMPD : public virtual IMPDElement
+        class IMPD : public virtual IMPDElement, public virtual dash::metrics::IDASHMetrics
         {
             public:
                 virtual ~IMPD(){}
@@ -199,17 +200,6 @@ namespace dash
                  *  @return     an unsigned integer
                  */
                 virtual uint32_t                                    GetFetchTime                    ()  const = 0;
-
-                /**
-                 *  Sets the UTC time in seconds when the MPD was fetched. \n
-                 *  Attention: This value shall be set conforming with <em>ISO/IEC 23009-1, Part 1, 2012</em>, annex A.2: <br/>
-                 *  <em> ... FetchTime is defined as the time at which the server processes the request for the MPD from the client. 
-                 *       The client typically should not use the time at which it actually successfully received the MPD, 
-                 *       but should take into account delay due to MPD delivery and processing ...
-                 *  </em>
-                 * @param   fetchTimeInSec  the time the MPD was fetched
-                 */
-                virtual void                                        SetFetchTime                    (uint32_t fetchTimeInSec) = 0;
         };
     }
 }

@@ -12,6 +12,7 @@
 #include "MPD.h"
 
 using namespace dash::mpd;
+using namespace dash::metrics;
 
 MPD::MPD    () :
         id(""),
@@ -190,4 +191,22 @@ uint32_t                                    MPD::GetFetchTime                   
 void                                        MPD::SetFetchTime                       (uint32_t fetchTimeInSec)
 {
     this->fetchTime = fetchTimeInSec;
+}
+
+
+const std::vector<ITCPConnection *>&        MPD::GetTCPConnectionList    () const
+{
+    return (std::vector<ITCPConnection *> &) this->tcpConnections;
+}
+void                                        MPD::AddTCPConnection        (TCPConnection *tcpConn)
+{
+    this->tcpConnections.push_back(tcpConn);
+}
+const std::vector<IHTTPTransaction *>&      MPD::GetHTTPTransactionList  () const
+{
+    return (std::vector<IHTTPTransaction *> &) this->httpTransactions;
+}
+void                                        MPD::AddHTTPTransaction      (HTTPTransaction *httpTransAct)
+{
+    this->httpTransactions.push_back(httpTransAct);
 }

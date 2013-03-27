@@ -13,6 +13,7 @@
 
 using namespace libdashtest;
 using namespace dash::network;
+using namespace dash::metrics;
 
 HTTPConnection::HTTPConnection  () :
                 peekBufferLen   (0),
@@ -187,4 +188,13 @@ bool            HTTPConnection::Schedule        (IChunk *chunk)
     }
 
     return false;
+}
+
+const std::vector<ITCPConnection *>&        HTTPConnection::GetTCPConnectionList    () const
+{
+    return tcpConnections;
+}
+const std::vector<IHTTPTransaction *>&      HTTPConnection::GetHTTPTransactionList  () const
+{
+    return httpTransactions;
 }

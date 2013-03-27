@@ -19,12 +19,16 @@
 #include "../helpers/SyncedBlockStream.h"
 #include "../portable/Networking.h"
 #include <curl/curl.h>
+#include "../metrics/HTTPTransaction.h"
+#include "../metrics/TCPConnection.h"
+#include "../metrics/ThroughputMeasurement.h"
+#include "IDASHMetrics.h"
 
 namespace dash
 {
     namespace network
     {
-        class AbstractChunk : public virtual IDownloadableChunk
+        class AbstractChunk : public virtual IDownloadableChunk, public virtual dash::metrics::IDASHMetrics
         {
             public:
                 AbstractChunk          ();
@@ -55,6 +59,11 @@ namespace dash
                  * Observer Notification
                  */
                 void NotifyDownloadRateChanged ();
+                /*
+                 * IDASHMetrics
+                 */
+                const std::vector<dash::metrics::ITCPConnection *>&     GetTCPConnectionList    () const;
+                const std::vector<dash::metrics::IHTTPTransaction *>&   GetHTTPTransactionList  () const;
 
             private:
                 std::vector<IDownloadObserver *>    observers;
@@ -65,6 +74,9 @@ namespace dash
                 CURLcode                            response;
                 uint64_t                            bytesDownloaded;
                 DownloadStateManager                stateManager;
+
+                std::vector<dash::metrics::TCPConnection *>     tcpConnections;
+                std::vector<dash::metrics::HTTPTransaction *>   httpTransactions;
 
                 static uint32_t BLOCKSIZE;
 

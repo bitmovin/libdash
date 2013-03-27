@@ -20,6 +20,8 @@
 #include "Period.h"
 #include "Metrics.h"
 #include "AbstractMPDElement.h"
+#include "../metrics/HTTPTransaction.h"
+#include "../metrics/TCPConnection.h"
 
 namespace dash
 {
@@ -50,6 +52,11 @@ namespace dash
                 const std::string&                          GetMaxSubsegmentDuration        ()  const;
                 IBaseUrl*                                   GetMPDPathBaseUrl               ()  const;
                 uint32_t                                    GetFetchTime                    ()  const;
+
+                const std::vector<dash::metrics::ITCPConnection *>&     GetTCPConnectionList    () const;
+                const std::vector<dash::metrics::IHTTPTransaction *>&   GetHTTPTransactionList  () const;
+                void                                                    AddTCPConnection        (dash::metrics::TCPConnection *tcpConn);
+                void                                                    AddHTTPTransaction      (dash::metrics::HTTPTransaction *httpTransAct);
 
                 void    AddProgramInformation           (ProgramInformation *programInformation);
                 void    AddBaseUrl                      (BaseUrl *url);
@@ -91,6 +98,9 @@ namespace dash
                 std::string                         maxSubsegmentDuration;
                 BaseUrl                             *mpdPathBaseUrl;
                 uint32_t                            fetchTime;
+
+                std::vector<dash::metrics::TCPConnection *>     tcpConnections;
+                std::vector<dash::metrics::HTTPTransaction *>   httpTransactions;
         };
     }
 }
