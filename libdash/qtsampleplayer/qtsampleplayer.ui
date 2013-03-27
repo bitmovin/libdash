@@ -127,6 +127,11 @@
            <string>http://dash.edgesuite.net/dash264/TestCases/6c/envivio/manifest2.mpd</string>
           </property>
          </item>
+         <item>
+          <property name="text">
+           <string>http://tvnlive.dashdemo.edgesuite.net/live/manifest.mpd</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item>
