@@ -163,10 +163,7 @@ bool    MultimediaManager::SetVideoQuality                  (dash::mpd::IPeriod*
 
         this->InitVideoRendering(position);
         this->videoStream->Start();
-
-        this->isStarted = true;
     }
-    this->videoRepresentation = representation;
 
     LeaveCriticalSection(&this->monitorMutex);
     return true;
@@ -175,11 +172,18 @@ bool    MultimediaManager::SetAudioQuality                  (dash::mpd::IPeriod*
 {
     EnterCriticalSection(&this->monitorMutex);
 
-    if (!this->isStarted)
+    this->period                = period;
+    this->audioAdaptationSet    = adaptationSet;
+    this->audioRepresentation   = representation;
+
+    if (this->isStarted)
     {
-        this->period                = period;
-        this->audioAdaptationSet    = adaptationSet;
-        this->audioRepresentation   = representation;
+        this->StopAudio();
+
+        this->InitAudioPlayback(0);
+        this->audioStream->Start();
+
+        this->audioElement->StartPlayback();
     }
 
     LeaveCriticalSection(&this->monitorMutex);

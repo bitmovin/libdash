@@ -15,12 +15,17 @@ using namespace sampleplayer::renderer;
 
 QTAudioRenderer::QTAudioRenderer(QWidget *parent) :
                  QWidget        (parent),
-                 parent         (parent)
+                 parent         (parent),
+                 audioOutput    (NULL),
+                 buffer         (NULL)
 {
     this->Init();
 }
 QTAudioRenderer::~QTAudioRenderer()
 {
+    delete this->buffer;
+    this->buffer = NULL;
+
     delete this->audioOutput;
     this->audioOutput = NULL;
 }
@@ -35,12 +40,23 @@ const QAudioFormat&     QTAudioRenderer::AudioFormat    () const
 }
 void                    QTAudioRenderer::StartPlayback  ()
 {
-    this->audioOutput->start(&this->buffer);
+    this->Reset();
+    this->audioOutput->start(this->buffer);
 }
 void                    QTAudioRenderer::StopPlayback   ()
 {
+    if (!this->audioOutput)
+        return;
+
     if (this->audioOutput->state() == QAudio::ActiveState)
         this->audioOutput->stop();
+
+    this->buffer->close();
+    delete this->buffer;
+    this->buffer = NULL;
+
+    delete this->audioOutput;
+    this->audioOutput = NULL;
 }
 void                    QTAudioRenderer::WriteToBuffer  (const char *data, qint64 len)
 {
@@ -48,9 +64,6 @@ void                    QTAudioRenderer::WriteToBuffer  (const char *data, qint6
 }
 void                    QTAudioRenderer::Init           ()
 {
-    this->buffer.setBuffer(&byteArray);
-    this->buffer.open(QIODevice::ReadWrite);
-
     this->deviceInfo  = QAudioDeviceInfo(QAudioDeviceInfo::defaultOutputDevice());
 
     this->format.setSampleRate(48000);
@@ -62,6 +75,13 @@ void                    QTAudioRenderer::Init           ()
 
     if (!this->deviceInfo.isFormatSupported(this->format))
         format = this->deviceInfo.nearestFormat(this->format);
+}
+void                    QTAudioRenderer::Reset          ()
+{
+    this->byteArray.clear();
+    this->byteArray.resize(8192);
+    this->buffer = new QBuffer(&byteArray);
+    this->buffer->open(QIODevice::ReadOnly);
 
     this->audioOutput = new QAudioOutput(this->deviceInfo, this->format, this->parent);
 }
