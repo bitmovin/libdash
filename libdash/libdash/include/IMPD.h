@@ -45,7 +45,7 @@ namespace dash
 {
     namespace mpd
     {
-        class IMPD : public virtual IMPDElement, public virtual dash::metrics::IDASHMetrics
+        class IMPD : public virtual IMPDElement, public dash::metrics::IDASHMetrics
         {
             public:
                 virtual ~IMPD(){}
