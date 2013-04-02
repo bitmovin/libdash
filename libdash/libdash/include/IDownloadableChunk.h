@@ -21,12 +21,13 @@
 #include "IDownloadObserver.h"
 #include "IConnection.h"
 #include "IChunk.h"
+#include "IDASHMetrics.h"
 
 namespace dash
 {
     namespace network
     {
-        class IDownloadableChunk : public IChunk
+        class IDownloadableChunk : public IChunk, public dash::metrics::IDASHMetrics
         {
             public:
                 virtual ~IDownloadableChunk(){}

@@ -20,13 +20,12 @@
 #include "config.h"
 
 #include "IDownloadableChunk.h"
-#include "IDASHMetrics.h"
 
 namespace dash
 {
     namespace mpd
     {
-        class ISegment : public virtual network::IDownloadableChunk, public virtual metrics::IDASHMetrics
+        class ISegment : public virtual network::IDownloadableChunk
         {
             public:
                 virtual ~ISegment(){}
