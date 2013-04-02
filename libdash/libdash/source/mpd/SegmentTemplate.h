@@ -47,7 +47,8 @@ namespace dash
             private:
                 std::string ReplaceParameters   (const std::string& uri, const std::string& representationID, uint32_t bandwidth, uint32_t number, uint32_t time) const;
                 void        FormatChunk         (std::string& uri, uint32_t number) const;
-                ISegment*   ToSegment           (const std::string& uri, const std::vector<IBaseUrl *>& baseurls, const std::string& representationID, uint32_t bandwidth, uint32_t number = 0, uint32_t time = 0) const;
+                ISegment*   ToSegment           (const std::string& uri, const std::vector<IBaseUrl *>& baseurls, const std::string& representationID, uint32_t bandwidth, 
+                                                 dash::metrics::HTTPTransactionType type, uint32_t number = 0, uint32_t time = 0) const;
 
                 std::string media;
                 std::string index;

@@ -35,10 +35,12 @@ namespace dash
 
                 void    SetSourceURL    (const std::string& sourceURL);
                 void    SetRange        (const std::string& range);
+                void    SetType         (dash::metrics::HTTPTransactionType type);
 
             private:
-                std::string sourceURL;
-                std::string range;
+                std::string                         sourceURL;
+                std::string                         range;
+                dash::metrics::HTTPTransactionType  type;
         };
     }
 }

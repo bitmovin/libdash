@@ -61,7 +61,7 @@ ISegment*           SegmentURL::ToMediaSegment  (const std::vector<IBaseUrl *>& 
 {
     Segment *seg = new Segment();
     
-    if(seg->Init(baseurls, this->mediaURI, this->mediaRange))
+    if(seg->Init(baseurls, this->mediaURI, this->mediaRange, dash::metrics::MediaSegment))
         return seg;
 
     delete(seg);
@@ -72,7 +72,7 @@ ISegment*           SegmentURL::ToIndexSegment  (const std::vector<IBaseUrl *>& 
 {
     Segment *seg = new Segment();
     
-    if(seg->Init(baseurls, this->indexURI, this->indexRange))
+    if(seg->Init(baseurls, this->indexURI, this->indexRange, dash::metrics::IndexSegment))
         return seg;
 
     delete(seg);

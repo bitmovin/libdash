@@ -18,6 +18,7 @@
 #include "../helpers/Path.h"
 #include "ISegment.h"
 #include "IBaseUrl.h"
+#include "../metrics/HTTPTransaction.h"
 
 namespace dash
 {
@@ -29,7 +30,7 @@ namespace dash
                 Segment         ();
                 virtual ~Segment();
 
-                bool            Init            (const std::vector<IBaseUrl *>& baseurls, const std::string &uri, const std::string &range);
+                bool            Init            (const std::vector<IBaseUrl *>& baseurls, const std::string &uri, const std::string &range, dash::metrics::HTTPTransactionType type);
                 std::string&    AbsoluteURI     ();
                 std::string&    Host            ();
                 size_t          Port            ();
@@ -38,6 +39,7 @@ namespace dash
                 size_t          StartByte       ();
                 size_t          EndByte         ();
                 bool            HasByteRange    ();
+                dash::metrics::HTTPTransactionType  GetType();
 
                 void            AbsoluteURI  (std::string uri);
                 void            Host         (std::string host);
@@ -57,6 +59,7 @@ namespace dash
                 size_t      startByte;
                 size_t      endByte;
                 bool        hasByteRange;
+                dash::metrics::HTTPTransactionType  type;
         };
     }
 }

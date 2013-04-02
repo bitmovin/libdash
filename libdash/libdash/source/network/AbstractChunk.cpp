@@ -46,6 +46,10 @@ bool    AbstractChunk::StartDownload                ()
     curl_easy_setopt(this->curl, CURLOPT_URL, this->AbsoluteURI().c_str());
     curl_easy_setopt(this->curl, CURLOPT_WRITEFUNCTION, CurlResponseCallback);
     curl_easy_setopt(this->curl, CURLOPT_WRITEDATA, (void *)this);
+    /* Debug Callback */
+    curl_easy_setopt(this->curl, CURLOPT_VERBOSE, 1L);
+    curl_easy_setopt(this->curl, CURLOPT_DEBUGFUNCTION, CurlDebugCallback);
+    curl_easy_setopt(this->curl, CURLOPT_DEBUGDATA, (void *)this);
 
     if(this->HasByteRange())
         curl_easy_setopt(this->curl, CURLOPT_RANGE, this->Range().c_str());
@@ -175,7 +179,47 @@ size_t  AbstractChunk::CurlResponseCallback         (void *contents, size_t size
 
     return realsize;
 }
+size_t  AbstractChunk::CurlDebugCallback            (CURL *url, curl_infotype infoType, char * data, size_t length, void *userdata)
+{
+    AbstractChunk   *chunk      = (AbstractChunk *)userdata;
 
+    switch (infoType) {
+        case CURLINFO_TEXT:
+            break;
+        case CURLINFO_HEADER_OUT:
+            HandleHeaderOutCallback(chunk);
+            break;
+        case CURLINFO_HEADER_IN:
+            HandleHeaderInCallback(chunk, std::string(data));
+            break;
+        case CURLINFO_DATA_IN:
+            break;
+        default:
+            return 0;
+    }
+    return 0;
+}
+void    AbstractChunk::HandleHeaderOutCallback      (AbstractChunk *chunk)
+{
+    HTTPTransaction *httpTransaction = new HTTPTransaction();
+
+    httpTransaction->SetOriginalUrl(chunk->AbsoluteURI());
+    httpTransaction->SetRange(chunk->Range());
+    httpTransaction->SetType(chunk->GetType());
+    httpTransaction->SetRequestSentTime(Time::GetCurrentUTCTimeStr());
+
+    chunk->httpTransactions.push_back(httpTransaction);
+}
+void    AbstractChunk::HandleHeaderInCallback       (AbstractChunk *chunk, std::string data)
+{
+    if (data.substr(0,4) != "HTTP")
+        return;
+
+    HTTPTransaction *httpTransaction = chunk->httpTransactions.at(chunk->httpTransactions.size()-1);
+
+    httpTransaction->SetResponseReceivedTime(Time::GetCurrentUTCTimeStr());
+    httpTransaction->SetResponseCode(strtoul(data.substr(9,3).c_str(), NULL, 10));
+}
 const std::vector<ITCPConnection *>&    AbstractChunk::GetTCPConnectionList    () const
 {
     return (std::vector<ITCPConnection *> &) this->tcpConnections;

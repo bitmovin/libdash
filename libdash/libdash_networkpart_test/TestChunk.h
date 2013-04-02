@@ -30,6 +30,7 @@ namespace libdashtest
             virtual size_t          StartByte       ();
             virtual size_t          EndByte         ();
             virtual bool            HasByteRange    ();
+            virtual dash::metrics::HTTPTransactionType  GetType();
 
         private:
             std::string     uri;

@@ -12,6 +12,7 @@
 #include "SegmentTemplate.h"
 
 using namespace dash::mpd;
+using namespace dash::metrics;
 
 SegmentTemplate::SegmentTemplate    () :
                     media(""),
@@ -58,27 +59,27 @@ void                SegmentTemplate::SetBitstreamSwitching          (const std::
 }
 ISegment*           SegmentTemplate::ToInitializationSegment        (const std::vector<IBaseUrl *>& baseurls, const std::string& representationID, uint32_t bandwidth) const
 {
-    return ToSegment(this->initialization, baseurls, representationID, bandwidth);
+    return ToSegment(this->initialization, baseurls, representationID, bandwidth, dash::metrics::InitializationSegment);
 }
 ISegment*           SegmentTemplate::ToBitstreamSwitchingSegment    (const std::vector<IBaseUrl *>& baseurls, const std::string& representationID, uint32_t bandwidth) const
 {
-    return ToSegment(this->bitstreamSwitching, baseurls, representationID, bandwidth);
+    return ToSegment(this->bitstreamSwitching, baseurls, representationID, bandwidth, dash::metrics::BitstreamSwitchingSegment);
 }
 ISegment*           SegmentTemplate::GetMediaSegmentFromNumber      (const std::vector<IBaseUrl *>& baseurls, const std::string& representationID, uint32_t bandwidth, uint32_t number) const
 {
-    return ToSegment(this->media, baseurls, representationID, bandwidth, number);
+    return ToSegment(this->media, baseurls, representationID, bandwidth, dash::metrics::MediaSegment, number);
 }
 ISegment*           SegmentTemplate::GetIndexSegmentFromNumber      (const std::vector<IBaseUrl *>& baseurls, const std::string& representationID, uint32_t bandwidth, uint32_t number) const
 {
-    return ToSegment(this->index, baseurls, representationID, bandwidth, number);
+    return ToSegment(this->index, baseurls, representationID, bandwidth, dash::metrics::IndexSegment, number);
 }
 ISegment*           SegmentTemplate::GetMediaSegmentFromTime        (const std::vector<IBaseUrl *>& baseurls, const std::string& representationID, uint32_t bandwidth, uint32_t time) const
 {
-    return ToSegment(this->media, baseurls, representationID, bandwidth, 0, time);
+    return ToSegment(this->media, baseurls, representationID, bandwidth, dash::metrics::MediaSegment, 0, time);
 }
 ISegment*           SegmentTemplate::GetIndexSegmentFromTime        (const std::vector<IBaseUrl *>& baseurls, const std::string& representationID, uint32_t bandwidth, uint32_t time) const
 {
-    return ToSegment(this->index, baseurls, representationID, bandwidth, 0, time);
+    return ToSegment(this->index, baseurls, representationID, bandwidth, dash::metrics::IndexSegment, 0, time);
 }
 std::string         SegmentTemplate::ReplaceParameters              (const std::string& uri, const std::string& representationID, uint32_t bandwidth, uint32_t number, uint32_t time) const
 {
@@ -138,11 +139,11 @@ void                SegmentTemplate::FormatChunk                    (std::string
     sprintf(formattedNumber, formatTag.c_str(), number);
     uri = formattedNumber;
 }
-ISegment*           SegmentTemplate::ToSegment                      (const std::string& uri, const std::vector<IBaseUrl *>& baseurls, const std::string& representationID, uint32_t bandwidth, uint32_t number, uint32_t time) const
+ISegment*           SegmentTemplate::ToSegment                      (const std::string& uri, const std::vector<IBaseUrl *>& baseurls, const std::string& representationID, uint32_t bandwidth, HTTPTransactionType type, uint32_t number, uint32_t time) const
 {
     Segment *seg = new Segment();
 
-    if(seg->Init(baseurls, ReplaceParameters(uri, representationID, bandwidth, number, time), ""))
+    if(seg->Init(baseurls, ReplaceParameters(uri, representationID, bandwidth, number, time), "", type))
         return seg;
 
     delete(seg);

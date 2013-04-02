@@ -13,6 +13,7 @@
 
 using namespace dash::mpd;
 using namespace dash::helpers;
+using namespace dash::metrics;
 
 Segment::Segment    ()  :
             host(""),
@@ -27,7 +28,7 @@ Segment::~Segment   ()
 {
 }
 
-bool            Segment::Init               (const std::vector<IBaseUrl *>& baseurls, const std::string &uri, const std::string &range)
+bool            Segment::Init               (const std::vector<IBaseUrl *>& baseurls, const std::string &uri, const std::string &range, HTTPTransactionType type)
 {
     std::string host        = "";
     size_t      port        = 80;
@@ -55,6 +56,9 @@ bool            Segment::Init               (const std::vector<IBaseUrl *>& base
             this->startByte     = startByte;
             this->endByte       = endByte;
         }
+
+        this->type = type;
+
         return true;
     }
 
@@ -123,4 +127,8 @@ void            Segment::EndByte            (size_t endByte)
 void            Segment::HasByteRange       (bool hasByteRange)
 {
     this->hasByteRange = hasByteRange;
+}
+dash::metrics::HTTPTransactionType  Segment::GetType()
+{
+    return this->type;
 }

@@ -17,6 +17,7 @@
 #define ICHUNK_H_
 
 #include "config.h"
+#include "IHTTPTransaction.h"
 
 namespace dash
 {
@@ -74,6 +75,12 @@ namespace dash
                  *  @return     a bool value
                  */
                 virtual bool            HasByteRange    ()  = 0;
+
+                /**
+                 *  Returns the type of a <b>HTTP Request/Response Transaction</b> in <em>ISO/IEC 23009-1, Part 1, 2012</em>, annex D.4.3, Table D.2
+                 *  @return     a dash::metrics::HTTPTransactionType
+                 */
+                virtual dash::metrics::HTTPTransactionType GetType  ()  = 0;
         };
     }
 }

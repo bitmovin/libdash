@@ -59,3 +59,7 @@ std::string&    TestChunk::Range           ()
 {
     return this->range;
 }
+dash::metrics::HTTPTransactionType  TestChunk::GetType()
+{
+    return dash::metrics::Other;
+}

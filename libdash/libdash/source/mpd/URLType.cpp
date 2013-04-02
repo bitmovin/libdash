@@ -13,6 +13,7 @@
 
 using namespace dash::mpd;
 using namespace dash::helpers;
+using namespace dash::metrics;
 
 URLType::URLType    () :
             sourceURL(""),
@@ -39,11 +40,15 @@ void                URLType::SetRange       (const std::string& range)
 {
     this->range = range;
 }
+void                URLType::SetType        (HTTPTransactionType type)
+{
+    this->type = type;
+}
 ISegment*           URLType::ToSegment      (const std::vector<IBaseUrl *>& baseurls) const
 {
     Segment *seg = new Segment();
     
-    if(seg->Init(baseurls, this->sourceURL, this->range))
+    if(seg->Init(baseurls, this->sourceURL, this->range, this->type))
         return seg;
 
     delete(seg);

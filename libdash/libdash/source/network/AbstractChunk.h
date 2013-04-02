@@ -22,13 +22,13 @@
 #include "../metrics/HTTPTransaction.h"
 #include "../metrics/TCPConnection.h"
 #include "../metrics/ThroughputMeasurement.h"
-#include "IDASHMetrics.h"
+#include "../helpers/Time.h"
 
 namespace dash
 {
     namespace network
     {
-        class AbstractChunk : public virtual IDownloadableChunk, public virtual dash::metrics::IDASHMetrics
+        class AbstractChunk : public virtual IDownloadableChunk
         {
             public:
                 AbstractChunk          ();
@@ -45,6 +45,7 @@ namespace dash
                 virtual size_t          StartByte       ()  = 0;
                 virtual size_t          EndByte         ()  = 0;
                 virtual bool            HasByteRange    ()  = 0;
+                virtual dash::metrics::HTTPTransactionType  GetType() = 0;
                 /*
                  * IDownloadableChunk Interface
                  */
@@ -83,6 +84,10 @@ namespace dash
                 static void*    DownloadExternalConnection  (void *chunk);
                 static void*    DownloadInternalConnection  (void *chunk);
                 static size_t   CurlResponseCallback        (void *contents, size_t size, size_t nmemb, void *userp);
+                static size_t   CurlHeaderCallback          (void *headerData, size_t size, size_t nmemb, void *userdata);
+                static size_t   CurlDebugCallback           (CURL *url, curl_infotype infoType, char * data, size_t length, void *userdata);
+                static void     HandleHeaderOutCallback     (AbstractChunk *chunk);
+                static void     HandleHeaderInCallback      (AbstractChunk *chunk, std::string data);
         };
     }
 }

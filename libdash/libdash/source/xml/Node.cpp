@@ -13,6 +13,7 @@
 #include <cstdlib>
 
 using namespace dash::xml;
+using namespace dash::metrics;
 
 Node::Node  ()
 {
@@ -164,7 +165,7 @@ dash::mpd::ContentComponent*                Node::ToContentComponent    ()  cons
     contentComponent->AddRawAttributes(this->attributes);
     return contentComponent;
 }
-dash::mpd::URLType*                         Node::ToURLType             ()  const
+dash::mpd::URLType*                         Node::ToURLType             (HTTPTransactionType type)  const
 {
     dash::mpd::URLType* urlType = new dash::mpd::URLType();
     
@@ -182,6 +183,7 @@ dash::mpd::URLType*                         Node::ToURLType             ()  cons
         urlType->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
     }
 
+    urlType->SetType(type);
     urlType->AddRawAttributes(this->attributes);
     return urlType;
 }
@@ -981,12 +983,12 @@ void                                        Node::SetCommonValuesForSeg (dash::m
     {
         if (subNodes.at(i)->GetName() == "Initialization")
         {
-            object.SetInitialization(subNodes.at(i)->ToURLType());
+            object.SetInitialization(subNodes.at(i)->ToURLType(dash::metrics::InitializationSegment));
             continue;
         }
         if (subNodes.at(i)->GetName() == "RepresentationIndex")
         {
-            object.SetRepresentationIndex(subNodes.at(i)->ToURLType());
+            object.SetRepresentationIndex(subNodes.at(i)->ToURLType(dash::metrics::IndexSegment));
             continue;
         }
     }
@@ -1015,7 +1017,7 @@ void                                        Node::SetCommonValuesForMSeg(dash::m
         }
         if (subNodes.at(i)->GetName() == "BitstreamSwitching")
         {
-            object.SetBitstreamSwitching(subNodes.at(i)->ToURLType());
+            object.SetBitstreamSwitching(subNodes.at(i)->ToURLType(dash::metrics::BitstreamSwitchingSegment));
             continue;
         }
     }

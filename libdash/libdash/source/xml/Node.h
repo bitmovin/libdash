@@ -36,6 +36,7 @@
 #include "../mpd/SubRepresentation.h"
 #include "../mpd/Subset.h"
 #include "../mpd/URLType.h"
+#include "IHTTPTransaction.h"
 
 namespace dash
 {
@@ -88,7 +89,7 @@ namespace dash
                 dash::mpd::SegmentURL*                      ToSegmentURL            ()  const;
                 dash::mpd::SubRepresentation*               ToSubRepresentation     ()  const;
                 dash::mpd::Subset*                          ToSubset                ()  const;
-                dash::mpd::URLType*                         ToURLType               ()  const;
+                dash::mpd::URLType*                         ToURLType               (dash::metrics::HTTPTransactionType transActType)  const;
 
                 std::vector<Node *>                 subNodes;
                 std::map<std::string, std::string>  attributes;

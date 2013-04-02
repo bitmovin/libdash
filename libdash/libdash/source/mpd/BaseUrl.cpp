@@ -51,7 +51,7 @@ ISegment*           BaseUrl::ToMediaSegment     (const std::vector<IBaseUrl *>& 
 {
     Segment *seg = new Segment();
 
-    if(seg->Init(baseurls, this->url, this->byteRange))
+    if(seg->Init(baseurls, this->url, this->byteRange, dash::metrics::MediaSegment))
         return seg;
 
     delete(seg);
