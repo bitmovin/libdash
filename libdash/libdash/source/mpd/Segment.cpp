@@ -28,7 +28,7 @@ Segment::~Segment   ()
 {
 }
 
-bool            Segment::Init               (const std::vector<IBaseUrl *>& baseurls, const std::string &uri, const std::string &range, HTTPTransactionType type)
+bool                Segment::Init               (const std::vector<IBaseUrl *>& baseurls, const std::string &uri, const std::string &range, HTTPTransactionType type)
 {
     std::string host        = "";
     size_t      port        = 80;
@@ -64,71 +64,71 @@ bool            Segment::Init               (const std::vector<IBaseUrl *>& base
 
     return false;
 }
-std::string&    Segment::AbsoluteURI        ()
+std::string&        Segment::AbsoluteURI        ()
 {
     return this->absoluteuri;
 }
-std::string&    Segment::Host               ()
+std::string&        Segment::Host               ()
 {
     return this->host;
 }
-size_t          Segment::Port               ()
+size_t              Segment::Port               ()
 {
     return this->port;
 }
-std::string&    Segment::Path               ()
+std::string&        Segment::Path               ()
 {
     return this->path;
 }
-std::string&    Segment::Range              ()
+std::string&        Segment::Range              ()
 {
     return this->range;
 }
-size_t          Segment::StartByte          ()
+size_t              Segment::StartByte          ()
 {
     return this->startByte;
 }
-size_t          Segment::EndByte            ()
+size_t              Segment::EndByte            ()
 {
     return this->endByte;
 }
-bool            Segment::HasByteRange       ()
+bool                Segment::HasByteRange       ()
 {
     return this->hasByteRange;
 }
-void            Segment::AbsoluteURI        (std::string uri)
+void                Segment::AbsoluteURI        (std::string uri)
 {
     this->absoluteuri = uri;
 }
-void            Segment::Host               (std::string host)
+void                Segment::Host               (std::string host)
 {
     this->host = host;
 }
-void            Segment::Port               (size_t port)
+void                Segment::Port               (size_t port)
 {
     this->port = port;
 }
-void            Segment::Path               (std::string path)
+void                Segment::Path               (std::string path)
 {
     this->path = path;
 }
-void            Segment::Range              (std::string range)
+void                Segment::Range              (std::string range)
 {
     this->range = range;
 }
-void            Segment::StartByte          (size_t startByte)
+void                Segment::StartByte          (size_t startByte)
 {
     this->startByte = startByte;
 }
-void            Segment::EndByte            (size_t endByte)
+void                Segment::EndByte            (size_t endByte)
 {
     this->endByte = endByte;
 }
-void            Segment::HasByteRange       (bool hasByteRange)
+void                Segment::HasByteRange       (bool hasByteRange)
 {
     this->hasByteRange = hasByteRange;
 }
-dash::metrics::HTTPTransactionType  Segment::GetType()
+HTTPTransactionType Segment::GetType()
 {
     return this->type;
 }

@@ -30,15 +30,16 @@ namespace dash
                 Segment         ();
                 virtual ~Segment();
 
-                bool            Init            (const std::vector<IBaseUrl *>& baseurls, const std::string &uri, const std::string &range, dash::metrics::HTTPTransactionType type);
-                std::string&    AbsoluteURI     ();
-                std::string&    Host            ();
-                size_t          Port            ();
-                std::string&    Path            ();
-                std::string&    Range           ();
-                size_t          StartByte       ();
-                size_t          EndByte         ();
-                bool            HasByteRange    ();
+                bool                                Init            (const std::vector<IBaseUrl *>& baseurls, const std::string &uri,
+                                                                     const std::string &range, dash::metrics::HTTPTransactionType type);
+                std::string&                        AbsoluteURI     ();
+                std::string&                        Host            ();
+                size_t                              Port            ();
+                std::string&                        Path            ();
+                std::string&                        Range           ();
+                size_t                              StartByte       ();
+                size_t                              EndByte         ();
+                bool                                HasByteRange    ();
                 dash::metrics::HTTPTransactionType  GetType();
 
                 void            AbsoluteURI  (std::string uri);
@@ -51,14 +52,14 @@ namespace dash
                 void            HasByteRange (bool hasByteRange);
 
             private:
-                std::string absoluteuri;
-                std::string host;
-                size_t      port;
-                std::string path;
-                std::string range;
-                size_t      startByte;
-                size_t      endByte;
-                bool        hasByteRange;
+                std::string                         absoluteuri;
+                std::string                         host;
+                size_t                              port;
+                std::string                         path;
+                std::string                         range;
+                size_t                              startByte;
+                size_t                              endByte;
+                bool                                hasByteRange;
                 dash::metrics::HTTPTransactionType  type;
         };
     }
