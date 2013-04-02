@@ -22,10 +22,11 @@ namespace dash
         class Time
         {
             public:
-                static uint32_t     GetCurrentTimeInSec ();
+                static uint32_t     GetCurrentUTCTimeInSec  ();
+                static std::string  GetCurrentUTCTimeStr    ();
 
             private:
-                static struct tm*   GetCurrentUTCTime   ();
+                static struct tm*   GetCurrentUTCTime       ();
 
         };
     }

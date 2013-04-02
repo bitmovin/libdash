@@ -27,7 +27,7 @@ IMPD*           DASHManager::Open           (char *path)
 {
     DOMParser parser(path);
 
-    uint32_t fetchTime = Time::GetCurrentTimeInSec();
+    uint32_t fetchTime = Time::GetCurrentUTCTimeInSec();
 
     if (!parser.Parse())
         return NULL;

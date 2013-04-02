@@ -13,12 +13,19 @@
 
 using namespace dash::helpers;
 
-uint32_t    Time::GetCurrentTimeInSec ()
+uint32_t    Time::GetCurrentUTCTimeInSec   ()
 {
     return mktime(Time::GetCurrentUTCTime());
 }
+std::string Time::GetCurrentUTCTimeStr   ()
+{
+    char timeString[30];
+    /* format passt nicht */
+    strftime(timeString, 30, "%Y-%m-%dT%H:%M:%SZ", Time::GetCurrentUTCTime());
 
-struct tm*  Time::GetCurrentUTCTime   ()
+    return std::string(timeString);
+}
+struct tm*  Time::GetCurrentUTCTime     ()
 {
     time_t      rawTime;
 
