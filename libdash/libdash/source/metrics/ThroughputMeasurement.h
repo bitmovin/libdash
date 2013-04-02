@@ -24,16 +24,16 @@ namespace dash
                 ThroughputMeasurement          ();
                 virtual ~ThroughputMeasurement ();
 
-                double                          StartOfPeriod           () const;
+                const std::string&              StartOfPeriod           () const;
                 uint64_t                        DurationOfPeriod        () const;
                 const std::vector<uint32_t>&    ReceivedBytesPerTrace   () const;
 
-                void    SetStartOfPeriod        (double start);
+                void    SetStartOfPeriod        (std::string startOfPeriod);
                 void    SetDurationOfPeriod     (uint64_t duration);
                 void    AddReceivedBytes        (uint32_t numberOfBytes);
 
             private:
-                double                  startOfPeriod;
+                std::string             startOfPeriod;
                 uint64_t                durationOfPeriod;
                 std::vector<uint32_t>   receivedBytesPerTrace;
         };

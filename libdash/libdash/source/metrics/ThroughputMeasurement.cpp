@@ -20,11 +20,11 @@ ThroughputMeasurement::~ThroughputMeasurement()
 {
 }
 
-double                          ThroughputMeasurement::StartOfPeriod           () const
+const std::string&              ThroughputMeasurement::StartOfPeriod           () const
 {
     return this->startOfPeriod;
 }
-void                            ThroughputMeasurement::SetStartOfPeriod        (double start)
+void                            ThroughputMeasurement::SetStartOfPeriod        (std::string start)
 {
     this->startOfPeriod = start;
 }

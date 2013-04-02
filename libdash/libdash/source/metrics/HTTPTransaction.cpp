@@ -13,7 +13,16 @@
 
 using namespace dash::metrics;
 
-HTTPTransaction::HTTPTransaction ()
+HTTPTransaction::HTTPTransaction () :
+                 tcpId           (0),
+                 type            (dash::metrics::Other),
+                 responseCode    (0),
+                 interval        (0),
+                 url             (""),
+                 actualUrl       (""),
+                 range           (""),
+                 tRequest        (""),
+                 tResponse       ("")
 {
 }
 HTTPTransaction::~HTTPTransaction()
@@ -62,19 +71,19 @@ void                                            HTTPTransaction::SetRange       
 {
     this->range = range;
 }
-double                                          HTTPTransaction::RequestSentTime            () const
+const std::string&                              HTTPTransaction::RequestSentTime            () const
 {
     return this->tRequest;
 }
-void                                            HTTPTransaction::SetRequestSentTime         (double tRequest)
+void                                            HTTPTransaction::SetRequestSentTime         (std::string tRequest)
 {
     this->tRequest = tRequest;
 }
-double                                          HTTPTransaction::ResponseReceivedTime       () const
+const std::string&                              HTTPTransaction::ResponseReceivedTime       () const
 {
     return this->tResponse;
 }
-void                                            HTTPTransaction::SetResponseReceivedTime    (double tResponse)
+void                                            HTTPTransaction::SetResponseReceivedTime    (std::string tResponse)
 {
     this->tResponse = tResponse;
 }

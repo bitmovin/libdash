@@ -29,8 +29,8 @@ namespace dash
 
                 virtual uint32_t            TCPId                   () const = 0;
                 virtual const std::string&  DestinationAddress      () const = 0;
-                virtual double              ConnectionOpenedTime    () const = 0;
-                virtual double              ConnectionClosedTime    () const = 0;
+                virtual const std::string&  ConnectionOpenedTime    () const = 0;
+                virtual const std::string&  ConnectionClosedTime    () const = 0;
                 virtual uint64_t            ConnectionTime          () const = 0;
 
         };

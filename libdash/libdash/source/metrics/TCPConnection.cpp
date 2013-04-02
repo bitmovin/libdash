@@ -36,19 +36,19 @@ void                TCPConnection::SetDestinationAddress    (const std::string& 
 {
     this->dest = destAddress;
 }
-double              TCPConnection::ConnectionOpenedTime     () const
+const std::string&  TCPConnection::ConnectionOpenedTime     () const
 {
     return this->tOpen;
 }
-void                TCPConnection::SetConnectionOpenedTime  (double tOpen)
+void                TCPConnection::SetConnectionOpenedTime  (std::string tOpen)
 {
     this->tOpen = tOpen;
 }
-double              TCPConnection::ConnectionClosedTime     () const
+const std::string&  TCPConnection::ConnectionClosedTime     () const
 {
     return this->tClose;
 }
-void                TCPConnection::SetConnectionClosedTime  (double tClose)
+void                TCPConnection::SetConnectionClosedTime  (std::string tClose)
 {
     this->tClose = tClose;
 }

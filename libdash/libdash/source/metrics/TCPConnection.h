@@ -26,21 +26,21 @@ namespace dash
 
                 uint32_t                TCPId                   () const;
                 const std::string&      DestinationAddress      () const;
-                double                  ConnectionOpenedTime    () const;
-                double                  ConnectionClosedTime    () const;
+                const std::string&      ConnectionOpenedTime    () const;
+                const std::string&      ConnectionClosedTime    () const;
                 uint64_t                ConnectionTime          () const;
 
                 void    SetTCPId                (uint32_t tcpId);
                 void    SetDestinationAddress   (const std::string& destAddress);
-                void    SetConnectionOpenedTime (double tOpen);
-                void    SetConnectionClosedTime (double tClose);
+                void    SetConnectionOpenedTime (std::string tOpen);
+                void    SetConnectionClosedTime (std::string tClose);
                 void    SetConnectionTime       (uint64_t tConnect);
 
             private:
                 uint32_t        tcpId;
                 std::string     dest;
-                double          tOpen;
-                double          tClose;
+                std::string     tOpen;
+                std::string     tClose;
                 uint64_t        tConnect;
         };
     }

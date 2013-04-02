@@ -27,7 +27,7 @@ namespace dash
             public:
                 virtual ~IThroughputMeasurement (){}
 
-                virtual double                          StartOfPeriod           () const = 0;
+                virtual const std::string&              StartOfPeriod           () const = 0;
                 virtual uint64_t                        DurationOfPeriod        () const = 0;
                 virtual const std::vector<uint32_t>&    ReceivedBytesPerTrace   () const = 0;
 

@@ -30,8 +30,8 @@ namespace dash
                 const std::string&                              OriginalUrl             () const;
                 const std::string&                              ActualUrl               () const;
                 const std::string&                              Range                   () const;
-                double                                          RequestSentTime         () const;
-                double                                          ResponseReceivedTime    () const;
+                const std::string&                              RequestSentTime         () const;
+                const std::string&                              ResponseReceivedTime    () const;
                 uint16_t                                        ResponseCode            () const;
                 uint64_t                                        Interval                () const;
                 const std::vector<IThroughputMeasurement *>&    ThroughputTrace         () const;
@@ -41,8 +41,8 @@ namespace dash
                 void    SetOriginalUrl              (const std::string& origUrl);
                 void    SetActualUrl                (const std::string& actUrl);
                 void    SetRange                    (const std::string& range);
-                void    SetRequestSentTime          (double tRequest);
-                void    SetResponseReceivedTime     (double tResponse);
+                void    SetRequestSentTime          (std::string tRequest);
+                void    SetResponseReceivedTime     (std::string tResponse);
                 void    SetResponseCode             (uint16_t respCode);
                 void    SetInterval                 (uint64_t interval);
                 void    AddThroughputMeasurement    (ThroughputMeasurement *throuputEntry);
@@ -53,8 +53,8 @@ namespace dash
                 std::string                             url;
                 std::string                             actualUrl;
                 std::string                             range;
-                double                                  tRequest;
-                double                                  tResponse;
+                std::string                             tRequest;
+                std::string                             tResponse;
                 uint16_t                                responseCode;
                 uint64_t                                interval;
                 std::vector<ThroughputMeasurement *>    trace;
