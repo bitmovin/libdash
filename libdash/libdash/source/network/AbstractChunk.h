@@ -86,8 +86,8 @@ namespace dash
                 static size_t   CurlResponseCallback        (void *contents, size_t size, size_t nmemb, void *userp);
                 static size_t   CurlHeaderCallback          (void *headerData, size_t size, size_t nmemb, void *userdata);
                 static size_t   CurlDebugCallback           (CURL *url, curl_infotype infoType, char * data, size_t length, void *userdata);
-                static void     HandleHeaderOutCallback     (AbstractChunk *chunk);
-                static void     HandleHeaderInCallback      (AbstractChunk *chunk, std::string data);
+                void            HandleHeaderOutCallback     ();
+                void            HandleHeaderInCallback      (std::string data);
         };
     }
 }

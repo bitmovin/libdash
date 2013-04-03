@@ -187,10 +187,10 @@ size_t  AbstractChunk::CurlDebugCallback            (CURL *url, curl_infotype in
         case CURLINFO_TEXT:
             break;
         case CURLINFO_HEADER_OUT:
-            HandleHeaderOutCallback(chunk);
+            chunk->HandleHeaderOutCallback();
             break;
         case CURLINFO_HEADER_IN:
-            HandleHeaderInCallback(chunk, std::string(data));
+            chunk->HandleHeaderInCallback(std::string(data));
             break;
         case CURLINFO_DATA_IN:
             break;
@@ -199,23 +199,23 @@ size_t  AbstractChunk::CurlDebugCallback            (CURL *url, curl_infotype in
     }
     return 0;
 }
-void    AbstractChunk::HandleHeaderOutCallback      (AbstractChunk *chunk)
+void    AbstractChunk::HandleHeaderOutCallback      ()
 {
     HTTPTransaction *httpTransaction = new HTTPTransaction();
 
-    httpTransaction->SetOriginalUrl(chunk->AbsoluteURI());
-    httpTransaction->SetRange(chunk->Range());
-    httpTransaction->SetType(chunk->GetType());
+    httpTransaction->SetOriginalUrl(this->AbsoluteURI());
+    httpTransaction->SetRange(this->Range());
+    httpTransaction->SetType(this->GetType());
     httpTransaction->SetRequestSentTime(Time::GetCurrentUTCTimeStr());
 
-    chunk->httpTransactions.push_back(httpTransaction);
+    this->httpTransactions.push_back(httpTransaction);
 }
-void    AbstractChunk::HandleHeaderInCallback       (AbstractChunk *chunk, std::string data)
+void    AbstractChunk::HandleHeaderInCallback       (std::string data)
 {
     if (data.substr(0,4) != "HTTP")
         return;
 
-    HTTPTransaction *httpTransaction = chunk->httpTransactions.at(chunk->httpTransactions.size()-1);
+    HTTPTransaction *httpTransaction = this->httpTransactions.at(this->httpTransactions.size()-1);
 
     httpTransaction->SetResponseReceivedTime(Time::GetCurrentUTCTimeStr());
     httpTransaction->SetResponseCode(strtoul(data.substr(9,3).c_str(), NULL, 10));
