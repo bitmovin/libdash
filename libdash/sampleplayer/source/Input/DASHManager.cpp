@@ -27,6 +27,8 @@ DASHManager::DASHManager        (AVFrameBuffer *frameBuffer, uint32_t maxcapacit
 {
     this->buffer = new MediaObjectBuffer(this->maxcapacity);
     this->logic  = new AdaptationLogic(mpd);
+
+    av_register_all();
 }
 DASHManager::~DASHManager       ()
 {
@@ -75,9 +77,6 @@ uint32_t    DASHManager::GetPosition        ()
 }
 void        DASHManager::OnDecodingFinished ()
 {
-    if (this->mediaObjectDecoder)
-        this->mediaObjectDecoder->Stop();
-
     this->initSegment = this->logic->GetInitSegment();
     this->initSegment->StartDownload();
     this->initSegment->WaitFinished();
@@ -90,7 +89,10 @@ void*   DASHManager::DoBuffering   (void *receiver)
 {
     DASHManager *dashmanager = (DASHManager *) receiver;
 
-    /* Get InitSegment and download it right away */
+    /*  Get InitSegment and download it right away
+     *
+     *  TODO: use a copy of initSegment for CreateAVDecoder()
+     */
     dashmanager->initSegment = dashmanager->logic->GetInitSegment();
     dashmanager->initSegment->StartDownload();
     dashmanager->initSegment->WaitFinished();

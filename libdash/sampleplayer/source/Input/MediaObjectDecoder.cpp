@@ -49,10 +49,7 @@ bool    MediaObjectDecoder::Start   ()
 void    MediaObjectDecoder::Stop    ()
 {
     this->run = false;
-    //WaitForSingleObject(this->threadHandle, INFINITE);
-    WaitForSingleObject(this->threadHandle, 1000);
-
-    delete this;
+    WaitForSingleObject(this->threadHandle, INFINITE);
 }
 void    MediaObjectDecoder::Notify  ()
 {
@@ -67,22 +64,18 @@ int     MediaObjectDecoder::IORead  (uint8_t *buf, int buf_size)
     if (ret == 0)
         ret = this->mediaSegment->Read(buf, buf_size);
 
-    if (ret == 0)
-        ret = 0;
-
     return ret;
 }
 void*   MediaObjectDecoder::Decode  (void *data)
 {
     MediaObjectDecoder *mediaDecodingThread = (MediaObjectDecoder *) data;
 
-    bool eos = false;
-
     while(mediaDecodingThread->decoder->decode() && mediaDecodingThread->run);
 
-    mediaDecodingThread->decoder->stop();
     mediaDecodingThread->Notify();
+    mediaDecodingThread->decoder->stop();
 
+    delete mediaDecodingThread;
     return NULL;
 }
 void    MediaObjectDecoder::OnVideoFrameAvailable   (AVFrame* frame)

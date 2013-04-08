@@ -149,8 +149,6 @@ int                 LibavDecoder::decodeFrame             (AVFrame *picture, AVP
 }
 bool                LibavDecoder::init                    ()
 {
-    av_register_all();
-
     this->avFormatContextPtr = openInput();
 
     if (this->errorHappened)

@@ -118,7 +118,7 @@ bool    SDLRenderer::DisplayFrame           (AVFrame *frame)
 
     SDL_DisplayYUVOverlay(bmp, &rect);
 
-    av_free(frame);
+    av_freep(frame);
 
     return true;
 }
