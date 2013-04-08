@@ -39,10 +39,22 @@
     <ClInclude Include="source\Input\MediaObject.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="source\Input\MediaObjectBuffer.h">
+    <ClInclude Include="source\Input\MultiThreading.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="source\Input\MultiThreading.h">
+    <ClInclude Include="source\Input\DASHManager.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Input\IMediaObjectDecoderObserver.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Input\MediaObjectDecoder.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Buffer\AVFrameBuffer.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Buffer\MediaObjectBuffer.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
@@ -65,10 +77,19 @@
     <ClCompile Include="source\Input\MediaObject.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="source\Input\MediaObjectBuffer.cpp">
+    <ClCompile Include="source\Input\MultiThreading.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="source\Input\MultiThreading.cpp">
+    <ClCompile Include="source\Input\DASHManager.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Input\MediaObjectDecoder.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Buffer\AVFrameBuffer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Buffer\MediaObjectBuffer.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

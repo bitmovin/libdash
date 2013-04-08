@@ -25,12 +25,14 @@ namespace sampleplayer
                 AdaptationLogic             (dash::mpd::IMPD *mpd);
                 virtual ~AdaptationLogic    ();
 
-                MediaObject* GetSegment(uint32_t number);
+                MediaObject* GetSegment     (uint32_t number);
+                MediaObject* GetInitSegment ();
 
             private:
                 dash::mpd::IMPD                     *mpd;
                 dash::mpd::IRepresentation          *lowestRep;
                 std::vector<dash::mpd::IBaseUrl *>  baseurls;
+
         };
     }
 }

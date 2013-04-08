@@ -11,7 +11,9 @@
 
 #include "MediaObjectBuffer.h"
 
+using namespace sampleplayer::buffer;
 using namespace sampleplayer::input;
+
 using namespace dash::mpd;
 using namespace dash::network;
 
@@ -25,18 +27,14 @@ MediaObjectBuffer::MediaObjectBuffer    (uint32_t maxcapacity) :
 }
 MediaObjectBuffer::~MediaObjectBuffer   ()
 {
+    this->Clear();
+
     DeleteConditionVariable (&this->full);
     DeleteConditionVariable (&this->empty);
     DeleteCriticalSection   (&this->monitorMutex);
-
-    while(!this->mediaobjects.empty())
-    {
-        delete(this->mediaobjects.front());
-        this->mediaobjects.pop();
-    }
 }
 
-void            MediaObjectBuffer::Push     (MediaObject *media)
+bool            MediaObjectBuffer::PushBack         (MediaObject *media)
 {
     EnterCriticalSection(&this->monitorMutex);
 
@@ -45,17 +43,18 @@ void            MediaObjectBuffer::Push     (MediaObject *media)
 
     if(this->mediaobjects.size() >= this->maxcapacity)
     {
-        delete(media);
         LeaveCriticalSection(&this->monitorMutex);
-        return;
+        return false;
     }
 
-    this->mediaobjects.push(media);
+    this->mediaobjects.push_back(media);
 
     WakeAllConditionVariable(&this->full);
     LeaveCriticalSection(&this->monitorMutex);
+
+    return true;
 }
-MediaObject*    MediaObjectBuffer::Front    ()
+MediaObject*    MediaObjectBuffer::Front            ()
 {
     EnterCriticalSection(&this->monitorMutex);
 
@@ -68,11 +67,34 @@ MediaObject*    MediaObjectBuffer::Front    ()
         return NULL;
     }
 
+    MediaObject *object = this->mediaobjects.front();
+
     LeaveCriticalSection(&this->monitorMutex);
 
-    return this->mediaobjects.front();
+    return object;
 }
-uint32_t        MediaObjectBuffer::Length   ()
+MediaObject*    MediaObjectBuffer::GetFront         ()
+{
+    EnterCriticalSection(&this->monitorMutex);
+
+    while(this->mediaobjects.size() == 0 && !this->eos)
+        SleepConditionVariableCS(&this->full, &this->monitorMutex, INFINITE);
+
+    if(this->mediaobjects.size() == 0)
+    {
+        LeaveCriticalSection(&this->monitorMutex);
+        return NULL;
+    }
+
+    MediaObject *object = this->mediaobjects.front();
+    this->mediaobjects.pop_front();
+
+    WakeAllConditionVariable(&this->empty);
+    LeaveCriticalSection(&this->monitorMutex);
+
+    return object;
+}
+uint32_t        MediaObjectBuffer::Length           ()
 {
     EnterCriticalSection(&this->monitorMutex);
 
@@ -82,23 +104,62 @@ uint32_t        MediaObjectBuffer::Length   ()
 
     return ret;
 }
-void            MediaObjectBuffer::Pop      ()
+void            MediaObjectBuffer::PopFront         ()
 {
     EnterCriticalSection(&this->monitorMutex);
 
-    delete(this->mediaobjects.front());
-    this->mediaobjects.pop();
+    this->mediaobjects.pop_front();
 
     WakeAllConditionVariable(&this->empty);
     LeaveCriticalSection(&this->monitorMutex);
 }
-void            MediaObjectBuffer::SetEOS   (bool value)
+void            MediaObjectBuffer::SetEOS           (bool value)
 {
     EnterCriticalSection(&this->monitorMutex);
+
+    for (size_t i = 0; i < this->mediaobjects.size(); i++)
+        this->mediaobjects.at(i)->AbortDownload();
 
     this->eos = value;
 
     WakeAllConditionVariable(&this->empty);
     WakeAllConditionVariable(&this->full);
     LeaveCriticalSection(&this->monitorMutex);
+}
+void            MediaObjectBuffer::ClearTail        ()
+{
+    EnterCriticalSection(&this->monitorMutex);
+
+    int size = this->mediaobjects.size() - 1;
+
+    MediaObject* object = this->mediaobjects.front();
+    this->mediaobjects.pop_front();
+    for(int i=0; i < size; i++)
+    {
+        delete this->mediaobjects.front();
+        this->mediaobjects.pop_front();
+    }
+
+    this->mediaobjects.push_back(object);
+    WakeAllConditionVariable(&this->empty);
+    WakeAllConditionVariable(&this->full);
+    LeaveCriticalSection(&this->monitorMutex);
+}
+void            MediaObjectBuffer::Clear            ()
+{
+    EnterCriticalSection(&this->monitorMutex);
+
+    for(size_t i=0; i < this->mediaobjects.size(); i++)
+    {
+        delete this->mediaobjects.front();
+        this->mediaobjects.pop_front();
+    }
+
+    WakeAllConditionVariable(&this->empty);
+    WakeAllConditionVariable(&this->full);
+    LeaveCriticalSection(&this->monitorMutex);
+}
+uint32_t        MediaObjectBuffer::Capacity         ()
+{
+    return this->maxcapacity;
 }

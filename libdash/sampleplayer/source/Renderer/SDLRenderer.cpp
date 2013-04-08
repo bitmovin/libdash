@@ -12,19 +12,38 @@
 #include "SDLRenderer.h"
 
 using namespace sampleplayer::renderer;
+using namespace sampleplayer::buffer;
 
-SDLRenderer::SDLRenderer    () :
+SDLRenderer::SDLRenderer    (AVFrameBuffer* frameBuffer) :
+             frameBuffer    (frameBuffer),
              bmp            (NULL),
              screen         (NULL),
              imgConvertCtx  (NULL),
              isInit         (false),
-             quitKeyPressed (false)
+             quitKeyPressed (false),
+             run            (false)
 {
 }
 SDLRenderer::~SDLRenderer   ()
 {
 }
 
+bool    SDLRenderer::Start                  ()
+{
+    this->run = true;
+
+    this->threadHandle = CreateThreadPortable (Render, this);
+
+    if(this->threadHandle == NULL)
+        return false;
+
+    return true;
+}
+void    SDLRenderer::Stop   ()
+{
+    this->run = false;
+    WaitForSingleObject(this->threadHandle, INFINITE);
+}
 bool    SDLRenderer::init                   (int width, int height)
 {
     this->screen = SDL_SetVideoMode(width, height, 0, 0);
@@ -57,10 +76,10 @@ bool    SDLRenderer::isQuitKeyPressed       ()
 {
     return this->quitKeyPressed;
 }
-void    SDLRenderer::onVideoDataAvailable   (const uint8_t **data, videoFrameProperties* props)
+bool    SDLRenderer::DisplayFrame           (AVFrame *frame)
 {
     if(!this->isInit)
-        this->isInit = this->init(props->width, props->height);
+        this->isInit = this->init(frame->width, frame->height);
 
     SDL_LockYUVOverlay(bmp);
 
@@ -76,26 +95,45 @@ void    SDLRenderer::onVideoDataAvailable   (const uint8_t **data, videoFramePro
     // Convert the image into YUV format that SDL uses
     if(imgConvertCtx == NULL)
     {
-        int w = props->width;
-        int h = props->height;
+        int w = frame->width;
+        int h = frame->height;
 
-        imgConvertCtx = sws_getContext(props->width, props->height, (PixelFormat)props->pxlFmt, w, h, PIX_FMT_YUV420P, SWS_BICUBIC, NULL, NULL, NULL);
+        imgConvertCtx = sws_getContext(frame->width, frame->height, (PixelFormat)frame->format, w, h, PIX_FMT_YUV420P, SWS_BICUBIC, NULL, NULL, NULL);
 
         if(imgConvertCtx == NULL)
         {
             fprintf(stderr, "Cannot initialize the conversion context!\n");
-            exit(1);
+            return false;
         }
     }
 
-    sws_scale(imgConvertCtx, data, props->linesize, 0, props->height, pict.data, pict.linesize);
+    sws_scale(imgConvertCtx, frame->data, frame->linesize, 0, frame->height, pict.data, pict.linesize);
 
     SDL_UnlockYUVOverlay(bmp);
 
     rect.x = 0;
     rect.y = 0;
-    rect.w = props->width;
-    rect.h = props->height;
+    rect.w = frame->width;
+    rect.h = frame->height;
 
     SDL_DisplayYUVOverlay(bmp, &rect);
+
+    av_free(frame);
+
+    return true;
+}
+void*   SDLRenderer::Render (void *data)
+{
+    SDLRenderer *renderer = (SDLRenderer *) data;
+
+    AVFrame *frame = renderer->frameBuffer->GetFront();
+    while(renderer->displayFrame && renderer->run) 
+    {
+        renderer->displayFrame = renderer->DisplayFrame(frame);
+        Sleep(40);
+
+        frame = renderer->frameBuffer->GetFront();
+    }
+
+    return NULL;
 }

@@ -13,6 +13,7 @@
 #define SDLRENDERER_H_
 
 #include "IVideoObserver.h"
+#include "../Buffer/AVFrameBuffer.h"
 
 #include <SDL.h>
 #include <SDL_thread.h>
@@ -21,27 +22,35 @@ namespace sampleplayer
 {
     namespace renderer
     {
-        class SDLRenderer : public IVideoObserver
+        class SDLRenderer
         {
             public:
-                SDLRenderer            ();
+                SDLRenderer            (buffer::AVFrameBuffer *frameBuffer);
                 virtual ~SDLRenderer   ();
 
                 bool init               (int width, int height);
                 bool processEvents      ();
                 bool isQuitKeyPressed   ();
-
-                virtual void onVideoDataAvailable  (const uint8_t **data, videoFrameProperties* props);
+                bool Start              ();
+                void Stop               ();
 
             private:
-                SDL_Overlay *bmp;
-                SDL_Surface *screen;
-                SDL_Rect    rect;
-                SDL_Event   sdl_event;
-                bool        isInit;
-                bool        quitKeyPressed;
+                THREAD_HANDLE           threadHandle;
+                SDL_Overlay             *bmp;
+                SDL_Surface             *screen;
+                SDL_Rect                rect;
+                SDL_Event               sdl_event;
+                bool                    isInit;
+                bool                    run;
+                bool                    displayFrame;
+                bool                    quitKeyPressed;
+                buffer::AVFrameBuffer   *frameBuffer;
 
-                struct SwsContext *imgConvertCtx;
+                struct SwsContext       *imgConvertCtx;
+
+                static void* Render         (void *data);
+                bool         DisplayFrame   (AVFrame *frame);
+
         };
     }
 }

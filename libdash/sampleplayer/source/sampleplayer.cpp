@@ -10,35 +10,46 @@
  *****************************************************************************/
 
 #include "Decoder/LibavDecoder.h"
-#include "Input/DASHReceiver.h"
+#include "Input/DASHManager.h"
 #include "Renderer/SDLRenderer.h"
+#include "Buffer/AVFrameBuffer.h"
+#include "IMPD.h"
+#include "IDASHManager.h"
 
 using namespace sampleplayer::decoder;
 using namespace sampleplayer::input;
 using namespace sampleplayer::renderer;
+using namespace sampleplayer::buffer;
 
 int main(int argc, char *argv[])
 {
-    SDLRenderer     *renderer = new SDLRenderer();
-    DASHReceiver    *receiver = new DASHReceiver(30); // Init a DASHReceiver with a buffer size of 30 Segments
+    dash::IDASHManager  *man = CreateDashManager();
 
-    receiver->Init("http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s_480p_only/bunny_Desktop.mpd");
+    /* 
+     *  Big Buck Bunny 480p only - Segment List 
+     *  Do not forget to alter Constructor, GetInitSegment() and GetSegment() in adaptation logic if you switch back
+     */
+    //dash::mpd::IMPD     *mpd = man->Open("http://www-itec.aau.at/~cmueller/libdashtest/showcases/big_buck_bunny_480.mpd");
 
-    LibavDecoder *decoder = new LibavDecoder(receiver);
+    /* 
+     *  Red Bull - Segment Template
+     *  Do not forget to alter Constructor, GetInitSegment() and GetSegment() in adaptation logic if you switch back
+     */
+    dash::mpd::IMPD     *mpd = man->Open("http://www-itec.aau.at/~cmueller/libdashtest/showcases/redbull_segment_template.mpd");
 
-    decoder->attachVideoObserver(renderer);
-    decoder->setFrameRate(24);
-    decoder->init();
-    
+    AVFrameBuffer   *frameBuffer    = new AVFrameBuffer(4);
+    DASHManager     *manager        = new DASHManager(frameBuffer, 20, mpd);
+    SDLRenderer     *renderer       = new SDLRenderer(frameBuffer);
+
+    manager->Start();
+    renderer->Start();
+
     bool eos = false;
 
     while(!renderer->isQuitKeyPressed() && !eos)
     {
-        eos = !decoder->decode();
         renderer->processEvents();
     }
-
-    decoder->stop();
 
     return 0;
 }

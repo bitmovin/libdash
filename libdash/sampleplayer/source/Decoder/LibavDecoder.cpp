@@ -22,58 +22,18 @@ static int          IORead                           (void *opaque, uint8_t *buf
     return ret;
 }
 
-LibavDecoder::LibavDecoder  (IDataReceiver* rec) :
-         receiver           (rec),
-         errorHappened      (false),
-         framerate          (24),
-         bufferSize         (32768)
+LibavDecoder::LibavDecoder  (IDataReceiver* rec, IVideoObserver *obs) :
+              receiver      (rec),
+              observer      (obs),
+              errorHappened (false),
+              framerate     (24),
+              bufferSize    (32768)
 {
 }
 LibavDecoder::~LibavDecoder ()
 {
 }
 
-void                LibavDecoder::attachAudioObserver     (IAudioObserver *observer)
-{
-    audioObservers.push_back(observer);
-}
-void                LibavDecoder::attachVideoObserver     (IVideoObserver *observer)
-{
-    videoObservers.push_back(observer);
-}
-void                LibavDecoder::notifyVideo             (AVFrame * avFrame, StreamConfig* decoConf)
-{
-    videoFrameProperties props;
-
-    props.fireError     = false;
-    props.frame         = decoConf->frameCnt;
-    props.height        = decoConf->stream->codec->height;
-    props.width         = decoConf->stream->codec->width;
-    props.linesize      = avFrame->linesize;
-    props.streamIndex   = decoConf->stream->index;
-
-    if(decoConf->stream->codec->pix_fmt == PIX_FMT_YUV420P)
-        props.pxlFmt = yuv420p;
-    if(decoConf->stream->codec->pix_fmt == PIX_FMT_YUV422P)
-        props.pxlFmt = yuv422p;
-
-    for(size_t i = 0; i < videoObservers.size(); i++)
-        videoObservers.at(i)->onVideoDataAvailable((const uint8_t **)avFrame->data, &props);
-}
-void                LibavDecoder::notifyAudio             (AVFrame * avFrame, StreamConfig* decoConf)
-{
-    audioFrameProperties props;
-
-    props.fireError   = false;
-    props.streamIndex = decoConf->stream->index;
-    props.linesize    = avFrame->linesize[0];
-    props.channels    = decoConf->stream->codec->channels;
-    props.sampleRate  = decoConf->stream->codec->sample_rate;
-    props.samples     = avFrame->nb_samples;
-
-    for(size_t i = 0; i < audioObservers.size(); i++)
-        audioObservers.at(i)->onAudioDataAvailable((const uint8_t **) avFrame->data, &props);
-}
 AVFormatContext*    LibavDecoder::openInput               ()
 {
     AVFormatContext *avFormatContextPtr = NULL;
@@ -140,7 +100,8 @@ StreamConfig*       LibavDecoder::getNextFrame            (AVFormatContext* avFo
                 }
                 loop = 0;
             }
-        } else
+        }
+        else
         {
             configcnt = 0;
             while ((loop == 1) && (configcnt < this->streamconfigs.size()))
@@ -175,9 +136,9 @@ int                 LibavDecoder::decodeFrame             (AVFrame *picture, AVP
        if(got_picture)
        {
            if(decConfig->stream->codec->codec_type == AVMEDIA_TYPE_VIDEO)
-               notifyVideo(picture, decConfig);
+               NotifyVideo(picture, decConfig);
            if(decConfig->stream->codec->codec_type == AVMEDIA_TYPE_AUDIO)
-               notifyAudio(picture, decConfig);
+               NotifyAudio(picture, decConfig);
 
            decConfig->frameCnt++;
        }
@@ -212,8 +173,6 @@ bool                LibavDecoder::decode                  ()
     if(decodeFrame(picture, &avpkt, decConfig) < 0)
         return false;
 
-    Sleep((1 / (double)this->framerate) * 1000);
-
     return true;
 }
 void                LibavDecoder::stop                    ()
@@ -232,7 +191,7 @@ void                LibavDecoder::freeConfigs             ()
 void                LibavDecoder::error                   (std::string errormsg, int errorcode)
 {
     videoFrameProperties    videoprops;
-     audioFrameProperties   audioprops;
+    audioFrameProperties   audioprops;
     char                    errorCodeMsg[1024];
     std::stringstream       sstm;
 
@@ -243,15 +202,9 @@ void                LibavDecoder::error                   (std::string errormsg,
     videoprops.errorMessage = (char*)malloc(sstm.str().size()+1);
     strcpy(videoprops.errorMessage, sstm.str().c_str());
 
-    for (size_t i = 0; i < videoObservers.size(); i++)
-        videoObservers.at(i)->onVideoDataAvailable(NULL, &videoprops);
-
     audioprops.fireError       = true;
     audioprops.errorMessage = (char*)malloc(sstm.str().size()+1);
     strcpy(audioprops.errorMessage, sstm.str().c_str());
-
-    for (size_t j = 0; j < audioObservers.size(); j++)
-        audioObservers.at(j)->onAudioDataAvailable(NULL, &audioprops);
 
     this->errorHappened    = true;
     free(audioprops.errorMessage);
@@ -260,4 +213,38 @@ void                LibavDecoder::error                   (std::string errormsg,
 void                LibavDecoder::setFrameRate            (uint8_t rate)
 {
     this->framerate = rate;
+}
+void                LibavDecoder::NotifyVideo             (AVFrame * avFrame, StreamConfig* decoConf)
+{
+    videoFrameProperties props;
+
+    props.fireError     = false;
+    props.frame         = decoConf->frameCnt;
+    props.height        = decoConf->stream->codec->height;
+    props.width         = decoConf->stream->codec->width;
+    props.linesize      = avFrame->linesize;
+    props.streamIndex   = decoConf->stream->index;
+
+    if(decoConf->stream->codec->pix_fmt == PIX_FMT_YUV420P)
+        props.pxlFmt = yuv420p;
+    if(decoConf->stream->codec->pix_fmt == PIX_FMT_YUV422P)
+        props.pxlFmt = yuv422p;
+
+    observer->OnVideoFrameAvailable(avFrame);
+}
+void                LibavDecoder::NotifyAudio             (AVFrame * avFrame, StreamConfig* decoConf)
+{
+    audioFrameProperties props;
+
+    props.fireError   = false;
+    props.streamIndex = decoConf->stream->index;
+    props.linesize    = avFrame->linesize[0];
+    props.channels    = decoConf->stream->codec->channels;
+    props.sampleRate  = decoConf->stream->codec->sample_rate;
+    props.samples     = avFrame->nb_samples;
+
+    /*
+    for(size_t i = 0; i < audioObservers.size(); i++)
+        audioObservers.at(i)->OnAudioDataAvailable((const uint8_t **) avFrame->data, &props);
+        */
 }

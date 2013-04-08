@@ -24,10 +24,23 @@ MediaObject::MediaObject    (ISegment *segment, IRepresentation *rep) :
 }
 MediaObject::~MediaObject   ()
 {
+    if(this->state == IN_PROGRESS)
+    {
+        this->segment->AbortDownload();
+        this->OnDownloadStateChanged(ABORTED);
+    }
+    this->segment->DetachDownloadObserver(this);
+    this->WaitFinished();
+
     DeleteConditionVariable (&this->stateChanged);
     DeleteCriticalSection   (&this->stateLock);
 }
 
+void    MediaObject::AbortDownload          ()
+{
+    this->segment->AbortDownload();
+    this->OnDownloadStateChanged(ABORTED);
+}
 bool    MediaObject::StartDownload          ()
 {
     this->segment->AttachDownloadObserver(this);

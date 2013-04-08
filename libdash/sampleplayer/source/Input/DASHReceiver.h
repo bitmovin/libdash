@@ -13,7 +13,7 @@
 #define DASHRECEIVER_H_
 
 #include "IDataReceiver.h"
-#include "MediaObjectBuffer.h"
+#include "../Buffer/MediaObjectBuffer.h"
 #include "AdaptationLogic.h"
 #include "IDownloadObserver.h"
 #include "libdash.h"
@@ -35,13 +35,13 @@ namespace sampleplayer
                 virtual int IORead (uint8_t *buf, int buf_size);
 
             private:
-                dash::IDASHManager  *manager;
-                dash::mpd::IMPD     *mpd;
-                MediaObjectBuffer   *buffer;
-                int                 count;
-                uint32_t            maxcapacity;
-                AdaptationLogic     *logic;
-                THREAD_HANDLE       bufferingThread;
+                dash::IDASHManager          *manager;
+                dash::mpd::IMPD             *mpd;
+                buffer::MediaObjectBuffer   *buffer;
+                int                         count;
+                uint32_t                    maxcapacity;
+                AdaptationLogic             *logic;
+                THREAD_HANDLE               bufferingThread;
 
                 /* Thread that does the buffering of segments */
                 static void* DoBuffering (void *receiver);
@@ -49,4 +49,4 @@ namespace sampleplayer
     }
 }
 
-#endif /* DASHRECEIVER_H_ */
+#endif /* DASHRECEIVER_H */

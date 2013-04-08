@@ -27,6 +27,7 @@ namespace sampleplayer
                 virtual ~MediaObject    ();
 
                 bool    StartDownload   ();
+                void    AbortDownload   ();
                 void    WaitFinished    ();
                 int     Read            (uint8_t *data, size_t len);
                 int     Peek            (uint8_t *data, size_t len);

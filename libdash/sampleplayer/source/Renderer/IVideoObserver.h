@@ -25,10 +25,11 @@ namespace sampleplayer
 {
     namespace renderer
     {
-        enum   pixelFormat  {
-                                yuv420p = 0,
-                                yuv422p = 4
-                            };
+        enum pixelFormat
+        {
+            yuv420p = 0,
+            yuv422p = 4
+        };
 
         struct videoFrameProperties
         {
@@ -48,7 +49,8 @@ namespace sampleplayer
             public:
                 virtual     ~IVideoObserver       (){};
 
-                virtual void onVideoDataAvailable  (const uint8_t **data, videoFrameProperties* props) = 0;
+                virtual void OnVideoFrameAvailable  (AVFrame *frame) = 0;
+
         };
     }
 }

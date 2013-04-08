@@ -12,6 +12,7 @@
 #include "DASHReceiver.h"
 
 using namespace sampleplayer::input;
+using namespace sampleplayer::buffer;
 using namespace dash;
 using namespace dash::network;
 using namespace dash::mpd;
@@ -57,7 +58,7 @@ int     DASHReceiver::IORead                    (uint8_t *buf, int buf_size)
     int ret = media->Read(buf, buf_size);
 
     if(ret == 0)
-        this->buffer->Pop();
+        this->buffer->PopFront();
     else
         return ret;
 
@@ -77,7 +78,7 @@ void*   DASHReceiver::DoBuffering   (void *receiver)
     {
         media->StartDownload();
         media->WaitFinished();
-        dashreceiver->buffer->Push(media);
+        dashreceiver->buffer->PushBack(media);
         number++;
 
         media = dashreceiver->logic->GetSegment(number);
