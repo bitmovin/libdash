@@ -19,6 +19,8 @@
 #include "../Buffer/AVFrameBuffer.h"
 #include "MediaObject.h"
 #include "../Renderer/IVideoObserver.h"
+#include "../helpers/Timing.h"
+#include "../helpers/TimingObject.h"
 
 namespace sampleplayer
 {

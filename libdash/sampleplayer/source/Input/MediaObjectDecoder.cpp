@@ -15,6 +15,7 @@ using namespace sampleplayer::decoder;
 using namespace sampleplayer::input;
 using namespace sampleplayer::buffer;
 using namespace dash::mpd;
+using namespace sampleplayer::helpers;
 
 MediaObjectDecoder::MediaObjectDecoder  (MediaObject* initSegment, MediaObject* mediaSegment, AVFrameBuffer *frameBuffer, IMediaObjectDecoderObserver *observer) : 
                     observer            (observer),
@@ -34,8 +35,12 @@ MediaObjectDecoder::~MediaObjectDecoder()
 
 bool    MediaObjectDecoder::Start   ()
 {
+    Timing::AddTiming(new TimingObject("AV Decoder started (before decoder->init())"));
+
     if(!decoder->init())
         return false;
+
+    Timing::AddTiming(new TimingObject("after decoder->init()"));
 
     this->run = true;
     this->decoderInitialized = true;
@@ -61,19 +66,30 @@ int     MediaObjectDecoder::IORead  (uint8_t *buf, int buf_size)
     if (!this->decoderInitialized)
         ret = this->initSegment->Read(buf, buf_size);
 
-    if (ret == 0)
+    if (ret == 0) 
+    {
         ret = this->mediaSegment->Read(buf, buf_size);
+        Timing::AddTiming(new TimingObject("  ## IOREAD Media Segment read..."));
+    }
 
     return ret;
 }
 void*   MediaObjectDecoder::Decode  (void *data)
 {
+
+    Timing::AddTiming(new TimingObject("  AV Decoder Decode thread started..."));
+
     MediaObjectDecoder *mediaDecodingThread = (MediaObjectDecoder *) data;
 
     while(mediaDecodingThread->decoder->decode() && mediaDecodingThread->run);
 
+    Timing::AddTiming(new TimingObject("    AV Decoder finished decoding (before notify())..."));
+
     mediaDecodingThread->Notify();
+
     mediaDecodingThread->decoder->stop();
+
+    Timing::AddTiming(new TimingObject("  AV Decoder Decode thread before deletion"));
 
     delete mediaDecodingThread;
     return NULL;

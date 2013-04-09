@@ -16,6 +16,7 @@ using namespace sampleplayer::buffer;
 using namespace dash;
 using namespace dash::network;
 using namespace dash::mpd;
+using namespace sampleplayer::helpers;
 
 DASHManager::DASHManager        (AVFrameBuffer *frameBuffer, uint32_t maxcapacity, IMPD *mpd) :
              frameBuffer        (frameBuffer),
@@ -77,11 +78,14 @@ uint32_t    DASHManager::GetPosition        ()
 }
 void        DASHManager::OnDecodingFinished ()
 {
+    Timing::WriteToFile("../bin/DecodingInterval.txt");
+
     this->initSegment = this->logic->GetInitSegment();
     this->initSegment->StartDownload();
     this->initSegment->WaitFinished();
 
     this->CreateAVDecoder();
+    Timing::AddTiming(new TimingObject("    AV Decoder created..."));
 }
 
 /* Thread that does the buffering of segments */
@@ -111,7 +115,11 @@ void*   DASHManager::DoBuffering   (void *receiver)
         dashmanager->readSegmentCount++;
 
         if (dashmanager->readSegmentCount == 2)
+        {
+            Timing::SetDecoderStartTime();
             dashmanager->CreateAVDecoder();
+            Timing::AddTiming(new TimingObject("    AV Decoder created..."));
+        }
 
         media = dashmanager->logic->GetSegment(dashmanager->readSegmentCount);
     }

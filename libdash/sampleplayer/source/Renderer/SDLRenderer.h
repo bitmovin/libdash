@@ -14,6 +14,7 @@
 
 #include "IVideoObserver.h"
 #include "../Buffer/AVFrameBuffer.h"
+#include "../helpers/Timing.h"
 
 #include <SDL.h>
 #include <SDL_thread.h>
@@ -44,6 +45,7 @@ namespace sampleplayer
                 bool                    run;
                 bool                    displayFrame;
                 bool                    quitKeyPressed;
+                bool                    isFirstFrame;
                 buffer::AVFrameBuffer   *frameBuffer;
 
                 struct SwsContext       *imgConvertCtx;

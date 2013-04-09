@@ -20,6 +20,8 @@
 #include "../Buffer/AVFrameBuffer.h"
 #include "IMPD.h"
 
+#include "../helpers/Timing.h"
+
 namespace sampleplayer
 {
     namespace input
