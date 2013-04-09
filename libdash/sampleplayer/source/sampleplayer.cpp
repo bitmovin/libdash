@@ -37,8 +37,8 @@ int main(int argc, char *argv[])
      */
     dash::mpd::IMPD     *mpd = man->Open("http://www-itec.aau.at/~cmueller/libdashtest/showcases/redbull_segment_template.mpd");
 
-    AVFrameBuffer   *frameBuffer    = new AVFrameBuffer(4);
-    DASHManager     *manager        = new DASHManager(frameBuffer, 20, mpd);
+    AVFrameBuffer   *frameBuffer    = new AVFrameBuffer(25);
+    DASHManager     *manager        = new DASHManager(frameBuffer, 10, mpd);
     SDLRenderer     *renderer       = new SDLRenderer(frameBuffer);
 
     manager->Start();
