@@ -15,11 +15,13 @@
 #include "Buffer/AVFrameBuffer.h"
 #include "IMPD.h"
 #include "IDASHManager.h"
+#include "helpers/Timing.h"
 
 using namespace sampleplayer::decoder;
 using namespace sampleplayer::input;
 using namespace sampleplayer::renderer;
 using namespace sampleplayer::buffer;
+using namespace sampleplayer::helpers;
 
 int main(int argc, char *argv[])
 {
@@ -50,6 +52,8 @@ int main(int argc, char *argv[])
     {
         renderer->processEvents();
     }
+
+    Timing::DisposeTimingObjects();
 
     return 0;
 }

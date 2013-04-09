@@ -89,5 +89,12 @@ void        Timing::WriteToFile                 (std::string filename)
     myfile << "Intervals:" << std::endl << Timing::TimingsInBetweenList() << std::endl;
     myfile << "Timestamp list: " << std::endl << Timing::TimingsList() << std::endl;
     myfile.close();
-
+}
+void        Timing::DisposeTimingObjects        ()
+{
+    for (size_t i = 0; i < Timing::timingsInBetween.size(); i++)
+    {
+        TimingObject *timing = (TimingObject *) Timing::timingsInBetween.at(i);
+        delete timing;
+    }
 }

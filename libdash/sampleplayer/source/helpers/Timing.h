@@ -31,6 +31,7 @@ namespace sampleplayer
                 static void         AddTiming                   (void *timing);
                 static clock_t      GetCurrentUTCTimeInMsec     ();
                 static void         WriteToFile                 (std::string filename);
+                static void         DisposeTimingObjects        ();
 
             private:
                 static float        GetDifference               (clock_t before, clock_t after);
