@@ -88,6 +88,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="source\Decoder\LibavDecoder.h" />
+    <ClInclude Include="source\helpers\Timing.h" />
+    <ClInclude Include="source\helpers\TimingObject.h" />
     <ClInclude Include="source\Input\AdaptationLogic.h" />
     <ClInclude Include="source\Buffer\AVFrameBuffer.h" />
     <ClInclude Include="source\Input\DASHManager.h" />
@@ -104,6 +106,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Decoder\LibavDecoder.cpp" />
+    <ClCompile Include="source\helpers\Timing.cpp" />
+    <ClCompile Include="source\helpers\TimingObject.cpp" />
     <ClCompile Include="source\Input\AdaptationLogic.cpp" />
     <ClCompile Include="source\Buffer\AVFrameBuffer.cpp" />
     <ClCompile Include="source\Input\DASHManager.cpp" />
