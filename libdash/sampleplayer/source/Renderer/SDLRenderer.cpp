@@ -139,7 +139,7 @@ void*   SDLRenderer::Render (void *data)
     AVFrame *frame = renderer->frameBuffer->GetFront();
     while(renderer->displayFrame && renderer->run) 
     {
-        //renderer->displayFrame = renderer->DisplayFrame(frame);
+        renderer->displayFrame = renderer->DisplayFrame(frame);
 
         if (renderer->isFirstFrame)
         {
@@ -147,9 +147,9 @@ void*   SDLRenderer::Render (void *data)
             renderer->isFirstFrame = false;
         }
 
-        Sleep(400);
+        Sleep(40);
 
-        //frame = renderer->frameBuffer->GetFront();
+        frame = renderer->frameBuffer->GetFront();
     }
 
     return NULL;
