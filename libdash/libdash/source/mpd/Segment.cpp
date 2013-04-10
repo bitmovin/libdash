@@ -128,7 +128,11 @@ void                Segment::HasByteRange       (bool hasByteRange)
 {
     this->hasByteRange = hasByteRange;
 }
-HTTPTransactionType Segment::GetType()
+HTTPTransactionType Segment::GetType            ()
 {
     return this->type;
+}
+void                Segment::SetType            (HTTPTransactionType type)
+{
+    this->type = type;
 }

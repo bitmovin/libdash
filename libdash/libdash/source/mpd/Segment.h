@@ -40,7 +40,7 @@ namespace dash
                 size_t                              StartByte       ();
                 size_t                              EndByte         ();
                 bool                                HasByteRange    ();
-                dash::metrics::HTTPTransactionType  GetType();
+                dash::metrics::HTTPTransactionType  GetType         ();
 
                 void            AbsoluteURI  (std::string uri);
                 void            Host         (std::string host);
@@ -50,6 +50,7 @@ namespace dash
                 void            StartByte    (size_t startByte);
                 void            EndByte      (size_t endByte);
                 void            HasByteRange (bool hasByteRange);
+                void            SetType      (dash::metrics::HTTPTransactionType type);
 
             private:
                 std::string                         absoluteuri;
