@@ -26,6 +26,8 @@
 #include "../Input/IDataReceiver.h"
 #include "../Renderer/IVideoObserver.h"
 #include "../Renderer/IAudioObserver.h"
+#include "../helpers/Timing.h"
+#include "../helpers/TimingObject.h"
 
 namespace sampleplayer
 {

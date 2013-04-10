@@ -20,7 +20,6 @@ uint32_t    Time::GetCurrentUTCTimeInSec   ()
 std::string Time::GetCurrentUTCTimeStr   ()
 {
     char timeString[30];
-    /* format passt nicht */
     strftime(timeString, 30, "%Y-%m-%dT%H:%M:%SZ", Time::GetCurrentUTCTime());
 
     return std::string(timeString);

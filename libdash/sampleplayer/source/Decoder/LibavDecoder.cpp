@@ -14,6 +14,7 @@
 using namespace sampleplayer::decoder;
 using namespace sampleplayer::input;
 using namespace sampleplayer::renderer;
+using namespace sampleplayer::helpers;
 
 static int          IORead                           (void *opaque, uint8_t *buf, int buf_size)
 {
@@ -149,8 +150,6 @@ int                 LibavDecoder::decodeFrame             (AVFrame *picture, AVP
 }
 bool                LibavDecoder::init                    ()
 {
-    av_register_all();
-
     this->avFormatContextPtr = openInput();
 
     if (this->errorHappened)
@@ -165,6 +164,8 @@ bool                LibavDecoder::init                    ()
 }
 bool                LibavDecoder::decode                  ()
 {
+    Timing::AddTiming(new TimingObject("  -- before getNextFrame in libavdec"));
+
     StreamConfig* decConfig = getNextFrame(this->avFormatContextPtr, &this->avpkt);
 
     if(decConfig == 0)
@@ -172,6 +173,8 @@ bool                LibavDecoder::decode                  ()
 
     if(decodeFrame(picture, &avpkt, decConfig) < 0)
         return false;
+
+    Timing::AddTiming(new TimingObject("  -- after decodeFrame in libavdec"));
 
     return true;
 }

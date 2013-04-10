@@ -13,6 +13,7 @@
 
 using namespace sampleplayer::renderer;
 using namespace sampleplayer::buffer;
+using namespace sampleplayer::helpers;
 
 SDLRenderer::SDLRenderer    (AVFrameBuffer* frameBuffer) :
              frameBuffer    (frameBuffer),
@@ -21,7 +22,8 @@ SDLRenderer::SDLRenderer    (AVFrameBuffer* frameBuffer) :
              imgConvertCtx  (NULL),
              isInit         (false),
              quitKeyPressed (false),
-             run            (false)
+             run            (false),
+             isFirstFrame   (true)
 {
 }
 SDLRenderer::~SDLRenderer   ()
@@ -46,6 +48,8 @@ void    SDLRenderer::Stop   ()
 }
 bool    SDLRenderer::init                   (int width, int height)
 {
+    Timing::AddTiming(new TimingObject("in init renderer (begin)"));
+
     this->screen = SDL_SetVideoMode(width, height, 0, 0);
 
     if(!screen)
@@ -53,6 +57,8 @@ bool    SDLRenderer::init                   (int width, int height)
 
     this->bmp = SDL_CreateYUVOverlay(width, height, SDL_YV12_OVERLAY, this->screen);
     
+    Timing::AddTiming(new TimingObject("in init renderer (end)"));
+
     return true;
 }
 bool    SDLRenderer::processEvents          ()
@@ -80,6 +86,8 @@ bool    SDLRenderer::DisplayFrame           (AVFrame *frame)
 {
     if(!this->isInit)
         this->isInit = this->init(frame->width, frame->height);
+
+    Timing::AddTiming(new TimingObject("  ++ in display frame (begin)"));
 
     SDL_LockYUVOverlay(bmp);
 
@@ -118,7 +126,9 @@ bool    SDLRenderer::DisplayFrame           (AVFrame *frame)
 
     SDL_DisplayYUVOverlay(bmp, &rect);
 
-    av_free(frame);
+    av_freep(frame);
+
+    Timing::AddTiming(new TimingObject("  ++ in display frame (end)"));
 
     return true;
 }
@@ -130,6 +140,13 @@ void*   SDLRenderer::Render (void *data)
     while(renderer->displayFrame && renderer->run) 
     {
         renderer->displayFrame = renderer->DisplayFrame(frame);
+
+        if (renderer->isFirstFrame)
+        {
+            Timing::SetFirstFrameDisplayedTime();
+            renderer->isFirstFrame = false;
+        }
+
         Sleep(40);
 
         frame = renderer->frameBuffer->GetFront();
