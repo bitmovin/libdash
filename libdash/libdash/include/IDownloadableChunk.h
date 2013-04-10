@@ -62,6 +62,14 @@ namespace dash
                  *  Reads
                  *  @param      data    pointer to a block of memory
                  *  @param      len     size of the memory block that can be used by the method
+                 *  @return     amount of data that has been peeked
+                 */
+                virtual int     Peek                    (uint8_t *data, size_t len)     = 0;
+
+                /**
+                 *  Reads
+                 *  @param      data    pointer to a block of memory
+                 *  @param      len     size of the memory block that can be used by the method
                  *  @param      offset  the offset to start with
                  *  @return     amount of data that has been peeked
                  */

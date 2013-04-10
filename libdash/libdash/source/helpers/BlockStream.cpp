@@ -67,6 +67,16 @@ size_t          BlockStream::GetBytes               (uint8_t *data, size_t len)
 
     return len;
 }
+size_t          BlockStream::PeekBytes              (uint8_t *data, size_t len)
+{
+    /* Performance Intensive */
+    if(len > this->length)
+        len = (size_t) this->length;
+
+    this->BlockQueuePeekBytes(data, len, 0);
+
+    return len;
+}
 size_t          BlockStream::PeekBytes              (uint8_t *data, size_t len, size_t offset)
 {
     /* Performance Intensive */

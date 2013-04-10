@@ -87,11 +87,29 @@ size_t          SyncedBlockStream::GetBytes           (uint8_t *data, size_t len
 
     return ret;
 }
-size_t          SyncedBlockStream::PeekBytes          (uint8_t *data, size_t len, size_t offset)
+size_t          SyncedBlockStream::PeekBytes          (uint8_t *data, size_t len)
 {
     EnterCriticalSection(&this->monitorMutex);
 
     while(this->length == 0 && !this->eos)
+        SleepConditionVariableCS(&this->full, &this->monitorMutex, INFINITE);
+
+    if(this->length == 0)
+    {
+        LeaveCriticalSection(&this->monitorMutex);
+        return 0;
+    }
+
+    size_t ret = BlockStream::PeekBytes(data, len);
+    LeaveCriticalSection(&this->monitorMutex);
+
+    return ret;
+}
+size_t          SyncedBlockStream::PeekBytes          (uint8_t *data, size_t len, size_t offset)
+{
+    EnterCriticalSection(&this->monitorMutex);
+
+    while((this->length == 0 || offset >= this->length) && !this->eos)
         SleepConditionVariableCS(&this->full, &this->monitorMutex, INFINITE);
 
     if(this->length == 0 || offset >= this->length)
