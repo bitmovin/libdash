@@ -82,9 +82,9 @@ int     AbstractChunk::Read                         (uint8_t *data, size_t len)
 {
     return this->blockStream.GetBytes(data, len);
 }
-int     AbstractChunk::Peek                         (uint8_t *data, size_t len)
+int     AbstractChunk::Peek                         (uint8_t *data, size_t len, size_t offset)
 {
-    return this->blockStream.PeekBytes(data, len);
+    return this->blockStream.PeekBytes(data, len, offset);
 }
 void    AbstractChunk::AttachDownloadObserver       (IDownloadObserver *observer)
 {

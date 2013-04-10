@@ -22,7 +22,8 @@ MediaObjectDecoder::MediaObjectDecoder  (MediaObject* initSegment, MediaObject* 
                     frameBuffer         (frameBuffer),
                     initSegment         (initSegment),
                     mediaSegment        (mediaSegment),
-                    decoderInitialized  (false)
+                    decoderInitialized  (false),
+                    initSegmentOffset   (0)
 {
     this->decoder = new LibavDecoder(this, this);
     this->decoder->setFrameRate(24);
@@ -63,8 +64,11 @@ void    MediaObjectDecoder::Notify  ()
 int     MediaObjectDecoder::IORead  (uint8_t *buf, int buf_size)
 {
     int ret = 0;
-    if (!this->decoderInitialized)
-        ret = this->initSegment->Read(buf, buf_size);
+    if (!this->decoderInitialized) 
+    {
+        ret = this->initSegment->Peek(buf, buf_size, this->initSegmentOffset);
+        this->initSegmentOffset += (size_t) ret;
+    }
 
     if (ret == 0) 
     {

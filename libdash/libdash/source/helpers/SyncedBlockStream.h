@@ -31,7 +31,7 @@ namespace dash
                 virtual void            PushFront           (block_t *block);
                 virtual const block_t*  GetBytes            (uint32_t len);
                 virtual size_t          GetBytes            (uint8_t *data, size_t len);
-                virtual size_t          PeekBytes           (uint8_t *data, size_t len);
+                virtual size_t          PeekBytes           (uint8_t *data, size_t len, size_t offset);
                 virtual const block_t*  GetFront            ();
                 virtual const block_t*  Front               ()                  const;
                 virtual uint64_t        Length              ()                  const;

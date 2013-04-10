@@ -53,7 +53,7 @@ namespace dash
                 virtual bool    StartDownload           ();
                 virtual void    AbortDownload           ();
                 virtual int     Read                    (uint8_t *data, size_t len);
-                virtual int     Peek                    (uint8_t *data, size_t len);
+                virtual int     Peek                    (uint8_t *data, size_t len, size_t offset);
                 virtual void    AttachDownloadObserver  (IDownloadObserver *observer);
                 virtual void    DetachDownloadObserver  (IDownloadObserver *observer);
                 /*

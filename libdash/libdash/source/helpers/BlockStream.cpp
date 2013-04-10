@@ -67,13 +67,16 @@ size_t          BlockStream::GetBytes               (uint8_t *data, size_t len)
 
     return len;
 }
-size_t          BlockStream::PeekBytes              (uint8_t *data, size_t len)
+size_t          BlockStream::PeekBytes              (uint8_t *data, size_t len, size_t offset)
 {
     /* Performance Intensive */
     if(len > this->length)
         len = (size_t) this->length;
 
-    this->BlockQueuePeekBytes(data, len);
+    if (offset + len > this->length)
+        len = (size_t) (this->length - offset);
+
+    this->BlockQueuePeekBytes(data, len, offset);
 
     return len;
 }
@@ -134,7 +137,7 @@ bool            BlockStream::BlockQueueGetBytes     (uint8_t *data, uint32_t len
 
     return false;
 }
-bool            BlockStream::BlockQueuePeekBytes    (uint8_t *data, uint32_t len)
+bool            BlockStream::BlockQueuePeekBytes    (uint8_t *data, uint32_t len, size_t offset)
 {
     uint32_t pos = 0;
     int      cnt = 0;
@@ -144,14 +147,14 @@ bool            BlockStream::BlockQueuePeekBytes    (uint8_t *data, uint32_t len
     while(pos < len)
     {
         block = this->blockqueue.at(cnt);
-        if((len - pos) < (block->len))
+        if((offset + len - pos) < (block->len))
         {
-            memcpy(data + pos, block->data, len - pos);
+            memcpy(data + pos, block->data + offset, len - pos - offset);
             return true;
         }
         else
         {
-            memcpy(data + pos, block->data, block->len);
+            memcpy(data + pos, block->data + offset, block->len - offset);
             pos += block->len;
         }
 

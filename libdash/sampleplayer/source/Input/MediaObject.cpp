@@ -71,7 +71,7 @@ int     MediaObject::Read                   (uint8_t *data, size_t len)
 {
     return this->segment->Read(data, len);
 }
-int     MediaObject::Peek                   (uint8_t *data, size_t len)
+int     MediaObject::Peek                   (uint8_t *data, size_t len, size_t offset)
 {
-    return this->segment->Peek(data, len);
+    return this->segment->Peek(data, len, offset);
 }

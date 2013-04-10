@@ -80,10 +80,6 @@ void        DASHManager::OnDecodingFinished ()
 {
     Timing::WriteToFile("../bin/DecodingInterval.txt");
 
-    this->initSegment = this->logic->GetInitSegment();
-    this->initSegment->StartDownload();
-    this->initSegment->WaitFinished();
-
     this->CreateAVDecoder();
     Timing::AddTiming(new TimingObject("    AV Decoder created..."));
 }
@@ -93,10 +89,7 @@ void*   DASHManager::DoBuffering   (void *receiver)
 {
     DASHManager *dashmanager = (DASHManager *) receiver;
 
-    /*  Get InitSegment and download it right away
-     *
-     *  TODO: use a copy of initSegment for CreateAVDecoder()
-     */
+    /*  Get InitSegment and download it right away */
     dashmanager->initSegment = dashmanager->logic->GetInitSegment();
     dashmanager->initSegment->StartDownload();
     dashmanager->initSegment->WaitFinished();

@@ -48,6 +48,7 @@ namespace sampleplayer
                 MediaObject                 *mediaSegment;
                 bool                        run;
                 bool                        decoderInitialized;
+                size_t                      initSegmentOffset;
 
                 static void* Decode             (void *data);
         };
