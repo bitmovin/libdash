@@ -24,10 +24,17 @@ DASHManager::DASHManager        (AVFrameBuffer *frameBuffer, uint32_t maxcapacit
              maxcapacity        (maxcapacity),
              logic              (logic),
              isDownloading      (false),
-             bufferingThread    (NULL)
+             bufferingThread    (NULL),
+             currentPeriod          (0),
+             currentAdaptationSet   (0),
+             currentRepresentation  (0),
+             mpd                (mpd)
 {
     this->buffer = new MediaObjectBuffer(this->maxcapacity);
-    this->logic  = new AdaptationLogic(mpd);
+    this->logic  = new AdaptationLogic(mpd, mpd->GetPeriods().at(0),
+                                       mpd->GetPeriods().at(0)->GetAdaptationSets().at(0),
+                                       mpd->GetPeriods().at(0)->GetAdaptationSets().at(0)->GetRepresentation().at(0)
+                                       );
 
     av_register_all();
 }
@@ -78,7 +85,7 @@ uint32_t    DASHManager::GetPosition        ()
 }
 void        DASHManager::OnDecodingFinished ()
 {
-    Timing::WriteToFile("../bin/DecodingInterval.txt");
+    //Timing::WriteToFile("../bin/DecodingInterval.txt");
 
     this->CreateAVDecoder();
     Timing::AddTiming(new TimingObject("    AV Decoder created..."));
@@ -90,9 +97,7 @@ void*   DASHManager::DoBuffering   (void *receiver)
     DASHManager *dashmanager = (DASHManager *) receiver;
 
     /*  Get InitSegment and download it right away */
-    dashmanager->initSegment = dashmanager->logic->GetInitSegment();
-    dashmanager->initSegment->StartDownload();
-    dashmanager->initSegment->WaitFinished();
+    dashmanager->DownloadInitSegment(dashmanager->logic->GetRepresentation());
     dashmanager->readSegmentCount++;
 
     MediaObject *media = dashmanager->logic->GetSegment(dashmanager->readSegmentCount);
@@ -122,6 +127,80 @@ void*   DASHManager::DoBuffering   (void *receiver)
 }
 bool    DASHManager::CreateAVDecoder    ()
 {
-    this->mediaObjectDecoder = new MediaObjectDecoder(this->initSegment, this->buffer->GetFront(), this->frameBuffer, this);
+    MediaObject *initSegForMediaObject = NULL;
+    MediaObject *mediaObject = this->buffer->GetFront();
+
+    if (!InitSegmentExists(mediaObject->GetRepresentation()))
+        DownloadInitSegment(mediaObject->GetRepresentation());
+
+    initSegForMediaObject = this->initSegments[mediaObject->GetRepresentation()];
+
+    this->mediaObjectDecoder = new MediaObjectDecoder(initSegForMediaObject, mediaObject, this->frameBuffer, this);
     return this->mediaObjectDecoder->Start();
+}
+void    DASHManager::SetRepresentation  (dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation)
+{
+    if (this->logic->GetRepresentation() == representation)
+        return;
+
+    this->logic->SetRepresentation(period, adaptationSet, representation);
+    this->DownloadInitSegment(representation);
+}
+void    DASHManager::ChangePeriod           ()
+{
+    size_t numOfPeriods = mpd->GetPeriods().size();
+    if (numOfPeriods == 1)
+        return;
+
+    currentPeriod = ++currentPeriod % numOfPeriods;
+
+    this->SetRepresentation(mpd->GetPeriods().at(currentPeriod),
+                            mpd->GetPeriods().at(currentPeriod)->GetAdaptationSets().at(0),
+                            mpd->GetPeriods().at(currentPeriod)->GetAdaptationSets().at(0)->GetRepresentation().at(0)
+                            );
+}
+void    DASHManager::ChangeAdaptationSet    ()
+{
+    size_t numOfAdaptationSets = mpd->GetPeriods().at(currentPeriod)->GetAdaptationSets().size();
+    if (numOfAdaptationSets == 1)
+        return;
+
+    currentAdaptationSet = ++currentAdaptationSet % numOfAdaptationSets;
+
+    this->SetRepresentation(mpd->GetPeriods().at(currentPeriod),
+                            mpd->GetPeriods().at(currentPeriod)->GetAdaptationSets().at(currentAdaptationSet),
+                            mpd->GetPeriods().at(currentPeriod)->GetAdaptationSets().at(currentAdaptationSet)->GetRepresentation().at(0)
+                            );
+}
+void    DASHManager::ChangeRepresentation   ()
+{
+    size_t numOfReps = mpd->GetPeriods().at(currentPeriod)->GetAdaptationSets().at(currentAdaptationSet)->GetRepresentation().size();
+    if (numOfReps == 1)
+        return;
+
+    currentRepresentation = ++currentRepresentation % numOfReps;
+
+    this->SetRepresentation(mpd->GetPeriods().at(currentPeriod),
+                            mpd->GetPeriods().at(currentPeriod)->GetAdaptationSets().at(currentAdaptationSet),
+                            mpd->GetPeriods().at(currentPeriod)->GetAdaptationSets().at(currentAdaptationSet)->GetRepresentation().at(currentRepresentation)
+                            );
+}
+void    DASHManager::DownloadInitSegment    (IRepresentation* rep)
+{
+    if (InitSegmentExists(rep))
+        return;
+
+    MediaObject *initSeg = NULL;
+    initSeg = this->logic->GetInitSegment();
+    initSeg->StartDownload();
+    initSeg->WaitFinished();
+
+    this->initSegments[this->logic->GetRepresentation()] = initSeg;
+}
+bool    DASHManager::InitSegmentExists      (IRepresentation* rep)
+{
+    if (this->initSegments.find(rep) != this->initSegments.end())
+        return true;
+
+    return false;
 }

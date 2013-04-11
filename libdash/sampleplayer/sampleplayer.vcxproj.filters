@@ -63,6 +63,9 @@
     <ClInclude Include="source\helpers\TimingObject.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="source\Input\IRendererObserver.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\sampleplayer.cpp">

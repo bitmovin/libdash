@@ -29,29 +29,27 @@ int main(int argc, char *argv[])
 
     /* 
      *  Big Buck Bunny 480p only - Segment List 
-     *  Do not forget to alter Constructor, GetInitSegment() and GetSegment() in adaptation logic if you switch back
+     *  Do not forget to alter GetInitSegment() and GetSegment() in adaptation logic if you switch back
      */
-    //dash::mpd::IMPD     *mpd = man->Open("http://www-itec.aau.at/~cmueller/libdashtest/showcases/big_buck_bunny_480.mpd");
+    dash::mpd::IMPD     *mpd = man->Open("http://www-itec.aau.at/~cmueller/libdashtest/showcases/big_buck_bunny_480.mpd");
 
     /* 
-     *  Red Bull - Segment Template
-     *  Do not forget to alter Constructor, GetInitSegment() and GetSegment() in adaptation logic if you switch back
+     *  Red Bull - Segment Template (only AdaptationSet switches possible)
+     *  Do not forget to alter GetInitSegment() and GetSegment() in adaptation logic if you switch back
      */
-    dash::mpd::IMPD     *mpd = man->Open("http://www-itec.aau.at/~cmueller/libdashtest/showcases/redbull_segment_template.mpd");
+    //dash::mpd::IMPD     *mpd = man->Open("http://www-itec.aau.at/~cmueller/libdashtest/showcases/redbull_segment_template.mpd");
 
-    AVFrameBuffer   *frameBuffer    = new AVFrameBuffer(25);
-    DASHManager     *manager        = new DASHManager(frameBuffer, 10, mpd);
-    SDLRenderer     *renderer       = new SDLRenderer(frameBuffer);
+    AVFrameBuffer   *frameBuffer    = new AVFrameBuffer(2);
+    DASHManager     *manager        = new DASHManager(frameBuffer, 1, mpd);
+    SDLRenderer     *renderer       = new SDLRenderer(frameBuffer, manager);
 
     manager->Start();
     renderer->Start();
 
-    bool eos = false;
+    while(!renderer->isQuitKeyPressed());
 
-    while(!renderer->isQuitKeyPressed() && !eos)
-    {
-        renderer->processEvents();
-    }
+    renderer->Stop();
+    manager->Stop();
 
     Timing::DisposeTimingObjects();
 

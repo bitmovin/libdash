@@ -19,6 +19,7 @@
 #include "libdash.h"
 #include "../Buffer/AVFrameBuffer.h"
 #include "IMPD.h"
+#include "IRendererObserver.h"
 
 #include "../helpers/Timing.h"
 
@@ -26,7 +27,7 @@ namespace sampleplayer
 {
     namespace input
     {
-        class DASHManager : public IMediaObjectDecoderObserver
+        class DASHManager : public IMediaObjectDecoderObserver, public IRendererObserver
         {
             public:
                 DASHManager             (buffer::AVFrameBuffer* frameBuffer, uint32_t maxcapacity, dash::mpd::IMPD *mpd);
@@ -36,7 +37,13 @@ namespace sampleplayer
                 void        Stop                ();
                 uint32_t    GetPosition         ();
                 void        Clear               ();
+
                 void        OnDecodingFinished  ();
+
+                void        ChangeAdaptationSet ();
+                void        ChangeRepresentation();
+                void        ChangePeriod        ();
+                void        SetRepresentation   (dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation);
 
             private:
                 buffer::MediaObjectBuffer   *buffer;
@@ -47,11 +54,19 @@ namespace sampleplayer
                 AdaptationLogic             *logic;
                 THREAD_HANDLE               bufferingThread;
                 bool                        isDownloading;
-                MediaObject                 *initSegment;
+                dash::mpd::IMPD             *mpd;
+
+                std::map<dash::mpd::IRepresentation*, MediaObject*> initSegments;
+
+                size_t                      currentPeriod;
+                size_t                      currentAdaptationSet;
+                size_t                      currentRepresentation;
 
                 /* Thread that does the buffering of segments */
-                static void*    DoBuffering     (void *receiver);
-                bool            CreateAVDecoder ();
+                static void*    DoBuffering         (void *receiver);
+                bool            CreateAVDecoder     ();
+                void            DownloadInitSegment (dash::mpd::IRepresentation* rep);
+                bool            InitSegmentExists   (dash::mpd::IRepresentation* rep); 
 
         };
     }

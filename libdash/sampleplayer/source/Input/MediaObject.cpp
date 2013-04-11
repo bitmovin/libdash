@@ -79,3 +79,7 @@ int     MediaObject::Peek                   (uint8_t *data, size_t len, size_t o
 {
     return this->segment->Peek(data, len, offset);
 }
+IRepresentation*  MediaObject::GetRepresentation()
+{
+    return this->rep;
+}

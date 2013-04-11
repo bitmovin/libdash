@@ -96,6 +96,7 @@
     <ClInclude Include="source\Input\DASHReceiver.h" />
     <ClInclude Include="source\Input\IDataReceiver.h" />
     <ClInclude Include="source\Input\IMediaObjectDecoderObserver.h" />
+    <ClInclude Include="source\Input\IRendererObserver.h" />
     <ClInclude Include="source\Input\MediaObject.h" />
     <ClInclude Include="source\Buffer\MediaObjectBuffer.h" />
     <ClInclude Include="source\Input\MediaObjectDecoder.h" />

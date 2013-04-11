@@ -18,12 +18,14 @@ AdaptationLogic::AdaptationLogic    (IMPD *mpd) :
                  mpd                (mpd)
 {
     this->baseurls.push_back(this->mpd->GetBaseUrls().at(0));
-
-    /* Big Buck Bunny 480p only */
-    //this->lowestRep = this->mpd->GetPeriods().at(0)->GetAdaptationSets().at(0)->GetRepresentation().at(0);
-
-    /* Red Bull Segment Template 1080p, highest bitrate */
-    this->lowestRep = this->mpd->GetPeriods().at(0)->GetAdaptationSets().at(4)->GetRepresentation().at(3);
+}
+AdaptationLogic::AdaptationLogic    (IMPD *mpd, IPeriod *period, IAdaptationSet *adaptationSet, IRepresentation *representation) :
+                 mpd                (mpd),
+                 period             (period),
+                 adaptationSet      (adaptationSet),
+                 representation     (representation)
+{
+    this->baseurls.push_back(this->mpd->GetBaseUrls().at(0));
 }
 AdaptationLogic::~AdaptationLogic   ()
 {
@@ -33,20 +35,17 @@ MediaObject* AdaptationLogic::GetSegment(uint32_t number)
 {
     ISegment *seg = NULL;
 
-    /* Big Buck Bunny 480p only
-    if(number >= this->lowestRep->GetSegmentList()->GetSegmentURLs().size() + 1)
+    /* Big Buck Bunny 480p only */
+    if(number >= this->representation->GetSegmentList()->GetSegmentURLs().size() + 1)
         return NULL;
 
-    if(number == 0)
-        seg = this->lowestRep->GetSegmentList()->GetInitialization()->ToSegment(this->baseurls);
-    else
-        seg = this->lowestRep->GetSegmentList()->GetSegmentURLs().at(number - 1)->ToMediaSegment(this->baseurls);
-    */
+    seg = this->representation->GetSegmentList()->GetSegmentURLs().at(number - 1)->ToMediaSegment(this->baseurls); 
+    //*/
 
     /* Red Bull 1080p Segment Template */
-    seg = this->lowestRep->GetSegmentTemplate()->GetMediaSegmentFromNumber(this->baseurls, this->lowestRep->GetId(), this->lowestRep->GetBandwidth(), number);
+    //seg = this->representation->GetSegmentTemplate()->GetMediaSegmentFromNumber(this->baseurls, this->representation->GetId(), this->representation->GetBandwidth(), number);
 
-    MediaObject *media = new MediaObject(seg, this->lowestRep);
+    MediaObject *media = new MediaObject(seg, this->representation);
 
     return media;
 }
@@ -55,11 +54,21 @@ MediaObject* AdaptationLogic::GetInitSegment()
     ISegment *seg = NULL;
 
     /* Big Buck Bunny 480p only */
-    //seg = this->lowestRep->GetSegmentList()->GetInitialization()->ToSegment(this->baseurls);
+    seg = this->representation->GetSegmentList()->GetInitialization()->ToSegment(this->baseurls);
 
     /* Red Bull 1080p Segment Template */
-    seg = this->lowestRep->GetSegmentTemplate()->ToInitializationSegment(this->baseurls, this->lowestRep->GetId(), this->lowestRep->GetBandwidth());
+    //seg = this->representation->GetSegmentTemplate()->ToInitializationSegment(this->baseurls, this->representation->GetId(), this->representation->GetBandwidth());
 
-    MediaObject *media = new MediaObject(seg, this->lowestRep);
+    MediaObject *media = new MediaObject(seg, this->representation);
     return media;
+}
+void        AdaptationLogic::SetRepresentation   (dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation)
+{
+    this->period            = period;
+    this->adaptationSet     = adaptationSet;
+    this->representation    = representation;
+}
+IRepresentation*    AdaptationLogic::GetRepresentation   ()
+{
+    return this->representation;
 }

@@ -15,6 +15,7 @@
 #include "IVideoObserver.h"
 #include "../Buffer/AVFrameBuffer.h"
 #include "../helpers/Timing.h"
+#include "../Input/IRendererObserver.h"
 
 #include <SDL.h>
 #include <SDL_thread.h>
@@ -26,7 +27,7 @@ namespace sampleplayer
         class SDLRenderer
         {
             public:
-                SDLRenderer            (buffer::AVFrameBuffer *frameBuffer);
+                SDLRenderer            (buffer::AVFrameBuffer *frameBuffer, input::IRendererObserver *obs);
                 virtual ~SDLRenderer   ();
 
                 bool init               (int width, int height);
@@ -47,6 +48,7 @@ namespace sampleplayer
                 bool                    quitKeyPressed;
                 bool                    isFirstFrame;
                 buffer::AVFrameBuffer   *frameBuffer;
+                input::IRendererObserver *observer;
 
                 struct SwsContext       *imgConvertCtx;
 

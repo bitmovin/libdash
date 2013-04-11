@@ -23,14 +23,19 @@ namespace sampleplayer
         {
             public:
                 AdaptationLogic             (dash::mpd::IMPD *mpd);
+                AdaptationLogic             (dash::mpd::IMPD *mpd, dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation);
                 virtual ~AdaptationLogic    ();
 
-                MediaObject* GetSegment     (uint32_t number);
-                MediaObject* GetInitSegment ();
+                MediaObject*                GetSegment          (uint32_t number);
+                MediaObject*                GetInitSegment      ();
+                void                        SetRepresentation   (dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation);
+                dash::mpd::IRepresentation* GetRepresentation   ();
 
             private:
                 dash::mpd::IMPD                     *mpd;
-                dash::mpd::IRepresentation          *lowestRep;
+                dash::mpd::IPeriod                  *period;
+                dash::mpd::IAdaptationSet           *adaptationSet;
+                dash::mpd::IRepresentation          *representation;
                 std::vector<dash::mpd::IBaseUrl *>  baseurls;
 
         };

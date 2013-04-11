@@ -14,8 +14,9 @@
 using namespace sampleplayer::renderer;
 using namespace sampleplayer::buffer;
 using namespace sampleplayer::helpers;
+using namespace sampleplayer::input;
 
-SDLRenderer::SDLRenderer    (AVFrameBuffer* frameBuffer) :
+SDLRenderer::SDLRenderer    (AVFrameBuffer* frameBuffer, IRendererObserver *obs) :
              frameBuffer    (frameBuffer),
              bmp            (NULL),
              screen         (NULL),
@@ -23,7 +24,8 @@ SDLRenderer::SDLRenderer    (AVFrameBuffer* frameBuffer) :
              isInit         (false),
              quitKeyPressed (false),
              run            (false),
-             isFirstFrame   (true)
+             isFirstFrame   (true),
+             observer       (obs)
 {
 }
 SDLRenderer::~SDLRenderer   ()
@@ -71,6 +73,12 @@ bool    SDLRenderer::processEvents          ()
             case SDL_KEYDOWN:
                 if(sdlEvent.key.keysym.sym == SDLK_ESCAPE)
                     this->quitKeyPressed = true;
+                if(sdlEvent.key.keysym.sym == SDLK_a)
+                    this->observer->ChangeAdaptationSet();
+                if(sdlEvent.key.keysym.sym == SDLK_r)
+                    this->observer->ChangeRepresentation();
+                if(sdlEvent.key.keysym.sym == SDLK_p)
+                    this->observer->ChangePeriod();
                 break;
             case SDL_QUIT: this->quitKeyPressed = true; break;
         }
@@ -140,6 +148,7 @@ void*   SDLRenderer::Render (void *data)
     while(renderer->displayFrame && renderer->run) 
     {
         renderer->displayFrame = renderer->DisplayFrame(frame);
+        renderer->processEvents();
 
         if (renderer->isFirstFrame)
         {
@@ -147,7 +156,7 @@ void*   SDLRenderer::Render (void *data)
             renderer->isFirstFrame = false;
         }
 
-        Sleep(40);
+        Sleep(32);
 
         frame = renderer->frameBuffer->GetFront();
     }
