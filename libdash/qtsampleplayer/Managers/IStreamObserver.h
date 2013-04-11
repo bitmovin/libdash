@@ -13,7 +13,7 @@
 #define QTSAMPLEPLAYER_MANAGERS_STREAMOBSERVER_H_
 
 #include <IMPD.h>
-#include <QImage.h>
+#include <qimage.h>
 #include <QtMultimedia/qaudioformat.h>
 
 namespace sampleplayer

@@ -222,7 +222,7 @@ bool                LibavDecoder::Decode                  ()
     if(this->DecodeFrame(this->frame, &avpkt, decConfig) < 0)
         return false;
 
-    Sleep((1 / (double)this->framerate) * 1000);
+    ThreadSleep(this->framerate);  // amount of sleep time will be calculated based on the framerate
 
     return true;
 }

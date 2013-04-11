@@ -59,7 +59,7 @@ void        DASHManager::Stop                           ()
 
     if(this->bufferingThread != NULL)
     {
-        WaitForSingleObject(this->bufferingThread, INFINITE);
+	WaitForThread(this->bufferingThread);
         DestroyThreadPortable(this->bufferingThread);
     }
 

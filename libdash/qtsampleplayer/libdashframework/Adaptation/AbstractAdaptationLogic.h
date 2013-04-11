@@ -12,7 +12,7 @@
 #ifndef LIBDASH_FRAMEWORK_ADAPTATION_ABSTRACTADAPTATIONLOGIC_H_
 #define LIBDASH_FRAMEWORK_ADAPTATION_ABSTRACTADAPTATIONLOGIC_H_
 
-#include "MediaObject.h"
+#include "../Input/MediaObject.h"
 #include "IAdaptationLogic.h"
 
 namespace libdash
