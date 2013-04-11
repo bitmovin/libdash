@@ -12,7 +12,6 @@
 #ifndef LIBDASH_FRAMEWORK_ADAPTATION_MANUALADAPTATION_H_
 #define LIBDASH_FRAMEWORK_ADAPTATION_MANUALADAPTATION_H_
 
-#include "../MPD/RepresentationHelper.h"
 #include "AbstractAdaptationLogic.h"
 #include "../MPD/AdaptationSetStream.h"
 

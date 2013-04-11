@@ -105,7 +105,6 @@
     <ClCompile Include="libdashframework\MPD\AbstractRepresentationStream.cpp" />
     <ClCompile Include="libdashframework\MPD\AdaptationSetStream.cpp" />
     <ClCompile Include="libdashframework\MPD\BaseUrlResolver.cpp" />
-    <ClCompile Include="libdashframework\MPD\RepresentationHelper.cpp" />
     <ClCompile Include="libdashframework\MPD\RepresentationStreamFactory.cpp" />
     <ClCompile Include="libdashframework\MPD\SingleMediaSegmentStream.cpp" />
     <ClCompile Include="libdashframework\MPD\SegmentListStream.cpp" />
@@ -180,7 +179,6 @@
     <ClInclude Include="libdashframework\MPD\AdaptationSetStream.h" />
     <ClInclude Include="libdashframework\MPD\BaseUrlResolver.h" />
     <ClInclude Include="libdashframework\MPD\IRepresentationStream.h" />
-    <ClInclude Include="libdashframework\MPD\RepresentationHelper.h" />
     <ClInclude Include="libdashframework\MPD\RepresentationStreamFactory.h" />
     <ClInclude Include="libdashframework\MPD\SingleMediaSegmentStream.h" />
     <ClInclude Include="libdashframework\MPD\SegmentListStream.h" />
