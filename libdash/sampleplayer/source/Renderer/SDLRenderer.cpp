@@ -156,7 +156,7 @@ void*   SDLRenderer::Render (void *data)
             renderer->isFirstFrame = false;
         }
 
-        Sleep(32);
+        Sleep(40);
 
         frame = renderer->frameBuffer->GetFront();
     }

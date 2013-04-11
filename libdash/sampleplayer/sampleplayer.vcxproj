@@ -87,6 +87,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="source\Adaptation\AbstractAdaptationLogic.h" />
+    <ClInclude Include="source\Adaptation\AdaptationLogicFactory.h" />
+    <ClInclude Include="source\Adaptation\IAdaptationLogic.h" />
+    <ClInclude Include="source\Adaptation\ManualAdaptation.h" />
     <ClInclude Include="source\Decoder\LibavDecoder.h" />
     <ClInclude Include="source\helpers\Timing.h" />
     <ClInclude Include="source\helpers\TimingObject.h" />
@@ -101,11 +105,24 @@
     <ClInclude Include="source\Buffer\MediaObjectBuffer.h" />
     <ClInclude Include="source\Input\MediaObjectDecoder.h" />
     <ClInclude Include="source\Input\MultiThreading.h" />
+    <ClInclude Include="source\MPD\AbstractRepresentationStream.h" />
+    <ClInclude Include="source\MPD\AdaptationSetHelper.h" />
+    <ClInclude Include="source\MPD\AdaptationSetStream.h" />
+    <ClInclude Include="source\MPD\BaseUrlResolver.h" />
+    <ClInclude Include="source\MPD\IRepresentationStream.h" />
+    <ClInclude Include="source\MPD\RepresentationStreamFactory.h" />
+    <ClInclude Include="source\MPD\SegmentListStream.h" />
+    <ClInclude Include="source\MPD\SegmentTemplateStream.h" />
+    <ClInclude Include="source\MPD\SingleMediaSegmentStream.h" />
+    <ClInclude Include="source\MPD\TimeResolver.h" />
     <ClInclude Include="source\Renderer\IAudioObserver.h" />
     <ClInclude Include="source\Renderer\IVideoObserver.h" />
     <ClInclude Include="source\Renderer\SDLRenderer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\Adaptation\AbstractAdaptationLogic.cpp" />
+    <ClCompile Include="source\Adaptation\AdaptationLogicFactory.cpp" />
+    <ClCompile Include="source\Adaptation\ManualAdaptation.cpp" />
     <ClCompile Include="source\Decoder\LibavDecoder.cpp" />
     <ClCompile Include="source\helpers\Timing.cpp" />
     <ClCompile Include="source\helpers\TimingObject.cpp" />
@@ -117,6 +134,15 @@
     <ClCompile Include="source\Buffer\MediaObjectBuffer.cpp" />
     <ClCompile Include="source\Input\MediaObjectDecoder.cpp" />
     <ClCompile Include="source\Input\MultiThreading.cpp" />
+    <ClCompile Include="source\MPD\AbstractRepresentationStream.cpp" />
+    <ClCompile Include="source\MPD\AdaptationSetHelper.cpp" />
+    <ClCompile Include="source\MPD\AdaptationSetStream.cpp" />
+    <ClCompile Include="source\MPD\BaseUrlResolver.cpp" />
+    <ClCompile Include="source\MPD\RepresentationStreamFactory.cpp" />
+    <ClCompile Include="source\MPD\SegmentListStream.cpp" />
+    <ClCompile Include="source\MPD\SegmentTemplateStream.cpp" />
+    <ClCompile Include="source\MPD\SingleMediaSegmentStream.cpp" />
+    <ClCompile Include="source\MPD\TimeResolver.cpp" />
     <ClCompile Include="source\Renderer\SDLRenderer.cpp" />
     <ClCompile Include="source\sampleplayer.cpp" />
   </ItemGroup>

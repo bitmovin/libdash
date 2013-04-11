@@ -13,7 +13,8 @@
 #define SAMPLEPLAYER_INPUT_DASHMANAGER_H_
 
 #include "../Buffer/MediaObjectBuffer.h"
-#include "AdaptationLogic.h"
+#include "../Adaptation/IAdaptationLogic.h"
+#include "../Adaptation/AdaptationLogicFactory.h"
 #include "IMediaObjectDecoderObserver.h"
 #include "MediaObjectDecoder.h"
 #include "libdash.h"
@@ -36,31 +37,32 @@ namespace sampleplayer
                 bool        Start               ();
                 void        Stop                ();
                 uint32_t    GetPosition         ();
+                void        SetSegment          (uint32_t segmentNumber); // to implement
+                void        SetPosition         (uint32_t millisec);
+                void        ClearTail           ();
                 void        Clear               ();
-
                 void        OnDecodingFinished  ();
+                void        SetRepresentation   (dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation);
+                void        EnqueueRepresentation   (dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation);
 
                 void        ChangeAdaptationSet ();
                 void        ChangeRepresentation();
                 void        ChangePeriod        ();
-                void        SetRepresentation   (dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation);
 
             private:
-                buffer::MediaObjectBuffer   *buffer;
-                buffer::AVFrameBuffer       *frameBuffer;
-                MediaObjectDecoder          *mediaObjectDecoder;
-                uint32_t                    readSegmentCount;
-                uint32_t                    maxcapacity;
-                AdaptationLogic             *logic;
-                THREAD_HANDLE               bufferingThread;
-                bool                        isDownloading;
-                dash::mpd::IMPD             *mpd;
-
+                buffer::MediaObjectBuffer                           *buffer;
+                buffer::AVFrameBuffer                               *frameBuffer;
+                MediaObjectDecoder                                  *mediaObjectDecoder;
+                uint32_t                                            readSegmentCount;
+                uint32_t                                            maxcapacity;
+                adaptation::IAdaptationLogic                        *logic;
+                THREAD_HANDLE                                       bufferingThread;
+                bool                                                isDownloading;
+                dash::mpd::IMPD                                     *mpd;
                 std::map<dash::mpd::IRepresentation*, MediaObject*> initSegments;
-
-                size_t                      currentPeriod;
-                size_t                      currentAdaptationSet;
-                size_t                      currentRepresentation;
+                size_t                                              currentPeriod;
+                size_t                                              currentAdaptationSet;
+                size_t                                              currentRepresentation;
 
                 /* Thread that does the buffering of segments */
                 static void*    DoBuffering         (void *receiver);

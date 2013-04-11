@@ -13,10 +13,11 @@
 
 using namespace sampleplayer::input;
 using namespace sampleplayer::buffer;
+using namespace sampleplayer::helpers;
+using namespace sampleplayer::adaptation;
 using namespace dash;
 using namespace dash::network;
 using namespace dash::mpd;
-using namespace sampleplayer::helpers;
 
 DASHManager::DASHManager        (AVFrameBuffer *frameBuffer, uint32_t maxcapacity, IMPD *mpd) :
              frameBuffer        (frameBuffer),
@@ -31,10 +32,7 @@ DASHManager::DASHManager        (AVFrameBuffer *frameBuffer, uint32_t maxcapacit
              mpd                (mpd)
 {
     this->buffer = new MediaObjectBuffer(this->maxcapacity);
-    this->logic  = new AdaptationLogic(mpd, mpd->GetPeriods().at(0),
-                                       mpd->GetPeriods().at(0)->GetAdaptationSets().at(0),
-                                       mpd->GetPeriods().at(0)->GetAdaptationSets().at(0)->GetRepresentation().at(0)
-                                       );
+    this->logic  = AdaptationLogicFactory::Create(Manual, mpd->GetPeriods().at(0), mpd->GetPeriods().at(0)->GetAdaptationSets().at(0), mpd, this->maxcapacity);
 
     av_register_all();
 }
@@ -56,6 +54,8 @@ bool        DASHManager::Start              ()
         this->isDownloading = false;
         return false;
     }
+
+    this->CreateAVDecoder();
 
     return true;
 }
@@ -97,10 +97,10 @@ void*   DASHManager::DoBuffering   (void *receiver)
     DASHManager *dashmanager = (DASHManager *) receiver;
 
     /*  Get InitSegment and download it right away */
-    dashmanager->DownloadInitSegment(dashmanager->logic->GetRepresentation());
+    dashmanager->DownloadInitSegment(dashmanager->logic->GetRepresentation()); 
     dashmanager->readSegmentCount++;
 
-    MediaObject *media = dashmanager->logic->GetSegment(dashmanager->readSegmentCount);
+    MediaObject *media = dashmanager->logic->GetSegment();
 
     while(media != NULL && dashmanager->isDownloading)
     {
@@ -110,16 +110,17 @@ void*   DASHManager::DoBuffering   (void *receiver)
             return NULL;
 
         media->WaitFinished();
+
         dashmanager->readSegmentCount++;
 
-        if (dashmanager->readSegmentCount == 2)
+        /*if (dashmanager->readSegmentCount == 2)
         {
             Timing::SetDecoderStartTime();
             dashmanager->CreateAVDecoder();
             Timing::AddTiming(new TimingObject("    AV Decoder created..."));
-        }
+        }*/
 
-        media = dashmanager->logic->GetSegment(dashmanager->readSegmentCount);
+        media = dashmanager->logic->GetSegment();
     }
 
     dashmanager->buffer->SetEOS(true);
@@ -127,10 +128,8 @@ void*   DASHManager::DoBuffering   (void *receiver)
 }
 bool    DASHManager::CreateAVDecoder    ()
 {
-    MediaObject *initSegForMediaObject = NULL;
-    MediaObject *mediaObject = this->buffer->GetFront();
-
-    initSegForMediaObject = this->initSegments[mediaObject->GetRepresentation()];
+    MediaObject *mediaObject            = this->buffer->GetFront();
+    MediaObject *initSegForMediaObject  = this->initSegments[mediaObject->GetRepresentation()];
 
     this->mediaObjectDecoder = new MediaObjectDecoder(initSegForMediaObject, mediaObject, this->frameBuffer, this);
     return this->mediaObjectDecoder->Start();
@@ -184,13 +183,12 @@ void    DASHManager::ChangeRepresentation   ()
 }
 void    DASHManager::DownloadInitSegment    (IRepresentation* rep)
 {
-    if (InitSegmentExists(rep))
+    if (this->InitSegmentExists(rep))
         return;
 
     MediaObject *initSeg = NULL;
     initSeg = this->logic->GetInitSegment();
     initSeg->StartDownload();
-    initSeg->WaitFinished();
 
     this->initSegments[this->logic->GetRepresentation()] = initSeg;
 }
