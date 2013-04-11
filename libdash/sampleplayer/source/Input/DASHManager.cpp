@@ -130,9 +130,6 @@ bool    DASHManager::CreateAVDecoder    ()
     MediaObject *initSegForMediaObject = NULL;
     MediaObject *mediaObject = this->buffer->GetFront();
 
-    if (!InitSegmentExists(mediaObject->GetRepresentation()))
-        DownloadInitSegment(mediaObject->GetRepresentation());
-
     initSegForMediaObject = this->initSegments[mediaObject->GetRepresentation()];
 
     this->mediaObjectDecoder = new MediaObjectDecoder(initSegForMediaObject, mediaObject, this->frameBuffer, this);
