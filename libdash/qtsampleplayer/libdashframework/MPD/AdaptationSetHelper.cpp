@@ -38,17 +38,22 @@ std::vector<IAdaptationSet *>   AdaptationSetHelper::GetVideoAdaptationSets (das
 }
 bool                            AdaptationSetHelper::IsAudioAdaptationSet   (dash::mpd::IAdaptationSet *adaptationSet)
 {
-    if (adaptationSet->GetMimeType() != "")
-        if (adaptationSet->GetMimeType().find("audio") != std::string::npos)
-            return true;
-
-    return false;
+    return IsContainedInMimeType(adaptationSet, "audio");
 }
 bool                            AdaptationSetHelper::IsVideoAdaptationSet   (dash::mpd::IAdaptationSet *adaptationSet)
 {
+    return IsContainedInMimeType(adaptationSet, "video");
+}
+bool                            AdaptationSetHelper::IsContainedInMimeType  (dash::mpd::IAdaptationSet *adaptationSet, std::string value)
+{
     if (adaptationSet->GetMimeType() != "")
-        if (adaptationSet->GetMimeType().find("video") != std::string::npos)
+        if (adaptationSet->GetMimeType().find(value) != std::string::npos)
             return true;
+
+    for (size_t i = 0; i < adaptationSet->GetRepresentation().size(); i++)
+        if (adaptationSet->GetRepresentation().at(i)->GetMimeType() != "")
+            if (adaptationSet->GetRepresentation().at(i)->GetMimeType().find(value) != std::string::npos)
+                return true;
 
     return false;
 }

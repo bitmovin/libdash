@@ -27,6 +27,7 @@ namespace libdash
                     static std::vector<dash::mpd::IAdaptationSet *> GetVideoAdaptationSets  (dash::mpd::IPeriod *period);
                     static bool                                     IsAudioAdaptationSet    (dash::mpd::IAdaptationSet *adaptationSet);
                     static bool                                     IsVideoAdaptationSet    (dash::mpd::IAdaptationSet *adaptationSet);
+                    static bool                                     IsContainedInMimeType   (dash::mpd::IAdaptationSet *adaptationSet, std::string value);
             };
         }
     }
