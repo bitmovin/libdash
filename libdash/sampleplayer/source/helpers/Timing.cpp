@@ -92,7 +92,9 @@ void        Timing::WriteToFile                 (std::string filename)
 }
 void        Timing::DisposeTimingObjects        ()
 {
-    for (size_t i = 0; i < Timing::timingsInBetween.size(); i++)
+    size_t numObj = Timing::timingsInBetween.size();
+
+    for (size_t i = 0; i < numObj; i++)
     {
         TimingObject *timing = (TimingObject *) Timing::timingsInBetween.at(i);
         delete timing;
