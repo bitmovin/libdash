@@ -18,8 +18,8 @@
     #include <Windows.h>
     #define DeleteConditionVariable(cond_p) {}
 
-    #define ThreadSleep(framerate) 				Sleep((1 / (double) framerate) * 1000)
-    #define WaitForThread(handle) 				WaitForSingleObject(handle, INFINITE)
+    #define PortableSleep(seconds)      Sleep(seconds * 1000)
+    #define JoinThread(handle)          WaitForSingleObject(handle, INFINITE)
 
     typedef HANDLE THREAD_HANDLE;
 
@@ -61,12 +61,11 @@
     #include <stdlib.h>
     #include <iostream>
 
-    #define ThreadSleep(framerate) 				usleep((1 / (double) framerate) * 100000)
-    #define WaitForThread(handle) 				pthread_join(*(handle), NULL)
-
     #define CRITICAL_SECTION    pthread_mutex_t
     #define CONDITION_VARIABLE  pthread_cond_t
 
+    #define PortableSleep(seconds)                              usleep(seconds * 100000)
+    #define JoinThread(handle)                                  pthread_join(*(handle), NULL)
     #define InitializeCriticalSection(mutex_p)                  pthread_mutex_init(mutex_p, NULL)
     #define DeleteCriticalSection(mutex_p)                      pthread_mutex_destroy(mutex_p)
     #define EnterCriticalSection(mutex_p)                       pthread_mutex_lock(mutex_p)

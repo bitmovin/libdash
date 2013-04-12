@@ -59,7 +59,7 @@ void        DASHManager::Stop                           ()
 
     if(this->bufferingThread != NULL)
     {
-	WaitForThread(this->bufferingThread);
+        JoinThread(this->bufferingThread);
         DestroyThreadPortable(this->bufferingThread);
     }
 

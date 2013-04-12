@@ -48,7 +48,7 @@ bool DecodingThread::Start  ()
 void DecodingThread::Stop   ()
 {
     this->run = false;
-    WaitForThread(this->threadHandle);
+    JoinThread(this->threadHandle);
 }
 
 void* DecodingThread::Decode (void *data)
