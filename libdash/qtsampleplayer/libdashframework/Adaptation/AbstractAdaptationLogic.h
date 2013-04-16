@@ -12,8 +12,8 @@
 #ifndef LIBDASH_FRAMEWORK_ADAPTATION_ABSTRACTADAPTATIONLOGIC_H_
 #define LIBDASH_FRAMEWORK_ADAPTATION_ABSTRACTADAPTATIONLOGIC_H_
 
-#include "MediaObject.h"
 #include "IAdaptationLogic.h"
+#include "IMPD.h"
 
 namespace libdash
 {
@@ -24,19 +24,24 @@ namespace libdash
             class AbstractAdaptationLogic : public IAdaptationLogic
             {
                 public:
-                    AbstractAdaptationLogic             (dash::mpd::IPeriod* period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd, uint32_t bufferSize);
+                    AbstractAdaptationLogic             (dash::mpd::IMPD *mpd, dash::mpd::IPeriod* period, dash::mpd::IAdaptationSet *adaptationSet);
                     virtual ~AbstractAdaptationLogic    ();
 
-                    virtual uint32_t        GetPosition         ();
-                    virtual void            SetPosition         (uint32_t segmentNumber);
-                    virtual void            SetRepresentation   (dash::mpd::IRepresentation *representation);
+                    virtual uint32_t                    GetPosition         ();
+                    virtual void                        SetPosition         (uint32_t segmentNumber);
+                    virtual dash::mpd::IRepresentation* GetRepresentation   ();
+                    virtual void                        SetRepresentation   (dash::mpd::IPeriod *period,
+                                                                             dash::mpd::IAdaptationSet *adaptationSet,
+                                                                             dash::mpd::IRepresentation *representation);
 
-                    virtual input::MediaObject*     GetSegment  ()  = 0;
-                    virtual LogicType               GetType     ()  = 0;
+                    virtual LogicType                   GetType             ()  = 0;
 
                 protected:
-                    uint32_t    segmentOffset;
-                    uint32_t    bufferSize;
+                    dash::mpd::IMPD                     *mpd;
+                    dash::mpd::IPeriod                  *period;
+                    dash::mpd::IAdaptationSet           *adaptationSet;
+                    dash::mpd::IRepresentation          *representation;
+                    uint32_t                            segmentNumber;
             };
         }
     }

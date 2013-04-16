@@ -32,12 +32,13 @@ namespace libdash
                 public:
                     virtual ~IAdaptationLogic () {}
 
-                    virtual input::MediaObject*     GetSegment          ()                                              = 0;
-                    virtual uint32_t                GetPosition         ()                                              = 0;
-                    virtual void                    SetPosition         (uint32_t segmentNumber)                        = 0;
-                    virtual void                    SetRepresentation   (dash::mpd::IRepresentation *representation)    = 0;
-                    virtual void                    InvokeInitSegment   (bool invoke)                                   = 0;
-                    virtual LogicType               GetType             ()                                              = 0;
+                    virtual uint32_t                    GetPosition         ()                                              = 0;
+                    virtual void                        SetPosition         (uint32_t segmentNumber)                        = 0;
+                    virtual dash::mpd::IRepresentation* GetRepresentation   ()                                              = 0;
+                    virtual void                        SetRepresentation   (dash::mpd::IPeriod *period,
+                                                                             dash::mpd::IAdaptationSet *adaptationSet,
+                                                                             dash::mpd::IRepresentation *representation)    = 0;
+                    virtual LogicType                   GetType             ()                                              = 0;
             };
         }
     }

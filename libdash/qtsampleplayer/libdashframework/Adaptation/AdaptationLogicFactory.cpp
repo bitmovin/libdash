@@ -14,13 +14,13 @@
 using namespace libdash::framework::adaptation;
 using namespace dash::mpd;
 
-IAdaptationLogic* AdaptationLogicFactory::Create(LogicType logic, IPeriod *period, IAdaptationSet *adaptationSet, IMPD *mpd, uint32_t bufferSize)
+IAdaptationLogic* AdaptationLogicFactory::Create(LogicType logic, IMPD *mpd, IPeriod *period, IAdaptationSet *adaptationSet)
 {
     switch(logic)
     {
-        case Manual:            return new ManualAdaptation     (period, adaptationSet, mpd, bufferSize);
-        case AlwaysLowest:      return new AlwaysLowestLogic    (period, adaptationSet, mpd, bufferSize);
+        case Manual:            return new ManualAdaptation     (mpd, period, adaptationSet);
+        case AlwaysLowest:      return new AlwaysLowestLogic    (mpd, period, adaptationSet);
 
-        default:                return new ManualAdaptation     (period, adaptationSet, mpd, bufferSize);
+        default:                return new ManualAdaptation     (mpd, period, adaptationSet);
     }
 }

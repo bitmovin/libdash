@@ -14,21 +14,32 @@
 using namespace libdash::framework::adaptation;
 using namespace dash::mpd;
 
-AbstractAdaptationLogic::AbstractAdaptationLogic        (dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IMPD *mpd, uint32_t bufSize) :
-                         segmentOffset                  (0),
-                         bufferSize                     (bufSize)
+AbstractAdaptationLogic::AbstractAdaptationLogic    (dash::mpd::IMPD *mpd, dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet) :
+                         mpd                        (mpd),
+                         period                     (period),
+                         adaptationSet              (adaptationSet),
+                         representation             (NULL)
 {
 }
-AbstractAdaptationLogic::~AbstractAdaptationLogic       ()
+AbstractAdaptationLogic::~AbstractAdaptationLogic   ()
 {
 }
-uint32_t    AbstractAdaptationLogic::GetPosition        ()
+
+uint32_t            AbstractAdaptationLogic::GetPosition        ()
 {
     return 0;
 }
-void        AbstractAdaptationLogic::SetPosition         (uint32_t segmentNumber)
+void                AbstractAdaptationLogic::SetPosition        (uint32_t segmentNumber)
 {
+    this->segmentNumber = segmentNumber;
 }
-void        AbstractAdaptationLogic::SetRepresentation   (dash::mpd::IRepresentation *representation)
+IRepresentation*    AbstractAdaptationLogic::GetRepresentation  ()
 {
+    return this->representation;
+}
+void                AbstractAdaptationLogic::SetRepresentation  (IPeriod *period, IAdaptationSet *adaptationSet, IRepresentation *representation)
+{
+    this->period            = period;
+    this->adaptationSet     = adaptationSet;
+    this->representation    = representation;
 }
