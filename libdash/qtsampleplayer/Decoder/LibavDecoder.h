@@ -19,11 +19,8 @@
 #include <iostream>
 #include <sstream>
 
-#if defined _WIN32 || defined _WIN64
-#include <Windows.h>
-#endif
-
 #include "../libdashframework/Input/IDataReceiver.h"
+#include "../libdashframework/Portable/MultiThreading.h"
 #include "IVideoObserver.h"
 #include "IAudioObserver.h"
 

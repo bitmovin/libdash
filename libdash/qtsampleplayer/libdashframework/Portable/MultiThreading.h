@@ -1,3 +1,14 @@
+/*
+* MultiThreading.h
+*****************************************************************************
+* Copyright (C) 2012, bitmovin Softwareentwicklung OG, All Rights Reserved
+*
+* Email: libdash-dev@vicky.bitmovin.net
+*
+* This source code and its use and distribution, is subject to the terms
+* and conditions of the applicable license agreement.
+*****************************************************************************/
+
 #ifndef LIBDASH_FRAMEWORK_PORTABLE_MULTITHREADING_H_
 #define LIBDASH_FRAMEWORK_PORTABLE_MULTITHREADING_H_
 
@@ -6,6 +17,9 @@
     #define _WINSOCKAPI_
     #include <Windows.h>
     #define DeleteConditionVariable(cond_p) {}
+
+    #define PortableSleep(seconds)      Sleep(seconds * 1000)
+    #define JoinThread(handle)          WaitForSingleObject(handle, INFINITE)
 
     typedef HANDLE THREAD_HANDLE;
 
@@ -50,6 +64,8 @@
     #define CRITICAL_SECTION    pthread_mutex_t
     #define CONDITION_VARIABLE  pthread_cond_t
 
+    #define PortableSleep(seconds)                              usleep(seconds * 100000)
+    #define JoinThread(handle)                                  pthread_join(*(handle), NULL)
     #define InitializeCriticalSection(mutex_p)                  pthread_mutex_init(mutex_p, NULL)
     #define DeleteCriticalSection(mutex_p)                      pthread_mutex_destroy(mutex_p)
     #define EnterCriticalSection(mutex_p)                       pthread_mutex_lock(mutex_p)

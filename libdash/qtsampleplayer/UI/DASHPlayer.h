@@ -14,7 +14,7 @@
 
 #include <iostream>
 #include <sstream>
-#include <QObject.h>
+#include <qobject.h>
 #include "libdash.h"
 #include "IDASHPlayerGuiObserver.h"
 #include "../Renderer/QTGLRenderer.h"
