@@ -27,6 +27,7 @@ DASHPlayer::DASHPlayer  (QtSamplePlayerGui &gui) :
     this->audioElement      = new QTAudioRenderer(&gui);
     this->multimediaManager = new MultimediaManager(this->videoElement, this->audioElement);
 
+    this->multimediaManager->SetFrameRate(24);
     this->multimediaManager->AttachVideoBufferObserver(this);
     this->gui->AddWidgetObserver(this);
 

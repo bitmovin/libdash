@@ -14,52 +14,58 @@
 
 #include "IMPD.h"
 #include "IStreamObserver.h"
-#include "DecodingThread.h"
 #include "../libdashframework/Input/DASHManager.h"
-#include "../libdashframework/Input/IDASHReceiverObserver.h"
 #include "../libdashframework/Buffer/IBufferObserver.h"
 #include "../libdashframework/Adaptation/IAdaptationLogic.h"
-#include "../Decoder/IAudioObserver.h"
-#include "../Decoder/IVideoObserver.h"
 #include <QtMultimedia/qaudioformat.h>
-
-#include <vector>
+#include "../libdashframework/Input/IDASHManagerObserver.h"
 
 namespace sampleplayer
 {
     namespace managers
     {
-        class MultimediaStream : public decoder::IAudioObserver, public decoder::IVideoObserver, public libdash::framework::input::IDASHReceiverObserver
+        class MultimediaStream : public libdash::framework::input::IDASHManagerObserver
         {
             public:
-                MultimediaStream            (dash::mpd::IAdaptationSet *adaptationSet, libdash::framework::adaptation::IAdaptationLogic *logic, uint32_t bufferSize);
+                MultimediaStream            (dash::mpd::IMPD *mpd, uint32_t segmentBufferSize, uint32_t frameBufferSize, uint32_t sampleBufferSize);
                 virtual ~MultimediaStream   ();
 
                 bool        Start                   ();
                 void        Stop                    ();
                 void        StopDownload            ();
-                bool        StartDecoding           ();
                 bool        StartDownload           ();
                 void        Clear                   ();
                 uint32_t    GetPosition             ();
+                void        SetPosition             (uint32_t segmentNumber);
+                void        SetPositionInMsec       (uint32_t milliSecs);
+
+                void        AddFrame                (QImage *frame);
+                QImage*     GetFrame                ();
+                //void        AddSamples              ();
+                //AudioObj*   GetSamples              ();
+                //void        AddSubtitle             ();
+                //SubtitleObj* GetSubtitle              ();
+
+                void        SetRepresentation       (dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation);
+                void        EnqueueRepresentation   (dash::mpd::IPeriod *period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation);
+                void        SetAdaptationLogic      (libdash::framework::adaptation::IAdaptationLogic *logic);
+
                 void        AttachStreamObserver    (IStreamObserver *observer);
                 void        AttachBufferObserver    (libdash::framework::buffer::IBufferObserver *observer);
                 void        NotifyVideoObservers    (const QImage& image);
                 void        NotifyAudioObservers    (const QAudioFormat& format, const char *data, qint64 len);
 
-                virtual void OnAudioDataAvailable       (const uint8_t **data, decoder::audioFrameProperties* props);
-                virtual void OnVideoDataAvailable       (const uint8_t **data, decoder::videoFrameProperties* props);
-
-                virtual void OnSegmentDecodingStarted   ();
-                virtual void OnSegmentDownloaded        ();
-
             private:
                 std::vector<IStreamObserver *>                      observers;
-                dash::mpd::IAdaptationSet                           *adaptationSet;
+                dash::mpd::IMPD                                     *mpd;
                 libdash::framework::adaptation::IAdaptationLogic    *logic;
-                libdash::framework::input::DASHManager              *receiver;
-                DecodingThread                                      *decodingThread;
-                uint32_t                                            bufferSize;
+                libdash::framework::input::DASHManager              *dashManager;
+                libdash::framework::buffer::QImageBuffer            *frameBuffer;
+                // audio sample buffer
+                // subtitle buffer
+                uint32_t                                            segmentBufferSize;
+                uint32_t                                            frameBufferSize;
+                uint32_t                                            sampleBufferSize;
 
                 void Init ();
         };

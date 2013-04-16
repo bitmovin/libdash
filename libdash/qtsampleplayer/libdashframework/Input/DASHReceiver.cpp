@@ -12,10 +12,218 @@
 #include "DASHReceiver.h"
 
 using namespace libdash::framework::input;
+using namespace libdash::framework::buffer;
+using namespace libdash::framework::mpd;
+using namespace dash::mpd;
 
-DASHReceiver::DASHReceiver      (uint32_t maxcapacity)
+DASHReceiver::DASHReceiver          (IMPD *mpd, IDASHReceiverObserver *obs, MediaObjectBuffer *buffer, uint32_t bufferSize) :
+              mpd                   (mpd),
+              period                (NULL),
+              adaptationSet         (NULL),
+              representation        (NULL),
+              adaptationSetStream   (NULL),
+              representationStream  (NULL),
+              segmentNumber         (0),
+              observer              (obs),
+              buffer                (buffer),
+              bufferSize            (bufferSize),
+              readSegmentCount      (0),
+              isBuffering           (false)
 {
+    this->period                = this->mpd->GetPeriods().at(0);
+    this->adaptationSet         = this->period->GetAdaptationSets().at(0);
+    this->representation        = this->adaptationSet->GetRepresentation().at(0);
+
+    this->adaptationSetStream   = new AdaptationSetStream(mpd, period, adaptationSet);
+    this->representationStream  = adaptationSetStream->GetRepresentationStream(this->representation);
+    this->segmentOffset         = CalculateSegmentOffset();
 }
 DASHReceiver::~DASHReceiver     ()
 {
+    delete this->adaptationSetStream;
+}
+
+bool                        DASHReceiver::Start                     ()
+{
+    if(this->isBuffering)
+        return false;
+
+    this->isBuffering       = true;
+    this->bufferingThread   = CreateThreadPortable (DoBuffering, this);
+
+    if(this->bufferingThread == NULL)
+    {
+        this->isBuffering = false;
+        return false;
+    }
+
+    return true;
+}
+void                        DASHReceiver::Stop                      ()
+{
+    if(!this->isBuffering)
+        return;
+
+    this->isBuffering = false;
+    this->buffer->SetEOS(true);
+
+    if(this->bufferingThread != NULL)
+    {
+        WaitForSingleObject(this->bufferingThread, INFINITE);
+        DestroyThreadPortable(this->bufferingThread);
+    }
+}
+MediaObject*                DASHReceiver::GetNextSegment            ()
+{
+    ISegment *seg = NULL;
+
+    if(this->segmentNumber >= this->representationStream->GetSize() + 1)
+        return NULL;
+
+    seg = this->representationStream->GetMediaSegment(this->segmentNumber + segmentOffset);
+
+    if (seg != NULL)
+    {
+        MediaObject *media = new MediaObject(seg, this->representation);
+        this->segmentNumber++;
+        return media;
+    }
+
+    return NULL;
+}
+MediaObject*                DASHReceiver::GetSegment                (uint32_t segNum)
+{
+    ISegment *seg = NULL;
+
+    if(segNum >= this->representationStream->GetSize() + 1)
+        return NULL;
+
+    seg = this->representationStream->GetMediaSegment(segNum + segmentOffset);
+
+    if (seg != NULL)
+    {
+        MediaObject *media = new MediaObject(seg, this->representation);
+        return media;
+    }
+
+    return NULL;
+}
+MediaObject*                DASHReceiver::GetInitSegment            ()
+{
+    ISegment *seg = NULL;
+
+    seg = this->representationStream->GetInitializationSegment();
+
+    if (seg != NULL)
+    {
+        MediaObject *media = new MediaObject(seg, this->representation);
+        return media;
+    }
+
+    return NULL;
+}
+MediaObject*                DASHReceiver::FindInitSegment           (dash::mpd::IRepresentation *representation)
+{
+    if (!this->InitSegmentExists(representation))
+        return NULL;
+
+    return this->initSegments[representation];
+}
+uint32_t                    DASHReceiver::GetPosition               ()
+{
+    return this->segmentNumber;
+}
+void                        DASHReceiver::SetPosition               (uint32_t segmentNumber)
+{
+    // some logic here
+
+    this->segmentNumber = segmentNumber;
+}
+void                        DASHReceiver::SetPositionInMsecs        (uint32_t milliSecs)
+{
+    // some logic here
+
+    this->positionInMsecs = milliSecs;
+}
+void                        DASHReceiver::SetRepresentation         (IPeriod *period, IAdaptationSet *adaptationSet, IRepresentation *representation)
+{
+    if (this->representation == representation)
+        return;
+
+    this->representation = representation;
+
+    if (this->adaptationSet != adaptationSet)
+    {
+        this->adaptationSet = adaptationSet;
+        this->period = period;
+
+        this->adaptationSetStream = new AdaptationSetStream(this->mpd, this->period, this->adaptationSet);
+    }
+
+    this->representationStream  = adaptationSetStream->GetRepresentationStream(representation);
+}
+dash::mpd::IRepresentation* DASHReceiver::GetRepresentation         ()
+{
+    return this->representation;
+}
+uint32_t                    DASHReceiver::CalculateSegmentOffset    ()
+{
+    if (mpd->GetType() == "static")
+        return 0;
+
+    uint32_t firstSegNum = this->representationStream->GetFirstSegmentNumber();
+    uint32_t currSegNum  = this->representationStream->GetCurrentSegmentNumber();
+    uint32_t startSegNum = currSegNum - 2*bufferSize;
+
+    return (startSegNum > firstSegNum) ? startSegNum : firstSegNum;
+}
+void                        DASHReceiver::NotifySegmentDownloaded   ()
+{
+    this->observer->OnSegmentDownloaded();
+}
+void                        DASHReceiver::DownloadInitSegment    (IRepresentation* rep)
+{
+    if (this->InitSegmentExists(rep))
+        return;
+
+    MediaObject *initSeg = NULL;
+    initSeg = this->GetInitSegment();
+    initSeg->StartDownload();
+
+    this->initSegments[rep] = initSeg;
+}
+bool                        DASHReceiver::InitSegmentExists      (IRepresentation* rep)
+{
+    if (this->initSegments.find(rep) != this->initSegments.end())
+        return true;
+
+    return false;
+}
+
+/* Thread that does the buffering of segments */
+void*                       DASHReceiver::DoBuffering               (void *receiver)
+{
+    DASHReceiver *dashReceiver = (DASHReceiver *) receiver;
+
+    dashReceiver->DownloadInitSegment(dashReceiver->GetRepresentation());
+    dashReceiver->readSegmentCount++;
+
+    MediaObject *media = dashReceiver->GetNextSegment();
+
+    while(media != NULL && dashReceiver->isBuffering)
+    {
+        media->StartDownload();
+
+        if (!dashReceiver->buffer->PushBack(media))
+            return NULL;
+
+        media->WaitFinished();
+
+        dashReceiver->readSegmentCount++;
+
+        media = dashReceiver->GetNextSegment();
+    }
+
+    dashReceiver->buffer->SetEOS(true);
+    return NULL;
 }

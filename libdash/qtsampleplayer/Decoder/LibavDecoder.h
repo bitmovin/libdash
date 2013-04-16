@@ -41,15 +41,14 @@ namespace sampleplayer
         class LibavDecoder
         {
             public:
-                LibavDecoder                     (libdash::framework::input::IDataReceiver *rec);
-                virtual ~LibavDecoder            ();
+                LibavDecoder                (libdash::framework::input::IDataReceiver *rec);
+                virtual ~LibavDecoder       ();
 
                 bool Decode                 ();
                 bool Init                   ();
                 void Stop                   ();
                 void AttachVideoObserver    (IVideoObserver *observer);
                 void AttachAudioObserver    (IAudioObserver *observer);
-                void SetFrameRate           (uint8_t rate);
 
             private:
                 libdash::framework::input::IDataReceiver    *receiver;
@@ -58,7 +57,6 @@ namespace sampleplayer
                 std::vector <IAudioObserver*>               audioObservers;
                 unsigned char                               *iobuffer;
                 int                                         bufferSize;
-                int                                         framerate;
                 AVFormatContext                             *avFormatContextPtr;
                 AVFrame                                     *frame;
                 AVPacket                                    avpkt;

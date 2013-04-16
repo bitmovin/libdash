@@ -17,6 +17,8 @@
 
 #include "IDASHReceiverObserver.h"
 #include "../Buffer/MediaObjectBuffer.h"
+#include "../MPD/AdaptationSetStream.h"
+#include "../MPD/IRepresentationStream.h"
 
 namespace libdash
 {
@@ -27,12 +29,48 @@ namespace libdash
             class DASHReceiver
             {
                 public:
-                    DASHReceiver            (uint32_t maxcapacity);
+                    DASHReceiver            (dash::mpd::IMPD *mpd, IDASHReceiverObserver *obs, buffer::MediaObjectBuffer *buffer, uint32_t bufferSize);
                     virtual ~DASHReceiver   ();
 
+                    bool                        Start                   ();
+                    void                        Stop                    ();
+                    input::MediaObject*         GetNextSegment          ();
+                    input::MediaObject*         GetSegment              (uint32_t segmentNumber);
+                    input::MediaObject*         GetInitSegment          ();
+                    input::MediaObject*         FindInitSegment         (dash::mpd::IRepresentation *representation);
+                    uint32_t                    GetPosition             ();
+                    void                        SetPosition             (uint32_t segmentNumber);
+                    void                        SetPositionInMsecs      (uint32_t milliSecs);
+                    dash::mpd::IRepresentation* GetRepresentation       ();
+                    void                        SetRepresentation       (dash::mpd::IPeriod *period,
+                                                                         dash::mpd::IAdaptationSet *adaptationSet,
+                                                                         dash::mpd::IRepresentation *representation);
+
                 private:
-                    buffer::MediaObjectBuffer   *buffer;
-                    uint32_t                    maxcapacity;
+                    uint32_t        CalculateSegmentOffset  ();
+                    void            NotifySegmentDownloaded ();
+                    void            DownloadInitSegment     (dash::mpd::IRepresentation* rep);
+                    bool            InitSegmentExists       (dash::mpd::IRepresentation* rep);
+
+                    static void*    DoBuffering             (void *receiver);
+
+                    std::map<dash::mpd::IRepresentation*, MediaObject*> initSegments;
+                    buffer::MediaObjectBuffer                           *buffer;
+                    IDASHReceiverObserver                               *observer;
+                    dash::mpd::IMPD                                     *mpd;
+                    dash::mpd::IPeriod                                  *period;
+                    dash::mpd::IAdaptationSet                           *adaptationSet;
+                    dash::mpd::IRepresentation                          *representation;
+                    mpd::AdaptationSetStream                            *adaptationSetStream;
+                    mpd::IRepresentationStream                          *representationStream;
+                    uint32_t                                            segmentNumber;
+                    uint32_t                                            positionInMsecs;
+                    uint32_t                                            segmentOffset;
+                    uint32_t                                            bufferSize;
+                    uint32_t                                            readSegmentCount;
+
+                    THREAD_HANDLE   bufferingThread;
+                    bool            isBuffering;
             };
         }
     }

@@ -37,17 +37,17 @@ MediaObject::~MediaObject   ()
     DeleteCriticalSection   (&this->stateLock);
 }
 
-void    MediaObject::AbortDownload          ()
-{
-    this->segment->AbortDownload();
-    this->OnDownloadStateChanged(ABORTED);
-}
-bool    MediaObject::StartDownload          ()
+bool                MediaObject::StartDownload          ()
 {
     this->segment->AttachDownloadObserver(this);
     return this->segment->StartDownload();
 }
-void    MediaObject::WaitFinished           ()
+void                MediaObject::AbortDownload          ()
+{
+    this->segment->AbortDownload();
+    this->OnDownloadStateChanged(ABORTED);
+}
+void                MediaObject::WaitFinished           ()
 {
     EnterCriticalSection(&this->stateLock);
 
@@ -56,7 +56,23 @@ void    MediaObject::WaitFinished           ()
 
     LeaveCriticalSection(&this->stateLock);
 }
-void    MediaObject::OnDownloadStateChanged (DownloadState state)
+int                 MediaObject::Read                   (uint8_t *data, size_t len)
+{
+    return this->segment->Read(data, len);
+}
+int                 MediaObject::Peek                   (uint8_t *data, size_t len)
+{
+    return this->segment->Peek(data, len);
+}
+int                 MediaObject::Peek                   (uint8_t *data, size_t len, size_t offset)
+{
+    return this->segment->Peek(data, len, offset);
+}
+IRepresentation*    MediaObject::GetRepresentation      ()
+{
+    return this->rep;
+}
+void                MediaObject::OnDownloadStateChanged (DownloadState state)
 {
     EnterCriticalSection(&this->stateLock);
 
@@ -65,14 +81,6 @@ void    MediaObject::OnDownloadStateChanged (DownloadState state)
     WakeAllConditionVariable(&this->stateChanged);
     LeaveCriticalSection(&this->stateLock);
 }
-void    MediaObject::OnDownloadRateChanged  (uint64_t bytesDownloaded)
+void                MediaObject::OnDownloadRateChanged  (uint64_t bytesDownloaded)
 {
-}
-int     MediaObject::Read                   (uint8_t *data, size_t len)
-{
-    return this->segment->Read(data, len);
-}
-int     MediaObject::Peek                   (uint8_t *data, size_t len)
-{
-    return this->segment->Peek(data, len);
 }

@@ -15,55 +15,58 @@ using namespace sampleplayer::managers;
 using namespace sampleplayer::decoder;
 using namespace libdash::framework::adaptation;
 using namespace libdash::framework::input;
+using namespace libdash::framework::buffer;
 using namespace dash::mpd;
 
-MultimediaStream::MultimediaStream  (IAdaptationSet *adaptationSet, IAdaptationLogic *logic, uint32_t bufferSize) :
-                  adaptationSet     (adaptationSet),
-                  logic             (logic),
-                  bufferSize        (bufferSize),
-                  receiver          (NULL),
-                  decodingThread    (NULL)
+MultimediaStream::MultimediaStream  (IMPD *mpd, uint32_t bufferSize, uint32_t frameBufferSize, uint32_t sampleBufferSize) :
+                  segmentBufferSize (bufferSize),
+                  frameBufferSize   (frameBufferSize),
+                  sampleBufferSize  (sampleBufferSize),
+                  dashManager       (NULL),
+                  mpd               (mpd)
 {
     this->Init();
 }
 MultimediaStream::~MultimediaStream ()
 {
     this->Stop();
-    delete(this->decodingThread);
-    delete(this->receiver);
+    delete this->dashManager;
+
+    this->frameBuffer->Clear();
+    delete this->frameBuffer;
+
+    // clear audio buffer
+    // delete audio buffer
 }
 
 uint32_t    MultimediaStream::GetPosition               ()
 {
-    return this->receiver->GetPosition();
+    return this->dashManager->GetPosition();
+}
+void        MultimediaStream::SetPosition               (uint32_t segmentNumber)
+{
+    this->dashManager->SetPosition(segmentNumber);
+}
+void        MultimediaStream::SetPositionInMsec         (uint32_t milliSecs)
+{
+    this->dashManager->SetPositionInMsec(milliSecs);
 }
 void        MultimediaStream::Init                      ()
 {
-    this->receiver          = new DASHManager(this->bufferSize, this->logic);
-    this->decodingThread    = new DecodingThread(this->receiver, this, this);
-
-    this->receiver->AttachDownloadObserver(this);
+    this->dashManager   = new DASHManager(this->segmentBufferSize, this, this->mpd);
+    this->frameBuffer   = new QImageBuffer(this->frameBufferSize);
+    // audioSampleBuffer ...
 }
 bool        MultimediaStream::Start                     ()
 {
     if(!this->StartDownload())
         return false;
 
-    if(!this->StartDecoding())
-        return false;
-
-    return true;
-}
-bool        MultimediaStream::StartDecoding             ()
-{
-    if(!this->decodingThread->Start())
-        return false;
-
     return true;
 }
 bool        MultimediaStream::StartDownload             ()
 {
-    if(!receiver->Start())
+    if(!dashManager->Start())
         return false;
 
     return true;
@@ -71,86 +74,39 @@ bool        MultimediaStream::StartDownload             ()
 void        MultimediaStream::Stop                      ()
 {
     this->StopDownload();
-    this->decodingThread->Stop();
 }
 void        MultimediaStream::StopDownload              ()
 {
-    this->receiver->Stop();
+    this->dashManager->Stop();
 }
 void        MultimediaStream::Clear                     ()
 {
-    this->receiver->Clear();
+    this->dashManager->Clear();
 }
-void        MultimediaStream::NotifyVideoObservers      (const QImage &image)
+void        MultimediaStream::AddFrame                  (QImage *frame)
 {
-    for(size_t i = 0; i < this->observers.size(); i++)
-        this->observers.at(i)->OnVideoFrameAvailable(image, this->adaptationSet);
+    this->frameBuffer->PushBack(frame);
 }
-void        MultimediaStream::NotifyAudioObservers      (const QAudioFormat &format, const char *data, qint64 len)
+QImage*     MultimediaStream::GetFrame                  ()
 {
-    for(size_t i = 0; i < this->observers.size(); i++)
-        this->observers.at(i)->OnAudioSampleAvailable(format, data, len);
-}
-void        MultimediaStream::OnAudioDataAvailable      (const uint8_t **data, audioFrameProperties *props)
-{
-    QAudioFormat format;
-    format.setSampleRate(props->sampleRate);
-    format.setChannelCount(props->channels);
-    format.setSampleSize(16);
-    format.setCodec("audio/pcm");
-    format.setByteOrder(QAudioFormat::LittleEndian);
-    format.setSampleType(QAudioFormat::SignedInt);
-
-    this->NotifyAudioObservers(format, (char*)data[0], props->linesize);
-}
-void        MultimediaStream::OnVideoDataAvailable      (const uint8_t **data, videoFrameProperties *props)
-{
-    int w = props->width;
-    int h = props->height;
-
-    AVFrame *rgbframe   = avcodec_alloc_frame();
-    int     numBytes    = avpicture_get_size(PIX_FMT_RGB24, w, h);
-    uint8_t *buffer     = (uint8_t*)av_malloc(numBytes);
-
-    avpicture_fill((AVPicture*)rgbframe, buffer, PIX_FMT_RGB24, w, h);
-
-    SwsContext *imgConvertCtx = sws_getContext(props->width, props->height, (PixelFormat)props->pxlFmt, w, h, PIX_FMT_RGB24, SWS_BICUBIC, NULL, NULL, NULL);
-
-    sws_scale(imgConvertCtx, data, props->linesize, 0, h, rgbframe->data, rgbframe->linesize);
-
-    QImage image(w, h, QImage::Format_RGB32);
-    uint8_t *src = (uint8_t *)rgbframe->data[0];
-
-    for (size_t y = 0; y < h; y++)
-    {
-        QRgb *scanLine = (QRgb *)image.scanLine(y);
-
-        for (size_t x = 0; x < w; x++)
-            scanLine[x] = qRgb(src[3 * x], src[3 * x + 1], src[3 * x + 2]);
-
-        src += rgbframe->linesize[0];
-    }
-
-    this->NotifyVideoObservers(image);
-
-    av_free(rgbframe);
-    av_free(buffer);
+    return this->frameBuffer->GetFront();
 }
 void        MultimediaStream::AttachStreamObserver      (IStreamObserver *observer)
 {
     this->observers.push_back(observer);
 }
-void        MultimediaStream::AttachBufferObserver      (libdash::framework::buffer::IBufferObserver *observer)
+void        MultimediaStream::AttachBufferObserver      (IBufferObserver *observer)
 {
-    this->receiver->AttachBufferObserver(observer);
 }
-void        MultimediaStream::OnSegmentDecodingStarted  ()
+void        MultimediaStream::SetRepresentation         (IPeriod *period, IAdaptationSet *adaptationSet, IRepresentation *representation)
 {
-    for(size_t i = 0; i < this->observers.size(); i++)
-        this->observers.at(i)->OnVideoSegmentDecodingStarted();
+    this->dashManager->SetRepresentation(period, adaptationSet, representation);
 }
-void        MultimediaStream::OnSegmentDownloaded       ()
+void        MultimediaStream::EnqueueRepresentation     (IPeriod *period, IAdaptationSet *adaptationSet, IRepresentation *representation)
 {
-    for(size_t i = 0; i < this->observers.size(); i++)
-        this->observers.at(i)->OnVideoSegmentDownloaded();
+    this->dashManager->EnqueueRepresentation(period, adaptationSet, representation);
+}
+void        MultimediaStream::SetAdaptationLogic        (libdash::framework::adaptation::IAdaptationLogic *logic)
+{
+    this->logic = logic;
 }

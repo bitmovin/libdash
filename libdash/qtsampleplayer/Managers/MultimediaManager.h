@@ -19,6 +19,7 @@
 #include "../libdashframework/Buffer/IBufferObserver.h"
 #include "../Renderer/QTGLRenderer.h"
 #include "../Renderer/QTAudioRenderer.h"
+#include "../libdashframework/Portable/MultiThreading.h"
 #include <QtMultimedia/qaudiooutput.h>
 
 namespace sampleplayer
@@ -28,7 +29,7 @@ namespace sampleplayer
         class MultimediaManager : public IStreamObserver
         {
             public:
-                MultimediaManager           (renderer::QTGLRenderer *videoelement, renderer::QTAudioRenderer *audioElement);
+                MultimediaManager           (renderer::QTGLRenderer *videoElement, renderer::QTAudioRenderer *audioElement);
                 virtual ~MultimediaManager  ();
 
                 bool                Init    (const std::string& url);
@@ -36,7 +37,6 @@ namespace sampleplayer
                 void                Stop    ();
                 dash::mpd::IMPD*    GetMPD  ();
 
-                void OnVideoFrameAvailable  (const QImage& image, dash::mpd::IAdaptationSet *adaptationSet);
                 void OnAudioSampleAvailable (const QAudioFormat& format, const char* data, qint64 len);
 
                 bool SetVideoQuality      (dash::mpd::IPeriod* period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation);
@@ -48,8 +48,9 @@ namespace sampleplayer
                 void AttachVideoBufferObserver  (libdash::framework::buffer::IBufferObserver *videoBufferObserver);
                 void AttachAudioBufferObserver  (libdash::framework::buffer::IBufferObserver *audioBufferObserver);
 
-                void OnVideoSegmentDecodingStarted  ();
-                void OnVideoSegmentDownloaded       ();
+                void SetFrameRate               (double frameRate);
+
+                void OnSegmentDownloaded        ();
 
                 void NotifyVideoObservers       ();
                 void NotifyAudioObservers       ();
@@ -60,7 +61,7 @@ namespace sampleplayer
             private:
                 dash::IDASHManager                                          *manager;
                 dash::mpd::IMPD                                             *mpd;
-                renderer::QTGLRenderer                                      *videoelement;
+                renderer::QTGLRenderer                                      *videoElement;
                 renderer::QTAudioRenderer                                   *audioElement;
                 dash::mpd::IPeriod                                          *period;
                 dash::mpd::IAdaptationSet                                   *videoAdaptationSet;
@@ -74,9 +75,23 @@ namespace sampleplayer
                 std::vector<libdash::framework::buffer::IBufferObserver* >  videoBufferObservers;
                 bool                                                        isStarted;
                 uint64_t                                                    framesDisplayed;
-                uint64_t                                                    videoSegmentsDecodingStarted;
-                uint64_t                                                    videoSegmentsDownloaded;
+                uint64_t                                                    segmentsDownloaded;
                 CRITICAL_SECTION                                            monitorMutex;
+                double                                                      frameRate;
+
+                THREAD_HANDLE                                               videoRendererHandle;
+                THREAD_HANDLE                                               audioRendererHandle;
+                bool                                                        isVideoRendering;
+                bool                                                        isAudioRendering;
+
+                /* Threads for Rendering Audio & Video */
+                bool            StartVideoRenderingThread   ();
+                void            StopVideoRenderingThread    ();
+                static void*    RenderVideo                 (void *data);
+
+                bool            StartAudioRenderingThread   ();
+                void            StopAudioRenderingThread    ();
+                static void*    RenderAudio                 (void *data);
 
                 void    InitVideoRendering  (uint32_t offset);
                 void    InitAudioPlayback   (uint32_t offset);

@@ -26,13 +26,13 @@ QTGLRenderer::~QTGLRenderer ()
     DeleteCriticalSection (&this->monitorMutex);
 }
 
-void QTGLRenderer::setImage(const QImage& image)
+void    QTGLRenderer::SetImage      (QImage *image)
 {
     EnterCriticalSection(&this->monitorMutex);
-    img = image;
+    img = *image;
     LeaveCriticalSection(&this->monitorMutex);
 }
-void    QTGLRenderer::paintEvent            (QPaintEvent *paintEvent)
+void    QTGLRenderer::paintEvent    (QPaintEvent *paintEvent)
 {
     EnterCriticalSection(&this->monitorMutex);
 
@@ -42,5 +42,4 @@ void    QTGLRenderer::paintEvent            (QPaintEvent *paintEvent)
     p.end();
 
     LeaveCriticalSection(&this->monitorMutex);
-
 }

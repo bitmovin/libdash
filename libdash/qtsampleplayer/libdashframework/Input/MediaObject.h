@@ -28,11 +28,13 @@ namespace libdash
                     MediaObject             (dash::mpd::ISegment *segment, dash::mpd::IRepresentation *rep);
                     virtual ~MediaObject    ();
 
-                    bool    StartDownload   ();
-                    void    AbortDownload   ();
-                    void    WaitFinished    ();
-                    int     Read            (uint8_t *data, size_t len);
-                    int     Peek            (uint8_t *data, size_t len);
+                    bool                        StartDownload       ();
+                    void                        AbortDownload       ();
+                    void                        WaitFinished        ();
+                    int                         Read                (uint8_t *data, size_t len);
+                    int                         Peek                (uint8_t *data, size_t len);
+                    int                         Peek                (uint8_t *data, size_t len, size_t offset);
+                    dash::mpd::IRepresentation* GetRepresentation   ();
 
                     virtual void    OnDownloadStateChanged  (dash::network::DownloadState state);
                     virtual void    OnDownloadRateChanged   (uint64_t bytesDownloaded);

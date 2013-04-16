@@ -24,7 +24,6 @@ static int          IORead                           (void *opaque, uint8_t *buf
 LibavDecoder::LibavDecoder  (IDataReceiver* rec) :
          receiver           (rec),
          errorHappened      (false),
-         framerate          (24),
          bufferSize         (32768)
 {
 }
@@ -139,7 +138,8 @@ StreamConfig*       LibavDecoder::GetNextFrame            (AVFormatContext* avFo
                 }
                 loop = 0;
             }
-        } else
+        }
+        else
         {
             configcnt = 0;
             while ((loop == 1) && (configcnt < this->streamconfigs.size()))
@@ -222,8 +222,6 @@ bool                LibavDecoder::Decode                  ()
     if(this->DecodeFrame(this->frame, &avpkt, decConfig) < 0)
         return false;
 
-    Sleep((1 / (double)this->framerate) * 1000);
-
     return true;
 }
 void                LibavDecoder::Stop                    ()
@@ -264,8 +262,4 @@ void                LibavDecoder::Error                   (std::string errormsg,
     this->errorHappened    = true;
     free(audioprops.errorMessage);
     free(videoprops.errorMessage);
-}
-void                LibavDecoder::SetFrameRate            (uint8_t rate)
-{
-    this->framerate = rate;
 }

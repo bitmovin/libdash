@@ -89,6 +89,7 @@ MediaObject*    MediaObjectBuffer::GetFront         ()
     MediaObject *object = this->mediaobjects.front();
     this->mediaobjects.pop_front();
 
+    WakeAllConditionVariable(&this->empty);
     LeaveCriticalSection(&this->monitorMutex);
 
     return object;
@@ -140,6 +141,12 @@ void            MediaObjectBuffer::ClearTail        ()
     EnterCriticalSection(&this->monitorMutex);
 
     int size = this->mediaobjects.size() - 1;
+
+    if (size < 1)
+    {
+        LeaveCriticalSection(&this->monitorMutex);
+        return;
+    }
 
     MediaObject* object = this->mediaobjects.front();
     this->mediaobjects.pop_front();

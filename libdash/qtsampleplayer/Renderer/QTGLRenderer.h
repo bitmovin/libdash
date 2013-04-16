@@ -29,11 +29,11 @@ namespace sampleplayer
                 QTGLRenderer            (QWidget *parent = NULL);
                 virtual ~QTGLRenderer   ();
 
-                void setImage(const QImage& image);
+                void SetImage   (QImage *image);
 
             private:
-                QImage img;
-                CRITICAL_SECTION monitorMutex;
+                QImage              img;
+                CRITICAL_SECTION    monitorMutex;
 
             protected:
                 void paintEvent (QPaintEvent *paintEvent);

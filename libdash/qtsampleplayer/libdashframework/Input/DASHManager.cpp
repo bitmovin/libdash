@@ -12,126 +12,132 @@
 #include "DASHManager.h"
 
 using namespace libdash::framework::input;
-using namespace libdash::framework::adaptation;
 using namespace libdash::framework::buffer;
+using namespace sampleplayer::decoder;
 
 using namespace dash;
 using namespace dash::network;
 using namespace dash::mpd;
 
-DASHManager::DASHManager        (uint32_t maxcapacity, IAdaptationLogic* logic) :
-              readSegmentCount  (0),
-              maxcapacity       (maxcapacity),
-              logic             (logic),
-              isDownloading     (false),
-              bufferingThread   (NULL)
+DASHManager::DASHManager        (uint32_t maxCapacity, IDASHManagerObserver* stream, IMPD* mpd) :
+             readSegmentCount   (0),
+             receiver           (NULL),
+             mediaObjectDecoder (NULL),
+             multimediaStream   (stream)
 {
-    this->buffer = new MediaObjectBuffer(this->maxcapacity);
+    this->buffer    = new MediaObjectBuffer(maxCapacity);
+    this->receiver  = new DASHReceiver(mpd, this, this->buffer, maxCapacity);
 }
 DASHManager::~DASHManager       ()
 {
     this->Stop();
 }
 
-bool        DASHManager::Start                          ()
+bool        DASHManager::Start                  ()
 {
-    if(this->isDownloading)
+    if (!this->receiver->Start())
         return false;
 
-    this->isDownloading     = true;
-    this->bufferingThread   = CreateThreadPortable (DoBuffering, this);
-
-    if(this->bufferingThread == NULL)
-    {
-        this->isDownloading = false;
+    if (!this->CreateAVDecoder())
         return false;
-    }
 
     return true;
 }
-void        DASHManager::Stop                           ()
+void        DASHManager::Stop                   ()
 {
-    if(!this->isDownloading)
-        return;
-
-    this->isDownloading = false;
-    this->buffer->SetEOS(true);
-
-    if(this->bufferingThread != NULL)
-    {
-        WaitForSingleObject(this->bufferingThread, INFINITE);
-        DestroyThreadPortable(this->bufferingThread);
-    }
-
+    this->receiver->Stop();
+    this->mediaObjectDecoder->Stop();
     this->buffer->Clear();
 }
-void        DASHManager::AttachBufferObserver           (IBufferObserver* observer)
+uint32_t    DASHManager::GetPosition            ()
 {
-    this->buffer->AttachObserver(observer);
+    return this->receiver->GetPosition();
 }
-void        DASHManager::AttachDownloadObserver         (IDASHReceiverObserver *observer)
+void        DASHManager::SetPosition            (uint32_t segmentNumber)
 {
-    this->observers.push_back(observer);
+    this->receiver->SetPosition(segmentNumber);
 }
-int         DASHManager::Read                           (uint8_t *buf, int buf_size)
+void        DASHManager::SetPositionInMsec      (uint32_t milliSecs)
 {
-    /* FFMpeg callback that consumes data from the buffer for decoding */
-    MediaObject *media = this->buffer->Front();
-
-    if(media == NULL)
-        return 0;
-
-    int ret = media->Read(buf, buf_size);
-
-    if(ret == 0)
-        this->buffer->PopFront();
-    else
-        return ret;
-
-    this->readSegmentCount++;
-    this->NotifySegmentDecodingStarted();
-    return this->Read(buf, buf_size);
+    this->receiver->SetPositionInMsecs(milliSecs);
 }
-void        DASHManager::Clear                          ()
+void        DASHManager::Clear                  ()
+{
+    this->buffer->Clear();
+}
+void        DASHManager::ClearTail              ()
 {
     this->buffer->ClearTail();
 }
-uint32_t    DASHManager::GetPosition                    ()
+void        DASHManager::SetRepresentation      (IPeriod *period, IAdaptationSet *adaptationSet, IRepresentation *representation)
 {
-    return this->readSegmentCount;
+    this->receiver->SetRepresentation(period, adaptationSet, representation);
+    this->buffer->ClearTail();
 }
-void        DASHManager::NotifySegmentDownloaded        ()
+void        DASHManager::EnqueueRepresentation  (IPeriod *period, IAdaptationSet *adaptationSet, IRepresentation *representation)
 {
-    for(size_t i = 0; i < this->observers.size(); i++)
-        this->observers.at(i)->OnSegmentDownloaded();
+    this->receiver->SetRepresentation(period, adaptationSet, representation);
 }
-void        DASHManager::NotifySegmentDecodingStarted   ()
+void        DASHManager::OnVideoFrameDecoded    (const uint8_t **data, videoFrameProperties* props)
 {
-    for(size_t i = 0; i < this->observers.size(); i++)
-        this->observers.at(i)->OnSegmentDecodingStarted();
-}
+    int w = props->width;
+    int h = props->height;
 
-/* Thread that does the buffering of segments */
-void*   DASHManager::DoBuffering   (void *receiver)
-{
-    DASHManager *dashmanager = (DASHManager *) receiver;
+    AVFrame *rgbframe   = avcodec_alloc_frame();
+    int     numBytes    = avpicture_get_size(PIX_FMT_RGB24, w, h);
+    uint8_t *buffer     = (uint8_t*)av_malloc(numBytes);
 
-    MediaObject *media = dashmanager->logic->GetSegment();
+    avpicture_fill((AVPicture*)rgbframe, buffer, PIX_FMT_RGB24, w, h);
 
-    while(media != NULL && dashmanager->isDownloading)
+    SwsContext *imgConvertCtx = sws_getContext(props->width, props->height, (PixelFormat)props->pxlFmt, w, h, PIX_FMT_RGB24, SWS_BICUBIC, NULL, NULL, NULL);
+
+    sws_scale(imgConvertCtx, data, props->linesize, 0, h, rgbframe->data, rgbframe->linesize);
+
+    QImage *image = new QImage(w, h, QImage::Format_RGB32);
+    uint8_t *src = (uint8_t *)rgbframe->data[0];
+
+    for (size_t y = 0; y < h; y++)
     {
-        media->StartDownload();
-        
-        if (!dashmanager->buffer->PushBack(media))
-            return NULL;
+        QRgb *scanLine = (QRgb *)image->scanLine(y);
 
-        media->WaitFinished();
+        for (size_t x = 0; x < w; x++)
+            scanLine[x] = qRgb(src[3 * x], src[3 * x + 1], src[3 * x + 2]);
 
-        dashmanager->NotifySegmentDownloaded();
-
-        media = dashmanager->logic->GetSegment();
+        src += rgbframe->linesize[0];
     }
 
-    dashmanager->buffer->SetEOS(true);
-    return NULL;
+    this->multimediaStream->AddFrame(image);
+
+    av_free(rgbframe);
+    av_free(buffer);
+}
+void        DASHManager::OnAudioSampleDecoded   (const uint8_t **data, audioFrameProperties* props)
+{
+    QAudioFormat format;
+    format.setSampleRate(props->sampleRate);
+    format.setChannelCount(props->channels);
+    format.setSampleSize(16);
+    format.setCodec("audio/pcm");
+    format.setByteOrder(QAudioFormat::LittleEndian);
+    format.setSampleType(QAudioFormat::SignedInt);
+
+    //this->multimediaStream->AddSample(format, (char*)data[0], props->linesize);
+}
+void        DASHManager::OnSegmentDownloaded    ()
+{
+    this->readSegmentCount++;
+
+    // notify observers
+}
+void        DASHManager::OnDecodingFinished     ()
+{
+    this->CreateAVDecoder();
+}
+bool        DASHManager::CreateAVDecoder        ()
+{
+    MediaObject *mediaObject            = this->buffer->GetFront();
+    MediaObject *initSegForMediaObject  = this->receiver->FindInitSegment(mediaObject->GetRepresentation());
+
+    this->mediaObjectDecoder = new MediaObjectDecoder(initSegForMediaObject, mediaObject, this);
+    return this->mediaObjectDecoder->Start();
 }

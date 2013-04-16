@@ -78,8 +78,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="libdashframework\Buffer\QImageBuffer.cpp" />
     <ClCompile Include="libdashframework\Input\DASHManager.cpp" />
     <ClCompile Include="libdashframework\Input\DASHReceiver.cpp" />
+    <ClCompile Include="libdashframework\Input\MediaObjectDecoder.cpp" />
     <ClCompile Include="libdashframework\MPD\AdaptationSetHelper.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_DASHPlayer.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -113,7 +115,6 @@
     <ClCompile Include="Renderer\QTAudioRenderer.cpp" />
     <ClCompile Include="UI\DASHPlayer.cpp" />
     <ClCompile Include="UI\QtSamplePlayerGui.cpp" />
-    <ClCompile Include="Managers\DecodingThread.cpp" />
     <ClCompile Include="Managers\MultimediaStream.cpp" />
     <ClCompile Include="Decoder\LibavDecoder.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_QTGLRenderer.cpp">
@@ -168,8 +169,12 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="libdashframework\Buffer\QImageBuffer.h" />
     <ClInclude Include="libdashframework\Input\DASHManager.h" />
     <ClInclude Include="libdashframework\Input\DASHReceiver.h" />
+    <ClInclude Include="libdashframework\Input\IDASHManagerObserver.h" />
+    <ClInclude Include="libdashframework\Input\IMediaObjectDecoderObserver.h" />
+    <ClInclude Include="libdashframework\Input\MediaObjectDecoder.h" />
     <ClInclude Include="libdashframework\MPD\AdaptationSetHelper.h" />
     <ClInclude Include="libdashframework\Adaptation\AbstractAdaptationLogic.h" />
     <ClInclude Include="libdashframework\Adaptation\AdaptationLogicFactory.h" />
@@ -184,7 +189,6 @@
     <ClInclude Include="libdashframework\MPD\SegmentListStream.h" />
     <ClInclude Include="libdashframework\MPD\SegmentTemplateStream.h" />
     <ClInclude Include="libdashframework\MPD\TimeResolver.h" />
-    <ClInclude Include="Managers\DecodingThread.h" />
     <ClInclude Include="Managers\IStreamObserver.h" />
     <ClInclude Include="Managers\MultimediaStream.h" />
     <ClInclude Include="Decoder\LibavDecoder.h" />
