@@ -69,7 +69,7 @@ void                        DASHReceiver::Stop                      ()
 
     if(this->bufferingThread != NULL)
     {
-        WaitForSingleObject(this->bufferingThread, INFINITE);
+        JoinThread(this->bufferingThread);
         DestroyThreadPortable(this->bufferingThread);
     }
 }
@@ -160,7 +160,8 @@ void                        DASHReceiver::SetRepresentation         (IPeriod *pe
         this->adaptationSetStream = new AdaptationSetStream(this->mpd, this->period, this->adaptationSet);
     }
 
-    this->representationStream  = adaptationSetStream->GetRepresentationStream(representation);
+    this->representationStream  = adaptationSetStream->GetRepresentationStream(this->representation);
+    this->DownloadInitSegment(this->representation);
 }
 dash::mpd::IRepresentation* DASHReceiver::GetRepresentation         ()
 {

@@ -21,7 +21,8 @@ MediaObjectDecoder::MediaObjectDecoder  (MediaObject* initSegment, MediaObject* 
                     initSegment         (initSegment),
                     mediaSegment        (mediaSegment),
                     decoderInitialized  (false),
-                    initSegmentOffset   (0)
+                    initSegmentOffset   (0),
+                    threadHandle        (NULL)
 {
     this->decoder = new LibavDecoder(this);
     this->decoder->AttachVideoObserver(this);
@@ -49,8 +50,16 @@ bool    MediaObjectDecoder::Start                   ()
 }
 void    MediaObjectDecoder::Stop                    ()
 {
+    if (!this->run)
+        return;
+
     this->run = false;
-    WaitForSingleObject(this->threadHandle, INFINITE);
+
+    if (this->threadHandle != NULL)
+    {
+        JoinThread(this->threadHandle);
+        DestroyThreadPortable(this->threadHandle);
+    }
 }
 void    MediaObjectDecoder::OnVideoDataAvailable    (const uint8_t **data, videoFrameProperties* props)
 {

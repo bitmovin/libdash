@@ -247,7 +247,12 @@ bool    MultimediaManager::StartVideoRenderingThread        ()
 void    MultimediaManager::StopVideoRenderingThread         ()
 {
     this->isVideoRendering = false;
-    WaitForSingleObject(this->videoRendererHandle, INFINITE);
+
+    if (this->videoRendererHandle != NULL)
+    {
+        JoinThread(this->videoRendererHandle);
+        DestroyThreadPortable(this->videoRendererHandle);
+    }
 }
 bool    MultimediaManager::StartAudioRenderingThread        ()
 {
@@ -263,7 +268,12 @@ bool    MultimediaManager::StartAudioRenderingThread        ()
 void    MultimediaManager::StopAudioRenderingThread         ()
 {
     this->isAudioRendering = false;
-    WaitForSingleObject(this->audioRendererHandle, INFINITE);
+
+    if (this->audioRendererHandle != NULL)
+    {
+        JoinThread(this->audioRendererHandle);
+        DestroyThreadPortable(this->audioRendererHandle);
+    }
 }
 void*   MultimediaManager::RenderVideo        (void *data)
 {
@@ -296,4 +306,3 @@ void*   MultimediaManager::RenderAudio        (void *data)
 
     return NULL;
 }
-
