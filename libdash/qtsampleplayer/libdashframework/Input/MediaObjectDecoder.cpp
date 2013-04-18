@@ -86,13 +86,13 @@ void*   MediaObjectDecoder::Decode                  (void *data)
 int     MediaObjectDecoder::Read                    (uint8_t *buf, int buf_size)
 {
     int ret = 0;
-    if (!this->decoderInitialized) 
+    if (!this->decoderInitialized && this->initSegment)
     {
         ret = this->initSegment->Peek(buf, buf_size, this->initSegmentOffset);
         this->initSegmentOffset += (size_t) ret;
     }
 
-    if (ret == 0) 
+    if (ret == 0)
     {
         ret = this->mediaSegment->Read(buf, buf_size);
     }

@@ -189,9 +189,12 @@ void                        DASHReceiver::DownloadInitSegment    (IRepresentatio
 
     MediaObject *initSeg = NULL;
     initSeg = this->GetInitSegment();
-    initSeg->StartDownload();
 
-    this->initSegments[rep] = initSeg;
+    if (initSeg)
+    {
+        initSeg->StartDownload();
+        this->initSegments[rep] = initSeg;
+    }
 }
 bool                        DASHReceiver::InitSegmentExists      (IRepresentation* rep)
 {

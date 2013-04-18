@@ -32,7 +32,7 @@ ISegment*                   SingleMediaSegmentStream::GetInitializationSegment  
             return this->representation->GetSegmentBase()->GetInitialization()->ToSegment(baseUrls);
     }
 
-    return GetMediaSegment(0);
+    return NULL;
 }
 ISegment*                   SingleMediaSegmentStream::GetIndexSegment               (size_t segmentNumber)
 {
