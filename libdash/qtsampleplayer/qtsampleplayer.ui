@@ -132,6 +132,51 @@
            <string>http://tvnlive.dashdemo.edgesuite.net/live/manifest.mpd</string>
           </property>
          </item>
+         <item>
+          <property name="text">
+           <string>http://ftp-itec.uni-klu.ac.at/dash/conformance/mp4-full-gdr/mp4-full-gdr-mpd-AV-BS.mpd</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>http://ftp-itec.uni-klu.ac.at/dash/conformance/mp4-full-gdr/mp4-full-gdr-mpd-AV-NBS.mpd</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>http://ftp-itec.uni-klu.ac.at/dash/conformance/mp4-live-periods/mp4-live-periods-mpd.mpd</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>http://ftp-itec.uni-klu.ac.at/dash/conformance/mp4-live/mp4-live-mpd-AV-BS.mpd</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>http://ftp-itec.uni-klu.ac.at/dash/conformance/mp4-live/mp4-live-mpd-AV-NBS.mpd</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>http://ftp-itec.uni-klu.ac.at/dash/conformance/mp4-main-multi/mp4-main-multi-mpd-AV-NBS.mpd</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>http://ftp-itec.uni-klu.ac.at/dash/conformance/mp4-main-ogop/mp4-main-ogop-mpd-AV-BS.mpd</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>http://ftp-itec.uni-klu.ac.at/dash/conformance/mp4-main-ogop/mp4-main-ogop-mpd-AV-NBS.mpd</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>http://ftp-itec.uni-klu.ac.at/dash/conformance/mp4-onDemand/mp4-onDemand-mpd-AV.mpd</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item>
