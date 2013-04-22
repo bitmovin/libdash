@@ -14,13 +14,14 @@
 
 #include "IMPD.h"
 #include "IDownloadObserver.h"
+#include "IDASHMetrics.h"
 #include "MultiThreading.h"
 
 namespace sampleplayer
 {
     namespace input
     {
-        class MediaObject : public dash::network::IDownloadObserver
+        class MediaObject : public dash::network::IDownloadObserver, public dash::metrics::IDASHMetrics
         {
             public:
                 MediaObject             (dash::mpd::ISegment *segment, dash::mpd::IRepresentation *rep);
@@ -33,6 +34,11 @@ namespace sampleplayer
 
                 virtual void    OnDownloadStateChanged  (dash::network::DownloadState state);
                 virtual void    OnDownloadRateChanged   (uint64_t bytesDownloaded);
+                /*
+                    * IDASHMetrics
+                    */
+                const std::vector<dash::metrics::ITCPConnection *>&     GetTCPConnectionList    () const;
+                const std::vector<dash::metrics::IHTTPTransaction *>&   GetHTTPTransactionList  () const;
 
             private:
                 dash::mpd::ISegment             *segment;
