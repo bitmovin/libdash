@@ -127,6 +127,13 @@ void*   DASHManager::DoBuffering   (void *receiver)
 
         media->WaitFinished();
 
+        /*  Just for demonstration purpose
+         *
+         *  Do something with the HTTPHeader...
+         *  e.g. parse it for "Content-Length:" to retrieve the segment size in bytes
+         */
+        std::string header = media->GetHTTPTransactionList().at(0)->HTTPHeader();
+
         dashmanager->NotifySegmentDownloaded();
 
         media = dashmanager->logic->GetSegment();

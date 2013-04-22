@@ -15,6 +15,7 @@ using namespace libdash::framework::input;
 
 using namespace dash::mpd;
 using namespace dash::network;
+using namespace dash::metrics;
 
 MediaObject::MediaObject    (ISegment *segment, IRepresentation *rep) :
              segment        (segment),
@@ -75,4 +76,12 @@ int     MediaObject::Read                   (uint8_t *data, size_t len)
 int     MediaObject::Peek                   (uint8_t *data, size_t len)
 {
     return this->segment->Peek(data, len);
+}
+const std::vector<ITCPConnection *>&    MediaObject::GetTCPConnectionList   () const
+{
+    return this->segment->GetTCPConnectionList();
+}
+const std::vector<IHTTPTransaction *>&  MediaObject::GetHTTPTransactionList () const
+{
+    return this->segment->GetHTTPTransactionList();
 }
