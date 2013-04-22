@@ -23,7 +23,8 @@ DASHManager::DASHManager        (uint32_t maxCapacity, IDASHManagerObserver* str
              readSegmentCount   (0),
              receiver           (NULL),
              mediaObjectDecoder (NULL),
-             multimediaStream   (stream)
+             multimediaStream   (stream),
+             isRunning          (false)
 {
     this->buffer    = new MediaObjectBuffer(maxCapacity);
     this->receiver  = new DASHReceiver(mpd, this, this->buffer, maxCapacity);
@@ -31,6 +32,11 @@ DASHManager::DASHManager        (uint32_t maxCapacity, IDASHManagerObserver* str
 DASHManager::~DASHManager       ()
 {
     this->Stop();
+    delete this->receiver;
+    delete this->buffer;
+
+    this->receiver = NULL;
+    this->buffer   = NULL;
 }
 
 bool        DASHManager::Start                  ()
@@ -41,13 +47,19 @@ bool        DASHManager::Start                  ()
     if (!this->CreateAVDecoder())
         return false;
 
+    this->isRunning = true;
     return true;
 }
 void        DASHManager::Stop                   ()
 {
+    if (!this->isRunning)
+        return;
+
     this->receiver->Stop();
     this->mediaObjectDecoder->Stop();
     this->buffer->Clear();
+
+    this->isRunning = false;
 }
 uint32_t    DASHManager::GetPosition            ()
 {
@@ -72,7 +84,7 @@ void        DASHManager::ClearTail              ()
 void        DASHManager::SetRepresentation      (IPeriod *period, IAdaptationSet *adaptationSet, IRepresentation *representation)
 {
     this->receiver->SetRepresentation(period, adaptationSet, representation);
-    this->buffer->ClearTail();
+    //this->buffer->ClearTail();
 }
 void        DASHManager::EnqueueRepresentation  (IPeriod *period, IAdaptationSet *adaptationSet, IRepresentation *representation)
 {

@@ -17,7 +17,7 @@ using namespace sampleplayer::managers;
 using namespace sampleplayer::renderer;
 using namespace dash::mpd;
 
-#define SEGMENTBUFFER_SIZE 10
+#define SEGMENTBUFFER_SIZE 2
 
 MultimediaManager::MultimediaManager            (QTGLRenderer *videoElement, QTAudioRenderer *audioElement) :
                    videoElement                 (videoElement),
@@ -91,7 +91,7 @@ void    MultimediaManager::Start                            ()
         this->StartVideoRenderingThread();
     }
 
-    if (this->audioAdaptationSet && this->audioRepresentation)
+    if (this->audioAdaptationSet && this->audioRepresentation && false)
     {
         this->InitAudioPlayback(0);
         this->audioStream->Start();
@@ -105,6 +105,9 @@ void    MultimediaManager::Start                            ()
 }
 void    MultimediaManager::Stop                             ()
 {
+    if (!this->isStarted)
+        return;
+
     EnterCriticalSection(&this->monitorMutex);
 
     this->StopVideo();
@@ -118,8 +121,8 @@ void    MultimediaManager::StopVideo                        ()
 {
     if(this->isStarted && this->videoStream)
     {
-        this->videoStream->Stop();
         this->StopVideoRenderingThread();
+        this->videoStream->Stop();
 
         delete this->videoStream;
         delete this->videoLogic;
@@ -134,8 +137,8 @@ void    MultimediaManager::StopAudio                        ()
     {
         this->audioElement->StopPlayback();
 
-        this->audioStream->Stop();
         this->StopAudioRenderingThread();
+        this->audioStream->Stop();
 
         delete this->audioStream;
         delete this->audioLogic;
@@ -167,7 +170,7 @@ bool    MultimediaManager::SetAudioQuality                  (IPeriod* period, IA
     this->audioRepresentation   = representation;
 
     if (this->audioStream)
-        this->audioStream->EnqueueRepresentation(period, adaptationSet, representation);
+        this->audioStream->SetRepresentation(this->period, this->audioAdaptationSet, this->audioRepresentation);
 
     LeaveCriticalSection(&this->monitorMutex);
     return true;
@@ -205,7 +208,7 @@ void    MultimediaManager::InitVideoRendering               (uint32_t offset)
 {
     this->videoLogic = AdaptationLogicFactory::Create(libdash::framework::adaptation::Manual, this->mpd, this->period, this->videoAdaptationSet);
 
-    this->videoStream = new MultimediaStream(this->mpd, SEGMENTBUFFER_SIZE, 24, 0);
+    this->videoStream = new MultimediaStream(this->mpd, SEGMENTBUFFER_SIZE, 2, 0);
     this->videoStream->AttachStreamObserver(this);
     this->videoStream->SetRepresentation(this->period, this->videoAdaptationSet, this->videoRepresentation);
     this->videoStream->SetPosition(offset);
@@ -219,9 +222,9 @@ void    MultimediaManager::InitAudioPlayback                (uint32_t offset)
 {
     this->audioLogic = AdaptationLogicFactory::Create(libdash::framework::adaptation::Manual, this->mpd, this->period, this->audioAdaptationSet);
 
-    this->audioStream = new MultimediaStream(this->mpd, SEGMENTBUFFER_SIZE, 0, 48000);
+    this->audioStream = new MultimediaStream(this->mpd, SEGMENTBUFFER_SIZE, 0, 0);
     this->audioStream->AttachStreamObserver(this);
-    //this->audioStream->SetRepresentation(this->period, this->audioAdaptationSet, this->audioRepresentation);
+    this->audioStream->SetRepresentation(this->period, this->audioAdaptationSet, this->audioRepresentation);
     this->audioStream->SetPosition(offset);
 }
 void    MultimediaManager::OnSegmentDownloaded              ()

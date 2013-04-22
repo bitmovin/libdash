@@ -80,7 +80,7 @@ MediaObject*                DASHReceiver::GetNextSegment            ()
     if(this->segmentNumber >= this->representationStream->GetSize() + 1)
         return NULL;
 
-    seg = this->representationStream->GetMediaSegment(this->segmentNumber + segmentOffset);
+    seg = this->representationStream->GetMediaSegment(this->segmentNumber + this->segmentOffset);
 
     if (seg != NULL)
     {
@@ -157,10 +157,13 @@ void                        DASHReceiver::SetRepresentation         (IPeriod *pe
         this->adaptationSet = adaptationSet;
         this->period = period;
 
+        delete this->adaptationSetStream;
+        this->adaptationSetStream = NULL;
+
         this->adaptationSetStream = new AdaptationSetStream(this->mpd, this->period, this->adaptationSet);
     }
 
-    this->representationStream  = adaptationSetStream->GetRepresentationStream(this->representation);
+    this->representationStream  = this->adaptationSetStream->GetRepresentationStream(this->representation);
     this->DownloadInitSegment(this->representation);
 }
 dash::mpd::IRepresentation* DASHReceiver::GetRepresentation         ()

@@ -30,8 +30,7 @@ MediaObjectDecoder::MediaObjectDecoder  (MediaObject* initSegment, MediaObject* 
 }
 MediaObjectDecoder::~MediaObjectDecoder()
 {
-    //this->Stop();
-    delete(this->decoder);
+    delete this->decoder;
 }
 
 bool    MediaObjectDecoder::Start                   ()

@@ -58,6 +58,7 @@ namespace libdash
                     DASHReceiver                *receiver;
                     uint32_t                    readSegmentCount;
                     IDASHManagerObserver        *multimediaStream;
+                    bool                        isRunning;
 
             };
         }
