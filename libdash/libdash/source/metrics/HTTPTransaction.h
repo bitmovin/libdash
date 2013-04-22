@@ -35,6 +35,7 @@ namespace dash
                 uint16_t                                        ResponseCode            () const;
                 uint64_t                                        Interval                () const;
                 const std::vector<IThroughputMeasurement *>&    ThroughputTrace         () const;
+                const std::string&                              HTTPHeader              () const;
 
                 void    SetTCPId                    (uint32_t tcpId);
                 void    SetType                     (HTTPTransactionType type);
@@ -46,6 +47,7 @@ namespace dash
                 void    SetResponseCode             (uint16_t respCode);
                 void    SetInterval                 (uint64_t interval);
                 void    AddThroughputMeasurement    (ThroughputMeasurement *throuputEntry);
+                void    AddHTTPHeaderLine           (std::string headerLine);
 
             private:
                 uint32_t                                tcpId;
@@ -58,6 +60,7 @@ namespace dash
                 uint16_t                                responseCode;
                 uint64_t                                interval;
                 std::vector<ThroughputMeasurement *>    trace;
+                std::string                             httpHeader;
         };
     }
 }
