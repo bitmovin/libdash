@@ -19,6 +19,7 @@
 #include "../Buffer/MediaObjectBuffer.h"
 #include "../MPD/AdaptationSetStream.h"
 #include "../MPD/IRepresentationStream.h"
+#include "../Portable/MultiThreading.h"
 
 namespace libdash
 {
@@ -68,6 +69,7 @@ namespace libdash
                     uint32_t                                            segmentOffset;
                     uint32_t                                            bufferSize;
                     uint32_t                                            readSegmentCount;
+                    CRITICAL_SECTION                                    monitorMutex;
 
                     THREAD_HANDLE   bufferingThread;
                     bool            isBuffering;

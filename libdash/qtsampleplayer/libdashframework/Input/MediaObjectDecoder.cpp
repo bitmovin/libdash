@@ -92,9 +92,7 @@ int     MediaObjectDecoder::Read                    (uint8_t *buf, int buf_size)
     }
 
     if (ret == 0)
-    {
         ret = this->mediaSegment->Read(buf, buf_size);
-    }
 
     return ret;
 }

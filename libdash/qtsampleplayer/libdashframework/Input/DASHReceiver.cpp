@@ -37,10 +37,13 @@ DASHReceiver::DASHReceiver          (IMPD *mpd, IDASHReceiverObserver *obs, Medi
     this->adaptationSetStream   = new AdaptationSetStream(mpd, period, adaptationSet);
     this->representationStream  = adaptationSetStream->GetRepresentationStream(this->representation);
     this->segmentOffset         = CalculateSegmentOffset();
+
+    InitializeCriticalSection(&this->monitorMutex);
 }
 DASHReceiver::~DASHReceiver     ()
 {
     delete this->adaptationSetStream;
+    DeleteCriticalSection(&this->monitorMutex);
 }
 
 bool                        DASHReceiver::Start                     ()
@@ -147,8 +150,13 @@ void                        DASHReceiver::SetPositionInMsecs        (uint32_t mi
 }
 void                        DASHReceiver::SetRepresentation         (IPeriod *period, IAdaptationSet *adaptationSet, IRepresentation *representation)
 {
+    EnterCriticalSection(&this->monitorMutex);
+
     if (this->representation == representation)
+    {
+        LeaveCriticalSection(&this->monitorMutex);
         return;
+    }
 
     this->representation = representation;
 
@@ -165,6 +173,8 @@ void                        DASHReceiver::SetRepresentation         (IPeriod *pe
 
     this->representationStream  = this->adaptationSetStream->GetRepresentationStream(this->representation);
     this->DownloadInitSegment(this->representation);
+
+    LeaveCriticalSection(&this->monitorMutex);
 }
 dash::mpd::IRepresentation* DASHReceiver::GetRepresentation         ()
 {

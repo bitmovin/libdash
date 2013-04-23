@@ -92,6 +92,10 @@ void        DASHManager::EnqueueRepresentation  (IPeriod *period, IAdaptationSet
 }
 void        DASHManager::OnVideoFrameDecoded    (const uint8_t **data, videoFrameProperties* props)
 {
+    /* TODO: some error handling here */
+    if (data == NULL || props->fireError)
+        return;
+
     int w = props->width;
     int h = props->height;
 
@@ -125,6 +129,10 @@ void        DASHManager::OnVideoFrameDecoded    (const uint8_t **data, videoFram
 }
 void        DASHManager::OnAudioSampleDecoded   (const uint8_t **data, audioFrameProperties* props)
 {
+    /* TODO: some error handling here */
+    if (data == NULL || props->fireError)
+        return;
+
     QAudioFormat format;
     format.setSampleRate(props->sampleRate);
     format.setChannelCount(props->channels);
