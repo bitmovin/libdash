@@ -13,6 +13,7 @@
 #define LIBDASH_FRAMEWORK_INPUT_IDASHMANAGEROBSERVER_H_
 
 #include <QImage.h>
+#include "../Buffer/AudioChunk.h"
 
 namespace libdash
 {
@@ -25,8 +26,8 @@ namespace libdash
                 public:
                     virtual ~IDASHManagerObserver           () {}
 
-                    virtual void AddFrame       (QImage* frame)  = 0;
-                    //virtual void AddSamples     ()  = 0;
+                    virtual void AddFrame       (QImage *frame)                 = 0;
+                    virtual void AddSamples     (buffer::AudioChunk *samples)   = 0;
                     //virtual void AddSubtitle    ()  = 0;
             };
         }

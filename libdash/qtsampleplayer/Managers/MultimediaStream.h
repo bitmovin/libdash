@@ -19,6 +19,7 @@
 #include "../libdashframework/Adaptation/IAdaptationLogic.h"
 #include <QtMultimedia/qaudioformat.h>
 #include "../libdashframework/Input/IDASHManagerObserver.h"
+#include "../libdashframework/Buffer/AudioChunkBuffer.h"
 
 namespace sampleplayer
 {
@@ -41,8 +42,10 @@ namespace sampleplayer
 
                 void        AddFrame                (QImage *frame);
                 QImage*     GetFrame                ();
-                //void        AddSamples              ();
-                //AudioObj*   GetSamples              ();
+
+                void                                    AddSamples  (libdash::framework::buffer::AudioChunk* samples);
+                libdash::framework::buffer::AudioChunk* GetSamples  ();
+
                 //void        AddSubtitle             ();
                 //SubtitleObj* GetSubtitle              ();
 
@@ -61,7 +64,7 @@ namespace sampleplayer
                 libdash::framework::adaptation::IAdaptationLogic    *logic;
                 libdash::framework::input::DASHManager              *dashManager;
                 libdash::framework::buffer::QImageBuffer            *frameBuffer;
-                // audio sample buffer
+                libdash::framework::buffer::AudioChunkBuffer        *sampleBuffer;
                 // subtitle buffer
                 uint32_t                                            segmentBufferSize;
                 uint32_t                                            frameBufferSize;

@@ -20,6 +20,7 @@
 #include "../Renderer/QTGLRenderer.h"
 #include "../Renderer/QTAudioRenderer.h"
 #include "../libdashframework/Portable/MultiThreading.h"
+#include "../libdashframework/Buffer/AudioChunk.h"
 #include <QtMultimedia/qaudiooutput.h>
 
 namespace sampleplayer

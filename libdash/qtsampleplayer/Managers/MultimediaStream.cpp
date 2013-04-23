@@ -55,7 +55,7 @@ void        MultimediaStream::Init                      ()
 {
     this->dashManager   = new DASHManager(this->segmentBufferSize, this, this->mpd);
     this->frameBuffer   = new QImageBuffer(this->frameBufferSize);
-    // audioSampleBuffer ...
+    this->sampleBuffer  = new AudioChunkBuffer(this->sampleBufferSize);
 }
 bool        MultimediaStream::Start                     ()
 {
@@ -90,6 +90,14 @@ void        MultimediaStream::AddFrame                  (QImage *frame)
 QImage*     MultimediaStream::GetFrame                  ()
 {
     return this->frameBuffer->GetFront();
+}
+void        MultimediaStream::AddSamples                (AudioChunk *samples)
+{
+    this->sampleBuffer->PushBack(samples);
+}
+AudioChunk* MultimediaStream::GetSamples                ()
+{
+    return this->sampleBuffer->GetFront();
 }
 void        MultimediaStream::AttachStreamObserver      (IStreamObserver *observer)
 {

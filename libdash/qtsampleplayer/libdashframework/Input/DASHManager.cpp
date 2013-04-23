@@ -133,15 +133,17 @@ void        DASHManager::OnAudioSampleDecoded   (const uint8_t **data, audioFram
     if (data == NULL || props->fireError)
         return;
 
-    QAudioFormat format;
-    format.setSampleRate(props->sampleRate);
-    format.setChannelCount(props->channels);
-    format.setSampleSize(16);
-    format.setCodec("audio/pcm");
-    format.setByteOrder(QAudioFormat::LittleEndian);
-    format.setSampleType(QAudioFormat::SignedInt);
+    QAudioFormat *format = new QAudioFormat();
+    format->setSampleRate(props->sampleRate);
+    format->setChannelCount(props->channels);
+    format->setSampleSize(16);
+    format->setCodec("audio/pcm");
+    format->setByteOrder(QAudioFormat::LittleEndian);
+    format->setSampleType(QAudioFormat::SignedInt);
 
-    //this->multimediaStream->AddSample(format, (char*)data[0], props->linesize);
+    AudioChunk *samples = new AudioChunk(format, (char*)data[0], props->linesize);
+
+    this->multimediaStream->AddSamples(samples);
 }
 void        DASHManager::OnSegmentDownloaded    ()
 {

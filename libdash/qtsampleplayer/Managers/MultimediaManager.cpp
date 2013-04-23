@@ -91,11 +91,11 @@ void    MultimediaManager::Start                            ()
         this->StartVideoRenderingThread();
     }
 
-    if (this->audioAdaptationSet && this->audioRepresentation && false)
+    if (this->audioAdaptationSet && this->audioRepresentation)
     {
         this->InitAudioPlayback(0);
         this->audioStream->Start();
-        //this->StartAudioRenderingThread();
+        this->StartAudioRenderingThread();
         this->audioElement->StartPlayback();
     }
 
@@ -222,7 +222,7 @@ void    MultimediaManager::InitAudioPlayback                (uint32_t offset)
 {
     this->audioLogic = AdaptationLogicFactory::Create(libdash::framework::adaptation::Manual, this->mpd, this->period, this->audioAdaptationSet);
 
-    this->audioStream = new MultimediaStream(this->mpd, SEGMENTBUFFER_SIZE, 0, 0);
+    this->audioStream = new MultimediaStream(this->mpd, SEGMENTBUFFER_SIZE, 0, 10);
     this->audioStream->AttachStreamObserver(this);
     this->audioStream->SetRepresentation(this->period, this->audioAdaptationSet, this->audioRepresentation);
     this->audioStream->SetPosition(offset);
@@ -302,9 +302,17 @@ void*   MultimediaManager::RenderAudio        (void *data)
 {
     MultimediaManager *manager = (MultimediaManager*) data;
 
+    AudioChunk *samples = manager->audioStream->GetSamples();
+
     while(manager->isAudioRendering)
     {
-        Sleep(1000);
+        manager->audioElement->WriteToBuffer(samples->Data(), samples->Length());
+
+        Sleep(10);
+
+        delete samples;
+
+        samples = manager->audioStream->GetSamples();
     }
 
     return NULL;

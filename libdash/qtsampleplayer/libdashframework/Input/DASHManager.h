@@ -22,6 +22,7 @@
 #include "IMPD.h"
 #include <QtMultimedia/qaudioformat.h>
 #include "IDASHManagerObserver.h"
+#include "../Buffer/AudioChunk.h"
 
 namespace libdash
 {
