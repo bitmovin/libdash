@@ -158,6 +158,11 @@ void        DASHManager::OnDecodingFinished     ()
 bool        DASHManager::CreateAVDecoder        ()
 {
     MediaObject *mediaObject            = this->buffer->GetFront();
+
+    // initSegForMediaObject may be NULL => BaseUrls
+    if (!mediaObject)
+        return false;
+
     MediaObject *initSegForMediaObject  = this->receiver->FindInitSegment(mediaObject->GetRepresentation());
 
     this->mediaObjectDecoder = new MediaObjectDecoder(initSegForMediaObject, mediaObject, this);

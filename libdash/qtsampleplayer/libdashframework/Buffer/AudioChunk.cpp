@@ -23,6 +23,7 @@ AudioChunk::AudioChunk  (QAudioFormat *format, char* data, qint64 dataLength) :
 AudioChunk::~AudioChunk ()
 {
     delete this->format;
+    free(this->data);
 }
 
 char*           AudioChunk::Data    ()
