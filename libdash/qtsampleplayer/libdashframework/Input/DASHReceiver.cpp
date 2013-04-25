@@ -27,7 +27,6 @@ DASHReceiver::DASHReceiver          (IMPD *mpd, IDASHReceiverObserver *obs, Medi
               observer              (obs),
               buffer                (buffer),
               bufferSize            (bufferSize),
-              readSegmentCount      (0),
               isBuffering           (false)
 {
     this->period                = this->mpd->GetPeriods().at(0);
@@ -223,7 +222,6 @@ void*                       DASHReceiver::DoBuffering               (void *recei
     DASHReceiver *dashReceiver = (DASHReceiver *) receiver;
 
     dashReceiver->DownloadInitSegment(dashReceiver->GetRepresentation());
-    dashReceiver->readSegmentCount++;
 
     MediaObject *media = dashReceiver->GetNextSegment();
 
@@ -236,7 +234,7 @@ void*                       DASHReceiver::DoBuffering               (void *recei
 
         media->WaitFinished();
 
-        dashReceiver->readSegmentCount++;
+        dashReceiver->NotifySegmentDownloaded();
 
         media = dashReceiver->GetNextSegment();
     }

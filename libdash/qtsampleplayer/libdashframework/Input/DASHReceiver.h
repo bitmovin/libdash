@@ -68,7 +68,6 @@ namespace libdash
                     uint32_t                                            positionInMsecs;
                     uint32_t                                            segmentOffset;
                     uint32_t                                            bufferSize;
-                    uint32_t                                            readSegmentCount;
                     CRITICAL_SECTION                                    monitorMutex;
 
                     THREAD_HANDLE   bufferingThread;
