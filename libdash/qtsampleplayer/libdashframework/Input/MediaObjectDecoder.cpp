@@ -14,6 +14,7 @@
 using namespace sampleplayer::decoder;
 using namespace libdash::framework::input;
 using namespace libdash::framework::buffer;
+using namespace libdash::framework::helpers;
 using namespace dash::mpd;
 
 MediaObjectDecoder::MediaObjectDecoder  (MediaObject* initSegment, MediaObject* mediaSegment, IMediaObjectDecoderObserver *observer) :
@@ -22,6 +23,7 @@ MediaObjectDecoder::MediaObjectDecoder  (MediaObject* initSegment, MediaObject* 
                     mediaSegment        (mediaSegment),
                     decoderInitialized  (false),
                     initSegmentOffset   (0),
+                    firstFrame          (true),
                     threadHandle        (NULL)
 {
     this->decoder = new LibavDecoder(this);
@@ -62,6 +64,12 @@ void    MediaObjectDecoder::Stop                    ()
 }
 void    MediaObjectDecoder::OnVideoDataAvailable    (const uint8_t **data, videoFrameProperties* props)
 {
+    if (this->firstFrame)
+    {
+        Timing::AddTiming(new TimingObject("First Frame available notified..."));
+        this->firstFrame = false;
+    }
+
     this->observer->OnVideoFrameDecoded(data, props);
 }
 void    MediaObjectDecoder::OnAudioDataAvailable    (const uint8_t **data, audioFrameProperties* props)

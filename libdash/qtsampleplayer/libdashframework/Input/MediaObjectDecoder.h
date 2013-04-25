@@ -20,6 +20,7 @@
 #include "../../Decoder/IVideoObserver.h"
 #include "../Buffer/QImageBuffer.h"
 #include "MediaObject.h"
+#include "../helpers/Timing.h"
 
 namespace libdash
 {
@@ -48,6 +49,7 @@ namespace libdash
                     bool                                run;
                     bool                                decoderInitialized;
                     size_t                              initSegmentOffset;
+                    bool                                firstFrame;
 
                     static void*    Decode      (void *data);
                     void            Notify      ();

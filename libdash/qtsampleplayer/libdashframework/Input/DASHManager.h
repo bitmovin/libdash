@@ -23,6 +23,7 @@
 #include <QtMultimedia/qaudioformat.h>
 #include "IDASHManagerObserver.h"
 #include "../Buffer/AudioChunk.h"
+#include "../helpers/Timing.h"
 
 namespace libdash
 {
