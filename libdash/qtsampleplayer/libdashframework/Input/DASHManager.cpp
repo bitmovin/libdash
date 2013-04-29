@@ -161,7 +161,7 @@ void        DASHManager::OnDecodingFinished     ()
 }
 bool        DASHManager::CreateAVDecoder        ()
 {
-    Timing::AddTiming(new TimingObject("Start CreateAVDecoder..."));
+    Timing::AddTiming(new TimingObject("DM::CreateAVDecoder()"));
 
     MediaObject *mediaObject            = this->buffer->GetFront();
 

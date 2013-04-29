@@ -15,6 +15,7 @@
 #include <time.h>
 #include "config.h"
 #include "TimingObject.h"
+#include <iomanip>
 
 #include <fstream>
 

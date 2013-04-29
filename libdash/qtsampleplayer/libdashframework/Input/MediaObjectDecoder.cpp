@@ -40,6 +40,8 @@ bool    MediaObjectDecoder::Start                   ()
     if(!decoder->Init())
         return false;
 
+    Timing::AddTiming(new TimingObject("AFTER DECODER INIT()"));
+
     this->run = true;
     this->decoderInitialized = true;
     this->threadHandle = CreateThreadPortable (Decode, this);
@@ -66,9 +68,11 @@ void    MediaObjectDecoder::OnVideoDataAvailable    (const uint8_t **data, video
 {
     if (this->firstFrame)
     {
-        Timing::AddTiming(new TimingObject("First Frame available notified..."));
+        Timing::AddTiming(new TimingObject("First Frame notified"));
         this->firstFrame = false;
     }
+    else
+        Timing::AddTiming(new TimingObject("Next Frame notified"));
 
     this->observer->OnVideoFrameDecoded(data, props);
 }
@@ -79,6 +83,8 @@ void    MediaObjectDecoder::OnAudioDataAvailable    (const uint8_t **data, audio
 
 void*   MediaObjectDecoder::Decode                  (void *data)
 {
+    Timing::AddTiming(new TimingObject("MODec::Decode()"));
+
     MediaObjectDecoder *mediaDecodingThread = (MediaObjectDecoder *) data;
 
     while(mediaDecodingThread->decoder->Decode() && mediaDecodingThread->run);

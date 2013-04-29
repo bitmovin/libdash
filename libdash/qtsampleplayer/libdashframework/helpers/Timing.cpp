@@ -13,6 +13,9 @@
 
 using namespace libdash::framework::helpers;
 
+#define NUMBER_WIDTH 4
+#define TEXT_WIDTH 22
+
 std::vector<void *> Timing::timingsInBetween;
 
 clock_t     Timing::GetCurrentUTCTimeInMsec     ()
@@ -33,8 +36,9 @@ std::string Timing::TimingsInBetweenList        ()
 
     for (size_t i = 1; i < Timing::timingsInBetween.size(); i++)
     {
-        ss  << "Interval_" << i << " ("
-            << ((TimingObject *)Timing::timingsInBetween.at(i-1))->Description() << " --- " << ((TimingObject *)Timing::timingsInBetween.at(i))->Description() << "): "
+        ss  << std::setfill('0') << std::setw(NUMBER_WIDTH) << i << " "
+            << std::setfill(' ') << std::setw(TEXT_WIDTH) << ((TimingObject *)Timing::timingsInBetween.at(i-1))->Description() << " --- "
+            << std::setfill(' ') << std::setw(TEXT_WIDTH) << ((TimingObject *)Timing::timingsInBetween.at(i))->Description() << ": "
             << Timing::GetDifference(((TimingObject *)Timing::timingsInBetween.at(i-1))->TimeStamp(), ((TimingObject *)Timing::timingsInBetween.at(i))->TimeStamp())
             << std::endl;
     }
@@ -47,8 +51,9 @@ std::string Timing::TimingsList                 ()
 
     for (size_t i = 0; i < Timing::timingsInBetween.size(); i++)
     {
-        ss  << "Timestamp " << i + 1 << ": " << ((TimingObject *) Timing::timingsInBetween.at(i))->Description()
-            << " at " << ((TimingObject *) Timing::timingsInBetween.at(i))->TimeStamp() << std::endl;
+        ss  << std::setfill('0') << std::setw(NUMBER_WIDTH) << i + 1 << " "
+            << std::setfill(' ') << std::setw(TEXT_WIDTH) << ((TimingObject *) Timing::timingsInBetween.at(i))->Description() << ": "
+            << ((TimingObject *) Timing::timingsInBetween.at(i))->TimeStamp() << std::endl;
     }
 
     return ss.str();
