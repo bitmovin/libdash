@@ -106,6 +106,7 @@ In addition to the public available open source resources and the mailing list s
 We specially want to thank our passionate developers at [bitmovin](http://www.bitmovin.net/) as well as the researchers at the [Institute of Information Technology](http://www-itec.aau.at/dash/) (ITEC) from the Alpen Adria Universitaet Klagenfurt (AAU)!
 
 Furthermore we want to thank the [Netidee](http://www.netidee.at) initiative from the [Internet Foundation Austria](http://www.nic.at/ipa) for partially funding the open source development of libdash.
+![netidee logo](http://www.bitmovin.net/wp-content/uploads/2013/02/netidee-logo_RGB-200x102.png "netidee")
 
 ## Citation of libdash
 We kindly ask you to refer the following paper in any publication mentioning libdash:
