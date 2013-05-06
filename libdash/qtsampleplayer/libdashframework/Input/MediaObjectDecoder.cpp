@@ -13,7 +13,6 @@
 
 using namespace sampleplayer::decoder;
 using namespace libdash::framework::input;
-using namespace libdash::framework::buffer;
 using namespace libdash::framework::helpers;
 using namespace dash::mpd;
 

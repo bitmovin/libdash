@@ -79,8 +79,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="libdashframework\Buffer\AudioChunk.cpp" />
-    <ClCompile Include="libdashframework\Buffer\AudioChunkBuffer.cpp" />
-    <ClCompile Include="libdashframework\Buffer\QImageBuffer.cpp" />
     <ClCompile Include="libdashframework\helpers\Timing.cpp" />
     <ClCompile Include="libdashframework\helpers\TimingObject.cpp" />
     <ClCompile Include="libdashframework\Input\DASHManager.cpp" />
@@ -174,10 +172,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libdashframework\Buffer\AudioChunk.h" />
-    <ClInclude Include="libdashframework\Buffer\AudioChunkBuffer.h" />
     <ClInclude Include="libdashframework\Buffer\Buffer.h" />
     <ClInclude Include="libdashframework\Buffer\IMediaObjectBufferObserver.h" />
-    <ClInclude Include="libdashframework\Buffer\QImageBuffer.h" />
     <ClInclude Include="libdashframework\helpers\Timing.h" />
     <ClInclude Include="libdashframework\helpers\TimingObject.h" />
     <ClInclude Include="libdashframework\Input\DASHManager.h" />

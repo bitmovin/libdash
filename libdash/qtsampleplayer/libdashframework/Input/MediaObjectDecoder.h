@@ -18,7 +18,6 @@
 #include "../../Decoder/LibavDecoder.h"
 #include "../../Decoder/IAudioObserver.h"
 #include "../../Decoder/IVideoObserver.h"
-#include "../Buffer/QImageBuffer.h"
 #include "MediaObject.h"
 #include "../helpers/Timing.h"
 
