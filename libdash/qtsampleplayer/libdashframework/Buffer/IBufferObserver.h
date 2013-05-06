@@ -20,12 +20,19 @@ namespace libdash
     {
         namespace buffer
         {
+            enum BufferType
+            {
+                AUDIO,
+                VIDEO,
+                SUBTITLE
+            };
+
             class IBufferObserver
             {
                 public:
                     virtual ~IBufferObserver () {}
 
-                    virtual void OnBufferStateChanged(uint32_t fillstateInPercent) = 0;
+                    virtual void OnBufferStateChanged(BufferType type, uint32_t fillstateInPercent) = 0;
             };
         }
     }

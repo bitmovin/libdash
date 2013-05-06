@@ -27,7 +27,10 @@ QtSamplePlayerGui::QtSamplePlayerGui    (QWidget *parent) :
                    mpd                  (NULL)
 {
     this->ui->setupUi(this);
-    this->SetBufferFillState(0);
+    this->SetVideoSegmentBufferFillState(0);
+    this->SetVideoBufferFillState(0);
+    this->SetAudioSegmentBufferFillState(0);
+    this->SetAudioBufferFillState(0);
     this->ui->button_stop->setEnabled(false);
     this->ui->button_start->setEnabled(false);
 }
@@ -82,9 +85,21 @@ void            QtSamplePlayerGui::SetGuiFields                                 
 
     this->ui->button_start->setEnabled(true);
 }
-void            QtSamplePlayerGui::SetBufferFillState                               (int percentage)
+void            QtSamplePlayerGui::SetVideoSegmentBufferFillState                   (int percentage)
 {
-    this->ui->progressBar->setValue(percentage);
+    this->ui->progressBar_V->setValue(percentage);
+}
+void            QtSamplePlayerGui::SetVideoBufferFillState                          (int percentage)
+{
+    this->ui->progressBar_VF->setValue(percentage);
+}
+void            QtSamplePlayerGui::SetAudioSegmentBufferFillState                   (int percentage)
+{
+    this->ui->progressBar_A->setValue(percentage);
+}
+void            QtSamplePlayerGui::SetAudioBufferFillState                          (int percentage)
+{
+    this->ui->progressBar_AC->setValue(percentage);
 }
 void            QtSamplePlayerGui::AddWidgetObserver                                (IDASHPlayerGuiObserver *observer)
 {

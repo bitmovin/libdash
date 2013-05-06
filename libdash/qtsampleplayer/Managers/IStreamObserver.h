@@ -12,20 +12,29 @@
 #ifndef QTSAMPLEPLAYER_MANAGERS_STREAMOBSERVER_H_
 #define QTSAMPLEPLAYER_MANAGERS_STREAMOBSERVER_H_
 
-#include <IMPD.h>
-#include <qimage.h>
-#include <QtMultimedia/qaudioformat.h>
+#include <stdint.h>
 
 namespace sampleplayer
 {
     namespace managers
     {
+        enum StreamType
+        {
+            AUDIO    = (1u << 0),
+            VIDEO    = (1u << 1),
+            SUBTITLE = (1u << 2),
+        };
+
         class IStreamObserver
         {
             public:
                 virtual ~IStreamObserver () {}
 
                 virtual void OnSegmentDownloaded    ()  = 0;
+                virtual void OnSegmentBufferStateChanged    (StreamType type, uint32_t fillstateInPercent) = 0;
+                virtual void OnVideoBufferStateChanged      (uint32_t fillstateInPercent)                  = 0;
+                virtual void OnAudioBufferStateChanged      (uint32_t fillstateInPercent)                  = 0;
+
         };
     }
 }

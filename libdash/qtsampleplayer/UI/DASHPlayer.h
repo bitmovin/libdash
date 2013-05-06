@@ -17,6 +17,7 @@
 #include <qobject.h>
 #include "libdash.h"
 #include "IDASHPlayerGuiObserver.h"
+#include "../Managers/IMultimediaManagerObserver.h"
 #include "../Renderer/QTGLRenderer.h"
 #include "../Renderer/QTAudioRenderer.h"
 #include "../Managers/MultimediaManager.h"
@@ -25,9 +26,12 @@
 #include "../libdashframework/Buffer/IBufferObserver.h"
 #include "../libdashframework/MPD/AdaptationSetHelper.h"
 
+#include <qimage.h>
+
 namespace sampleplayer
 {
-    class DASHPlayer : public IDASHPlayerGuiObserver, public libdash::framework::buffer::IBufferObserver
+    class DASHPlayer : public IDASHPlayerGuiObserver, public managers::IMultimediaManagerObserver
+
     {
         Q_OBJECT
 
@@ -38,7 +42,13 @@ namespace sampleplayer
             virtual void OnSettingsChanged      (int period, int videoAdaptationSet, int videoRepresentation, int audioAdaptationSet, int audioRepresentation);
             virtual void OnStartButtonPressed   (int period, int videoAdaptationSet, int videoRepresentation, int audioAdaptationSet, int audioRepresentation);
             virtual void OnStopButtonPressed    ();
-            virtual void OnBufferStateChanged   (uint32_t fillstateInPercent);
+
+            /* IMultimediaManagerObserver */
+            virtual void OnVideoBufferStateChanged          (uint32_t fillstateInPercent);
+            virtual void OnVideoSegmentBufferStateChanged   (uint32_t fillstateInPercent);
+            virtual void OnAudioBufferStateChanged          (uint32_t fillstateInPercent);
+            virtual void OnAudioSegmentBufferStateChanged   (uint32_t fillstateInPercent);
+
             virtual void OnDownloadMPDPressed   (const std::string &url);
 
         private:
@@ -49,7 +59,10 @@ namespace sampleplayer
             sampleplayer::managers::MultimediaManager   *multimediaManager;
 
         signals:
-            void FillStateChanged(int fillStateInPercent);
+            void VideoSegmentBufferFillStateChanged (int fillStateInPercent);
+            void VideoBufferFillStateChanged        (int fillStateInPercent);
+            void AudioSegmentBufferFillStateChanged (int fillStateInPercent);
+            void AudioBufferFillStateChanged        (int fillStateInPercent);
 
     };
 }

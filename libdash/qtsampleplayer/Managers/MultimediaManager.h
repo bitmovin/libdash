@@ -14,9 +14,9 @@
 
 #include "IMPD.h"
 #include "MultimediaStream.h"
+#include "IMultimediaManagerObserver.h"
 #include "../libdashframework/Adaptation/IAdaptationLogic.h"
 #include "../libdashframework/Adaptation/AdaptationLogicFactory.h"
-#include "../libdashframework/Buffer/IBufferObserver.h"
 #include "../Renderer/QTGLRenderer.h"
 #include "../Renderer/QTAudioRenderer.h"
 #include "../libdashframework/Portable/MultiThreading.h"
@@ -38,26 +38,23 @@ namespace sampleplayer
                 void                Stop    ();
                 dash::mpd::IMPD*    GetMPD  ();
 
-                void OnAudioSampleAvailable (const QAudioFormat& format, const char* data, qint64 len);
-
                 bool SetVideoQuality      (dash::mpd::IPeriod* period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation);
                 bool SetAudioQuality      (dash::mpd::IPeriod* period, dash::mpd::IAdaptationSet *adaptationSet, dash::mpd::IRepresentation *representation);
 
                 bool SetVideoAdaptationLogic    (libdash::framework::adaptation::LogicType type);
                 bool SetAudioAdaptationLogic    (libdash::framework::adaptation::LogicType type);
 
-                void AttachVideoBufferObserver  (libdash::framework::buffer::IBufferObserver *videoBufferObserver);
-                void AttachAudioBufferObserver  (libdash::framework::buffer::IBufferObserver *audioBufferObserver);
+                void AttachManagerObserver  (IMultimediaManagerObserver *observer);
 
                 void SetFrameRate               (double frameRate);
 
+                /* IStreamObserver */
                 void OnSegmentDownloaded        ();
+                void OnSegmentBufferStateChanged(StreamType type, uint32_t fillstateInPercent);
+                void OnVideoBufferStateChanged  (uint32_t fillstateInPercent);
+                void OnAudioBufferStateChanged  (uint32_t fillstateInPercent);
 
-                void NotifyVideoObservers       ();
-                void NotifyAudioObservers       ();
 
-                void NotifyVideoBufferObservers ();
-                void NotifyAudioBufferObservers ();
 
             private:
                 dash::IDASHManager                                          *manager;
@@ -73,7 +70,7 @@ namespace sampleplayer
                 dash::mpd::IRepresentation                                  *audioRepresentation;
                 libdash::framework::adaptation::IAdaptationLogic            *audioLogic;
                 MultimediaStream                                            *audioStream;
-                std::vector<libdash::framework::buffer::IBufferObserver* >  videoBufferObservers;
+                std::vector<IMultimediaManagerObserver *>                   managerObservers;
                 bool                                                        isStarted;
                 uint64_t                                                    framesDisplayed;
                 uint64_t                                                    segmentsDownloaded;
@@ -98,6 +95,12 @@ namespace sampleplayer
                 void    InitAudioPlayback   (uint32_t offset);
                 void    StopVideo           ();
                 void    StopAudio           ();
+
+                /* IMultimediaManager Notifiers */
+                void NotifyVideoBufferObservers         (uint32_t fillstateInPercent);
+                void NotifyVideoSegmentBufferObservers  (uint32_t fillstateInPercent);
+                void NotifyAudioBufferObservers         (uint32_t fillstateInPercent);
+                void NotifyAudioSegmentBufferObservers  (uint32_t fillstateInPercent);
         };
     }
 }

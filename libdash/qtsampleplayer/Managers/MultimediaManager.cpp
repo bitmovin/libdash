@@ -17,7 +17,7 @@ using namespace sampleplayer::managers;
 using namespace sampleplayer::renderer;
 using namespace dash::mpd;
 
-#define SEGMENTBUFFER_SIZE 2
+#define SEGMENTBUFFER_SIZE 10
 
 MultimediaManager::MultimediaManager            (QTGLRenderer *videoElement, QTAudioRenderer *audioElement) :
                    videoElement                 (videoElement),
@@ -50,13 +50,6 @@ MultimediaManager::~MultimediaManager           ()
     DeleteCriticalSection (&this->monitorMutex);
 }
 
-void    MultimediaManager::OnAudioSampleAvailable           (const QAudioFormat& format, const char* data, qint64 len)
-{
-    if (this->audioElement->AudioFormat() != format)
-        this->audioElement->SetAudioFormat(format);
-
-    this->audioElement->WriteToBuffer(data, len);
-}
 IMPD*   MultimediaManager::GetMPD                           ()
 {
     return this->mpd;
@@ -185,44 +178,44 @@ bool    MultimediaManager::SetAudioAdaptationLogic          (libdash::framework:
     //Currently unused, always using ManualAdaptation.
     return true;
 }
-void    MultimediaManager::NotifyVideoObservers             ()
+void    MultimediaManager::AttachManagerObserver            (IMultimediaManagerObserver *observer)
 {
+    this->managerObservers.push_back(observer);
 }
-void    MultimediaManager::NotifyAudioObservers             ()
+void    MultimediaManager::NotifyVideoBufferObservers       (uint32_t fillstateInPercent)
 {
+    for (size_t i = 0; i < this->managerObservers.size(); i++)
+        this->managerObservers.at(i)->OnVideoBufferStateChanged(fillstateInPercent);
 }
-void    MultimediaManager::AttachVideoBufferObserver        (IBufferObserver *videoBufferObserver)
+void    MultimediaManager::NotifyVideoSegmentBufferObservers(uint32_t fillstateInPercent)
 {
-    this->videoBufferObservers.push_back(videoBufferObserver);
+    for (size_t i = 0; i < this->managerObservers.size(); i++)
+        this->managerObservers.at(i)->OnVideoSegmentBufferStateChanged(fillstateInPercent);
 }
-void    MultimediaManager::AttachAudioBufferObserver        (IBufferObserver *audioBufferObserver)
+void    MultimediaManager::NotifyAudioSegmentBufferObservers(uint32_t fillstateInPercent)
 {
+    for (size_t i = 0; i < this->managerObservers.size(); i++)
+        this->managerObservers.at(i)->OnAudioSegmentBufferStateChanged(fillstateInPercent);
 }
-void    MultimediaManager::NotifyVideoBufferObservers       ()
+void    MultimediaManager::NotifyAudioBufferObservers       (uint32_t fillstateInPercent)
 {
-}
-void    MultimediaManager::NotifyAudioBufferObservers       ()
-{
+    for (size_t i = 0; i < this->managerObservers.size(); i++)
+        this->managerObservers.at(i)->OnAudioBufferStateChanged(fillstateInPercent);
 }
 void    MultimediaManager::InitVideoRendering               (uint32_t offset)
 {
     this->videoLogic = AdaptationLogicFactory::Create(libdash::framework::adaptation::Manual, this->mpd, this->period, this->videoAdaptationSet);
 
-    this->videoStream = new MultimediaStream(this->mpd, SEGMENTBUFFER_SIZE, 2, 0);
+    this->videoStream = new MultimediaStream(sampleplayer::managers::VIDEO, this->mpd, SEGMENTBUFFER_SIZE, 2, 0);
     this->videoStream->AttachStreamObserver(this);
     this->videoStream->SetRepresentation(this->period, this->videoAdaptationSet, this->videoRepresentation);
     this->videoStream->SetPosition(offset);
-
-    for(int i=0; i < this->videoBufferObservers.size(); i++)
-    {
-        this->videoStream->AttachBufferObserver(this->videoBufferObservers.at(i));
-    }
 }
 void    MultimediaManager::InitAudioPlayback                (uint32_t offset)
 {
     this->audioLogic = AdaptationLogicFactory::Create(libdash::framework::adaptation::Manual, this->mpd, this->period, this->audioAdaptationSet);
 
-    this->audioStream = new MultimediaStream(this->mpd, SEGMENTBUFFER_SIZE, 0, 10);
+    this->audioStream = new MultimediaStream(sampleplayer::managers::AUDIO, this->mpd, SEGMENTBUFFER_SIZE, 0, 10);
     this->audioStream->AttachStreamObserver(this);
     this->audioStream->SetRepresentation(this->period, this->audioAdaptationSet, this->audioRepresentation);
     this->audioStream->SetPosition(offset);
@@ -230,6 +223,28 @@ void    MultimediaManager::InitAudioPlayback                (uint32_t offset)
 void    MultimediaManager::OnSegmentDownloaded              ()
 {
     this->segmentsDownloaded++;
+}
+void    MultimediaManager::OnSegmentBufferStateChanged    (StreamType type, uint32_t fillstateInPercent)
+{
+    switch (type)
+    {
+        case AUDIO:
+            this->NotifyAudioSegmentBufferObservers(fillstateInPercent);
+            break;
+        case VIDEO:
+            this->NotifyVideoSegmentBufferObservers(fillstateInPercent);
+            break;
+        default:
+            break;
+    }
+}
+void    MultimediaManager::OnVideoBufferStateChanged      (uint32_t fillstateInPercent)
+{
+    this->NotifyVideoBufferObservers(fillstateInPercent);
+}
+void    MultimediaManager::OnAudioBufferStateChanged      (uint32_t fillstateInPercent)
+{
+    this->NotifyAudioBufferObservers(fillstateInPercent);
 }
 void    MultimediaManager::SetFrameRate                     (double framerate)
 {

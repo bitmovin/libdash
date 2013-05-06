@@ -19,16 +19,18 @@
 #include "../libdashframework/Adaptation/IAdaptationLogic.h"
 #include <QtMultimedia/qaudioformat.h>
 #include "../libdashframework/Input/IDASHManagerObserver.h"
-#include "../libdashframework/Buffer/AudioChunkBuffer.h"
+#include "../libdashframework/Buffer/Buffer.h"
+#include "../libdashframework/Buffer/AudioChunk.h"
+#include <QImage.h>
 
 namespace sampleplayer
 {
     namespace managers
     {
-        class MultimediaStream : public libdash::framework::input::IDASHManagerObserver
+        class MultimediaStream : public libdash::framework::input::IDASHManagerObserver, public libdash::framework::buffer::IBufferObserver
         {
             public:
-                MultimediaStream            (dash::mpd::IMPD *mpd, uint32_t segmentBufferSize, uint32_t frameBufferSize, uint32_t sampleBufferSize);
+                MultimediaStream            (StreamType type, dash::mpd::IMPD *mpd, uint32_t segmentBufferSize, uint32_t frameBufferSize, uint32_t sampleBufferSize);
                 virtual ~MultimediaStream   ();
 
                 bool        Start                   ();
@@ -54,21 +56,22 @@ namespace sampleplayer
                 void        SetAdaptationLogic      (libdash::framework::adaptation::IAdaptationLogic *logic);
 
                 void        AttachStreamObserver    (IStreamObserver *observer);
-                void        AttachBufferObserver    (libdash::framework::buffer::IBufferObserver *observer);
-                void        NotifyVideoObservers    (const QImage& image);
-                void        NotifyAudioObservers    (const QAudioFormat& format, const char *data, qint64 len);
+
+                void        OnSegmentBufferStateChanged (uint32_t fillstateInPercent);
+                void        OnBufferStateChanged   (libdash::framework::buffer::BufferType type, uint32_t fillstateInPercent);
 
             private:
                 std::vector<IStreamObserver *>                      observers;
                 dash::mpd::IMPD                                     *mpd;
                 libdash::framework::adaptation::IAdaptationLogic    *logic;
                 libdash::framework::input::DASHManager              *dashManager;
-                libdash::framework::buffer::QImageBuffer            *frameBuffer;
-                libdash::framework::buffer::AudioChunkBuffer        *sampleBuffer;
+                libdash::framework::buffer::Buffer<QImage>          *frameBuffer;
+                libdash::framework::buffer::Buffer<libdash::framework::buffer::AudioChunk> *sampleBuffer;
                 // subtitle buffer
                 uint32_t                                            segmentBufferSize;
                 uint32_t                                            frameBufferSize;
                 uint32_t                                            sampleBufferSize;
+                StreamType                                          type;
 
                 void Init ();
         };

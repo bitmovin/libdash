@@ -14,7 +14,7 @@
 
 #include "../Input/MediaObject.h"
 #include "../Portable/MultiThreading.h"
-#include "IBufferObserver.h"
+#include "IMediaObjectBufferObserver.h"
 #include <deque>
 
 namespace libdash
@@ -38,12 +38,12 @@ namespace libdash
                     void                        SetEOS          (bool value);
                     uint32_t                    Length          ();
                     uint32_t                    Capacity        ();
-                    void                        AttachObserver  (IBufferObserver *observer);
+                    void                        AttachObserver  (IMediaObjectBufferObserver *observer);
                     void                        Notify          ();
 
                 private:
                     std::deque<input::MediaObject *>    mediaobjects;
-                    std::vector<IBufferObserver*>       observer;
+                    std::vector<IMediaObjectBufferObserver *>   observer;
                     bool                                eos;
                     uint32_t                            maxcapacity;
                     mutable CRITICAL_SECTION            monitorMutex;

@@ -23,6 +23,7 @@
 #include <QtMultimedia/qaudioformat.h>
 #include "IDASHManagerObserver.h"
 #include "../Buffer/AudioChunk.h"
+#include "../Buffer/IMediaObjectBufferObserver.h"
 #include "../helpers/Timing.h"
 
 namespace libdash
@@ -31,7 +32,7 @@ namespace libdash
     {
         namespace input
         {
-            class DASHManager : public IDASHReceiverObserver, public IMediaObjectDecoderObserver
+            class DASHManager : public IDASHReceiverObserver, public IMediaObjectDecoderObserver, public buffer::IMediaObjectBufferObserver
             {
                 public:
                     DASHManager             (uint32_t maxCapacity, IDASHManagerObserver *multimediaStream, dash::mpd::IMPD *mpd);
@@ -51,6 +52,7 @@ namespace libdash
                     void        OnDecodingFinished      ();
                     void        OnVideoFrameDecoded     (const uint8_t **data, sampleplayer::decoder::videoFrameProperties* props);
                     void        OnAudioSampleDecoded    (const uint8_t **data, sampleplayer::decoder::audioFrameProperties* props);
+                    void        OnBufferStateChanged    (uint32_t fillstateInPercent);
 
                 private:
                     bool    CreateAVDecoder ();

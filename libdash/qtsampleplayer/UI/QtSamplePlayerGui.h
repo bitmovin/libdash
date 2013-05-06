@@ -51,7 +51,10 @@ namespace sampleplayer
 
 
         public slots:
-            virtual void    SetBufferFillState      (int percentage);
+            virtual void    SetVideoSegmentBufferFillState  (int percentage);
+            virtual void    SetVideoBufferFillState         (int percentage);
+            virtual void    SetAudioSegmentBufferFillState  (int percentage);
+            virtual void    SetAudioBufferFillState         (int percentage);
 
         private:
             std::map<std::string, std::string>                  keyValues;

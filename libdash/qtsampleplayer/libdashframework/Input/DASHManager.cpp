@@ -28,6 +28,8 @@ DASHManager::DASHManager        (uint32_t maxCapacity, IDASHManagerObserver* str
              isRunning          (false)
 {
     this->buffer    = new MediaObjectBuffer(maxCapacity);
+    this->buffer->AttachObserver(this);
+
     this->receiver  = new DASHReceiver(mpd, this, this->buffer, maxCapacity);
 }
 DASHManager::~DASHManager       ()
@@ -148,6 +150,10 @@ void        DASHManager::OnAudioSampleDecoded   (const uint8_t **data, audioFram
     AudioChunk *samples = new AudioChunk(format, (char*)data[0], props->linesize);
 
     this->multimediaStream->AddSamples(samples);
+}
+void        DASHManager::OnBufferStateChanged   (uint32_t fillstateInPercent)
+{
+    this->multimediaStream->OnSegmentBufferStateChanged(fillstateInPercent);
 }
 void        DASHManager::OnSegmentDownloaded    ()
 {
