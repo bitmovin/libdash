@@ -15,7 +15,7 @@ using namespace sampleplayer::managers;
 using namespace sampleplayer::decoder;
 using namespace libdash::framework::input;
 
-DecodingThread::DecodingThread  (IDataReceiver *receiver, IAudioObserver *audioObserver, IVideoObserver *videoObserver) : 
+DecodingThread::DecodingThread  (IDataReceiver *receiver, IAudioObserver *audioObserver, IVideoObserver *videoObserver, uint8_t framerate) : 
                 receiver        (receiver),
                 audioObserver   (audioObserver),
                 videoObserver   (videoObserver)
@@ -24,7 +24,7 @@ DecodingThread::DecodingThread  (IDataReceiver *receiver, IAudioObserver *audioO
 
     decoder->AttachVideoObserver(this->videoObserver);
     decoder->AttachAudioObserver(this->audioObserver);
-    decoder->SetFrameRate(24);
+    decoder->SetFrameRate(framerate);
 }
 DecodingThread::~DecodingThread ()
 {

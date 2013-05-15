@@ -40,7 +40,7 @@ uint32_t    MultimediaStream::GetPosition               ()
 void        MultimediaStream::Init                      ()
 {
     this->receiver          = new DASHManager(this->bufferSize, this->logic);
-    this->decodingThread    = new DecodingThread(this->receiver, this, this);
+    this->decodingThread    = new DecodingThread(this->receiver, this, this, 24);
 
     this->receiver->AttachDownloadObserver(this);
 }
