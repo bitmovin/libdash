@@ -14,6 +14,8 @@
 using namespace libdash::framework::input;
 using namespace sampleplayer::decoder;
 
+#define AVERROR_RESSOURCE_NOT_AVAILABLE -11
+
 static int          IORead                           (void *opaque, uint8_t *buf, int buf_size)
 {
     IDataReceiver* datrec = (IDataReceiver*)opaque;
@@ -24,6 +26,7 @@ static int          IORead                           (void *opaque, uint8_t *buf
 LibavDecoder::LibavDecoder  (IDataReceiver* rec) :
          receiver           (rec),
          errorHappened      (false),
+         numOfMissedFrames  (0),
          bufferSize         (32768)
 {
 }
@@ -38,6 +41,24 @@ void                LibavDecoder::AttachAudioObserver     (IAudioObserver *obser
 void                LibavDecoder::AttachVideoObserver     (IVideoObserver *observer)
 {
     videoObservers.push_back(observer);
+}
+void                LibavDecoder::Notify                  (AVFrame *frame, StreamConfig *config)
+{
+    switch(config->stream->codec->codec_type)
+    {
+        case AVMEDIA_TYPE_VIDEO:
+            this->NotifyVideo(frame, config);
+            break;
+        case AVMEDIA_TYPE_AUDIO:
+            this->NotifyAudio(frame, config);
+            break;
+        case AVMEDIA_TYPE_SUBTITLE:
+            break;
+        case AVMEDIA_TYPE_UNKNOWN:
+            break;
+        default:
+            break;
+    }
 }
 void                LibavDecoder::NotifyVideo             (AVFrame * avFrame, StreamConfig* decoConf)
 {
@@ -83,15 +104,19 @@ AVFormatContext*    LibavDecoder::OpenInput               ()
     avFormatContextPtr->pb->seekable    = 0;
 
     err = avformat_open_input(&avFormatContextPtr, "", NULL, NULL);
-    if (err != 0)
+    if (err < 0)
     {
         this->Error("Error while calling avformat_open_input", err);
-    } else
-    {
-        err = avformat_find_stream_info(avFormatContextPtr, 0);
-        if (err < 0)
-            this->Error("Error while calling avformat_find_stream_info", err);
+        return NULL;
     }
+
+    err = avformat_find_stream_info(avFormatContextPtr, 0);
+    if (err < 0)
+    {
+        this->Error("Error while calling avformat_find_stream_info", err);
+        return NULL;
+    }
+
     return avFormatContextPtr;
 }
 void                LibavDecoder::InitStreams             (AVFormatContext *avFormatContextPtr)
@@ -117,86 +142,106 @@ void                LibavDecoder::InitStreams             (AVFormatContext *avFo
         }
     }
 }
-StreamConfig*       LibavDecoder::GetNextFrame            (AVFormatContext* avFormatContextPtr, AVPacket* avpkt)
+StreamConfig*       LibavDecoder::GetNextPacket           (AVFormatContext* avFormatContextPtr, AVPacket* avpkt)
 {
-    int           loop               = 1;
-    int           err                = 0;
-    size_t        configcnt          = 0;
-    StreamConfig  *tempConfig        = 0;
-
-
-    while (loop == 1)
+    while (true)
     {
-        err = av_read_frame(avFormatContextPtr, avpkt);
+        int err = av_read_frame(avFormatContextPtr, avpkt);
+
+        if ((size_t)err == AVERROR_EOF)
+            return NULL;
+
+        if (err == AVERROR_RESSOURCE_NOT_AVAILABLE)
+        {
+            av_free_packet(avpkt);
+            continue;
+        }
+
         if (err < 0)
         {
-            if (err != -11) //Ressource not available, try again
-            {
-                if ((size_t)err != AVERROR_EOF)
-                {
-                    this->Error("Error while av_read_frame", err);
-                }
-                loop = 0;
-            }
+            this->Error("Error while av_read_frame", err);
+            return NULL;
         }
-        else
-        {
-            configcnt = 0;
-            while ((loop == 1) && (configcnt < this->streamconfigs.size()))
-            {
-                if (this->streamconfigs.at(configcnt).stream->index == avpkt->stream_index)
-                {
-                    tempConfig = &this->streamconfigs.at(configcnt);
-                    loop = 0;
-                }
-                configcnt++;
-            }
-        }
-        if (loop == 1)
-            av_free_packet(avpkt);
+
+        StreamConfig *tempConfig = this->FindStreamConfig(avpkt->stream_index);
+        if (tempConfig)
+            return tempConfig;
+
+        av_free_packet(avpkt);
     }
-    return tempConfig;
+}
+StreamConfig*       LibavDecoder::FindStreamConfig        (int streamIndex)
+{
+    size_t configsCount = this->streamconfigs.size();
+
+    for (size_t i = 0; i < configsCount; i++)
+    {
+        if (this->streamconfigs.at(i).stream->index == streamIndex)
+            return &this->streamconfigs.at(i);
+    }
+
+    return NULL;
+}
+int                 LibavDecoder::DecodeMedia             (AVFrame *frame, AVPacket *avpkt, StreamConfig *decConfig, int *got_frame)
+{
+    switch(decConfig->stream->codec->codec_type)
+    {
+        case AVMEDIA_TYPE_VIDEO:
+            return avcodec_decode_video2(decConfig->codecContext, frame, got_frame, avpkt);
+        case AVMEDIA_TYPE_AUDIO:
+            return avcodec_decode_audio4(decConfig->codecContext, frame, got_frame, avpkt);
+        case AVMEDIA_TYPE_SUBTITLE:
+            break;
+        case AVMEDIA_TYPE_UNKNOWN:
+            break;
+        default:
+            break;
+    }
+
+    return -1;
 }
 int                 LibavDecoder::DecodeFrame             (AVFrame *frame, AVPacket* avpkt, StreamConfig* decConfig)
 {
     int len         = 0;
-    int got_frame   = 0;
-    int ret         = 0;
-    while ((avpkt->size > 0) && (ret == 0))
+    int got_frame   = 1;
+
+    while (avpkt->size > 0)
     {
-        switch(decConfig->stream->codec->codec_type)
-        {
-            case AVMEDIA_TYPE_VIDEO:
-                len = avcodec_decode_video2(decConfig->codecContext, frame, &got_frame, avpkt);
-                break;
-            case AVMEDIA_TYPE_AUDIO:
-                len = avcodec_decode_audio4(decConfig->codecContext, frame, &got_frame, avpkt);
-                break;
-            case AVMEDIA_TYPE_SUBTITLE:
-                break;
-            case AVMEDIA_TYPE_UNKNOWN:
-                break;
-            default:
-                len = -1;
-        }
+        len = this->DecodeMedia(frame, avpkt, decConfig, &got_frame);
+
         if(len < 0)
         {
             this->Error("Error while decoding frame", len);
             return -1;
         }
+
         if(got_frame)
         {
-            if(decConfig->stream->codec->codec_type == AVMEDIA_TYPE_VIDEO)
-                this->NotifyVideo(frame, decConfig);
-            if(decConfig->stream->codec->codec_type == AVMEDIA_TYPE_AUDIO)
-                this->NotifyAudio(frame, decConfig);
-
+            this->Notify(frame, decConfig);
             decConfig->frameCnt++;
         }
+        else
+        {
+            this->decoderConfigs.push_back(decConfig);
+            this->numOfMissedFrames++;
+        }
+
         avpkt->size -= len;
         avpkt->data += len;
     }
-    return ret;
+    return 0;
+}
+void                LibavDecoder::FlushDecoder            ()
+{
+    int got_frame = 0;
+
+    for (size_t i = 0; i < this->numOfMissedFrames; i++)
+    {
+        this->DecodeMedia(this->frame, &this->avpkt, decoderConfigs.at(i), &got_frame);
+
+        if (got_frame)
+            this->Notify(this->frame, decoderConfigs.at(i));
+    }
 }
 bool                LibavDecoder::Init                    ()
 {
@@ -214,12 +259,12 @@ bool                LibavDecoder::Init                    ()
 }
 bool                LibavDecoder::Decode                  ()
 {
-    StreamConfig* decConfig = this->GetNextFrame(this->avFormatContextPtr, &this->avpkt);
+    StreamConfig *decConfig = this->GetNextPacket(this->avFormatContextPtr, &this->avpkt);
 
-    if(decConfig == 0)
+    if(decConfig == NULL)
         return false;
 
-    if(this->DecodeFrame(this->frame, &avpkt, decConfig) < 0)
+    if(this->DecodeFrame(this->frame, &this->avpkt, decConfig) < 0)
         return false;
 
     return true;
@@ -238,7 +283,7 @@ void                LibavDecoder::FreeConfigs             ()
 void                LibavDecoder::Error                   (std::string errormsg, int errorcode)
 {
     videoFrameProperties    videoprops;
-     audioFrameProperties   audioprops;
+    audioFrameProperties    audioprops;
     char                    errorCodeMsg[1024];
     std::stringstream       sstm;
 
