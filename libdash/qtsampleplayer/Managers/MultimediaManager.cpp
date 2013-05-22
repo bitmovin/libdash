@@ -87,9 +87,9 @@ void    MultimediaManager::Start                            ()
     if (this->audioAdaptationSet && this->audioRepresentation)
     {
         this->InitAudioPlayback(0);
+        this->audioElement->StartPlayback();
         this->audioStream->Start();
         this->StartAudioRenderingThread();
-        this->audioElement->StartPlayback();
     }
 
     this->isStarted = true;
@@ -325,7 +325,7 @@ void*   MultimediaManager::RenderAudio        (void *data)
     {
         manager->audioElement->WriteToBuffer(samples->Data(), samples->Length());
 
-        Sleep(10);
+        Sleep((1 / manager->frameRate) * 1000);
 
         delete samples;
 

@@ -38,11 +38,10 @@ namespace sampleplayer
 
             private:
                 QAudioOutput        *audioOutput;
-                QBuffer             *buffer;
                 QAudioFormat        format;
                 QAudioDeviceInfo    deviceInfo;
                 QObject             *parent;
-                QByteArray          byteArray;
+                QIODevice           *output;
 
                 void    Init();
                 void    Reset();

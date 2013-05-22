@@ -17,15 +17,12 @@ QTAudioRenderer::QTAudioRenderer(QWidget *parent) :
                  QWidget        (parent),
                  parent         (parent),
                  audioOutput    (NULL),
-                 buffer         (NULL)
+                 output         (NULL)
 {
     this->Init();
 }
 QTAudioRenderer::~QTAudioRenderer()
 {
-    delete this->buffer;
-    this->buffer = NULL;
-
     delete this->audioOutput;
     this->audioOutput = NULL;
 }
@@ -41,7 +38,6 @@ const QAudioFormat&     QTAudioRenderer::AudioFormat    () const
 void                    QTAudioRenderer::StartPlayback  ()
 {
     this->Reset();
-    this->audioOutput->start(this->buffer);
 }
 void                    QTAudioRenderer::StopPlayback   ()
 {
@@ -51,16 +47,17 @@ void                    QTAudioRenderer::StopPlayback   ()
     if (this->audioOutput->state() == QAudio::ActiveState)
         this->audioOutput->stop();
 
-    this->buffer->close();
-    delete this->buffer;
-    this->buffer = NULL;
-
     delete this->audioOutput;
     this->audioOutput = NULL;
 }
 void                    QTAudioRenderer::WriteToBuffer  (const char *data, qint64 len)
 {
-    this->byteArray.append(data, len); /* MAJOR LEAKAGE MUST BE FIXED */
+    while (len > 0)
+    {
+        qint64 written = this->output->write(data, len);
+        len -= written;
+        data += written;
+    }
 }
 void                    QTAudioRenderer::Init           ()
 {
@@ -78,10 +75,6 @@ void                    QTAudioRenderer::Init           ()
 }
 void                    QTAudioRenderer::Reset          ()
 {
-    this->byteArray.clear();
-    this->byteArray.resize(8192);
-    this->buffer = new QBuffer(&byteArray);
-    this->buffer->open(QIODevice::ReadOnly);
-
     this->audioOutput = new QAudioOutput(this->deviceInfo, this->format, this->parent);
+    this->output = this->audioOutput->start();
 }
