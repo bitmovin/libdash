@@ -24,7 +24,6 @@
 #include "IDASHManagerObserver.h"
 #include "../Buffer/AudioChunk.h"
 #include "../Buffer/IMediaObjectBufferObserver.h"
-#include "../helpers/Timing.h"
 
 namespace libdash
 {

@@ -13,7 +13,6 @@
 
 using namespace libdash::framework::input;
 using namespace libdash::framework::buffer;
-using namespace libdash::framework::helpers;
 using namespace sampleplayer::decoder;
 
 using namespace dash;
@@ -58,14 +57,11 @@ void        DASHManager::Stop                   ()
     if (!this->isRunning)
         return;
 
-    Timing::WriteToFile("../bin/DecodingInterval.txt");
-    Timing::DisposeTimingObjects();
+    this->isRunning = false;
 
     this->receiver->Stop();
     this->mediaObjectDecoder->Stop();
     this->buffer->Clear();
-
-    this->isRunning = false;
 }
 uint32_t    DASHManager::GetPosition            ()
 {
@@ -168,8 +164,6 @@ void        DASHManager::OnDecodingFinished     ()
 }
 bool        DASHManager::CreateAVDecoder        ()
 {
-    Timing::AddTiming(new TimingObject("DM::CreateAVDecoder()"));
-
     MediaObject *mediaObject            = this->buffer->GetFront();
 
     // initSegForMediaObject may be NULL => BaseUrls
