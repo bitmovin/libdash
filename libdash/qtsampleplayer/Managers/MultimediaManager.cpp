@@ -304,6 +304,8 @@ void*   MultimediaManager::RenderVideo        (void *data)
         manager->videoElement->SetImage(frame);
         manager->videoElement->update();
 
+        manager->framesDisplayed++;
+
         Sleep((1 / manager->frameRate) * 1000);
 
         delete(frame);

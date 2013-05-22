@@ -163,7 +163,8 @@ void        DASHManager::OnSegmentDownloaded    ()
 }
 void        DASHManager::OnDecodingFinished     ()
 {
-    this->CreateAVDecoder();
+    if (this->isRunning)
+        this->CreateAVDecoder();
 }
 bool        DASHManager::CreateAVDecoder        ()
 {
