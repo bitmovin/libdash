@@ -13,7 +13,6 @@
 
 using namespace sampleplayer::decoder;
 using namespace libdash::framework::input;
-using namespace libdash::framework::helpers;
 using namespace dash::mpd;
 
 MediaObjectDecoder::MediaObjectDecoder  (MediaObject* initSegment, MediaObject* mediaSegment, IMediaObjectDecoderObserver *observer) :
@@ -22,7 +21,6 @@ MediaObjectDecoder::MediaObjectDecoder  (MediaObject* initSegment, MediaObject* 
                     mediaSegment        (mediaSegment),
                     decoderInitialized  (false),
                     initSegmentOffset   (0),
-                    firstFrame          (true),
                     threadHandle        (NULL)
 {
     this->decoder = new LibavDecoder(this);
@@ -38,8 +36,6 @@ bool    MediaObjectDecoder::Start                   ()
 {
     if(!decoder->Init())
         return false;
-
-    Timing::AddTiming(new TimingObject("AFTER DECODER INIT()"));
 
     this->run = true;
     this->decoderInitialized = true;
@@ -65,14 +61,6 @@ void    MediaObjectDecoder::Stop                    ()
 }
 void    MediaObjectDecoder::OnVideoDataAvailable    (const uint8_t **data, videoFrameProperties* props)
 {
-    if (this->firstFrame)
-    {
-        Timing::AddTiming(new TimingObject("First Frame notified"));
-        this->firstFrame = false;
-    }
-    else
-        Timing::AddTiming(new TimingObject("Next Frame notified"));
-
     this->observer->OnVideoFrameDecoded(data, props);
 }
 void    MediaObjectDecoder::OnAudioDataAvailable    (const uint8_t **data, audioFrameProperties* props)
@@ -82,13 +70,15 @@ void    MediaObjectDecoder::OnAudioDataAvailable    (const uint8_t **data, audio
 
 void*   MediaObjectDecoder::Decode                  (void *data)
 {
-    Timing::AddTiming(new TimingObject("MODec::Decode()"));
-
     MediaObjectDecoder *mediaDecodingThread = (MediaObjectDecoder *) data;
 
     while(mediaDecodingThread->decoder->Decode() && mediaDecodingThread->run);
 
-    mediaDecodingThread->Notify();
+    if (mediaDecodingThread->run)
+    {
+        mediaDecodingThread->decoder->FlushDecoder();
+        mediaDecodingThread->Notify();
+    }
 
     mediaDecodingThread->decoder->Stop();
 
