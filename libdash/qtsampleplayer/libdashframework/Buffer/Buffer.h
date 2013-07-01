@@ -169,9 +169,6 @@ void        Buffer<T>::SetEOS           (bool value)
 {
     EnterCriticalSection(&this->monitorMutex);
 
-    for (size_t i = 0; i < this->objects.size(); i++)
-        this->objects.at(i)->AbortDownload();
-
     this->eos = value;
 
     WakeAllConditionVariable(&this->empty);
