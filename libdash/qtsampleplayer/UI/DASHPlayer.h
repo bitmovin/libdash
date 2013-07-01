@@ -30,6 +30,15 @@
 
 namespace sampleplayer
 {
+    struct settings_t
+    {
+        int period;
+        int videoAdaptationSet;
+        int audioAdaptationSet;
+        int videoRepresentation;
+        int audioRepresentation;
+    };
+
     class DASHPlayer : public IDASHPlayerGuiObserver, public managers::IMultimediaManagerObserver
 
     {
@@ -57,6 +66,11 @@ namespace sampleplayer
             sampleplayer::renderer::QTAudioRenderer     *audioElement;
             QtSamplePlayerGui                           *gui;
             sampleplayer::managers::MultimediaManager   *multimediaManager;
+            settings_t                                  currentSettings;
+            CRITICAL_SECTION                            monitorMutex;
+
+            bool    SettingsChanged (int period, int videoAdaptationSet, int videoRepresentation, int audioAdaptationSet, int audioRepresentation);
+            void    SetSettings     (int period, int videoAdaptationSet, int videoRepresentation, int audioAdaptationSet, int audioRepresentation);
 
         signals:
             void VideoSegmentBufferFillStateChanged (int fillStateInPercent);

@@ -26,7 +26,6 @@ static int          IORead                           (void *opaque, uint8_t *buf
 LibavDecoder::LibavDecoder  (IDataReceiver* rec) :
          receiver           (rec),
          errorHappened      (false),
-         numOfMissedFrames  (0),
          bufferSize         (32768)
 {
 }
@@ -207,6 +206,7 @@ int                 LibavDecoder::DecodeFrame             (AVFrame *frame, AVPac
 
     while (avpkt->size > 0)
     {
+        /* TODO handle multi frame packets */
         len = this->DecodeMedia(frame, avpkt, decConfig, &got_frame);
 
         if(len < 0)
@@ -220,27 +220,31 @@ int                 LibavDecoder::DecodeFrame             (AVFrame *frame, AVPac
             this->Notify(frame, decConfig);
             decConfig->frameCnt++;
         }
-        else
-        {
-            this->decoderConfigs.push_back(decConfig);
-            this->numOfMissedFrames++;
-        }
 
-        avpkt->size -= len;
-        avpkt->data += len;
+        av_free_packet(avpkt);
     }
     return 0;
 }
-void                LibavDecoder::FlushDecoder            ()
+void                LibavDecoder::Flush                   ()
 {
-    int got_frame = 0;
+    int gotFrame        = 0;
+    int configsCount    = this->streamconfigs.size();
 
-    for (size_t i = 0; i < this->numOfMissedFrames; i++)
+    av_free_packet(&this->avpkt);
+    av_init_packet(&this->avpkt);
+
+    for (int i = 0; i < configsCount; i++)
     {
-        this->DecodeMedia(this->frame, &this->avpkt, decoderConfigs.at(i), &got_frame);
+        do
+        {
+            this->DecodeMedia(this->frame, &this->avpkt, &this->streamconfigs.at(i), &gotFrame);
 
-        if (got_frame)
-            this->Notify(this->frame, decoderConfigs.at(i));
+            if (gotFrame)
+                this->Notify(this->frame, &this->streamconfigs.at(i));
+
+            av_free_packet(&this->avpkt);
+
+        } while(gotFrame);
     }
 }
 bool                LibavDecoder::Init                    ()

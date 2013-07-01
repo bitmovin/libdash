@@ -46,7 +46,7 @@ namespace sampleplayer
                 void Stop                   ();
                 void AttachVideoObserver    (IVideoObserver *observer);
                 void AttachAudioObserver    (IAudioObserver *observer);
-                void FlushDecoder           ();
+                void Flush                  ();
 
             private:
                 libdash::framework::input::IDataReceiver    *receiver;
@@ -58,6 +58,7 @@ namespace sampleplayer
                 AVFormatContext                             *avFormatContextPtr;
                 AVFrame                                     *frame;
                 AVPacket                                    avpkt;
+                bool                                        errorHappened;
 
                 AVFormatContext*    OpenInput       ();
                 void                InitStreams     (AVFormatContext *ctx);
@@ -70,10 +71,6 @@ namespace sampleplayer
                 void                NotifyVideo     (AVFrame *frame, StreamConfig *config);
                 void                NotifyAudio     (AVFrame *frame, StreamConfig *config);
                 StreamConfig*       FindStreamConfig(int streamIndex);
-
-                bool errorHappened;
-                size_t  numOfMissedFrames;
-                std::vector<StreamConfig*> decoderConfigs;
 
         };
     }

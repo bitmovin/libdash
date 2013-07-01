@@ -30,6 +30,7 @@ MediaObjectDecoder::MediaObjectDecoder  (MediaObject* initSegment, MediaObject* 
 MediaObjectDecoder::~MediaObjectDecoder()
 {
     delete this->decoder;
+    delete this->mediaSegment;
 }
 
 bool    MediaObjectDecoder::Start                   ()
@@ -37,12 +38,13 @@ bool    MediaObjectDecoder::Start                   ()
     if(!decoder->Init())
         return false;
 
-    this->run = true;
     this->decoderInitialized = true;
     this->threadHandle = CreateThreadPortable (Decode, this);
 
     if(this->threadHandle == NULL)
         return false;
+
+    this->run = true;
 
     return true;
 }
@@ -70,19 +72,18 @@ void    MediaObjectDecoder::OnAudioDataAvailable    (const uint8_t **data, audio
 
 void*   MediaObjectDecoder::Decode                  (void *data)
 {
-    MediaObjectDecoder *mediaDecodingThread = (MediaObjectDecoder *) data;
+    MediaObjectDecoder *mediaObjectDecoder = (MediaObjectDecoder *) data;
 
-    while(mediaDecodingThread->decoder->Decode() && mediaDecodingThread->run);
+    while (mediaObjectDecoder->run && mediaObjectDecoder->decoder->Decode());
 
-    if (mediaDecodingThread->run)
+    if (mediaObjectDecoder->run)
     {
-        mediaDecodingThread->decoder->FlushDecoder();
-        mediaDecodingThread->Notify();
+        mediaObjectDecoder->decoder->Flush();
+        mediaObjectDecoder->Notify();
     }
 
-    mediaDecodingThread->decoder->Stop();
+    mediaObjectDecoder->decoder->Stop();
 
-    delete mediaDecodingThread;
     return NULL;
 }
 int     MediaObjectDecoder::Read                    (uint8_t *buf, int buf_size)

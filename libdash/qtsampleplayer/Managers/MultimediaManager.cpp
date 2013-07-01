@@ -17,7 +17,7 @@ using namespace sampleplayer::managers;
 using namespace sampleplayer::renderer;
 using namespace dash::mpd;
 
-#define SEGMENTBUFFER_SIZE 10
+#define SEGMENTBUFFER_SIZE 2
 
 MultimediaManager::MultimediaManager            (QTGLRenderer *videoElement, QTAudioRenderer *audioElement) :
                    videoElement                 (videoElement),
@@ -128,10 +128,10 @@ void    MultimediaManager::StopAudio                        ()
 {
     if (this->isStarted && this->audioStream)
     {
-        this->audioElement->StopPlayback();
-
         this->StopAudioRenderingThread();
         this->audioStream->Stop();
+
+        this->audioElement->StopPlayback();
 
         delete this->audioStream;
         delete this->audioLogic;

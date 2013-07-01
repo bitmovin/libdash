@@ -50,6 +50,7 @@ bool    AbstractChunk::StartDownload                ()
     curl_easy_setopt(this->curl, CURLOPT_VERBOSE, 1L);
     curl_easy_setopt(this->curl, CURLOPT_DEBUGFUNCTION, CurlDebugCallback);
     curl_easy_setopt(this->curl, CURLOPT_DEBUGDATA, (void *)this);
+    curl_easy_setopt(this->curl, CURLOPT_FAILONERROR, true);
 
     if(this->HasByteRange())
         curl_easy_setopt(this->curl, CURLOPT_RANGE, this->Range().c_str());

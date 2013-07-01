@@ -77,7 +77,13 @@ bool        MultimediaStream::StartDownload             ()
 }
 void        MultimediaStream::Stop                      ()
 {
+    this->frameBuffer->SetEOS(true);
+    this->sampleBuffer->SetEOS(true);
+
     this->StopDownload();
+
+    this->frameBuffer->Clear();
+    this->sampleBuffer->Clear();
 }
 void        MultimediaStream::StopDownload              ()
 {

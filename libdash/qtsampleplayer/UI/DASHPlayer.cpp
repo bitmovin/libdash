@@ -24,6 +24,9 @@ using namespace std;
 DASHPlayer::DASHPlayer  (QtSamplePlayerGui &gui) :
             gui         (&gui)
 {
+    InitializeCriticalSection(&this->monitorMutex);
+
+    this->SetSettings(0, 0, 0, 0, 0);
     this->videoElement      = gui.GetVideoElement();
     this->audioElement      = new QTAudioRenderer(&gui);
     this->multimediaManager = new MultimediaManager(this->videoElement, this->audioElement);
@@ -45,10 +48,13 @@ DASHPlayer::~DASHPlayer ()
 
     delete(this->multimediaManager);
     delete(this->audioElement);
+
+    DeleteCriticalSection(&this->monitorMutex);
 }
 
 void DASHPlayer::OnStartButtonPressed               (int period, int videoAdaptationSet, int videoRepresentation, int audioAdaptationSet, int audioRepresentation)
 {
+    /*
     std::string url = this->gui->GetUrl();
     if(!this->multimediaManager->Init(url))
     {
@@ -58,7 +64,7 @@ void DASHPlayer::OnStartButtonPressed               (int period, int videoAdapta
 
     this->gui->SetStatusBar("Successfully parsed MPD at: " + url);
 
-    this->OnSettingsChanged(period, videoAdaptationSet, videoRepresentation, audioAdaptationSet, audioRepresentation);
+    this->OnSettingsChanged(period, videoAdaptationSet, videoRepresentation, audioAdaptationSet, audioRepresentation); */
     this->multimediaManager->Start();
 }
 void DASHPlayer::OnStopButtonPressed                ()
@@ -69,6 +75,9 @@ void DASHPlayer::OnSettingsChanged                  (int period, int videoAdapta
 {
     if(this->multimediaManager->GetMPD() == NULL)
         return; // TODO dialog or symbol that indicates that error
+
+    if (!this->SettingsChanged(period, videoAdaptationSet, videoRepresentation, audioAdaptationSet, audioRepresentation))
+        return;
 
     IPeriod                         *currentPeriod      = this->multimediaManager->GetMPD()->GetPeriods().at(period);
     std::vector<IAdaptationSet *>   videoAdaptationSets = AdaptationSetHelper::GetVideoAdaptationSets(currentPeriod);
@@ -114,4 +123,32 @@ void DASHPlayer::OnDownloadMPDPressed               (const std::string &url)
 
     this->gui->SetStatusBar("Successfully parsed MPD at: " + url);
     this->gui->SetGuiFields(this->multimediaManager->GetMPD());
+}
+bool DASHPlayer::SettingsChanged                    (int period, int videoAdaptationSet, int videoRepresentation, int audioAdaptationSet, int audioRepresentation)
+{
+    EnterCriticalSection(&this->monitorMutex);
+
+    bool settingsChanged = false;
+
+    if (this->currentSettings.videoRepresentation != videoRepresentation ||
+        this->currentSettings.audioRepresentation != audioRepresentation ||
+        this->currentSettings.videoAdaptationSet != videoAdaptationSet ||
+        this->currentSettings.audioAdaptationSet != audioAdaptationSet ||
+        this->currentSettings.period != period)
+        settingsChanged = true;
+
+    if (settingsChanged)
+        this->SetSettings(period, videoAdaptationSet, videoRepresentation, audioAdaptationSet, audioRepresentation);
+
+    LeaveCriticalSection(&this->monitorMutex);
+
+    return settingsChanged;
+}
+void DASHPlayer::SetSettings                        (int period, int videoAdaptationSet, int videoRepresentation, int audioAdaptationSet, int audioRepresentation)
+{
+    this->currentSettings.period                = period;
+    this->currentSettings.videoAdaptationSet    = videoAdaptationSet;
+    this->currentSettings.videoRepresentation   = videoRepresentation;
+    this->currentSettings.audioAdaptationSet    = audioAdaptationSet;
+    this->currentSettings.audioRepresentation   = audioRepresentation;
 }

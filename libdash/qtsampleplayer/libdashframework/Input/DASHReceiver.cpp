@@ -151,6 +151,8 @@ void                        DASHReceiver::SetRepresentation         (IPeriod *pe
 {
     EnterCriticalSection(&this->monitorMutex);
 
+    bool periodChanged = false;
+
     if (this->representation == representation)
     {
         LeaveCriticalSection(&this->monitorMutex);
@@ -162,7 +164,12 @@ void                        DASHReceiver::SetRepresentation         (IPeriod *pe
     if (this->adaptationSet != adaptationSet)
     {
         this->adaptationSet = adaptationSet;
-        this->period = period;
+
+        if (this->period != period)
+        {
+            this->period = period;
+            periodChanged = true;
+        }
 
         delete this->adaptationSetStream;
         this->adaptationSetStream = NULL;
@@ -172,6 +179,12 @@ void                        DASHReceiver::SetRepresentation         (IPeriod *pe
 
     this->representationStream  = this->adaptationSetStream->GetRepresentationStream(this->representation);
     this->DownloadInitSegment(this->representation);
+
+    if (periodChanged)
+    {
+        this->segmentNumber = 0;
+        this->CalculateSegmentOffset();
+    }
 
     LeaveCriticalSection(&this->monitorMutex);
 }
