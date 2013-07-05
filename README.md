@@ -81,6 +81,22 @@ You can find the latest sources and binaries in our [download section] (http://w
 9. The library and a simple test of the network part of the library should be available now. You can test the network part of the library with
 10. ./libdash_networpart_test
 
+#### QTSamplePlayer
+Prerequisite: libdash must be built as described in the previous section.
+
+1. sudo apt-add-repository ppa:ubuntu-sdk-team/ppa
+2. sudo apt-add-repository ppa:canonical-qt5-edgers/qt5-proper
+3. sudo apt-get install libqt5widgets5 libqt5core5 libqt5gui5 libqt5multimedia5 libqt5multimediawidgets5 libqt5opengl5 libav-tools
+4. cd libdash/libdash/qtsampleplayer
+5. mkdir build
+6. cd build
+7. wget http://www.cmake.org/files/v2.8/cmake-2.8.11.2-Linux-i386.sh
+8. chmod a+x cmake-2.8.11.2-Linux-i386.sh
+9. ./cmake-2.8.11.2-Linux-i386.sh
+10. ./cmake-2.8.11.2-Linux-i386/bin/cmake ../
+11. make
+12. ./qtsampleplayer
+
 ## License
 
 This library is free software; you can redistribute it and/or
