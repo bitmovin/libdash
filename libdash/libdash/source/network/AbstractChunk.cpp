@@ -217,13 +217,15 @@ void    AbstractChunk::HandleHeaderOutCallback      ()
 }
 void    AbstractChunk::HandleHeaderInCallback       (std::string data)
 {
-    if (data.substr(0,4) != "HTTP")
-        return;
-
     HTTPTransaction *httpTransaction = this->httpTransactions.at(this->httpTransactions.size()-1);
 
-    httpTransaction->SetResponseReceivedTime(Time::GetCurrentUTCTimeStr());
-    httpTransaction->SetResponseCode(strtoul(data.substr(9,3).c_str(), NULL, 10));
+    if (data.substr(0,4) == "HTTP")
+    {
+        httpTransaction->SetResponseReceivedTime(Time::GetCurrentUTCTimeStr());
+        httpTransaction->SetResponseCode(strtoul(data.substr(9,3).c_str(), NULL, 10));
+    }
+
+    httpTransaction->AddHTTPHeaderLine(data);
 }
 const std::vector<ITCPConnection *>&    AbstractChunk::GetTCPConnectionList    () const
 {

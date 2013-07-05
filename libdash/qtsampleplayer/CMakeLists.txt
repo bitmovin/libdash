@@ -25,7 +25,7 @@ find_package(Qt5OpenGL)
 # Find libavcodec
 find_package(LibAV REQUIRED)
 
-set(LIBDASH_LIBRARIES "defult value" CACHE PATH "Path to libdash.so")
+set(LIBDASH_LIBRARIES "../build/bin/" CACHE PATH "Path to libdash.so")
 set(LIBDASH_INCLUDES "../libdash/include/" CACHE PATH "Path to libdash includes")
 
 include_directories(${LIBDASH_INCLUDES})
@@ -40,7 +40,7 @@ qt5_add_resources(qtsampleplayer_RESOURCES_RCC qtsampleplayer.qrc)
 add_executable(qtsampleplayer ${qtplayer_SOURCE} ${qtsampleplayer_FORMS_HEADERS} ${qtsampleplayer_RESOURCES_RCC})
 
 # Use the required module from Qt5.
-qt5_use_modules(qtsampleplayer Core Widgets Gui Multimedia MultimediaWidgets OpenGL)
+qt5_use_modules(qtsampleplayer Core Widgets Multimedia MultimediaWidgets Gui OpenGL)
 
 # For the linker
 target_link_libraries(qtsampleplayer dash ${QT_LIBRARIES} ${LIBAV_LIBRARIES}) 

@@ -14,6 +14,7 @@
 using namespace sampleplayer::input;
 using namespace dash::mpd;
 using namespace dash::network;
+using namespace dash::metrics;
 
 MediaObject::MediaObject    (ISegment *segment, IRepresentation *rep) :
              segment        (segment),
@@ -82,4 +83,12 @@ int     MediaObject::Peek                   (uint8_t *data, size_t len, size_t o
 IRepresentation*  MediaObject::GetRepresentation()
 {
     return this->rep;
+}
+const std::vector<ITCPConnection *>&    MediaObject::GetTCPConnectionList   () const
+{
+    return this->segment->GetTCPConnectionList();
+}
+const std::vector<IHTTPTransaction *>&  MediaObject::GetHTTPTransactionList () const
+{
+    return this->segment->GetHTTPTransactionList();
 }

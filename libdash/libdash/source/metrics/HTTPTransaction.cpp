@@ -22,7 +22,8 @@ HTTPTransaction::HTTPTransaction () :
                  actualUrl       (""),
                  range           (""),
                  tRequest        (""),
-                 tResponse       ("")
+                 tResponse       (""),
+                 httpHeader      ("")
 {
 }
 HTTPTransaction::~HTTPTransaction()
@@ -110,4 +111,12 @@ const std::vector<IThroughputMeasurement *>&    HTTPTransaction::ThroughputTrace
 void                                            HTTPTransaction::AddThroughputMeasurement   (ThroughputMeasurement *throuputEntry)
 {
     this->trace.push_back(throuputEntry);
+}
+const std::string&                              HTTPTransaction::HTTPHeader                 () const
+{
+    return this->httpHeader;
+}
+void                                            HTTPTransaction::AddHTTPHeaderLine          (std::string headerLine)
+{
+    this->httpHeader.append(headerLine);
 }

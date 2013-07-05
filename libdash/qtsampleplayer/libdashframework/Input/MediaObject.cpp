@@ -15,6 +15,7 @@ using namespace libdash::framework::input;
 
 using namespace dash::mpd;
 using namespace dash::network;
+using namespace dash::metrics;
 
 MediaObject::MediaObject    (ISegment *segment, IRepresentation *rep) :
              segment        (segment),
@@ -83,4 +84,12 @@ void                MediaObject::OnDownloadStateChanged (DownloadState state)
 }
 void                MediaObject::OnDownloadRateChanged  (uint64_t bytesDownloaded)
 {
+}
+const std::vector<ITCPConnection *>&    MediaObject::GetTCPConnectionList   () const
+{
+    return this->segment->GetTCPConnectionList();
+}
+const std::vector<IHTTPTransaction *>&  MediaObject::GetHTTPTransactionList () const
+{
+    return this->segment->GetHTTPTransactionList();
 }

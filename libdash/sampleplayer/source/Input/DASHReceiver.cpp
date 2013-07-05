@@ -81,6 +81,13 @@ void*   DASHReceiver::DoBuffering   (void *receiver)
         dashreceiver->buffer->PushBack(media);
         number++;
 
+        /*  Just for demonstration purpose
+         *
+         *  Do something with the HTTPHeader...
+         *  e.g. parse it for "Content-Length:" to retrieve the segment size in bytes
+         */
+        std::string header = media->GetHTTPTransactionList().at(0)->HTTPHeader();
+
         media = dashreceiver->logic->GetSegment(number);
 
         std::cout << "Buffer size in segments: " << dashreceiver->buffer->Length() << std::endl;

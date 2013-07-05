@@ -48,6 +48,7 @@ namespace dash
                 virtual uint16_t                                        ResponseCode            () const = 0;
                 virtual uint64_t                                        Interval                () const = 0;
                 virtual const std::vector<IThroughputMeasurement *>&    ThroughputTrace         () const = 0;
+                virtual const std::string&                              HTTPHeader              () const = 0;
         };
     }
 }
