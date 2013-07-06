@@ -87,7 +87,7 @@ Prerequisite: libdash must be built as described in the previous section.
 1. sudo apt-add-repository ppa:ubuntu-sdk-team/ppa
 2. sudo apt-add-repository ppa:canonical-qt5-edgers/qt5-proper
 3. sudo apt-get update
-4. sudo apt-get install libqt5widgets5 libqt5core5 libqt5gui5 libqt5multimedia5 libqt5multimediawidgets5 libqt5opengl5 libav-tools libavcodec-dev libavdevice-dev libavfilter-dev libavformat-dev libavutil-dev libpostproc-dev libswscale-dev
+4. sudo apt-get install qtmultimedia5-dev qtbase5-dev libqt5widgets5 libqt5core5 libqt5gui5 libqt5multimedia5 libqt5multimediawidgets5 libqt5opengl5 libav-tools libavcodec-dev libavdevice-dev libavfilter-dev libavformat-dev libavutil-dev libpostproc-dev libswscale-dev
 5. cd libdash/libdash/qtsampleplayer
 6. mkdir build
 7. cd build
