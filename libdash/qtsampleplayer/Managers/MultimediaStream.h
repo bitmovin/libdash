@@ -21,7 +21,7 @@
 #include "../libdashframework/Input/IDASHManagerObserver.h"
 #include "../libdashframework/Buffer/Buffer.h"
 #include "../libdashframework/Buffer/AudioChunk.h"
-#include <QImage.h>
+#include <QImage>
 
 namespace sampleplayer
 {

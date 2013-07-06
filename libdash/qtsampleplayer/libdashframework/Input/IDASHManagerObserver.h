@@ -12,7 +12,7 @@
 #ifndef LIBDASH_FRAMEWORK_INPUT_IDASHMANAGEROBSERVER_H_
 #define LIBDASH_FRAMEWORK_INPUT_IDASHMANAGEROBSERVER_H_
 
-#include <QImage.h>
+#include <QImage>
 #include "../Buffer/AudioChunk.h"
 
 namespace libdash

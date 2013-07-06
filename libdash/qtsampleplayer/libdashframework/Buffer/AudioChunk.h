@@ -13,7 +13,7 @@
 #define QTSAMPLEPLAYER_BUFFER_AUDIOCHUNK_H_
 
 #include "config.h"
-#include "QtMultimedia\qaudioformat.h"
+#include <QtMultimedia/qaudioformat.h>
 
 namespace libdash
 {

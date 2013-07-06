@@ -306,7 +306,7 @@ void*   MultimediaManager::RenderVideo        (void *data)
 
         manager->framesDisplayed++;
 
-        Sleep((1 / manager->frameRate) * 1000);
+        PortableSleep(1 / manager->frameRate);
 
         delete(frame);
 
@@ -325,7 +325,7 @@ void*   MultimediaManager::RenderAudio        (void *data)
     {
         manager->audioElement->WriteToBuffer(samples->Data(), samples->Length());
 
-        Sleep((1 / manager->frameRate) * 1000);
+        PortableSleep(1 / manager->frameRate);
 
         delete samples;
 
