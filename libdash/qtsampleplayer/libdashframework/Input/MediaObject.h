@@ -16,6 +16,7 @@
 #include "IDownloadObserver.h"
 #include "IDASHMetrics.h"
 #include "../Portable/MultiThreading.h"
+#include "CCNConnection.h"
 
 namespace libdash
 {
@@ -30,6 +31,7 @@ namespace libdash
                     virtual ~MediaObject    ();
 
                     bool                        StartDownload       ();
+                    bool                        StartDownload       (CCNConnection* conn);
                     void                        AbortDownload       ();
                     void                        WaitFinished        ();
                     int                         Read                (uint8_t *data, size_t len);

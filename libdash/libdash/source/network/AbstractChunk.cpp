@@ -66,8 +66,10 @@ bool    AbstractChunk::StartDownload                ()
 }
 bool    AbstractChunk::StartDownload                (IConnection *connection)
 {
-    if(this->stateManager.State() != NOT_STARTED)
+    if(this->stateManager.State() != NOT_STARTED){
+        std::cout << "External Download Error" << std::endl;
         return false;
+    }
 
     this->dlThread = CreateThreadPortable (DownloadExternalConnection, this);
 
@@ -131,13 +133,13 @@ void*   AbstractChunk::DownloadExternalConnection   (void *abstractchunk)
             ret = 0;
 
     }while(ret);
-
     DeleteBlock(block);
 
     if(chunk->stateManager.State() == REQUEST_ABORT)
         chunk->stateManager.State(ABORTED);
-    else
+    else{
         chunk->stateManager.State(COMPLETED);
+    }
 
     chunk->blockStream.SetEOS(true);
 

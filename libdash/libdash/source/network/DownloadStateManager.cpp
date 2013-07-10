@@ -37,13 +37,17 @@ DownloadState   DownloadStateManager::State         () const
 }
 void            DownloadStateManager::State         (DownloadState state)
 {
+    std::cout << "state change started ..." << std::endl;
     EnterCriticalSection(&this->stateLock);
 
     this->state = state;
 
+    std::cout << "state change nodify" << std::endl;
     this->Notify();
     WakeAllConditionVariable(&this->stateChanged);
     LeaveCriticalSection(&this->stateLock);
+
+    std::cout << "state change done" << std::endl;
 }
 void            DownloadStateManager::WaitState     (DownloadState state) const
 {

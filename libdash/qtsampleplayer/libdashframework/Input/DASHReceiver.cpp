@@ -37,6 +37,8 @@ DASHReceiver::DASHReceiver          (IMPD *mpd, IDASHReceiverObserver *obs, Medi
     this->representationStream  = adaptationSetStream->GetRepresentationStream(this->representation);
     this->segmentOffset         = CalculateSegmentOffset();
 
+    this->conn = new CCNConnection();
+
     InitializeCriticalSection(&this->monitorMutex);
 }
 DASHReceiver::~DASHReceiver     ()
@@ -217,8 +219,9 @@ void                        DASHReceiver::DownloadInitSegment    (IRepresentatio
 
     if (initSeg)
     {
-        initSeg->StartDownload();
+        initSeg->StartDownload(this->conn);
         this->initSegments[rep] = initSeg;
+        initSeg->WaitFinished();
     }
 }
 bool                        DASHReceiver::InitSegmentExists      (IRepresentation* rep)
@@ -240,7 +243,7 @@ void*                       DASHReceiver::DoBuffering               (void *recei
 
     while(media != NULL && dashReceiver->isBuffering)
     {
-        media->StartDownload();
+        media->StartDownload(dashReceiver->conn);
 
         if (!dashReceiver->buffer->PushBack(media))
             return NULL;

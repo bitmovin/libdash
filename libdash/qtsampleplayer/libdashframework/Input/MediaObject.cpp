@@ -40,8 +40,22 @@ MediaObject::~MediaObject   ()
 
 bool                MediaObject::StartDownload          ()
 {
+    CCNConnection* conn = new CCNConnection();
+    if(!conn->Init(this->segment))
+            std::cout <<"INIT ERROR\n";
+    if(!conn->Schedule(this->segment))
+        std::cout <<"Schedule\n";
     this->segment->AttachDownloadObserver(this);
-    return this->segment->StartDownload();
+    return this->segment->StartDownload(conn);
+}
+bool                MediaObject::StartDownload          (CCNConnection* conn)
+{
+    if(!conn->Init(this->segment))
+            std::cout <<"INIT ERROR\n";
+    if(!conn->Schedule(this->segment))
+        std::cout <<"Schedule\n";
+    this->segment->AttachDownloadObserver(this);
+    return this->segment->StartDownload(conn);
 }
 void                MediaObject::AbortDownload          ()
 {
@@ -52,8 +66,9 @@ void                MediaObject::WaitFinished           ()
 {
     EnterCriticalSection(&this->stateLock);
 
-    while(this->state != COMPLETED && this->state != ABORTED)
+    while(this->state != COMPLETED && this->state != ABORTED){
         SleepConditionVariableCS(&this->stateChanged, &this->stateLock, INFINITE);
+    }
 
     LeaveCriticalSection(&this->stateLock);
 }
