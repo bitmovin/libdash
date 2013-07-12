@@ -64,7 +64,7 @@
     #define CRITICAL_SECTION    pthread_mutex_t
     #define CONDITION_VARIABLE  pthread_cond_t
 
-    #define PortableSleep(seconds)                              usleep(seconds * 100000)
+    #define PortableSleep(seconds)                              usleep(seconds * 1000000)
     #define JoinThread(handle)                                  pthread_join(*(handle), NULL)
     #define InitializeCriticalSection(mutex_p)                  pthread_mutex_init(mutex_p, NULL)
     #define DeleteCriticalSection(mutex_p)                      pthread_mutex_destroy(mutex_p)
