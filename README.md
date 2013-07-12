@@ -31,7 +31,7 @@ In a typical deployment, a DASH server provides segments in several bitrates and
 
 ## Documentation
 
-The doxygen documentation is online available at [bitmovin](http://www.bitmovin.net/wp-content/libdash/libdash_2_1_doxygen).
+The doxygen documentation is online available at [bitmovin](http://www.bitmovin.net/libdash/libdash_2_1_doxygen/index.html).
 
 ## Mailinglist
 
