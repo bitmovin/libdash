@@ -12,6 +12,7 @@
 #include "libdash.h"
 #include "TestChunk.h"
 #include "PersistentHTTPConnection.h"
+#include "SPDYConnection.h"
 
 #include <iostream>
 #include <fstream>
@@ -41,8 +42,8 @@ void download(IConnection *connection, IChunk *chunk, ofstream *file)
 
 int main()
 {
-    IDASHManager    *manager        = CreateDashManager();
-    HTTPConnection  *httpconnection = new HTTPConnection();
+    ofstream file;
+    HTTPConnection *httpconnection = new HTTPConnection();
 
     TestChunk test1chunk("www-itec.uni-klu.ac.at", 80, "/~cmueller/libdashtest/network/test1.txt", 0, 0, false);
     TestChunk test2chunk("www-itec.uni-klu.ac.at", 80, "/~cmueller/libdashtest/network/sintel_trailer-480p.mp4", 0, 0, false);
@@ -50,7 +51,6 @@ int main()
     httpconnection->Init(&test1chunk);
     httpconnection->Schedule(&test1chunk);
 
-    ofstream file;
     std::cout << "*****************************************" << std::endl;
     std::cout << "* Download files with external HTTP 1.0 *" << std::endl;
     std::cout << "*****************************************" << std::endl;
@@ -92,5 +92,26 @@ int main()
 
     delete(peristenthttpconnection);
 
-    getchar();
+    TestChunk spdytest1chunk("http2.bitmovin.net", 80, "/libdashtest/test1.txt", 0, 0, false);
+    TestChunk spdytest2chunk("http2.bitmovin.net", 80, "/libdashtest/sintel_trailer-480p.mp4", 0, 0, false);
+
+    std::cout << "*****************************************" << std::endl;
+    std::cout << "* Download files with external HTTP 2.0 *" << std::endl;
+    std::cout << "*****************************************" << std::endl;
+    std::cout << "Testing download of text file:\t";
+    SPDYConnection *spdycon = new SPDYConnection();
+    spdycon->Init(&spdytest1chunk);
+    file.open("test1_http_2_0.txt", ios::out | ios::binary);
+    download(spdycon, &spdytest1chunk, &file);
+    file.close();
+    std::cout << "finished!" << std::endl;
+
+    std::cout << "Testing download of video file:\t";
+    spdycon->Schedule(&spdytest2chunk);
+    file.open("sintel_trailer-480p_http_2_0.mp4", ios::out | ios::binary);
+    download(spdycon, &spdytest2chunk, &file);
+    file.close();
+    std::cout << "finished!" << std::endl << std::endl;
+
+    delete(spdycon);
 }
