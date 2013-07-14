@@ -43,4 +43,4 @@ add_executable(qtsampleplayer ${qtplayer_SOURCE} ${qtsampleplayer_FORMS_HEADERS}
 qt5_use_modules(qtsampleplayer Core Widgets Multimedia MultimediaWidgets Gui OpenGL)
 
 # For the linker
-target_link_libraries(qtsampleplayer dash ${QT_LIBRARIES} ${LIBAV_LIBRARIES}) 
+target_link_libraries(qtsampleplayer dash spdylay ${QT_LIBRARIES} ${LIBAV_LIBRARIES}) 
