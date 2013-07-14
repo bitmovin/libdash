@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1020</width>
-    <height>685</height>
+    <height>782</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -34,147 +34,17 @@
         <widget class="QComboBox" name="cb_mpd">
          <item>
           <property name="text">
-           <string>http://www-itec.aau.at/~cmueller/libdashtest/showcases/big_buck_bunny_480.mpd</string>
+           <string>http://www-itec.aau.at/~cmueller/http2/MPDs/ED_2sec_segment_template.mpd</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>http://www-itec.aau.at/~cmueller/libdashtest/showcases/redbull_2_resolutions.mpd</string>
+           <string>http://www-itec.aau.at/~cmueller/http2/MPDs/ED_1sec_segment_template.mpd</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>http://www-itec.aau.at/~cmueller/libdashtest/showcases/redbull_segment_template.mpd</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://dash.edgesuite.net/dash264/TestCases/1a/netflix/exMPD_BIP_TC1.mpd</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://dash.edgesuite.net/dash264/TestCases/1a/sony/SNE_DASH_SD_CASE1A_REVISED.mpd</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://dash.edgesuite.net/dash264/TestCases/1b/envivio/manifest.mpd</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://dash.edgesuite.net/dash264/TestCases/1b/thomson-networks/manifest.mpd</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://dash.edgesuite.net/dash264/TestCases/1c/envivio/manifest.mpd</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://dash.edgesuite.net/dash264/TestCases/2a/envivio/manifest.mpd</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://dash.edgesuite.net/dash264/TestCases/2a/sony/SNE_DASH_CASE_2A_SD_REVISED.mpd</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://dash.edgesuite.net/dash264/TestCases/2a/thomson-networks/manifest.mpd</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://dash.edgesuite.net/dash264/TestCases/3a/fraunhofer/ed.mpd</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://dash.edgesuite.net/dash264/TestCases/3b/fraunhofer/elephants_dream_heaac2_0.mpd</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://dash.edgesuite.net/dash264/TestCases/3b/sony/SNE_DASH_CASE3B_SD_REVISED.mpd</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://dash.edgesuite.net/dash264/TestCases/4b/sony/SNE_DASH_CASE4B_SD_REVISED.mpd</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://dash.edgesuite.net/dash264/TestCases/5a/1/manifest.mpd</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://dash.edgesuite.net/dash264/TestCases/5b/1/manifest.mpd</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://dash.edgesuite.net/dash264/TestCases/6c/envivio/manifest.mpd</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://dash.edgesuite.net/dash264/TestCases/6c/envivio/manifest2.mpd</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://tvnlive.dashdemo.edgesuite.net/live/manifest.mpd</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://ftp-itec.uni-klu.ac.at/dash/conformance/mp4-full-gdr/mp4-full-gdr-mpd-AV-BS.mpd</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://ftp-itec.uni-klu.ac.at/dash/conformance/mp4-full-gdr/mp4-full-gdr-mpd-AV-NBS.mpd</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://ftp-itec.uni-klu.ac.at/dash/conformance/mp4-live-periods/mp4-live-periods-mpd.mpd</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://ftp-itec.uni-klu.ac.at/dash/conformance/mp4-live/mp4-live-mpd-AV-BS.mpd</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://ftp-itec.uni-klu.ac.at/dash/conformance/mp4-live/mp4-live-mpd-AV-NBS.mpd</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://ftp-itec.uni-klu.ac.at/dash/conformance/mp4-main-multi/mp4-main-multi-mpd-AV-NBS.mpd</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://ftp-itec.uni-klu.ac.at/dash/conformance/mp4-main-ogop/mp4-main-ogop-mpd-AV-BS.mpd</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://ftp-itec.uni-klu.ac.at/dash/conformance/mp4-main-ogop/mp4-main-ogop-mpd-AV-NBS.mpd</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://ftp-itec.uni-klu.ac.at/dash/conformance/mp4-onDemand/mp4-onDemand-mpd-AV.mpd</string>
+           <string>http://www-itec.aau.at/~cmueller/http2/MPDs/ED_10sec_segment_template.mpd</string>
           </property>
          </item>
         </widget>
@@ -182,7 +52,7 @@
        <item>
         <widget class="QLineEdit" name="lineEdit_mpd">
          <property name="text">
-          <string>http://www-itec.aau.at/~cmueller/libdashtest/showcases/big_buck_bunny_480.mpd</string>
+          <string>http://www-itec.aau.at/~cmueller/http2/MPDs/ED_2sec_segment_template.mpd</string>
          </property>
         </widget>
        </item>
@@ -450,8 +320,6 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="qtsampleplayer.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
