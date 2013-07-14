@@ -82,7 +82,7 @@ You can find the latest sources and binaries in our [download section] (http://w
 10. ./libdash_networpart_test
 
 #### QTSamplePlayer
-Prerequisite: libdash must be built as described in the previous section.
+Prerequisite: libdash must be built as described in the previous section and spdylay must be build as described in the [spdylay build instructions](http://spdylay.sourceforge.net/package_README.html#build-from-git). Dont forget to issue a _sudo make install_ after the build process of spdylay.
 
 1. sudo apt-add-repository ppa:ubuntu-sdk-team/ppa
 2. sudo apt-add-repository ppa:canonical-qt5-edgers/qt5-proper
