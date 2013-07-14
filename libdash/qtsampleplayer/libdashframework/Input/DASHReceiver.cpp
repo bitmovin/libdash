@@ -79,14 +79,17 @@ MediaObject*                DASHReceiver::GetNextSegment            ()
 {
     ISegment *seg = NULL;
 
-    if(this->segmentNumber >= this->representationStream->GetSize() + 1)
+    if (this->segmentNumber >= this->representationStream->GetSize() + 1)
         return NULL;
 
     seg = this->representationStream->GetMediaSegment(this->segmentNumber + this->segmentOffset);
 
     if (seg != NULL)
     {
-        MediaObject *media = new MediaObject(seg, this->representation);
+        if (!this->connection.IsInit())
+            this->connection.Init(seg);
+
+        MediaObject *media = new MediaObject(seg, this->representation, &this->connection);
         this->segmentNumber++;
         return media;
     }
@@ -104,7 +107,10 @@ MediaObject*                DASHReceiver::GetSegment                (uint32_t se
 
     if (seg != NULL)
     {
-        MediaObject *media = new MediaObject(seg, this->representation);
+        if (!this->connection.IsInit())
+            this->connection.Init(seg);
+
+        MediaObject *media = new MediaObject(seg, this->representation, &this->connection);
         return media;
     }
 
@@ -118,7 +124,10 @@ MediaObject*                DASHReceiver::GetInitSegment            ()
 
     if (seg != NULL)
     {
-        MediaObject *media = new MediaObject(seg, this->representation);
+        if (!this->initSegmentConnection.IsInit())
+            this->initSegmentConnection.Init(seg);
+
+        MediaObject *media = new MediaObject(seg, this->representation, &this->initSegmentConnection);
         return media;
     }
 
@@ -243,7 +252,10 @@ void*                       DASHReceiver::DoBuffering               (void *recei
         media->StartDownload();
 
         if (!dashReceiver->buffer->PushBack(media))
+        {
+            media->WaitFinished();
             return NULL;
+        }
 
         media->WaitFinished();
 

@@ -17,9 +17,10 @@ using namespace dash::mpd;
 using namespace dash::network;
 using namespace dash::metrics;
 
-MediaObject::MediaObject    (ISegment *segment, IRepresentation *rep) :
+MediaObject::MediaObject    (ISegment *segment, IRepresentation *rep, SPDYConnection *connection) :
              segment        (segment),
-             rep            (rep)
+             rep            (rep),
+             connection     (connection)
 {
     InitializeConditionVariable (&this->stateChanged);
     InitializeCriticalSection   (&this->stateLock);
@@ -41,7 +42,9 @@ MediaObject::~MediaObject   ()
 bool                MediaObject::StartDownload          ()
 {
     this->segment->AttachDownloadObserver(this);
-    return this->segment->StartDownload();
+    this->connection->Schedule(this->segment);
+
+    return this->segment->StartDownload(this->connection);
 }
 void                MediaObject::AbortDownload          ()
 {

@@ -15,6 +15,7 @@
 #include "libdash.h"
 #include "IMPD.h"
 
+#include "SPDYConnection.h"
 #include "IDASHReceiverObserver.h"
 #include "../Buffer/MediaObjectBuffer.h"
 #include "../MPD/AdaptationSetStream.h"
@@ -69,6 +70,8 @@ namespace libdash
                     uint32_t                                            segmentOffset;
                     uint32_t                                            bufferSize;
                     CRITICAL_SECTION                                    monitorMutex;
+                    SPDYConnection                                      connection;
+                    SPDYConnection                                      initSegmentConnection;
 
                     THREAD_HANDLE   bufferingThread;
                     bool            isBuffering;

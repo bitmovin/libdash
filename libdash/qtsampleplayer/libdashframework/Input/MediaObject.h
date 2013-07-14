@@ -15,6 +15,7 @@
 #include "IMPD.h"
 #include "IDownloadObserver.h"
 #include "IDASHMetrics.h"
+#include "SPDYConnection.h"
 #include "../Portable/MultiThreading.h"
 
 namespace libdash
@@ -26,7 +27,7 @@ namespace libdash
             class MediaObject : public dash::network::IDownloadObserver, public dash::metrics::IDASHMetrics
             {
                 public:
-                    MediaObject             (dash::mpd::ISegment *segment, dash::mpd::IRepresentation *rep);
+                    MediaObject             (dash::mpd::ISegment *segment, dash::mpd::IRepresentation *rep, SPDYConnection *connection);
                     virtual ~MediaObject    ();
 
                     bool                        StartDownload       ();
@@ -49,6 +50,7 @@ namespace libdash
                     dash::mpd::ISegment             *segment;
                     dash::mpd::IRepresentation      *rep;
                     dash::network::DownloadState    state;
+                    SPDYConnection                  *connection;
 
                     mutable CRITICAL_SECTION    stateLock;
                     mutable CONDITION_VARIABLE  stateChanged;
