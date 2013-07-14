@@ -118,7 +118,7 @@ void*   AbstractChunk::DownloadExternalConnection   (void *abstractchunk)
     do
     {
         ret = chunk->connection->Read(block->data, block->len, chunk);
-        if(ret > 0)
+        if (ret > 0)
         {
             block_t *streamblock = AllocBlock(ret);
             memcpy(streamblock->data, block->data, ret);
