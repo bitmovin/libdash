@@ -129,4 +129,4 @@ Furthermore we want to thank the [Netidee](http://www.netidee.at) initiative fro
 ## Citation of libdash
 We kindly ask you to refer the following paper in any publication mentioning libdash:
 
-Christopher Mueller and Christian Timmerer. 2011. A VLC media player plugin enabling dynamic adaptive streaming over HTTP. In Proceedings of the 19th ACM international conference on Multimedia (MM '11). ACM, New York, NY, USA, 723-726. DOI=10.1145/2072298.2072429 [[pdf]](http://doi.acm.org/10.1145/2072298.2072429)
+Christopher Müller, Stefan Lederer, Jörg Pöcher, and Christian Timmerer, “libdash – An Open Source Software Library for the MPEG-DASH Standard”, in Proceedings of the IEEE International Conference on Multimedia and Expo 2013, San Jose, USA, July, 2013
