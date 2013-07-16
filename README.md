@@ -129,4 +129,4 @@ Furthermore we want to thank the [Netidee](http://www.netidee.at) initiative fro
 ## Citation of libdash
 We kindly ask you to refer the following paper in any publication mentioning libdash:
 
-Christopher Müller, Stefan Lederer, Jörg Pöcher, and Christian Timmerer, “libdash – An Open Source Software Library for the MPEG-DASH Standard”, in Proceedings of the IEEE International Conference on Multimedia and Expo 2013, San Jose, USA, July, 2013
+Christopher Mueller, Stefan Lederer, Joerg Poecher, and Christian Timmerer, “libdash – An Open Source Software Library for the MPEG-DASH Standard”, in Proceedings of the IEEE International Conference on Multimedia and Expo 2013, San Jose, USA, July, 2013
