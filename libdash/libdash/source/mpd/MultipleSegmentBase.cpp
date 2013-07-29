@@ -17,7 +17,7 @@ MultipleSegmentBase::MultipleSegmentBase    () :
                         bitstreamSwitching(NULL),
                         segmentTimeline(NULL),
                         duration(0),
-                        startNumber(0)
+                        startNumber(1)
 {
 }
 MultipleSegmentBase::~MultipleSegmentBase   ()
