@@ -28,9 +28,9 @@ void    String::Split   (const std::string &s, char delim, std::vector<uint32_t>
     size_t i = 0;
     uint32_t level = 0;
 
-    while (pos != std::string::npos) 
+    while (pos != std::string::npos)
     {
-        pos = s.find(' ',i);
+        pos = s.find(delim, i);
 
         if (i < lengthOfString)
         {
@@ -42,7 +42,7 @@ void    String::Split   (const std::string &s, char delim, std::vector<uint32_t>
 }
 bool    String::ToBool  (const std::string &s)
 {
-    if (s == "true" || s == "True" || s == "TRUE") 
+    if (s == "true" || s == "True" || s == "TRUE")
     {
         return true;
     }
