@@ -174,7 +174,7 @@ const std::string&                          MPD::GetMaxSubsegmentDuration       
 }
 void                                        MPD::SetMaxSubsegmentDuration           (const std::string& maxSubsegmentDuration)
 {
-    this->maxSegmentDuration = maxSegmentDuration;
+    this->maxSubsegmentDuration = maxSubsegmentDuration;
 }
 IBaseUrl*                                   MPD::GetMPDPathBaseUrl                  ()  const
 {
