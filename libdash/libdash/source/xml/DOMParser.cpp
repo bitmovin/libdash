@@ -65,7 +65,10 @@ Node*   DOMParser::ProcessNode              ()
         node->SetMPDPath(Path::GetDirectoryPath(url));
 
         if(xmlTextReaderConstName(this->reader) == NULL)
+        {
+            delete node;
             return NULL;
+        }
 
         std::string name    = (const char *) xmlTextReaderConstName(this->reader);
         int         isEmpty = xmlTextReaderIsEmptyElement(this->reader);
