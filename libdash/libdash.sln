@@ -3,11 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libdash", "libdash\libdash.vcxproj", "{CB8F90F3-3666-43E1-9C51-502337569FEF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sampleplayer", "sampleplayer\sampleplayer.vcxproj", "{E935DAA9-6D85-4417-BF18-F850DB3404BE}"
-	ProjectSection(ProjectDependencies) = postProject
-		{CB8F90F3-3666-43E1-9C51-502337569FEF} = {CB8F90F3-3666-43E1-9C51-502337569FEF}
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libdash_networkpart_test", "libdash_networkpart_test\libdash_networkpart_test.vcxproj", "{C2E10C35-10C3-488E-B8A4-A2A1A37B2947}"
 	ProjectSection(ProjectDependencies) = postProject
 		{CB8F90F3-3666-43E1-9C51-502337569FEF} = {CB8F90F3-3666-43E1-9C51-502337569FEF}
@@ -33,10 +28,6 @@ Global
 		{CB8F90F3-3666-43E1-9C51-502337569FEF}.Debug|Win32.Build.0 = Debug|Win32
 		{CB8F90F3-3666-43E1-9C51-502337569FEF}.Release|Win32.ActiveCfg = Release|Win32
 		{CB8F90F3-3666-43E1-9C51-502337569FEF}.Release|Win32.Build.0 = Release|Win32
-		{E935DAA9-6D85-4417-BF18-F850DB3404BE}.Debug|Win32.ActiveCfg = Debug|Win32
-		{E935DAA9-6D85-4417-BF18-F850DB3404BE}.Debug|Win32.Build.0 = Debug|Win32
-		{E935DAA9-6D85-4417-BF18-F850DB3404BE}.Release|Win32.ActiveCfg = Release|Win32
-		{E935DAA9-6D85-4417-BF18-F850DB3404BE}.Release|Win32.Build.0 = Release|Win32
 		{C2E10C35-10C3-488E-B8A4-A2A1A37B2947}.Debug|Win32.ActiveCfg = Debug|Win32
 		{C2E10C35-10C3-488E-B8A4-A2A1A37B2947}.Debug|Win32.Build.0 = Debug|Win32
 		{C2E10C35-10C3-488E-B8A4-A2A1A37B2947}.Release|Win32.ActiveCfg = Release|Win32
