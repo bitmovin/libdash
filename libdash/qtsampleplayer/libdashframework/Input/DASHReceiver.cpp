@@ -79,7 +79,7 @@ MediaObject*                DASHReceiver::GetNextSegment            ()
 {
     ISegment *seg = NULL;
 
-    if(this->segmentNumber >= this->representationStream->GetSize() + 1)
+    if(this->segmentNumber >= this->representationStream->GetSize())
         return NULL;
 
     seg = this->representationStream->GetMediaSegment(this->segmentNumber + this->segmentOffset);
@@ -97,7 +97,7 @@ MediaObject*                DASHReceiver::GetSegment                (uint32_t se
 {
     ISegment *seg = NULL;
 
-    if(segNum >= this->representationStream->GetSize() + 1)
+    if(segNum >= this->representationStream->GetSize())
         return NULL;
 
     seg = this->representationStream->GetMediaSegment(segNum + segmentOffset);
