@@ -115,8 +115,8 @@ void    MultimediaManager::StopVideo                        ()
 {
     if(this->isStarted && this->videoStream)
     {
-        this->StopVideoRenderingThread();
         this->videoStream->Stop();
+        this->StopVideoRenderingThread();
 
         delete this->videoStream;
         delete this->videoLogic;
@@ -129,8 +129,8 @@ void    MultimediaManager::StopAudio                        ()
 {
     if (this->isStarted && this->audioStream)
     {
-        this->StopAudioRenderingThread();
         this->audioStream->Stop();
+        this->StopAudioRenderingThread();
 
         this->audioElement->StopPlayback();
 
@@ -302,14 +302,17 @@ void*   MultimediaManager::RenderVideo        (void *data)
 
     while(manager->isVideoRendering)
     {
-        manager->videoElement->SetImage(frame);
-        manager->videoElement->update();
+        if (frame)
+        {
+            manager->videoElement->SetImage(frame);
+            manager->videoElement->update();
 
-        manager->framesDisplayed++;
+            manager->framesDisplayed++;
 
-        PortableSleep(1 / manager->frameRate);
+            PortableSleep(1 / manager->frameRate);
 
-        delete(frame);
+            delete(frame);
+        }
 
         frame = manager->videoStream->GetFrame();
     }
@@ -324,11 +327,14 @@ void*   MultimediaManager::RenderAudio        (void *data)
 
     while(manager->isAudioRendering)
     {
-        manager->audioElement->WriteToBuffer(samples->Data(), samples->Length());
+        if (samples)
+        {
+            manager->audioElement->WriteToBuffer(samples->Data(), samples->Length());
 
-        PortableSleep(1 / manager->frameRate);
+            PortableSleep(1 / manager->frameRate);
 
-        delete samples;
+            delete samples;
+        }
 
         samples = manager->audioStream->GetSamples();
     }
