@@ -28,6 +28,7 @@ namespace dash
             virtual ~DASHManager    ();
 
             mpd::IMPD*  Open    (char *path);
+            void        Delete  ();
     };
 }
 

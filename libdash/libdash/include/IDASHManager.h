@@ -34,6 +34,11 @@ namespace dash
              *  @return     a pointer to an dash::mpd::IMPD object
              */
             virtual mpd::IMPD* Open (char *path) = 0;
+
+            /**
+             *  Frees allocated memory and deletes the DashManager
+             */
+            virtual void        Delete  () = 0;
     };
 }
 

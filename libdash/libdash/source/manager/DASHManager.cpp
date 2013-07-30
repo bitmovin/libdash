@@ -23,7 +23,7 @@ DASHManager::DASHManager            ()
 DASHManager::~DASHManager           ()
 {
 }
-IMPD*           DASHManager::Open           (char *path)
+IMPD*           DASHManager::Open   (char *path)
 {
     DOMParser parser(path);
 
@@ -38,4 +38,8 @@ IMPD*           DASHManager::Open           (char *path)
         mpd->SetFetchTime(fetchTime);
 
     return mpd;
+}
+void            DASHManager::Delete ()
+{
+    delete this;
 }

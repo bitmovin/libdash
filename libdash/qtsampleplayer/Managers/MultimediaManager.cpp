@@ -46,6 +46,7 @@ MultimediaManager::MultimediaManager            (QTGLRenderer *videoElement, QTA
 MultimediaManager::~MultimediaManager           ()
 {
     this->Stop();
+    this->manager->Delete();
 
     DeleteCriticalSection (&this->monitorMutex);
 }
