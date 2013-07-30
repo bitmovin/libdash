@@ -89,6 +89,10 @@ void DASHPlayer::OnSettingsChanged                  (int period, int videoAdapta
                                                  videoAdaptationSets.at(videoAdaptationSet),
                                                  videoAdaptationSets.at(videoAdaptationSet)->GetRepresentation().at(videoRepresentation));
     }
+    else
+    {
+        this->multimediaManager->SetVideoQuality(currentPeriod, NULL, NULL);
+    }
 
     if (audioAdaptationSet >= 0 && audioRepresentation >= 0)
     {
@@ -96,6 +100,11 @@ void DASHPlayer::OnSettingsChanged                  (int period, int videoAdapta
                                                  audioAdaptationSets.at(audioAdaptationSet),
                                                  audioAdaptationSets.at(audioAdaptationSet)->GetRepresentation().at(audioRepresentation));
     }
+    else
+    {
+        this->multimediaManager->SetAudioQuality(currentPeriod, NULL, NULL);
+    }
+
 }
 void DASHPlayer::OnVideoBufferStateChanged          (uint32_t fillstateInPercent)
 {
@@ -121,6 +130,7 @@ void DASHPlayer::OnDownloadMPDPressed               (const std::string &url)
         return; // TODO dialog or symbol that indicates that error
     }
 
+    this->SetSettings(-1, -1, -1, -1, -1);
     this->gui->SetStatusBar("Successfully parsed MPD at: " + url);
     this->gui->SetGuiFields(this->multimediaManager->GetMPD());
 }
