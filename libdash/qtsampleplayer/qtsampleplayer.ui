@@ -39,17 +39,7 @@
          </item>
          <item>
           <property name="text">
-           <string>http://www-itec.aau.at/~cmueller/libdashtest/showcases/redbull_2_resolutions.mpd</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
            <string>http://www-itec.aau.at/~cmueller/libdashtest/showcases/redbull_segment_template.mpd</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://dash.edgesuite.net/dash264/TestCases/1a/netflix/exMPD_BIP_TC1.mpd</string>
           </property>
          </item>
          <item>
@@ -80,11 +70,6 @@
          <item>
           <property name="text">
            <string>http://ftp-itec.uni-klu.ac.at/dash/conformance/mp4-full-gdr/mp4-full-gdr-mpd-AV-NBS.mpd</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://ftp-itec.uni-klu.ac.at/dash/conformance/mp4-live-periods/mp4-live-periods-mpd.mpd</string>
           </property>
          </item>
          <item>
