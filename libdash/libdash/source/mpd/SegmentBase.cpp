@@ -16,7 +16,7 @@ using namespace dash::mpd;
 SegmentBase::SegmentBase    ()  :
                 initialization(NULL),
                 representationIndex(NULL),
-                timescale(0),
+                timescale(1),
                 presentationTimeOffset(0),
                 indexRange(""),
                 indexRangeExact(false)
