@@ -12,6 +12,8 @@
 #ifndef LIBDASH_FRAMEWORK_MPD_SEGMENTTEMPLATESTREAM_H_
 #define LIBDASH_FRAMEWORK_MPD_SEGMENTTEMPLATESTREAM_H_
 
+#include <math.h>
+
 #include "IMPD.h"
 #include "AbstractRepresentationStream.h"
 #include "ISegment.h"

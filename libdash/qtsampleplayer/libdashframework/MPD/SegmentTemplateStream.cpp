@@ -75,7 +75,24 @@ RepresentationStreamType    SegmentTemplateStream::GetStreamType                
 }
 uint32_t                    SegmentTemplateStream::GetSize                      ()
 {
-    return this->segmentStartTimes.size() ? this->segmentStartTimes.size() : UINT32_MAX - 1;
+    if (!this->segmentStartTimes.empty())
+        return this->segmentStartTimes.size();
+
+    uint32_t numberOfSegments          = 0;
+    double   mediaPresentationDuration = 0;
+
+    if (this->mpd->GetType() == "static")
+    {
+        mediaPresentationDuration = TimeResolver::GetDurationInSec(this->mpd->GetMediaPresentationDuration());
+
+        numberOfSegments = (uint32_t) ceil(mediaPresentationDuration / (this->segmentTemplate->GetDuration() / this->segmentTemplate->GetTimescale()));
+    }
+    else
+    {
+        numberOfSegments = UINT32_MAX - 1;
+    }
+
+    return numberOfSegments;
 }
 uint32_t                    SegmentTemplateStream::GetAverageSegmentDuration    ()
 {

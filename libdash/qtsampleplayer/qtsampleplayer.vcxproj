@@ -110,9 +110,9 @@
     <ClCompile Include="libdashframework\MPD\AdaptationSetStream.cpp" />
     <ClCompile Include="libdashframework\MPD\BaseUrlResolver.cpp" />
     <ClCompile Include="libdashframework\MPD\RepresentationStreamFactory.cpp" />
+    <ClCompile Include="libdashframework\MPD\SegmentTemplateStream.cpp" />
     <ClCompile Include="libdashframework\MPD\SingleMediaSegmentStream.cpp" />
     <ClCompile Include="libdashframework\MPD\SegmentListStream.cpp" />
-    <ClCompile Include="libdashframework\MPD\SegmentTemplateStream.cpp" />
     <ClCompile Include="libdashframework\MPD\TimeResolver.cpp" />
     <ClCompile Include="Renderer\QTAudioRenderer.cpp" />
     <ClCompile Include="UI\DASHPlayer.cpp" />
