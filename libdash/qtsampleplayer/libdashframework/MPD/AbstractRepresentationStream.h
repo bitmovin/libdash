@@ -46,6 +46,8 @@ namespace libdash
                     virtual uint32_t                    GetLastSegmentNumber            ();
                     virtual uint32_t                    GetAverageSegmentDuration       ();
 
+                    virtual std::string     StatusInformation();
+
                 protected:
                     virtual void                        SetBaseUrls                     (const std::vector<dash::mpd::IBaseUrl *> baseurls);
 

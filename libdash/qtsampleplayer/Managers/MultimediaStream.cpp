@@ -145,3 +145,23 @@ void        MultimediaStream::OnBufferStateChanged          (BufferType type, ui
             break;
     }
 }
+std::string MultimediaStream::StreamInformation         ()
+{
+    std::stringstream text;
+
+    switch(this->type)
+    {
+        case sampleplayer::managers::AUDIO:
+            text << "Audio stream available" << std::endl;
+            text << "SampleBuffer size = " << this->sampleBufferSize << std::endl;
+            break;
+        case sampleplayer::managers::VIDEO:
+            text << "Video stream available" << std::endl;
+            text << "FrameBuffer size = " << this->frameBufferSize << std::endl;
+            break;
+    }
+
+    text << this->dashManager->StatusInformation();
+
+    return text.str();
+}

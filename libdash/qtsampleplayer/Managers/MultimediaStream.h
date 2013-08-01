@@ -60,6 +60,8 @@ namespace sampleplayer
                 void        OnSegmentBufferStateChanged (uint32_t fillstateInPercent);
                 void        OnBufferStateChanged   (libdash::framework::buffer::BufferType type, uint32_t fillstateInPercent);
 
+                std::string     StreamInformation();
+
             private:
                 std::vector<IStreamObserver *>                      observers;
                 dash::mpd::IMPD                                     *mpd;

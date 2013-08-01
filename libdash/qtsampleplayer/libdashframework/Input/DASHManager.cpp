@@ -175,3 +175,7 @@ bool        DASHManager::CreateAVDecoder        ()
     this->mediaObjectDecoder = new MediaObjectDecoder(initSegForMediaObject, mediaObject, this);
     return this->mediaObjectDecoder->Start();
 }
+std::string DASHManager::StatusInformation      ()
+{
+    return this->receiver->StatusInformation();
+}

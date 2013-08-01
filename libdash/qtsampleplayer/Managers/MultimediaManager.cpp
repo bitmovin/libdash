@@ -78,11 +78,15 @@ void    MultimediaManager::Start                            ()
 
     EnterCriticalSection(&this->monitorMutex);
 
+    this->NotifyStatusObservers(this->GeneralStatusInformation());
+
     if (this->videoAdaptationSet && this->videoRepresentation)
     {
         this->InitVideoRendering(0);
         this->videoStream->Start();
         this->StartVideoRenderingThread();
+
+        this->NotifyStatusObservers(this->videoStream->StreamInformation());
     }
 
     if (this->audioAdaptationSet && this->audioRepresentation)
@@ -91,6 +95,8 @@ void    MultimediaManager::Start                            ()
         this->audioElement->StartPlayback();
         this->audioStream->Start();
         this->StartAudioRenderingThread();
+
+        this->NotifyStatusObservers(this->audioStream->StreamInformation());
     }
 
     this->isStarted = true;
@@ -150,7 +156,11 @@ bool    MultimediaManager::SetVideoQuality                  (IPeriod* period, IA
     this->videoRepresentation   = representation;
 
     if (this->videoStream)
+    {
         this->videoStream->SetRepresentation(this->period, this->videoAdaptationSet, this->videoRepresentation);
+
+        this->NotifyStatusObservers(this->videoStream->StreamInformation());
+    }
 
     LeaveCriticalSection(&this->monitorMutex);
     return true;
@@ -164,7 +174,11 @@ bool    MultimediaManager::SetAudioQuality                  (IPeriod* period, IA
     this->audioRepresentation   = representation;
 
     if (this->audioStream)
+    {
         this->audioStream->SetRepresentation(this->period, this->audioAdaptationSet, this->audioRepresentation);
+
+        this->NotifyStatusObservers(this->audioStream->StreamInformation());
+    }
 
     LeaveCriticalSection(&this->monitorMutex);
     return true;
@@ -202,6 +216,11 @@ void    MultimediaManager::NotifyAudioBufferObservers       (uint32_t fillstateI
 {
     for (size_t i = 0; i < this->managerObservers.size(); i++)
         this->managerObservers.at(i)->OnAudioBufferStateChanged(fillstateInPercent);
+}
+void    MultimediaManager::NotifyStatusObservers            (const std::string& statusInformation)
+{
+    for (size_t i = 0; i < this->managerObservers.size(); i++)
+        this->managerObservers.at(i)->OnStatusInformationChanged(statusInformation);
 }
 void    MultimediaManager::InitVideoRendering               (uint32_t offset)
 {
@@ -250,6 +269,14 @@ void    MultimediaManager::OnAudioBufferStateChanged      (uint32_t fillstateInP
 void    MultimediaManager::SetFrameRate                     (double framerate)
 {
     this->frameRate = framerate;
+}
+std::string  MultimediaManager::GeneralStatusInformation    ()
+{
+    std::stringstream text;
+    text << "MPD Type = " << this->mpd->GetType() << std::endl;
+    text << "SegmentBuffer size = " << SEGMENTBUFFER_SIZE << std::endl;
+
+    return text.str();
 }
 
 bool    MultimediaManager::StartVideoRenderingThread        ()

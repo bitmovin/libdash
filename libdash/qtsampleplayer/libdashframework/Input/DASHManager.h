@@ -53,6 +53,8 @@ namespace libdash
                     void        OnAudioSampleDecoded    (const uint8_t **data, sampleplayer::decoder::audioFrameProperties* props);
                     void        OnBufferStateChanged    (uint32_t fillstateInPercent);
 
+                    std::string StatusInformation       ();
+
                 private:
                     bool    CreateAVDecoder ();
 

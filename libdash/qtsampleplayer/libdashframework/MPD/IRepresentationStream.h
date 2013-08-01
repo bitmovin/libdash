@@ -43,6 +43,8 @@ namespace libdash
                     virtual uint32_t                    GetCurrentSegmentNumber         () = 0;
                     virtual uint32_t                    GetLastSegmentNumber            () = 0;
                     virtual uint32_t                    GetAverageSegmentDuration       () = 0;
+
+                    virtual std::string                 StatusInformation               () = 0;
             };
         }
     }

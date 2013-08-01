@@ -27,6 +27,7 @@ namespace sampleplayer
                 virtual void OnVideoSegmentBufferStateChanged   (uint32_t fillstateInPercent) = 0;
                 virtual void OnAudioBufferStateChanged          (uint32_t fillstateInPercent) = 0;
                 virtual void OnAudioSegmentBufferStateChanged   (uint32_t fillstateInPercent) = 0;
+                virtual void OnStatusInformationChanged         (const std::string& info)     = 0;
                 // todo subtitles
         };
     }

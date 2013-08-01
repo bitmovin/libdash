@@ -202,6 +202,24 @@ std::string     QtSamplePlayerGui::GetUrl                                       
     this->UnLockUI();
     return ret;
 }
+void            QtSamplePlayerGui::SetTextBox                                       (const std::string& text)
+{
+    QString content = this->ui->textBox->toPlainText();
+    
+    if (!content.isEmpty())
+        content.append("\n");
+
+    content.append(text.c_str());
+    this->ui->textBox->setText(content);
+
+    QTextCursor c = this->ui->textBox->textCursor();
+    c.movePosition(QTextCursor::End);
+    this->ui->textBox->setTextCursor(c);
+}
+void            QtSamplePlayerGui::ClearTextBox                                     ()
+{
+    this->ui->textBox->clear();
+}
 
 /* Notifiers */
 void            QtSamplePlayerGui::NotifySettingsChanged                            ()

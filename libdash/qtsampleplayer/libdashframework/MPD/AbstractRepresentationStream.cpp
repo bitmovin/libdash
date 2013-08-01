@@ -82,3 +82,34 @@ uint32_t    AbstractRepresentationStream::GetAverageSegmentDuration ()
 {
     return 1;
 }
+std::string AbstractRepresentationStream::StatusInformation         ()
+{
+    std::stringstream text;
+
+    text << "Number of segments = " << this->GetSize() << std::endl;
+
+    if (this->representation->GetWidth() && this->representation->GetHeight())
+    {
+        text << "Resolution = " << this->representation->GetWidth() << " x " << this->representation->GetHeight() << std::endl;
+    }
+    else if (this->adaptationSet->GetWidth() && this->adaptationSet->GetHeight())
+    {
+        text << "Resolution = " << this->adaptationSet->GetWidth() << " x " << this->adaptationSet->GetHeight() << std::endl;
+    }
+
+    if (!this->representation->GetAudioSamplingRate().empty())
+    {
+        text << "Sampling Rate = " << this->representation->GetAudioSamplingRate() << std::endl;
+    }
+    else if (!this->adaptationSet->GetAudioSamplingRate().empty())
+    {
+        text << "Sampling Rate = " << this->adaptationSet->GetAudioSamplingRate() << std::endl;
+    }
+
+    if (this->representation->GetBandwidth())
+    {
+        text << "Bandwidth = " << this->representation->GetBandwidth() << " bps" << std::endl;
+    }
+
+    return text.str();
+}

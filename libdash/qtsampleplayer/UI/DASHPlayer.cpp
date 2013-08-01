@@ -122,6 +122,10 @@ void DASHPlayer::OnAudioSegmentBufferStateChanged   (uint32_t fillstateInPercent
 {
     emit AudioSegmentBufferFillStateChanged(fillstateInPercent);
 }
+void DASHPlayer::OnStatusInformationChanged         (const std::string& statusInformation)
+{
+    this->gui->SetTextBox(statusInformation);
+}
 void DASHPlayer::OnDownloadMPDPressed               (const std::string &url)
 {
     if(!this->multimediaManager->Init(url))
@@ -133,6 +137,7 @@ void DASHPlayer::OnDownloadMPDPressed               (const std::string &url)
     this->SetSettings(-1, -1, -1, -1, -1);
     this->gui->SetStatusBar("Successfully parsed MPD at: " + url);
     this->gui->SetGuiFields(this->multimediaManager->GetMPD());
+    this->gui->ClearTextBox();
 }
 bool DASHPlayer::SettingsChanged                    (int period, int videoAdaptationSet, int videoRepresentation, int audioAdaptationSet, int audioRepresentation)
 {

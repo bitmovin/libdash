@@ -54,8 +54,6 @@ namespace sampleplayer
                 void OnVideoBufferStateChanged  (uint32_t fillstateInPercent);
                 void OnAudioBufferStateChanged  (uint32_t fillstateInPercent);
 
-
-
             private:
                 dash::IDASHManager                                          *manager;
                 dash::mpd::IMPD                                             *mpd;
@@ -96,11 +94,14 @@ namespace sampleplayer
                 void    StopVideo           ();
                 void    StopAudio           ();
 
+                std::string     GeneralStatusInformation();
+
                 /* IMultimediaManager Notifiers */
                 void NotifyVideoBufferObservers         (uint32_t fillstateInPercent);
                 void NotifyVideoSegmentBufferObservers  (uint32_t fillstateInPercent);
                 void NotifyAudioBufferObservers         (uint32_t fillstateInPercent);
                 void NotifyAudioSegmentBufferObservers  (uint32_t fillstateInPercent);
+                void NotifyStatusObservers              (const std::string& statusInformation);
         };
     }
 }

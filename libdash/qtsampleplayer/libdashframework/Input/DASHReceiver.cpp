@@ -228,6 +228,27 @@ bool                        DASHReceiver::InitSegmentExists      (IRepresentatio
 
     return false;
 }
+std::string                 DASHReceiver::StatusInformation         ()
+{
+    std::stringstream text;
+
+    switch(this->representationStream->GetStreamType())
+    {
+        case framework::mpd::SegmentList:
+            text << "SegmentList stream" << std::endl;
+            break;
+        case framework::mpd::SegmentTemplate:
+            text << "SegmentTemplate stream" << std::endl;
+            break;
+        case framework::mpd::SingleMediaSegment:
+            text << "BaseUrl stream" << std::endl;
+            break;
+    }
+
+    text << this->representationStream->StatusInformation();
+
+    return text.str();
+}
 
 /* Thread that does the buffering of segments */
 void*                       DASHReceiver::DoBuffering               (void *receiver)

@@ -47,6 +47,8 @@ namespace libdash
                                                                          dash::mpd::IAdaptationSet *adaptationSet,
                                                                          dash::mpd::IRepresentation *representation);
 
+                    std::string     StatusInformation();
+
                 private:
                     uint32_t        CalculateSegmentOffset  ();
                     void            NotifySegmentDownloaded ();
