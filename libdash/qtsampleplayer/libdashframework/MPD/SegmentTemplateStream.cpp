@@ -71,7 +71,7 @@ ISegment*                   SegmentTemplateStream::GetBitstreamSwitchingSegment 
 }
 RepresentationStreamType    SegmentTemplateStream::GetStreamType                ()
 {
-    return SegmentList;
+    return SegmentTemplate;
 }
 uint32_t                    SegmentTemplateStream::GetSize                      ()
 {
