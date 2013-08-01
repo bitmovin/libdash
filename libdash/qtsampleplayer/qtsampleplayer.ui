@@ -97,11 +97,6 @@
            <string>http://ftp-itec.uni-klu.ac.at/dash/conformance/mp4-main-ogop/mp4-main-ogop-mpd-AV-NBS.mpd</string>
           </property>
          </item>
-         <item>
-          <property name="text">
-           <string>http://ftp-itec.uni-klu.ac.at/dash/conformance/mp4-onDemand/mp4-onDemand-mpd-AV.mpd</string>
-          </property>
-         </item>
         </widget>
        </item>
        <item>
