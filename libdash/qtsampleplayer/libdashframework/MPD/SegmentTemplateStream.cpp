@@ -96,8 +96,19 @@ uint32_t                    SegmentTemplateStream::GetSize                      
 }
 uint32_t                    SegmentTemplateStream::GetAverageSegmentDuration    ()
 {
-    /* TODO calculate average segment durations for SegmentTimeline */
-    return this->segmentTemplate->GetDuration();
+    if (this->segmentTemplate->GetSegmentTimeline())
+    {
+        std::vector<ITimeline *> timelines = this->segmentTemplate->GetSegmentTimeline()->GetTimelines();
+        double avgSegmentDuration = 0;
+
+        for (size_t i = 0; i < timelines.size(); i++)
+        {
+            avgSegmentDuration += timelines.at(i)->GetDuration();
+        }
+        return (uint32_t) ceil(avgSegmentDuration / this->segmentTemplate->GetTimescale() / timelines.size());
+    }
+
+    return (uint32_t) ceil((double) this->segmentTemplate->GetDuration() / this->segmentTemplate->GetTimescale());
 }
 ISegmentTemplate*           SegmentTemplateStream::FindSegmentTemplate          ()
 {

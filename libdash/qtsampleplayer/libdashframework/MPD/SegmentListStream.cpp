@@ -75,5 +75,5 @@ ISegmentList*               SegmentListStream::FindSegmentList              ()
 uint32_t                    SegmentListStream::GetAverageSegmentDuration    ()
 {
     /* TODO calculate average segment durations for SegmentTimeline */
-    return this->segmentList->GetDuration();
+    return (uint32_t) ((double) this->segmentList->GetDuration() / this->segmentList->GetTimescale());
 }

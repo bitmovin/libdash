@@ -111,5 +111,7 @@ std::string AbstractRepresentationStream::StatusInformation         ()
         text << "Bandwidth = " << this->representation->GetBandwidth() << " bps" << std::endl;
     }
 
+    text << "AVG Segment Duration = " << this->GetAverageSegmentDuration() << "s" << std::endl;
+
     return text.str();
 }
