@@ -222,6 +222,14 @@ void    MultimediaManager::NotifyStatusObservers            (const std::string& 
     for (size_t i = 0; i < this->managerObservers.size(); i++)
         this->managerObservers.at(i)->OnStatusInformationChanged(statusInformation);
 }
+void    MultimediaManager::NotifyResolutionChange           (int width, int height)
+{
+    std::stringstream text;
+    text << "Resolution: " << width << " x " << height;
+
+    for (size_t i = 0; i < this->managerObservers.size(); i++)
+        this->managerObservers.at(i)->OnResolutionChanged(text.str());
+}
 void    MultimediaManager::InitVideoRendering               (uint32_t offset)
 {
     this->videoLogic = AdaptationLogicFactory::Create(libdash::framework::adaptation::Manual, this->mpd, this->period, this->videoAdaptationSet);
@@ -324,8 +332,18 @@ void    MultimediaManager::StopAudioRenderingThread         ()
 void*   MultimediaManager::RenderVideo        (void *data)
 {
     MultimediaManager *manager = (MultimediaManager*) data;
+    int width  = 0;
+    int height = 0;
 
     QImage *frame = manager->videoStream->GetFrame();
+
+    if (frame)
+    {
+        width  = frame->width();
+        height = frame->height();
+
+        manager->NotifyResolutionChange(width, height);
+    }
 
     while(manager->isVideoRendering)
     {
@@ -342,6 +360,17 @@ void*   MultimediaManager::RenderVideo        (void *data)
         }
 
         frame = manager->videoStream->GetFrame();
+
+        if (frame)
+        {
+            if (width != frame->width() || height != frame->height())
+            {
+                width  = frame->width();
+                height = frame->height();
+
+                manager->NotifyResolutionChange(width, height);
+            }
+        }
     }
 
     return NULL;

@@ -58,6 +58,7 @@ namespace sampleplayer
             virtual void OnAudioBufferStateChanged          (uint32_t fillstateInPercent);
             virtual void OnAudioSegmentBufferStateChanged   (uint32_t fillstateInPercent);
             virtual void OnStatusInformationChanged         (const std::string& statusInformation);
+            virtual void OnResolutionChanged                (const std::string& res);
 
             virtual void OnDownloadMPDPressed   (const std::string &url);
 

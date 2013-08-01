@@ -126,6 +126,10 @@ void DASHPlayer::OnStatusInformationChanged         (const std::string& statusIn
 {
     this->gui->SetTextBox(statusInformation);
 }
+void DASHPlayer::OnResolutionChanged                (const std::string& resolution)
+{
+    this->gui->SetResolutionLabel(resolution);
+}
 void DASHPlayer::OnDownloadMPDPressed               (const std::string &url)
 {
     if(!this->multimediaManager->Init(url))

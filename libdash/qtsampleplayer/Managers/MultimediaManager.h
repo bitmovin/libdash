@@ -102,6 +102,7 @@ namespace sampleplayer
                 void NotifyAudioBufferObservers         (uint32_t fillstateInPercent);
                 void NotifyAudioSegmentBufferObservers  (uint32_t fillstateInPercent);
                 void NotifyStatusObservers              (const std::string& statusInformation);
+                void NotifyResolutionChange             (int width, int height);
         };
     }
 }

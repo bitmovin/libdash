@@ -39,6 +39,7 @@ namespace sampleplayer
             sampleplayer::renderer::QTGLRenderer*   GetVideoElement         ();
             virtual void                            SetTextBox              (const std::string& text);
             virtual void                            ClearTextBox            ();
+            virtual void                            SetResolutionLabel      (const std::string& text);
 
         private slots:
             void on_cb_mpd_currentTextChanged                   (const QString &arg1);

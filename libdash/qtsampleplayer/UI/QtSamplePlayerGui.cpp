@@ -220,6 +220,10 @@ void            QtSamplePlayerGui::ClearTextBox                                 
 {
     this->ui->textBox->clear();
 }
+void            QtSamplePlayerGui::SetResolutionLabel                               (const std::string& text)
+{
+    this->ui->label_resolution->setText(QString(text.c_str()));
+}
 
 /* Notifiers */
 void            QtSamplePlayerGui::NotifySettingsChanged                            ()
