@@ -50,8 +50,7 @@ Prerequisite: libdash must be built as described in the previous section.
 To play content from a ccn repo you have the following possibilities.
 ####Play from a local repo:
 * Download:
-http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s_4
-80p_only/CCN_BigBuckBunny_480p_fullRepo.zip
+http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s_480p_only/CCN_BigBuckBunny_480p_fullRepo.zip
 * Unzip it
 * run the local ccnd
 * go into the ./fullRepo directory
