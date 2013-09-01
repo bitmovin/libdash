@@ -9,6 +9,9 @@ This is a branch supporting DASH streaming over Content Centric Networks (CCN). 
 ## Features
 
 * DASH streaming over CCN
+* Based on [CCNx](http://www.ccnx.org)
+* Testcontent in local CCNx repository
+* Testcontent available on remote server on the Internet
 
 ## How to use
 
@@ -118,6 +121,9 @@ Furthermore we want to thank the [Netidee](http://www.netidee.at) initiative fro
 ![netidee logo](http://www.bitmovin.net/wp-content/uploads/2013/02/netidee-logo_RGB-200x102.png "netidee")
 
 ## Citation of libdash
-We kindly ask you to refer the following paper in any publication mentioning libdash:
+We kindly ask you to refer the following paper in any publication mentioning <b>libdash</b>:
 
 Christopher Mueller, Stefan Lederer, Joerg Poecher, and Christian Timmerer, “libdash – An Open Source Software Library for the MPEG-DASH Standard”, in Proceedings of the IEEE International Conference on Multimedia and Expo 2013, San Jose, USA, July, 2013
+
+We kindly ask you to refer the following paper in any publication mentioning <b>DASH over CCN</b>:
+Stefan Lederer, Christopher Müller, Benjamin Rainer, Christian Timmerer, and Hermann Hellwagner, “An Experimental Analysis of Dynamic Adaptive Streaming over HTTP in Content Centric Networks”, in Proceedings of the IEEE International Conference on Multimedia and Expo 2013, San Jose, USA, July, 2013.
