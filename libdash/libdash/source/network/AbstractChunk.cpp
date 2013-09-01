@@ -71,13 +71,15 @@ bool    AbstractChunk::StartDownload                (IConnection *connection)
         return false;
     }
 
+    this->connection = connection;
+
     this->dlThread = CreateThreadPortable (DownloadExternalConnection, this);
 
     if(this->dlThread == NULL)
         return false;
 
     this->stateManager.State(IN_PROGRESS);
-    this->connection = connection;
+    
 
     return true;
 }
