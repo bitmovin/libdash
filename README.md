@@ -5,69 +5,12 @@
 
 libdash is a library that provides an object orient (OO) interface to the MPEG-DASH standard, developed by [bitmovin](http://www.bitmovin.net). 
 
+This is a branch supporting DASH streaming over Content Centric Networks (CCN). More Information on libdash can be found in the main branch of [libdash](http://github.com/bitmovin/libdash).
 ## Features
 
-* Cross platform build system based on cmake that includes Windows, Linux and Mac.
-* Open source available and licensed under the LGPL.
-* Comprehensive doxygen documentation of the library availalbe at [bitmovin](http://www.bitmovin.net/libdash_OpenSource/libdash_2_1_doxygen/index.html).
-* Implements the full MPEG-DASH standard according to ISO/IEC 23009-1, Information Technology Dynamic Adaptive Streaming over HTTP (DASH) Part 1: Media Presentation Description and Segment Formats
-* Handles the download and xml parsing of the MPD. Based on that it provides an OO based interface to the MPD.
-* Media elements, e.g., SegmentURL, SegmentTemplate, etc., are downloadable in that OO based structure and can be downloaded through libdash, which internally uses libcurl.
-* Therefore basically all protocols that libcurl supports, e.g., HTTP, FTP, etc. are supported by libdash.
-* However it also provides a configurable download interface, which enables the use of external connections that can be implemented by the user of the library for the download of media segments.
-* The use of such external connections will be shown in the libdash_networkpart_test project which is part of libdash solution and also part of the cross platform cmake system and therefore usable on Windows, Linux and Mac.
-* The project contains a sample multimedia player that is based on ffmpeg which uses libdash for the playback of one of our dataset MPDs.
-* The development is based on Windows, therefore the code contains a VS10 solution with additional tests and the sample multimedia player.
-
-## Architecture
-<p align="justify">The general architecture of MPEG-DASH is depicted in the figure below where the orange parts are standardized, i.e., the MPD and segment formats. The delivery of the MPD, the control heuristics and the media player itself, are depicted in blue in the figure. These parts are not standardized and allow the differentiation of industry solutions due to the performance or different features that can be integrated at that level. libdash is also depicted in blue and encapsulates the MPD parsing and HTTP part, which will be handled by the library. Therefore the library provides interfaces for the DASH Streaming Control and the Media Player to access MPDs and downloadable media segments. The download order of such media segments will not be handled by the library this is left to the DASH Streaming Control, which is an own component in this architecture but it could also be included in the Media Player.
-</p>
-<p align="justify">
-In a typical deployment, a DASH server provides segments in several bitrates and resolutions. The client initially receives the MPD through libdash which provides a convenient object orient interface to that MPD. The MPD contains the temporal relationships for the various qualities and segments. Based on that information the client can download individual media segments through libdash at any point in time. Therefore varying bandwidth conditions can be handled by switching to the corresponding quality level at segment boundaries in order to provide a smooth streaming experience. This adaptation is not part of libdash and the MPEG-DASH standard and will be left to the application which is using libdash.
-</p>
-
-
-![libdash architecture](http://www.bitmovin.net/wp-content/uploads/2013/01/libdash_arch-1024x483.png "libdash arch")
-
-## Documentation
-
-The doxygen documentation is online available at [bitmovin](http://www.bitmovin.net/libdash_OpenSource/libdash_2_1_doxygen/index.html).
-
-## Mailinglist
-
-We offer a public accessible mailing list for discussions, questions, announcements, bug-reports, etc. around libdash. Everybody is invited to join, you can find the registration at:
-
-[libdash-dev] (http://vicky.bitmovin.net/mailman/listinfo/libdash-dev)
-
-There are a lot of things to do! So everybody is invited to contribute, to get involved in and exited about DASH!
-
-## Roadmap
-
-* Next release is scheduled at the end of February.
-    * Doxygen Documentation.
-    * Cross platform build system for the ffmpeg based sample player.
-    * QT based sample player, which is cross platform buildable through cmake.
-    * Further Tests & Bugfixes.
-* Ongoing development during 2013
-    * Implementation of a middleware for libdash.
-        * Will provide buffering mechanisms and build-in adaptation logics.
-        * Extends the functionality to extract, e.g., mp4, mp2ts, etc. information of the media stream.
-        * Will provide further access methods which should provide a simplified interface to the library.
-    * Extending the QT based sample player.
-    * Testing & Bugfixing
-
-## Sources and Binaries
-
-You can find the latest sources and binaries in our [download section] (http://www.bitmovin.net/?page_id=851) and on github.
+* DASH streaming over CCN
 
 ## How to use
-
-### Windows
-1. Download the tarball or clone the repository from gitlab (git://github.com/bitmovin/libdash.git)
-2. Open the libdash.sln with Visual Studio 2010
-3. Build the solution
-4. After that all files will be provided in the bin folder
-5. You can test the library with the sampleplayer.exe. This application simply downloads the lowest representation of one of our dataset MPDs.
 
 ### Ubuntu 12.04
 1. sudo apt-get install git-core build-essential cmake libxml2-dev libcurl4-openssl-dev
@@ -97,6 +40,54 @@ Prerequisite: libdash must be built as described in the previous section.
 11. ./cmake-2.8.11.2-Linux-i386/bin/cmake ../
 12. make
 13. ./qtsampleplayer
+
+
+## Play DASH Content over CCN
+
+To play content from a ccn repo you have the following possibilities.
+####Play from a local repo:
+* Download:
+http://www-itec.uni-klu.ac.at/ftp/datasets/mmsys12/BigBuckBunny/bunny_2s_4
+80p_only/CCN_BigBuckBunny_480p_fullRepo.zip
+* Unzip it
+* run the local ccnd
+* go into the ./fullRepo directory
+* run ccnr (don't close it)
+* Start another console
+* run the qtsampleplayer
+* enter the path to the "big_buck_bunny_480.mpd" file (e.g.
+"./big_buck_bunny_480.mpd" if it's in the ./qtsampleplayer/build/ directory).
+* Hit the Download and Play buttons in the qtsampleplayer
+####Play from our remote repo at 151.236.10.55
+* run the local ccnd
+* Start another console
+* run initroutes.sh
+* run the qtsampleplayer
+* enter the path to the "big_buck_bunny_480.mpd" file (e.g.
+"./big_buck_bunny_480.mpd" if it's in the ./qtsampleplayer/build/ directory).
+* Hit the Download and Play buttons in the qtsampleplayer
+
+## Architecture
+<p align="justify">The general architecture of MPEG-DASH is depicted in the figure below where the orange parts are standardized, i.e., the MPD and segment formats. The delivery of the MPD, the control heuristics and the media player itself, are depicted in blue in the figure. These parts are not standardized and allow the differentiation of industry solutions due to the performance or different features that can be integrated at that level. libdash is also depicted in blue and encapsulates the MPD parsing and HTTP part, which will be handled by the library. Therefore the library provides interfaces for the DASH Streaming Control and the Media Player to access MPDs and downloadable media segments. The download order of such media segments will not be handled by the library this is left to the DASH Streaming Control, which is an own component in this architecture but it could also be included in the Media Player.
+</p>
+<p align="justify">
+In a typical deployment, a DASH server provides segments in several bitrates and resolutions. The client initially receives the MPD through libdash which provides a convenient object orient interface to that MPD. The MPD contains the temporal relationships for the various qualities and segments. Based on that information the client can download individual media segments through libdash at any point in time. Therefore varying bandwidth conditions can be handled by switching to the corresponding quality level at segment boundaries in order to provide a smooth streaming experience. This adaptation is not part of libdash and the MPEG-DASH standard and will be left to the application which is using libdash.
+</p>
+
+
+![libdash architecture](http://www.bitmovin.net/wp-content/uploads/2013/01/libdash_arch-1024x483.png "libdash arch")
+
+## Documentation
+
+The doxygen documentation is online available at [bitmovin](http://www.bitmovin.net/libdash_OpenSource/libdash_2_1_doxygen/index.html).
+
+## Mailinglist
+
+We offer a public accessible mailing list for discussions, questions, announcements, bug-reports, etc. around libdash. Everybody is invited to join, you can find the registration at:
+
+[libdash-dev] (http://vicky.bitmovin.net/mailman/listinfo/libdash-dev)
+
+There are a lot of things to do! So everybody is invited to contribute, to get involved in and exited about DASH!
 
 ## License
 
