@@ -125,5 +125,6 @@ We kindly ask you to refer the following paper in any publication mentioning <b>
 
 Christopher Mueller, Stefan Lederer, Joerg Poecher, and Christian Timmerer, “libdash – An Open Source Software Library for the MPEG-DASH Standard”, in Proceedings of the IEEE International Conference on Multimedia and Expo 2013, San Jose, USA, July, 2013
 
-We kindly ask you to refer the following paper in any publication mentioning <b>DASH over CCN</b>:
+We kindly ask you to refer the following paper in any publication mentioning <b>DASH over CCN</b
+
 Stefan Lederer, Christopher Müller, Benjamin Rainer, Christian Timmerer, and Hermann Hellwagner, “An Experimental Analysis of Dynamic Adaptive Streaming over HTTP in Content Centric Networks”, in Proceedings of the IEEE International Conference on Multimedia and Expo 2013, San Jose, USA, July, 2013.
