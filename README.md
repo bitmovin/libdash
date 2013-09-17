@@ -27,7 +27,7 @@ In a typical deployment, a DASH server provides segments in several bitrates and
 </p>
 
 
-![libdash architecture](http://www.bitmovin.net/files/bitmovin/img/as/grafic-client-server.png "libdash arch")
+![libdash architecture](http://www.bitmovin.net/files/bitmovin/img/as/grafic-client-server.png "libdash architecture")
 
 ## Documentation
 
@@ -55,7 +55,7 @@ There are a lot of things to do! So everybody is invited to contribute, to get i
 
 ## Sources and Binaries
 
-You can find the latest sources and binaries in our [download section] (http://www.bitmovin.net/?page_id=851) and on github.
+You can find the latest sources and binaries in our [download section] (http://www.bitmovin.net/downloads.html) and on github.
 
 ## How to use
 
