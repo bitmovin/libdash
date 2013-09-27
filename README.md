@@ -21,7 +21,7 @@ libdash is the **official reference software of the ISO/IEC MPEG-DASH standard**
 
 ## Professional Services
 
-In addition to the public available open source resources and the mailing list support, we provide professional development and integration services, consulting, high-quality streaming componentes/logics, etc. based on your individual needs. Feel free to contact us via sales@bitmovin.net so we can discuss your requirements and provide you an offer.
+In addition to the public available open source resources and the mailing list support, we provide professional development and integration services, consulting, high-quality streaming componentes/logics, relicensing of libdash etc. based on your individual needs. Feel free to contact us via sales@bitmovin.net so we can discuss your requirements and provide you an offer.
 
 
 ![libdash logo](http://www.bitmovin.net/files/bitmovin/img/logos/bitdash.png "bitdash")
