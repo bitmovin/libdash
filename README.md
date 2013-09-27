@@ -9,7 +9,7 @@ libdash is the **official reference software of the ISO/IEC MPEG-DASH standard**
 
 * Cross platform build system based on cmake that includes Windows, Linux and Mac.
 * Open source available and licensed under the LGPL.
-* Comprehensive doxygen documentation of the library availalbe at [bitmovin](http://www.bitmovin.net/libdash_OpenSource/libdash_2_1_doxygen/index.html).
+* Comprehensive doxygen documentation of the library availalbe at [bitmovin](http://www.bitmovin.net/files/bitmovin/content/documentation/libdash/3_0/index.html).
 * Implements the full MPEG-DASH standard according to ISO/IEC 23009-1, Information Technology Dynamic Adaptive Streaming over HTTP (DASH) Part 1: Media Presentation Description and Segment Formats
 * Handles the download and xml parsing of the MPD. Based on that it provides an OO based interface to the MPD.
 * Media elements, e.g., SegmentURL, SegmentTemplate, etc., are downloadable in that OO based structure and can be downloaded through libdash, which internally uses libcurl.
@@ -40,18 +40,6 @@ We offer a public accessible mailing list for discussions, questions, announceme
 [libdash-dev] (http://vicky.bitmovin.net/mailman/listinfo/libdash-dev)
 
 There are a lot of things to do! So everybody is invited to contribute, to get involved in and exited about DASH!
-
-## Roadmap
-
-* Ongoing development during 2013
-    * Implementation of a middleware for libdash.
-        * Will provide buffering mechanisms and build-in adaptation logics.
-        * Extends the functionality to extract, e.g., mp4, mp2ts, etc. information of the media stream.
-        * Will provide further access methods which should provide a simplified interface to the library.
-    * Extending the QT based sample player.
-    * Testing & Bugfixing
-    * Support of additional plattforms
-* Extension of the [bitdash adaptation framework] (http://www.bitmovin.net/bitdash.html) on top of libdash. 
 
 ## Sources and Binaries
 
