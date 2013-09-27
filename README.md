@@ -19,6 +19,18 @@ libdash is the **official reference software of the ISO/IEC MPEG-DASH standard**
 * The project contains a QT-based sample multimedia player that is based on ffmpeg which uses libdash for the playback of one of our dataset MPDs.
 * The development is based on Windows, therefore the code contains a VS10 solution with additional tests and the sample multimedia player.
 
+## Professional Services
+
+In addition to the public available open source resources and the mailing list support, we provide professional development and integration services, consulting, high-quality streaming componentes/logics, etc. based on your individual needs. Feel free to contact us via sales@bitmovin.net so we can discuss your requirements and provide you an offer.
+
+
+![libdash logo](http://www.bitmovin.net/files/bitmovin/img/logos/bitdash.png "bitdash")
+
+On top of libdash, we provide our [bitdash adaptation framework] (http://www.bitmovin.net/bitdash.html), which significantely boosts the streaming performance of MPEG-DASH. It enables up to 100 % higher media throughput than Apple HLS, and 50 % more than Microsoft Smooth Streaming. Additionally it comes together with streaming management functionalities, oscillation prevention mechanisms, DRM key management, multi-source (multi-CDN) support, and much more. It targets embedded platforms such as smartphones, TV-Sets, Set-Top Boxes, etc. and is available on any platform, including Windows, Linux, Mac, Android, etc. 
+
+Please do not heasitate and contact sales@bitmovin.net to get further information on [bitdash] (http://www.bitmovin.net/bitdash.html)!
+
+
 ## Architecture
 <p align="justify">The general architecture of MPEG-DASH is depicted in the figure below where the orange parts are standardized, i.e., the MPD and segment formats. The delivery of the MPD, the control heuristics and the media player itself, are depicted in blue in the figure. These parts are not standardized and allow the differentiation of industry solutions due to the performance or different features that can be integrated at that level. libdash is also depicted in blue and encapsulates the MPD parsing and HTTP part, which will be handled by the library. Therefore the library provides interfaces for the DASH Streaming Control and the Media Player to access MPDs and downloadable media segments. The download order of such media segments will not be handled by the library this is left to the DASH Streaming Control, which is an own component in this architecture but it could also be included in the Media Player.
 </p>
@@ -93,16 +105,6 @@ You should have received a copy of the GNU Lesser General Public License along w
 
 As libdash is licensed under LGPL, changes to the library have to be published again to the open-source project. As many user and companies do not want to publish their specific changes, libdash can be also relicensed to a commercial license on request. Please contact sales@bitmovin.net to provide you an offer.
 
-## Professional Services
-
-In addition to the public available open source resources and the mailing list support, we provide professional development and integration services, consulting, high-quality streaming componentes/logics, etc. based on your individual needs. Feel free to contact us via sales@bitmovin.net so we can discuss your requirements and provide you an offer.
-
-
-![libdash logo](http://www.bitmovin.net/files/bitmovin/img/logos/bitdash.png "bitdash")
-
-On top of libdash, we provide our [bitdash adaptation framework] (http://www.bitmovin.net/bitdash.html), which significantely boosts the streaming performance of MPEG-DASH. It enables up to 100 % higher media throughput than Apple HLS, and 50 % more than Microsoft Smooth Streaming. Additionally it comes together with streaming management functionalities, oscillation prevention mechanisms, DRM key management, multi-source (multi-CDN) support, and much more. It targets embedded platforms such as smartphones, TV-Sets, Set-Top Boxes, etc. and is available on any platform, including Windows, Linux, Mac, Android, etc. 
-
-Please do not heasitate and contact sales@bitmovin.net to get further information on [bitdash] (http://www.bitmovin.net/bitdash.html)!
 ## Acknowledgements
 
 We specially want to thank our passionate developers at [bitmovin](http://www.bitmovin.net/) as well as the researchers at the [Institute of Information Technology](http://www-itec.aau.at/dash/) (ITEC) from the Alpen Adria Universitaet Klagenfurt (AAU)!
