@@ -1,6 +1,6 @@
-# libdash
+# libdash - DASHoverCCN-enabled Version 
 
-![libdash logo](http://www.bitmovin.net/wp-content/uploads/2013/01/libdash_logo.png "libdash")
+![libdash logo](http://www.bitmovin.net/files/bitmovin/img/logos/libdash.png "libdash")
 
 
 libdash is a library that provides an object orient (OO) interface to the MPEG-DASH standard, developed by [bitmovin](http://www.bitmovin.net). 
@@ -77,7 +77,7 @@ In a typical deployment, a DASH server provides segments in several bitrates and
 </p>
 
 
-![libdash architecture](http://www.bitmovin.net/wp-content/uploads/2013/01/libdash_arch-1024x483.png "libdash arch")
+![libdash architecture](http://www.bitmovin.net/files/bitmovin/img/as/grafic-client-server.png "libdash architecture")
 
 ## Documentation
 
@@ -117,7 +117,7 @@ We specially want to thank our passionate developers at [bitmovin](http://www.bi
 
 Furthermore we want to thank the [Netidee](http://www.netidee.at) initiative from the [Internet Foundation Austria](http://www.nic.at/ipa) for partially funding the open source development of libdash.
 
-![netidee logo](http://www.bitmovin.net/wp-content/uploads/2013/02/netidee-logo_RGB-200x102.png "netidee")
+![netidee logo](http://www.bitmovin.net/files/bitmovin/img/logos/netidee.png "netidee")
 
 ## Citation of libdash
 We kindly ask you to refer the following paper in any publication mentioning <b>libdash</b>:
