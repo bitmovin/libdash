@@ -167,11 +167,10 @@ void            MediaObjectBuffer::Clear            ()
 {
     EnterCriticalSection(&this->monitorMutex);
 
-    for(int i=0; i < this->mediaobjects.size(); i++)
-    {
-        delete this->mediaobjects.front();
-        this->mediaobjects.pop_front();
-    }
+    for(int i = 0; i < this->mediaobjects.size(); i++)
+        delete this->mediaobjects[i];
+
+    this->mediaobjects.clear();
 
     WakeAllConditionVariable(&this->empty);
     WakeAllConditionVariable(&this->full);

@@ -218,11 +218,10 @@ void        Buffer<T>::Clear            ()
 {
     EnterCriticalSection(&this->monitorMutex);
 
-    for(int i=0; i < this->objects.size(); i++)
-    {
-        delete this->objects.front();
-        this->objects.pop_front();
-    }
+    for(int i = 0; i < this->objects.size(); i++)
+        delete this->objects[i];
+
+    this->objects.clear();
 
     WakeAllConditionVariable(&this->empty);
     WakeAllConditionVariable(&this->full);
