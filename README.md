@@ -3,7 +3,7 @@
 ![libdash logo](http://www.bitmovin.net/files/bitmovin/img/logos/libdash.png "libdash")
 
 
-libdash is the **official reference software of the ISO/IEC MPEG-DASH standard** and is an open-source library that provides an object orient (OO) interface to the MPEG-DASH standard, developed by [bitmovin](http://www.bitmovin.net). 
+libdash is the **official reference software of the ISO/IEC MPEG-DASH standard 2nd Edition** and is an open-source library that provides an object orient (OO) interface to the MPEG-DASH standard, developed by [bitmovin](http://www.bitmovin.net). 
 
 ## Features
 
