@@ -47,6 +47,13 @@ namespace dash
                  *  @return     a reference to a vector of unsigned integers
                  */
                 virtual const std::vector<uint32_t>& Contains () const = 0;
+
+				/**
+                 *  Returns an reference to a string that specifies an identifier for this Subset.
+                 *  The attribute shall be unique in the scope of the Media Presentation.
+                 *  @return     a reference to a string
+                 */
+                virtual const std::string&           GetId    ()  const = 0;
         };
     }
 }

@@ -121,6 +121,13 @@ namespace dash
                  */
                 virtual const std::string&                          GetAvailabilityStarttime        ()  const = 0;
 
+				/**
+                 *  Returns a reference to a string that specifies specifies the wall-clock time when the MPD was generated and published at the origin server.\n
+				 *  MPDs with a later value of @publishTime shall be an update as defined in 5.4 to MPDs with earlier @publishTime.
+                 *  @return     a reference to a string
+                 */
+                virtual const std::string&                          GetPublishTime		            ()  const = 0;
+
                 /**
                  *  Returns a reference to a string that specifies the latest Segment availability end time for any Segment in the Media Presentation. When not present, the value is unknown.
                  *  @return     a reference to a string

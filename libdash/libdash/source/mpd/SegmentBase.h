@@ -31,24 +31,33 @@ namespace dash
                 const IURLType*     GetInitialization           ()  const;
                 const IURLType*     GetRepresentationIndex      ()  const;
                 uint32_t            GetTimescale                ()  const;
-                uint32_t            GetPresentationTimeOffset   ()  const;
+                uint64_t            GetPresentationTimeOffset   ()  const;
+				const std::string&  GetTimeShiftBufferDepth     ()  const;
                 const std::string&  GetIndexRange               ()  const;
                 bool                HasIndexRangeExact          ()  const;
+				double              GetAvailabilityTimeOffset   ()  const;
+				bool                HasAvailabilityTimeComplete ()  const;
 
                 void    SetInitialization           (URLType *initialization);
                 void    SetRepresentationIndex      (URLType *representationIndex);
                 void    SetTimescale                (uint32_t timescale);
-                void    SetPresentationTimeOffset   (uint32_t presentationTimeOffset);
+                void    SetPresentationTimeOffset   (uint64_t presentationTimeOffset);
+				void    SetTimeShiftBufferDepth     (const std::string& timeShiftBufferDepth);
                 void    SetIndexRange               (const std::string& indexRange);
                 void    SetIndexRangeExact          (bool indexRangeExact);
+				void    SetAvailabilityTimeOffset   (double availabilityTimeOffset);
+				void    SetAvailabilityTimeComplete (bool availabilityTimeComplete);
 
             protected:
                 URLType     *initialization;
                 URLType     *representationIndex;
                 uint32_t    timescale;
-                uint32_t    presentationTimeOffset;
+                uint64_t    presentationTimeOffset;
+				std::string timeShiftBufferDepth;
                 std::string indexRange;
                 bool        indexRangeExact;
+				double		availabilityTimeOffset;
+				bool        availabilityTimeComplete;
         };
     }
 }

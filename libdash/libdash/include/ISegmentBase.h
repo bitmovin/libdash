@@ -63,7 +63,15 @@ namespace dash
                  *  If not present on any level, the value of the presentation time offset is 0. 
                  *  @return     an unsigned integer
                  */
-                virtual uint32_t            GetPresentationTimeOffset   ()  const = 0;
+                virtual uint64_t            GetPresentationTimeOffset   ()  const = 0;
+
+				/**
+                 *  Returns a string that specifies the duration of the time shifting buffer for this Representation that is guaranteed to be available for a Media Presentation\n
+				 *  with type 'dynamic'. When not present, the value is of the @timeShiftBufferDepth on MPD level applies. If present, this value shall be not smaller than the value\n
+				 *  on MPD level. This value of the attribute is undefined if the type attribute is equal to ‘static’.
+                 *  @return     a reference to a string
+                 */
+                virtual const std::string&  GetTimeShiftBufferDepth     ()  const = 0;
 
                 /**
                  *  Returns a string that specifies the byte range that contains the Segment Index in all Media Segments of the Representation.\n
@@ -79,6 +87,20 @@ namespace dash
                  *  @return     a bool value
                  */
                 virtual bool                HasIndexRangeExact          ()  const = 0;
+
+				/**
+                 *  Returns a double that specifies an offset to define the adjusted segment availability time. The value is specified in seconds, possibly with arbitrary\n
+				 *  precision.
+                 *  @return     a double
+                 */
+                virtual double              GetAvailabilityTimeOffset   ()  const = 0;
+
+				/**
+                 *  When set to \c 'true' specifies all Segments of all associated Representation are complete at the adjusted availability start time. The attribute shall be ignored\n
+				 *  if @availabilityTimeOffset is not present on any level.
+                 *  @return     a bool value
+                 */
+                virtual bool                HasAvailabilityTimeComplete ()  const = 0;
         };
     }
 }
