@@ -29,11 +29,14 @@ namespace dash
                 virtual ~Subset ();
 
                 const std::vector<uint32_t>&    Contains   ()  const;
+				const std::string&              GetId      ()  const;
 
                 void    SetSubset   (const std::string& subset);
+				void    SetId       (const std::string& id);
 
             private:
                 std::vector<uint32_t>   subset;
+				std::string				id;
         };
     }
 }

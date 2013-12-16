@@ -13,7 +13,8 @@
 
 using namespace dash::mpd;
 
-Subset::Subset ()
+Subset::Subset () :
+		id("")
 {
 }
 Subset::~Subset ()
@@ -23,6 +24,14 @@ Subset::~Subset ()
 const std::vector<uint32_t>&    Subset::Contains    ()  const
 {
     return this->subset;
+}
+const std::string&              Subset::GetId       ()  const
+{
+    return this->id;
+}
+void                            Subset::SetId       (const std::string& id)
+{
+    this->id = id;
 }
 void                            Subset::SetSubset   (const std::string& subset)
 {
