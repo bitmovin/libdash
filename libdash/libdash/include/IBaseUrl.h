@@ -36,14 +36,14 @@ namespace dash
                  *  Returns the reference to a string representing a BaseURL
                  *  @return     a reference to a string
                  */
-                virtual const std::string& GetUrl               ()  const = 0;
+                virtual const std::string& GetUrl                       ()  const = 0;
 
                 /**
                  *  Returns the reference to a string that specifies a relationship between Base URLs such that \c <b>BaseURL</b> elements with the same 
                  *  \c \@serviceLocation value are likely to have their URLs resolve to services at a common network location, for example a common Content Delivery Network
                  *  @return     a reference to a string
                  */
-                virtual const std::string& GetServiceLocation   ()  const = 0;
+                virtual const std::string&  GetServiceLocation          ()  const = 0;
 
                 /**
                  *  Returns the reference to a string that represents a byte range. \n
@@ -53,7 +53,21 @@ namespace dash
                  *  \b NOTE:    Such alternative requests are expected to not be used unless the DASH application requires this. For more details refer to Annex E.
                  *  @return     a reference to a string
                  */
-                virtual const std::string& GetByteRange         ()  const = 0;
+                virtual const std::string&  GetByteRange                ()  const = 0;
+
+                /**
+                 *  Returns a double that specifies an offset to define the adjusted segment availability time. The value is specified in seconds, possibly with arbitrary\n
+                 *  precision.
+                 *  @return     a double
+                 */
+                virtual double              GetAvailabilityTimeOffset   ()  const = 0;
+
+                /**
+                 *  When set to \c 'true' specifies all Segments of all associated Representation are complete at the adjusted availability start time. The attribute shall be ignored\n
+                 *  if @availabilityTimeOffset is not present on any level.
+                 *  @return     a bool value
+                 */
+                virtual bool                HasAvailabilityTimeComplete ()  const = 0;
 
                  /**
                  *  Returns a pointer to a dash::mpd::ISegment object which represents a media segment that can be downloaded. Should be used for single base urls inside 
@@ -61,7 +75,7 @@ namespace dash
                  *  @param      baseurls    a vector of pointers to dash::mpd::IBaseUrl objects that represent the path to the media segment
                  *  @return     a pointer to a dash::mpd::ISegment object
                  */
-                virtual ISegment*           ToMediaSegment      (const std::vector<IBaseUrl *>& baseurls) const = 0;
+                virtual ISegment*           ToMediaSegment              (const std::vector<IBaseUrl *>& baseurls) const = 0;
         };
     }
 }

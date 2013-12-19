@@ -21,6 +21,7 @@ SegmentBase::SegmentBase    ()  :
                 timeShiftBufferDepth(""),
                 indexRange(""),
                 indexRangeExact(false),
+                availabilityTimeOffset(0),
                 availabilityTimeComplete(true)
 {
 }

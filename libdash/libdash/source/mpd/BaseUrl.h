@@ -28,20 +28,26 @@ namespace dash
                 BaseUrl         ();
                 virtual ~BaseUrl();
 
-                const std::string& GetUrl               ()  const;
-                const std::string& GetServiceLocation   ()  const;
-                const std::string& GetByteRange         ()  const;
+                const std::string& GetUrl                      ()  const;
+                const std::string& GetServiceLocation          ()  const;
+                const std::string& GetByteRange                ()  const;
+                double             GetAvailabilityTimeOffset   ()  const;
+                bool               HasAvailabilityTimeComplete ()  const;
 
-                void    SetUrl              (const std::string& url);
-                void    SetServiceLocation  (const std::string& serviceLocation);
-                void    SetByteRange        (const std::string& byteRange);
+                void    SetUrl                      (const std::string& url);
+                void    SetServiceLocation          (const std::string& serviceLocation);
+                void    SetByteRange                (const std::string& byteRange);
+                void    SetAvailabilityTimeOffset   (double availabilityTimeOffset);
+                void    SetAvailabilityTimeComplete (bool availabilityTimeComplete);
 
-                virtual ISegment* ToMediaSegment (const std::vector<IBaseUrl *>& baseurls) const;
+                virtual ISegment* ToMediaSegment    (const std::vector<IBaseUrl *>& baseurls) const;
 
             private:
                 std::string url;
                 std::string serviceLocation;
                 std::string byteRange;
+                double      availabilityTimeOffset;
+                bool        availabilityTimeComplete;
         };
     }
 }
