@@ -15,7 +15,8 @@ using namespace dash::mpd;
 
 Descriptor::Descriptor  () :
             schemeIdUri (""),
-            value       ("")
+            value       (""),
+            id          ("")
 {
 }
 Descriptor::~Descriptor ()
@@ -36,4 +37,12 @@ const std::string&  Descriptor::GetValue        ()  const
 void                Descriptor::SetValue        (const std::string& value) 
 {
     this->value = value;
+}
+const std::string&  Descriptor::GetId           ()  const
+{
+    return this->id;
+}
+void                Descriptor::SetId           (const std::string& id) 
+{
+    this->id = id;
 }

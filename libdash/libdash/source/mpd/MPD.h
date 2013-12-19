@@ -42,7 +42,7 @@ namespace dash
                 const std::vector<std::string>&             GetProfiles                     ()  const;
                 const std::string&                          GetType                         ()  const;
                 const std::string&                          GetAvailabilityStarttime        ()  const;
-				const std::string&							GetPublishTime					()  const;
+                const std::string&                          GetPublishTime                  ()  const;
                 const std::string&                          GetAvailabilityEndtime          ()  const;
                 const std::string&                          GetMediaPresentationDuration    ()  const;
                 const std::string&                          GetMinimumUpdatePeriod          ()  const;
@@ -68,7 +68,7 @@ namespace dash
                 void    SetProfiles                     (const std::string& profiles);
                 void    SetType                         (const std::string& type);
                 void    SetAvailabilityStarttime        (const std::string& availabilityStarttime);
-				void	SetPublishTime					(const std::string& publishTime);
+                void    SetPublishTime                  (const std::string& publishTime);
                 void    SetAvailabilityEndtime          (const std::string& availabilityEndtime);
                 void    SetMediaPresentationDuration    (const std::string& mediaPresentationDuration);
                 void    SetMinimumUpdatePeriod          (const std::string& minimumUpdatePeriod);
@@ -90,7 +90,7 @@ namespace dash
                 std::vector<std::string>            profiles;
                 std::string                         type;
                 std::string                         availabilityStarttime;
-				std::string							publishTime;
+                std::string                         publishTime;
                 std::string                         availabilityEndtime;
                 std::string                         mediaPresentationDuration;
                 std::string                         minimumUpdatePeriod;

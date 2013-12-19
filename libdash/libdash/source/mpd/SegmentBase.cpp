@@ -18,10 +18,10 @@ SegmentBase::SegmentBase    ()  :
                 representationIndex(NULL),
                 timescale(1),
                 presentationTimeOffset(0),
-				timeShiftBufferDepth(""),
+                timeShiftBufferDepth(""),
                 indexRange(""),
                 indexRangeExact(false),
-				availabilityTimeComplete(true)
+                availabilityTimeComplete(true)
 {
 }
 SegmentBase::~SegmentBase   ()

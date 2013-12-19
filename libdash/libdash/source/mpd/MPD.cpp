@@ -18,7 +18,7 @@ MPD::MPD    () :
         id(""),
         type("static"),
         availabilityStarttime(""),
-		publishTime(""),
+        publishTime(""),
         availabilityEndtime(""),
         mediaPresentationDuration(""),
         minimumUpdatePeriod(""),
@@ -113,11 +113,11 @@ void                                        MPD::SetAvailabilityStarttime       
 {
     this->availabilityStarttime = availabilityStarttime;
 }
-const std::string&                          MPD::GetPublishTime				        ()  const
+const std::string&                          MPD::GetPublishTime                     ()  const
 {
     return this->publishTime;
 }
-void                                        MPD::SetPublishTime			            (const std::string& publishTime)
+void                                        MPD::SetPublishTime                     (const std::string& publishTime)
 {
     this->publishTime = publishTime;
 }

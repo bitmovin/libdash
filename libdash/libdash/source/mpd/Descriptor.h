@@ -29,13 +29,16 @@ namespace dash
 
                 const std::string&      GetSchemeIdUri  () const;
                 const std::string&      GetValue        () const;
+                const std::string&      GetId           () const;
 
                 void    SetValue        (const std::string& value);
                 void    SetSchemeIdUri  (const std::string& schemeIdUri);
+                void    SetId           (const std::string& id);
 
             private:
                 std::string  schemeIdUri;
                 std::string  value;
+                std::string  id;
         };
     }
 }

@@ -61,6 +61,13 @@ namespace dash
                  *  @return     a reference to a string
                  */
                 virtual const std::string&      GetValue        () const = 0;
+
+                /**
+                 *  Returns a reference to a string that specifies an identifier for the Descriptor. It is recommended to use an identifier that is unique within 
+                 *  the scope in which the Descriptor is published. \n
+                 *  @return     a reference to a string
+                 */
+                virtual const std::string&      GetId           () const = 0;
         };
     }
 }

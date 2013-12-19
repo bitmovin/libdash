@@ -20,9 +20,11 @@
     <ClCompile Include="source\metrics\TCPConnection.cpp" />
     <ClCompile Include="source\metrics\ThroughputMeasurement.cpp" />
     <ClCompile Include="source\mpd\AbstractMPDElement.cpp" />
+    <ClCompile Include="source\mpd\AssetIdentifier.cpp" />
     <ClCompile Include="source\mpd\BaseUrl.cpp" />
     <ClCompile Include="source\mpd\ContentComponent.cpp" />
     <ClCompile Include="source\mpd\Descriptor.cpp" />
+    <ClCompile Include="source\mpd\EventStream.cpp" />
     <ClCompile Include="source\mpd\Metrics.cpp" />
     <ClCompile Include="source\mpd\MultipleSegmentBase.cpp" />
     <ClCompile Include="source\mpd\ProgramInformation.cpp" />
@@ -54,12 +56,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\IAdaptationSet.h" />
+    <ClInclude Include="include\IAssetIdentifier.h" />
     <ClInclude Include="include\IBaseUrl.h" />
     <ClInclude Include="include\IConnection.h" />
     <ClInclude Include="include\IContentComponent.h" />
     <ClInclude Include="include\IDescriptor.h" />
     <ClInclude Include="include\IDownloadableChunk.h" />
     <ClInclude Include="include\IDownloadObserver.h" />
+    <ClInclude Include="include\IEventStream.h" />
     <ClInclude Include="include\IHTTPTransaction.h" />
     <ClInclude Include="include\IMetrics.h" />
     <ClInclude Include="include\IMPD.h" />
@@ -95,8 +99,10 @@
     <ClInclude Include="source\metrics\TCPConnection.h" />
     <ClInclude Include="source\metrics\ThroughputMeasurement.h" />
     <ClInclude Include="source\mpd\AbstractMPDElement.h" />
+    <ClInclude Include="source\mpd\AssetIdentifier.h" />
     <ClInclude Include="source\mpd\ContentComponent.h" />
     <ClInclude Include="source\mpd\Descriptor.h" />
+    <ClInclude Include="source\mpd\EventStream.h" />
     <ClInclude Include="source\mpd\Metrics.h" />
     <ClInclude Include="source\mpd\MultipleSegmentBase.h" />
     <ClInclude Include="source\mpd\ProgramInformation.h" />
