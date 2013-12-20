@@ -16,6 +16,7 @@
 
 #include "IPeriod.h"
 #include "BaseUrl.h"
+#include "EventStream.h"
 #include "AdaptationSet.h"
 #include "Subset.h"
 #include "SegmentBase.h"
@@ -38,6 +39,7 @@ namespace dash
                 ISegmentList*                           GetSegmentList          ()  const;
                 ISegmentTemplate*                       GetSegmentTemplate      ()  const;
                 const std::vector<IAdaptationSet *>&    GetAdaptationSets       ()  const;
+                const std::vector<IEventStream *>&      GetEventStreams         ()  const;
                 const std::vector<ISubset *>&           GetSubsets              ()  const;
                 const std::string&                      GetXlinkHref            ()  const;
                 const std::string&                      GetXlinkActuate         ()  const;
@@ -50,6 +52,7 @@ namespace dash
                 void    SetSegmentBase              (SegmentBase *segmentBase);
                 void    SetSegmentList              (SegmentList *segmentList);
                 void    SetSegmentTemplate          (SegmentTemplate *segmentTemplate);
+                void    AddEventStream              (EventStream *EventStream);
                 void    AddAdaptationSet            (AdaptationSet *AdaptationSet);
                 void    AddSubset                   (Subset *subset);
                 void    SetXlinkHref                (const std::string& xlinkHref);
@@ -65,6 +68,7 @@ namespace dash
                 SegmentList                     *segmentList;
                 SegmentTemplate                 *segmentTemplate;
                 std::vector<AdaptationSet *>    adaptationSets;
+                std::vector<EventStream *>      eventStreams;
                 std::vector<Subset *>           subsets;
                 std::string                     xlinkHref;
                 std::string                     xlinkActuate;

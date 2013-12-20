@@ -141,6 +141,9 @@
     <ClCompile Include="source\mpd\EventStream.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="source\mpd\Event.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\targetver.h">
@@ -381,6 +384,12 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="source\mpd\EventStream.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IEvent.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="source\mpd\Event.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

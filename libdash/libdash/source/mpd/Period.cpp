@@ -70,6 +70,15 @@ void                                Period::SetSegmentTemplate      (SegmentTemp
 {
     this->segmentTemplate = segmentTemplate;
 }
+const std::vector<IEventStream*>&   Period::GetEventStreams           () const
+{
+    return (std::vector<IEventStream*> &) this->eventStreams;
+}
+void                                Period::AddEventStream          (EventStream *eventStream)
+{
+    if(eventStream != NULL)
+        this->eventStreams.push_back(eventStream);
+}
 const std::vector<IAdaptationSet*>& Period::GetAdaptationSets       () const
 {
     return (std::vector<IAdaptationSet*> &) this->adaptationSets;

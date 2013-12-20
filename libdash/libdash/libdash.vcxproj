@@ -24,6 +24,7 @@
     <ClCompile Include="source\mpd\BaseUrl.cpp" />
     <ClCompile Include="source\mpd\ContentComponent.cpp" />
     <ClCompile Include="source\mpd\Descriptor.cpp" />
+    <ClCompile Include="source\mpd\Event.cpp" />
     <ClCompile Include="source\mpd\EventStream.cpp" />
     <ClCompile Include="source\mpd\Metrics.cpp" />
     <ClCompile Include="source\mpd\MultipleSegmentBase.cpp" />
@@ -63,6 +64,7 @@
     <ClInclude Include="include\IDescriptor.h" />
     <ClInclude Include="include\IDownloadableChunk.h" />
     <ClInclude Include="include\IDownloadObserver.h" />
+    <ClInclude Include="include\IEvent.h" />
     <ClInclude Include="include\IEventStream.h" />
     <ClInclude Include="include\IHTTPTransaction.h" />
     <ClInclude Include="include\IMetrics.h" />
@@ -102,6 +104,7 @@
     <ClInclude Include="source\mpd\AssetIdentifier.h" />
     <ClInclude Include="source\mpd\ContentComponent.h" />
     <ClInclude Include="source\mpd\Descriptor.h" />
+    <ClInclude Include="source\mpd\Event.h" />
     <ClInclude Include="source\mpd\EventStream.h" />
     <ClInclude Include="source\mpd\Metrics.h" />
     <ClInclude Include="source\mpd\MultipleSegmentBase.h" />

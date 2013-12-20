@@ -49,6 +49,7 @@
 #include "ISegmentBase.h"
 #include "ISegmentList.h"
 #include "ISegmentTemplate.h"
+#include "IEventStream.h"
 #include "IAdaptationSet.h"
 #include "ISubset.h"
 
@@ -91,6 +92,13 @@ namespace dash
                  *  @return     a pointer to a dash::mpd::ISegmentTemplate object
                  */
                 virtual ISegmentTemplate*                       GetSegmentTemplate      ()  const = 0;
+
+                /**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IEventStream objects that specify Event Streams.\n
+                 *  For more details see section 5.10.2. of <em>ISO/IEC 23009-1, Part 1, 2012</em>.
+                 *  @return     a reference to a vector of pointers to dash::mpd::IAdaptationSet objects
+                 */
+                virtual const std::vector<IEventStream *>&    GetEventStreams           ()  const = 0;
 
                 /**
                  *  Returns a reference to a vector of pointers to dash::mpd::IAdaptationSet objects that specify Adapatation Sets.\n

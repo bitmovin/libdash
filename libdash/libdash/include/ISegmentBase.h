@@ -58,10 +58,10 @@ namespace dash
                 virtual uint32_t            GetTimescale                ()  const = 0;
 
                 /**
-                 *  Returns an integer that specifies the presentation time offset of the Representation relative to the start of the Period.\n
+                 *  Returns a long that specifies the presentation time offset of the Representation relative to the start of the Period.\n
                  *  The value of the presentation time offset in seconds is the division of the value of this attribute and the value of the \c \@timescale attribute.\n
                  *  If not present on any level, the value of the presentation time offset is 0. 
-                 *  @return     an unsigned integer
+                 *  @return     an unsigned long
                  */
                 virtual uint64_t            GetPresentationTimeOffset   ()  const = 0;
 
