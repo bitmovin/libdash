@@ -54,6 +54,29 @@ namespace dash
                 virtual const std::vector<IDescriptor *>&   GetContentProtection            () const = 0;
 
                 /**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IDescriptor objects that specifies information about the containing element that is considered essential by the Media\n
+                 *  Presentation author for processing the containing element.\n
+                 *  For further details see sections 5.8.4.8 of <em>ISO/IEC 23009-1, Part 1, 2012</em>.
+                 *  @return     a reference to a vector of pointers to dash::mpd::IDescriptor objects
+                 */
+                virtual const std::vector<IDescriptor *>&   GetEssentialProperty            () const = 0;
+
+                /**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IDescriptor objects that specifies supplemental information about the containing element that may be used by the DASH client\n
+                 *  optimizing the processing.\n
+                 *  For further details see sections 5.8.4.9 of <em>ISO/IEC 23009-1, Part 1, 2012</em>.
+                 *  @return     a reference to a vector of pointers to dash::mpd::IDescriptor objects
+                 */
+                virtual const std::vector<IDescriptor *>&   GetSupplementalProperty          () const = 0;
+
+                /**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IDescriptor objects that specifies specifies the presence of an inband event stream in the associated Representations.\n
+                 *  For further details see sections 5.10 of <em>ISO/IEC 23009-1, Part 1, 2012</em>.
+                 *  @return     a reference to a vector of pointers to dash::mpd::IDescriptor objects
+                 */
+                virtual const std::vector<IDescriptor *>&   GetInbandEventStream            () const = 0;
+
+                /**
                  *  Returns a reference to a vector of strings that specifies the profiles which the associated Representation(s) 
                  *  conform to of the list of Media Presentation profiles as described in section 8 of <em>ISO/IEC 23009-1, Part 1, 2012</em>. 
                  *  The value shall be a subset of the respective value in any higher level of the document hierarchy (Representation, Adaptation Set, MPD).\n

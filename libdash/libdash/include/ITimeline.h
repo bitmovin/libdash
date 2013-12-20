@@ -41,24 +41,24 @@ namespace dash
                  *  the value shall be assumed to be the sum of the previous <tt><b>S</b></tt> element's earliest presentation time and contiguous duration 
                  *  (i.e. previous <tt><b>S</b>\@t</tt> + \c \@d * (\c \@r + 1)).\n\n
                  *  \em StartTime corresponds to the \c \@t attribute.
-                 *  @return     an unsigned integer
+                 *  @return     an unsigned long
                  */
-                virtual uint32_t    GetStartTime    ()  const = 0;
+                virtual uint64_t    GetStartTime    ()  const = 0;
 
                 /**
                  *  Returns the integer that specifies the Segment duration, in units of the value of the \c \@timescale. \n\n
                  *  \em Duration corresponds to the \c \@d attribute.
-                 *  @return     an unsigned integer
+                 *  @return     an unsigned long
                  */
-                virtual uint32_t    GetDuration     ()  const = 0;
+                virtual uint64_t    GetDuration     ()  const = 0;
 
                 /**
                  *  Returns an integer that specifies the repeat count of the number of following contiguous Segments with the same duration expressed by the value of \c \@d.
                  *  This value is zero-based (e.g. a value of three means four Segments in the contiguous series). \n\n
                  *  \em RepeatCount corresponds to the \c \@r attribute.
-                 *  @return     an unsigned integer
+                 *  @return     an integer
                  */
-                virtual uint32_t    GetRepeatCount  ()  const = 0;
+                virtual int32_t     GetRepeatCount  ()  const = 0;
         };
     }
 }

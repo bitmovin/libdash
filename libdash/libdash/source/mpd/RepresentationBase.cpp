@@ -35,6 +35,12 @@ RepresentationBase::~RepresentationBase ()
         delete(this->audioChannelConfiguration.at(i));
     for(size_t i = 0; i < this->contentProtection.size(); i++)
         delete(this->contentProtection.at(i));
+    for(size_t i = 0; i < this->essentialProperty.size(); i++)
+        delete(this->essentialProperty.at(i));
+    for(size_t i = 0; i < this->supplementalProperty.size(); i++)
+        delete(this->supplementalProperty.at(i));
+    for(size_t i = 0; i < this->inbandEventStream.size(); i++)
+        delete(this->inbandEventStream.at(i));
 }
 
 const std::vector<IDescriptor*>&    RepresentationBase::GetFramePacking                 () const 
@@ -60,6 +66,30 @@ const std::vector<IDescriptor*>&    RepresentationBase::GetContentProtection    
 void                                RepresentationBase::AddContentProtection            (Descriptor *contentProtection)
 {
     this->contentProtection.push_back(contentProtection);
+}
+const std::vector<IDescriptor*>&    RepresentationBase::GetEssentialProperty            () const
+{
+    return (std::vector<IDescriptor*> &) this->essentialProperty;
+}
+void                                RepresentationBase::AddEssentialProperty            (Descriptor *essentialProperty)
+{
+    this->essentialProperty.push_back(essentialProperty);
+}
+const std::vector<IDescriptor*>&    RepresentationBase::GetSupplementalProperty            () const
+{
+    return (std::vector<IDescriptor*> &) this->supplementalProperty;
+}
+void                                RepresentationBase::AddSupplementalProperty            (Descriptor *supplementalProperty)
+{
+    this->supplementalProperty.push_back(supplementalProperty);
+}
+const std::vector<IDescriptor*>&    RepresentationBase::GetInbandEventStream            () const
+{
+    return (std::vector<IDescriptor*> &) this->inbandEventStream;
+}
+void                                RepresentationBase::AddInbandEventStream            (Descriptor *inbandEventStream)
+{
+    this->inbandEventStream.push_back(inbandEventStream);
 }
 const std::vector<std::string>&     RepresentationBase::GetProfiles                     () const
 {
