@@ -28,7 +28,7 @@
  *              representing an Early Available Period in later updates of the MPD as long as no \em PeriodStart time is associated with the Period. \n\n
  *              To avoid dereferencing of a remote element containing a <tt><b>Period</b></tt> element solely to determine the Period timeline, e.g. in case of seeking, 
  *              <tt><b>Period</b>\@start</tt> or previous Period's <tt><b>Period</b>\@duration</tt> should be present in the MPD.
- *  @see        dash::mpd::IMPDElement dash::mpd::BaseUrl dash::mpd::IAdaptationSet dash::mpd::ISegmentBase dash::mpd::ISegmentList dash::mpd::ISegmentTemplate dash::mpd::ISubset
+ *  @see        dash::mpd::IMPDElement dash::mpd::BaseUrl dash::mpd::IAdaptationSet dash::mpd::ISegmentBase dash::mpd::ISegmentList dash::mpd::ISegmentTemplate dash::mpd::ISubset dash::mpd::IDescriptor
  *
  *  @author     bitmovin Softwareentwicklung OG \n
  *              Email: libdash-dev@vicky.bitmovin.net
@@ -46,6 +46,7 @@
 
 #include "IMPDElement.h"
 #include "IBaseUrl.h"
+#include "IDescriptor.h"
 #include "ISegmentBase.h"
 #include "ISegmentList.h"
 #include "ISegmentTemplate.h"
@@ -94,11 +95,18 @@ namespace dash
                 virtual ISegmentTemplate*                       GetSegmentTemplate      ()  const = 0;
 
                 /**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IDescriptor objects that specifies that this Period belongs to a certain asset\n
+                 *  For further details see sections 5.8.5.7 of <em>ISO/IEC 23009-1, Part 1, 2012</em>.
+                 *  @return     a reference to a vector of pointers to dash::mpd::IDescriptor objects
+                 */
+                virtual const std::vector<IDescriptor *>&       GetAssetIdentifiers     () const = 0;
+
+                /**
                  *  Returns a reference to a vector of pointers to dash::mpd::IEventStream objects that specify Event Streams.\n
                  *  For more details see section 5.10.2. of <em>ISO/IEC 23009-1, Part 1, 2012</em>.
                  *  @return     a reference to a vector of pointers to dash::mpd::IAdaptationSet objects
                  */
-                virtual const std::vector<IEventStream *>&    GetEventStreams           ()  const = 0;
+                virtual const std::vector<IEventStream *>&      GetEventStreams           ()  const = 0;
 
                 /**
                  *  Returns a reference to a vector of pointers to dash::mpd::IAdaptationSet objects that specify Adapatation Sets.\n

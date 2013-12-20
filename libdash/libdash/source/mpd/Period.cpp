@@ -29,6 +29,8 @@ Period::~Period ()
 {
     for(size_t i = 0; i < this->baseURLs.size(); i++)
         delete(this->baseURLs.at(i));
+    for(size_t i = 0; i < this->assetIdentifiers.size(); i++)
+        delete(this->assetIdentifiers.at(i));
     for(size_t i = 0; i < this->eventStreams.size(); i++)
         delete(this->eventStreams.at(i));
     for(size_t i = 0; i < this->adaptationSets.size(); i++)
@@ -71,6 +73,15 @@ ISegmentTemplate*                   Period::GetSegmentTemplate      ()  const
 void                                Period::SetSegmentTemplate      (SegmentTemplate *segmentTemplate) 
 {
     this->segmentTemplate = segmentTemplate;
+}
+const std::vector<IDescriptor*>&    Period::GetAssetIdentifiers     () const
+{
+    return (std::vector<IDescriptor*> &) this->assetIdentifiers;
+}
+void                                Period::AddAssetIdentifier      (Descriptor *assetIdentifier)
+{
+    if(assetIdentifier != NULL)
+        this->assetIdentifiers.push_back(assetIdentifier);
 }
 const std::vector<IEventStream*>&   Period::GetEventStreams           () const
 {

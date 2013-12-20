@@ -135,9 +135,6 @@
     <ClCompile Include="source\helpers\Time.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="source\mpd\AssetIdentifier.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="source\mpd\EventStream.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -372,12 +369,6 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="include\IDASHMetrics.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="include\IAssetIdentifier.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="source\mpd\AssetIdentifier.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="include\IEventStream.h">

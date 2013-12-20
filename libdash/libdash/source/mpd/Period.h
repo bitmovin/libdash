@@ -16,6 +16,7 @@
 
 #include "IPeriod.h"
 #include "BaseUrl.h"
+#include "Descriptor.h"
 #include "EventStream.h"
 #include "AdaptationSet.h"
 #include "Subset.h"
@@ -38,6 +39,7 @@ namespace dash
                 ISegmentBase*                           GetSegmentBase          ()  const;
                 ISegmentList*                           GetSegmentList          ()  const;
                 ISegmentTemplate*                       GetSegmentTemplate      ()  const;
+                const std::vector<IDescriptor *>&       GetAssetIdentifiers     ()  const;
                 const std::vector<IAdaptationSet *>&    GetAdaptationSets       ()  const;
                 const std::vector<IEventStream *>&      GetEventStreams         ()  const;
                 const std::vector<ISubset *>&           GetSubsets              ()  const;
@@ -52,6 +54,7 @@ namespace dash
                 void    SetSegmentBase              (SegmentBase *segmentBase);
                 void    SetSegmentList              (SegmentList *segmentList);
                 void    SetSegmentTemplate          (SegmentTemplate *segmentTemplate);
+                void    AddAssetIdentifier          (Descriptor *assetIdentifier);
                 void    AddEventStream              (EventStream *EventStream);
                 void    AddAdaptationSet            (AdaptationSet *AdaptationSet);
                 void    AddSubset                   (Subset *subset);
@@ -67,6 +70,7 @@ namespace dash
                 SegmentBase                     *segmentBase;
                 SegmentList                     *segmentList;
                 SegmentTemplate                 *segmentTemplate;
+                std::vector<Descriptor *>       assetIdentifiers;
                 std::vector<AdaptationSet *>    adaptationSets;
                 std::vector<EventStream *>      eventStreams;
                 std::vector<Subset *>           subsets;
