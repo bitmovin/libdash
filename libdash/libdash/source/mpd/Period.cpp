@@ -29,6 +29,8 @@ Period::~Period ()
 {
     for(size_t i = 0; i < this->baseURLs.size(); i++)
         delete(this->baseURLs.at(i));
+    for(size_t i = 0; i < this->eventStreams.size(); i++)
+        delete(this->eventStreams.at(i));
     for(size_t i = 0; i < this->adaptationSets.size(); i++)
         delete(this->adaptationSets.at(i));
     for(size_t i = 0; i < this->subsets.size(); i++)
