@@ -55,6 +55,20 @@ namespace dash
                  */
                 virtual const std::string&                  GetMetrics      ()  const = 0;
 
+                /**
+                 *  Returns a reference to a string that specifies the start time of the DASH Metrics collection operation. When not present, DASH Metrics collection is requested from the beginning of\n
+                 *  content consumption.
+                 *  @return     a reference to a string
+                 */
+                virtual const std::string&                  GetStartTime    ()  const = 0;
+
+                /**
+                 *  Returns a reference to a string that specifies the duration of the DASH metrics collection interval. The value of the attribute expresses in Media Presentation time.\n
+                 *  If not present, the value is identical to the Media Presentation duration.
+                 *  @return     a reference to a string
+                 */
+                virtual const std::string&                  GetDuration     ()  const = 0;
+
         };
     }
 }

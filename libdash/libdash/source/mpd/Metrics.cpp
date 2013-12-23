@@ -49,3 +49,19 @@ void                                Metrics::SetMetrics     (const std::string& 
 {
     this->metrics = metrics;
 }
+const std::string&                  Metrics::GetStartTime   ()  const
+{
+    return this->metrics;
+}
+void                                Metrics::SetStartTime   (const std::string& startTime)
+{
+    this->startTime = startTime;
+}
+const std::string&                  Metrics::GetDuration    ()  const
+{
+    return this->duration;
+}
+void                                Metrics::SetDuration    (const std::string& duration)
+{
+    this->duration = duration;
+}
