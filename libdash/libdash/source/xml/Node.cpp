@@ -127,6 +127,71 @@ dash::mpd::Descriptor*                      Node::ToDescriptor          ()  cons
     descriptor->AddRawAttributes(this->attributes);
     return descriptor;
 }
+dash::mpd::EventStream*                     Node::ToEventStream         ()  const
+{
+    dash::mpd::EventStream *eventStream = new dash::mpd::EventStream();
+    std::vector<Node *> subNodes = this->GetSubNodes();
+
+    if (this->HasAttribute("xlink:href"))
+    {
+        eventStream->SetXlinkHref(this->GetAttributeValue("xlink:href"));
+    }
+    if (this->HasAttribute("xlink:actuate"))
+    {
+        eventStream->SetXlinkActuate(this->GetAttributeValue("xlink:actuate"));
+    }
+    if (this->HasAttribute("schemeIdUri"))
+    {
+        eventStream->SetSchemeIdUri(this->GetAttributeValue("schemeIdUri"));
+    }
+    if (this->HasAttribute("value"))
+    {
+        eventStream->SetValue(this->GetAttributeValue("value"));
+    }
+    if (this->HasAttribute("timescale"))
+    {
+        eventStream->SetTimescale(strtoul(this->GetAttributeValue("timescale").c_str(), NULL, 10));
+    }
+
+    for(size_t i = 0; i < subNodes.size(); i++)
+    {
+        if (subNodes.at(i)->GetName() == "Event")
+        {
+            eventStream->AddEvent(subNodes.at(i)->ToEvent());
+            continue;
+        }
+        eventStream->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
+    }
+
+    eventStream->AddRawAttributes(this->attributes);
+    return eventStream;
+}
+dash::mpd::Event*                           Node::ToEvent               ()  const
+{
+    dash::mpd::Event *events = new dash::mpd::Event();
+    std::vector<Node *> subNodes = this->GetSubNodes();
+
+    if (this->HasAttribute("presentationTime"))
+    {
+        events->SetId(strtoul(this->GetAttributeValue("presentationTime").c_str(), NULL, 10));
+    }
+    if (this->HasAttribute("duration"))
+    {
+        events->SetId(strtoul(this->GetAttributeValue("duration").c_str(), NULL, 10));
+    }
+    if (this->HasAttribute("id"))
+    {
+        events->SetId(strtoul(this->GetAttributeValue("id").c_str(), NULL, 10));
+    }
+    
+    for(size_t i = 0; i < subNodes.size(); i++)
+    {
+        events->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
+    }
+
+    events->AddRawAttributes(this->attributes);
+    return events;
+}
 dash::mpd::ContentComponent*                Node::ToContentComponent    ()  const
 {
     dash::mpd::ContentComponent *contentComponent = new dash::mpd::ContentComponent();
@@ -372,7 +437,7 @@ dash::mpd::SubRepresentation*               Node::ToSubRepresentation   ()  cons
     }
     for (size_t i = 0; i < subNodes.size(); i++)
     {
-        if (subNodes.at(i)->GetName() != "FramePacking" && subNodes.at(i)->GetName() != "AudioChannelConfiguration" && subNodes.at(i)->GetName() != "ContentProtection")
+        if (subNodes.at(i)->GetName() != "FramePacking" && subNodes.at(i)->GetName() != "AudioChannelConfiguration" && subNodes.at(i)->GetName() != "ContentProtection" && subNodes.at(i)->GetName() != "EssentialProperty" && subNodes.at(i)->GetName() != "SupplementalProperty" && subNodes.at(i)->GetName() != "InbandEventStream")
             subRepresentation->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
     }
 
@@ -434,7 +499,7 @@ dash::mpd::Representation*                  Node::ToRepresentation      ()  cons
             representation->SetSegmentTemplate(subNodes.at(i)->ToSegmentTemplate());
             continue;
         }
-        if (subNodes.at(i)->GetName() != "FramePacking" && subNodes.at(i)->GetName() != "AudioChannelConfiguration" && subNodes.at(i)->GetName() != "ContentProtection")
+        if (subNodes.at(i)->GetName() != "FramePacking" && subNodes.at(i)->GetName() != "AudioChannelConfiguration" && subNodes.at(i)->GetName() != "ContentProtection" && subNodes.at(i)->GetName() != "EssentialProperty" && subNodes.at(i)->GetName() != "SupplementalProperty" && subNodes.at(i)->GetName() != "InbandEventStream")
             representation->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
     }
 
@@ -577,7 +642,7 @@ dash::mpd::AdaptationSet*                   Node::ToAdaptationSet       ()  cons
             adaptationSet->AddRepresentation(subNodes.at(i)->ToRepresentation());
             continue;
         }
-        if (subNodes.at(i)->GetName() != "FramePacking" && subNodes.at(i)->GetName() != "AudioChannelConfiguration" && subNodes.at(i)->GetName() != "ContentProtection")
+        if (subNodes.at(i)->GetName() != "FramePacking" && subNodes.at(i)->GetName() != "AudioChannelConfiguration" && subNodes.at(i)->GetName() != "ContentProtection" && subNodes.at(i)->GetName() != "EssentialProperty" && subNodes.at(i)->GetName() != "SupplementalProperty" && subNodes.at(i)->GetName() != "InbandEventStream")
             adaptationSet->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
     }
 
@@ -660,6 +725,16 @@ dash::mpd::Period*                          Node::ToPeriod              ()  cons
         if (subNodes.at(i)->GetName() == "SegmentTemplate")
         {
             period->SetSegmentTemplate(subNodes.at(i)->ToSegmentTemplate());
+            continue;
+        }
+        if (subNodes.at(i)->GetName() == "AssetIdentifier")
+        {
+            period->AddAssetIdentifier(subNodes.at(i)->ToDescriptor());
+            continue;
+        }
+        if (subNodes.at(i)->GetName() == "EventStream")
+        {
+            period->AddEventStream(subNodes.at(i)->ToEventStream());
             continue;
         }
         period->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
@@ -982,6 +1057,21 @@ void                                        Node::SetCommonValuesForRep (dash::m
         if (subNodes.at(i)->GetName() == "ContentProtection")
         {
             object.AddContentProtection(subNodes.at(i)->ToDescriptor());
+            continue;
+        }
+        if (subNodes.at(i)->GetName() == "EssentialProperty")
+        {
+            object.AddEssentialProperty(subNodes.at(i)->ToDescriptor());
+            continue;
+        }
+        if (subNodes.at(i)->GetName() == "SupplementalProperty")
+        {
+            object.AddSupplementalProperty(subNodes.at(i)->ToDescriptor());
+            continue;
+        }
+        if (subNodes.at(i)->GetName() == "InbandEventStream")
+        {
+            object.AddInbandEventStream(subNodes.at(i)->ToDescriptor());
             continue;
         }
     }

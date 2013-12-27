@@ -20,6 +20,8 @@
 #include "../mpd/BaseUrl.h"
 #include "../mpd/ContentComponent.h"
 #include "../mpd/Descriptor.h"
+#include "../mpd/Event.h"
+#include "../mpd/EventStream.h"
 #include "../mpd/Metrics.h"
 #include "../mpd/MPD.h"
 #include "../mpd/MultipleSegmentBase.h"
@@ -76,6 +78,8 @@ namespace dash
                 dash::mpd::BaseUrl*                         ToBaseUrl               ()  const;
                 dash::mpd::ContentComponent*                ToContentComponent      ()  const;
                 dash::mpd::Descriptor*                      ToDescriptor            ()  const;
+                dash::mpd::Event*                           ToEvent                 ()  const;
+                dash::mpd::EventStream*                     ToEventStream           ()  const;
                 dash::mpd::Metrics*                         ToMetrics               ()  const;
                 dash::mpd::Period*                          ToPeriod                ()  const;
                 dash::mpd::ProgramInformation*              ToProgramInformation    ()  const;

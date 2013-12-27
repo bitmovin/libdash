@@ -32,7 +32,7 @@ namespace dash
                 uint32_t    GetId                 ()  const;
 
                 void    SetPresentationTime (uint64_t presentationTime);
-                void    SetDuration         (uint64_t duariont);
+                void    SetDuration         (uint64_t duration);
                 void    SetId               (uint32_t id);
 
             private:

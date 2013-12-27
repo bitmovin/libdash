@@ -48,7 +48,7 @@ namespace dash
                  *  @timescale attribute.
                  *  @return     an unsigned long
                  */
-                virtual uint64_t    GetDuartion         ()  const = 0;
+                virtual uint64_t    GetDuration         ()  const = 0;
 
                 /**
                  *  Returns an integer that specifies an identifier for this instance of the event. Events with equivalent content \n
