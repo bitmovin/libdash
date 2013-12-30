@@ -173,11 +173,11 @@ dash::mpd::Event*                           Node::ToEvent               ()  cons
 
     if (this->HasAttribute("presentationTime"))
     {
-        events->SetId(strtoul(this->GetAttributeValue("presentationTime").c_str(), NULL, 10));
+        events->SetPresentationTime(strtoul(this->GetAttributeValue("presentationTime").c_str(), NULL, 10));
     }
     if (this->HasAttribute("duration"))
     {
-        events->SetId(strtoul(this->GetAttributeValue("duration").c_str(), NULL, 10));
+        events->SetDuration(strtoul(this->GetAttributeValue("duration").c_str(), NULL, 10));
     }
     if (this->HasAttribute("id"))
     {
