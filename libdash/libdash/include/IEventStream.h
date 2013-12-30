@@ -53,6 +53,14 @@ namespace dash
                 virtual const std::string&                      GetValue        () const = 0;
 
                 /**
+                 *  Returns a reference to an int that specifies the timescale in units per seconds to be used for the derivation of different\n
+                 *  real-time duration values in the Event elements.
+                 *  @return     a reference to an int
+                 */
+                virtual uint32_t                                GetTimescale    () const = 0;
+
+
+                /**
                  *  Returns a reference to a string that specifies a reference to an external <tt><b>EventStream</b></tt> element.
                  *  @return     a reference to a string
                  */
