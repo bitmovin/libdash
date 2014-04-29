@@ -60,7 +60,7 @@
     #include <errno.h>
     #include <stdlib.h>
     #include <iostream>
-
+    #include <unistd.h>
     #define CRITICAL_SECTION    pthread_mutex_t
     #define CONDITION_VARIABLE  pthread_cond_t
 
