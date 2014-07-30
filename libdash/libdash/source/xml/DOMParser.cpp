@@ -21,6 +21,16 @@ DOMParser::DOMParser    (std::string url) :
 {
     this->Init();
 }
+
+DOMParser::DOMParser    (std::string filePath, std::string baseUrl) :
+           realUrl      (baseUrl),
+           url          (filePath),
+           reader       (NULL),
+           root         (NULL)
+{
+    this->Init();
+}
+
 DOMParser::~DOMParser   ()
 {
     xmlCleanupParser();
@@ -38,7 +48,7 @@ bool    DOMParser::Parse                    ()
     if(this->reader == NULL)
         return false;
 
-    if(xmlTextReaderRead(this->reader)) 
+    if(xmlTextReaderRead(this->reader))
         this->root = this->ProcessNode();
 
     if(this->root == NULL)
@@ -62,7 +72,10 @@ Node*   DOMParser::ProcessNode              ()
 
         Node *node = new Node();
         node->SetType(type);
-        node->SetMPDPath(Path::GetDirectoryPath(url));
+        if (!realUrl.empty())
+            node->SetMPDPath(Path::GetDirectoryPath(realUrl));
+        else
+            node->SetMPDPath(Path::GetDirectoryPath(url));
 
         if(xmlTextReaderConstName(this->reader) == NULL)
         {

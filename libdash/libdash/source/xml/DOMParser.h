@@ -35,6 +35,7 @@ namespace dash
         {
             public:
                 DOMParser           (std::string url);
+                DOMParser           (std::string filePath, std::string url);
                 virtual ~DOMParser  ();
 
                 bool    Parse       ();
@@ -44,6 +45,7 @@ namespace dash
             private:
                 xmlTextReaderPtr    reader;
                 Node                *root;
+                std::string         realUrl;
                 std::string         url;
 
                 void    Init                    ();

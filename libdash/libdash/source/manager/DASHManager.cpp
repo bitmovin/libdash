@@ -23,7 +23,7 @@ DASHManager::DASHManager            ()
 DASHManager::~DASHManager           ()
 {
 }
-IMPD*           DASHManager::Open   (const char *path)
+IMPD*           DASHManager::Open   (const char *path) const
 {
     DOMParser parser(path);
 
@@ -39,6 +39,24 @@ IMPD*           DASHManager::Open   (const char *path)
 
     return mpd;
 }
+
+IMPD*           DASHManager::OpenLocalFile(const char *baseUrl, const char *filePath) const
+{
+    DOMParser parser(filePath, baseUrl);
+
+    uint32_t fetchTime = Time::GetCurrentUTCTimeInSec();
+
+    if (!parser.Parse())
+        return NULL;
+
+    MPD* mpd = parser.GetRootNode()->ToMPD();
+
+    if (mpd)
+        mpd->SetFetchTime(fetchTime);
+
+    return mpd;
+}
+
 void            DASHManager::Delete ()
 {
     delete this;
