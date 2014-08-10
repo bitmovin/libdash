@@ -37,7 +37,7 @@ In a typical deployment, a DASH server provides segments in several bitrates and
 </p>
 
 
-![libdash architecture](http://www.bitmovin.net/files/bitmovin/img/as/grafic-client-server.png "libdash architecture")
+![libdash architecture](http://www.bitmovin.net/files/bitmovin/img/libdash_arch.png "libdash architecture")
 
 ## Documentation
 
