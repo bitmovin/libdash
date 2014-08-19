@@ -1,7 +1,5 @@
 # libdash
 
-![libdash logo](http://www.bitmovin.net/files/bitmovin/img/logos/libdash.png "libdash")
-
 
 libdash is the **official reference software of the ISO/IEC MPEG-DASH standard** and is an open-source library that provides an object orient (OO) interface to the MPEG-DASH standard, developed by [bitmovin](http://www.bitmovin.net). 
 
@@ -23,12 +21,12 @@ libdash is the **official reference software of the ISO/IEC MPEG-DASH standard**
 
 In addition to the public available open source resources and the mailing list support, we provide professional development and integration services, consulting, high-quality streaming componentes/logics, relicensing of libdash etc. based on your individual needs. Feel free to contact us via sales@bitmovin.net so we can discuss your requirements and provide you an offer.
 
+## bitdash - Advanced MPEG-DASH Clients
 
-![libdash logo](http://www.bitmovin.net/files/bitmovin/img/logos/bitdash.png "bitdash")
 
-On top of libdash, we provide our [bitdash adaptation framework] (http://www.bitmovin.net/bitdash.html), which significantely boosts the streaming performance of MPEG-DASH. It enables up to 100 % higher media throughput than Apple HLS, and 50 % more than Microsoft Smooth Streaming. Additionally it comes together with streaming management functionalities, oscillation prevention mechanisms, DRM key management, multi-source (multi-CDN) support, and much more. It targets embedded platforms such as smartphones, TV-Sets, Set-Top Boxes, etc. and is available on any platform, including Windows, Linux, Mac, Android, etc. 
+On top of libdash, we provide our [bitdash adaptation framework] (http://www.bitmovin.net), which significantely boosts the streaming performance of MPEG-DASH. It enables up to 100 % higher media throughput than Apple HLS, and 50 % more than Microsoft Smooth Streaming. Additionally it comes together with streaming management functionalities, oscillation prevention mechanisms, DRM key management, multi-source (multi-CDN) support, and much more. It targets embedded platforms such as smartphones, TV-Sets, Set-Top Boxes, etc. and is available on any platform, including Windows, Linux, Mac, Android, etc. Furthermore, we've implementations for HTML5 (MSE) as well as Adobe Flash
 
-Please do not heasitate and contact sales@bitmovin.net to get further information on [bitdash] (http://www.bitmovin.net/bitdash.html)!
+Please do not heasitate and contact sales@bitmovin.net to get further information on [bitdash] (http://www.bitmovin.net/)!
 
 
 ## Architecture
@@ -39,7 +37,7 @@ In a typical deployment, a DASH server provides segments in several bitrates and
 </p>
 
 
-![libdash architecture](http://www.bitmovin.net/files/bitmovin/img/as/grafic-client-server.png "libdash architecture")
+![libdash architecture](http://www.bitmovin.net/files/bitmovin/img/libdash_arch.png "libdash architecture")
 
 ## Documentation
 
@@ -55,7 +53,7 @@ There are a lot of things to do! So everybody is invited to contribute, to get i
 
 ## Sources and Binaries
 
-You can find the latest sources and binaries in our [download section] (http://www.bitmovin.net/downloads.html) and on github.
+You can find the latest sources and binaries in our [download section] (http://www.bitmovin.net) and on github.
 
 ## How to use
 
