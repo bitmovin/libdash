@@ -36,8 +36,8 @@ namespace dash
                 ISegment*           ToBitstreamSwitchingSegment (const std::vector<IBaseUrl *>& baseurls, const std::string& representationID, uint32_t bandwidth) const;
                 ISegment*           GetMediaSegmentFromNumber   (const std::vector<IBaseUrl *>& baseurls, const std::string& representationID, uint32_t bandwidth, uint32_t number) const;
                 ISegment*           GetIndexSegmentFromNumber   (const std::vector<IBaseUrl *>& baseurls, const std::string& representationID, uint32_t bandwidth, uint32_t number) const;
-                ISegment*           GetMediaSegmentFromTime     (const std::vector<IBaseUrl *>& baseurls, const std::string& representationID, uint32_t bandwidth, uint32_t time) const;
-                ISegment*           GetIndexSegmentFromTime     (const std::vector<IBaseUrl *>& baseurls, const std::string& representationID, uint32_t bandwidth, uint32_t time) const;
+                ISegment*           GetMediaSegmentFromTime     (const std::vector<IBaseUrl *>& baseurls, const std::string& representationID, uint32_t bandwidth, uint64_t time) const;
+                ISegment*           GetIndexSegmentFromTime     (const std::vector<IBaseUrl *>& baseurls, const std::string& representationID, uint32_t bandwidth, uint64_t time) const;
 
                 void    SetMedia                (const std::string& media);
                 void    SetIndex                (const std::string& index);
@@ -45,10 +45,10 @@ namespace dash
                 void    SetBitstreamSwitching   (const std::string& bitstreamSwichting);
 
             private:
-                std::string ReplaceParameters   (const std::string& uri, const std::string& representationID, uint32_t bandwidth, uint32_t number, uint32_t time) const;
-                void        FormatChunk         (std::string& uri, uint32_t number) const;
+                std::string ReplaceParameters   (const std::string& uri, const std::string& representationID, uint32_t bandwidth, uint32_t number, uint64_t time) const;
+                void        FormatChunk         (std::string& uri, uint64_t number) const;
                 ISegment*   ToSegment           (const std::string& uri, const std::vector<IBaseUrl *>& baseurls, const std::string& representationID, uint32_t bandwidth, 
-                                                 dash::metrics::HTTPTransactionType type, uint32_t number = 0, uint32_t time = 0) const;
+                                                 dash::metrics::HTTPTransactionType type, uint32_t number = 0, uint64_t time = 0) const;
 
                 std::string media;
                 std::string index;

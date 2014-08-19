@@ -29,19 +29,19 @@ namespace dash
                 SubRepresentation          ();
                 virtual ~SubRepresentation ();
 
-                uint32_t                            GetLevel            () const;
-                const std::vector<uint32_t>&        GetDependencyLevel  () const;
+                uint64_t                            GetLevel            () const;
+                const std::vector<uint64_t>&        GetDependencyLevel  () const;
                 uint32_t                            GetBandWidth        () const;
                 const std::vector<std::string>&     GetContentComponent () const;
 
-                void    SetLevel                    (uint32_t level);
+                void    SetLevel                    (uint64_t level);
                 void    SetDependencyLevel          (const std::string& dependencyLevel);
                 void    SetBandWidth                (uint32_t bandWidth);
                 void    SetContentComponent         (const std::string& contentComponent);
 
             protected:
-                uint32_t                    level;
-                std::vector<uint32_t>       dependencyLevel;
+                uint64_t                    level;
+                std::vector<uint64_t>       dependencyLevel;
                 uint32_t                    bandWidth;
                 std::vector<std::string>    contentComponent;
         };

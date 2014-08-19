@@ -20,7 +20,7 @@ Subset::~Subset ()
 {
 }
 
-const std::vector<uint32_t>&    Subset::Contains    ()  const
+const std::vector<uint64_t>&    Subset::Contains    ()  const
 {
     return this->subset;
 }

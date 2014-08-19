@@ -38,7 +38,7 @@ namespace dash
                  *  a Subsegment Index as defined in section 6.3.2.4 of <em>ISO/IEC 23009-1, Part 1, 2012</em> shall be available for each Media Segment in the containing Representation.
                  *  @return     an unsigned integer
                  */
-                virtual uint32_t                            GetLevel            () const = 0;
+                virtual uint64_t                            GetLevel            () const = 0;
 
                 /**
                  *  Returns a reference to a vector of unsigned integers that specifies the set of Sub-Representations within this Representation that this Sub-Representation depends on
@@ -46,7 +46,7 @@ namespace dash
                  *  If not present, the Sub-Representation can be decoded and presented independently of any other Representation.
                  *  @return     a reference to a vector of unsigned integers
                  */
-                virtual const std::vector<uint32_t>&        GetDependencyLevel  () const = 0;
+                virtual const std::vector<uint64_t>&        GetDependencyLevel  () const = 0;
 
                 /**
                  *  Returns an integer that is identical to the \c \@bandwidth definition in Representation, but applied to this Sub-Representation.
