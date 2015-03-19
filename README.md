@@ -1,7 +1,11 @@
 # libdash
 
 
-libdash is the **official reference software of the ISO/IEC MPEG-DASH standard** and is an open-source library that provides an object orient (OO) interface to the MPEG-DASH standard, developed by [bitmovin](http://www.bitmovin.net). 
+libdash is the **official reference software of the ISO/IEC MPEG-DASH standard** and is an open-source library that provides an object orient (OO) interface to the MPEG-DASH standard, developed by [bitmovin](http://www.bitmovin.net).
+
+MPEG-DASH content could be generated with the cloud based transcoding service [bitcodin](http://www.bitcodin.com). Visit [www.bitcodin.com](http://www.bitcodin.com) and experience the fastest way of MPEG-DASH and Apple HLS video transcoding with $ 25 transcoding credit's for free.
+
+[![bitcodin](http://www.bitmovin.net/wp-content/uploads/2015/03/General-Try-Now-1024x538.jpg)](http://www.bitcodin.com)
 
 ## Features
 
