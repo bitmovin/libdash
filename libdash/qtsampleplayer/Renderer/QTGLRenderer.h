@@ -13,6 +13,7 @@
 #define QTGLRENDERER_H_
 
 #include "../libdashframework/Portable/MultiThreading.h"
+#include "VideoWall.h"
 #include <qimage.h>
 #include <QtOpenGL/QGLWidget>
 #include <QPaintEvent>
@@ -34,9 +35,39 @@ namespace sampleplayer
             private:
                 QImage              img;
                 CRITICAL_SECTION    monitorMutex;
+				VideoWall *videoWall;
+
+				int xRot;
+				int yRot;
+				int zRot;
+
+				GLuint curTex;
+
+				QPoint lastPos;
+				QColor qtGreen;
+				QColor qtPurple;
+
+			public slots:
+			void setXRotation(int angle);
+			void setYRotation(int angle);
+			void setZRotation(int angle);
+
+			signals:
+				void xRotationChanged(int angle);
+				void yRotationChanged(int angle);
+				void zRotationChanged(int angle);
 
             protected:
-                void paintEvent (QPaintEvent *paintEvent);
+                //void paintEvent (QPaintEvent *paintEvent);
+				void initializeGL();
+				void paintGL();
+				void resizeGL(int width, int height);
+
+				void mousePressEvent(QMouseEvent *event);
+				void mouseMoveEvent(QMouseEvent *event);
+
+				QSize minimumSizeHint() const;
+				QSize sizeHint() const;
         };
     }
 }

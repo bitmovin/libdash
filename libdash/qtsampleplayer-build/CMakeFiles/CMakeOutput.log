@@ -1,0 +1,101 @@
+The system is: Windows - 6.1 - AMD64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: C:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/bin/x86_amd64/cl.exe 
+Build flags: 
+Id flags: 
+
+The output was:
+0
+Microsoft (R) C/C++-Optimierungscompiler Version 18.00.21005.1 fÅr x64
+Copyright (C) Microsoft Corporation. Alle Rechte vorbehalten.
+
+CMakeCCompilerId.c
+Microsoft (R) Incremental Linker Version 12.00.21005.1
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/out:CMakeCCompilerId.exe 
+CMakeCCompilerId.obj 
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.exe"
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.obj"
+
+The C compiler identification is MSVC, found in "C:/Users/David/Desktop/DASH3D/libdash-master/libdash/qtsampleplayer-build/CMakeFiles/3.1.0-rc2/CompilerIdC/CMakeCCompilerId.exe"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: C:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/bin/x86_amd64/cl.exe 
+Build flags: 
+Id flags: 
+
+The output was:
+0
+Microsoft (R) C/C++-Optimierungscompiler Version 18.00.21005.1 fÅr x64
+Copyright (C) Microsoft Corporation. Alle Rechte vorbehalten.
+
+CMakeCXXCompilerId.cpp
+Microsoft (R) Incremental Linker Version 12.00.21005.1
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/out:CMakeCXXCompilerId.exe 
+CMakeCXXCompilerId.obj 
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.exe"
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.obj"
+
+The CXX compiler identification is MSVC, found in "C:/Users/David/Desktop/DASH3D/libdash-master/libdash/qtsampleplayer-build/CMakeFiles/3.1.0-rc2/CompilerIdCXX/CMakeCXXCompilerId.exe"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: C:/Users/David/Desktop/DASH3D/libdash-master/libdash/qtsampleplayer-build/CMakeFiles/CMakeTmp
+
+Run Build Command:"nmake" "/NOLOGO" "cmTryCompileExec1395734715\fast"
+	"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\BIN\nmake.exe" -f CMakeFiles\cmTryCompileExec1395734715.dir\build.make /nologo -L                  CMakeFiles\cmTryCompileExec1395734715.dir\build
+	"C:\Program Files (x86)\CMake\bin\cmake.exe" -E cmake_progress_report C:\Users\David\Desktop\DASH3D\libdash-master\libdash\qtsampleplayer-build\CMakeFiles\CMakeTmp\CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1395734715.dir/testCCompiler.c.obj
+	C:\PROGRA~2\MICROS~1.0\VC\bin\X86_AM~1\cl.exe  @C:\Users\David\AppData\Local\Temp\nm30E1.tmp
+testCCompiler.c
+Linking C executable cmTryCompileExec1395734715.exe
+	"C:\Program Files (x86)\CMake\bin\cmake.exe" -E vs_link_exe C:\PROGRA~2\MICROS~1.0\VC\bin\X86_AM~1\link.exe /nologo @CMakeFiles\cmTryCompileExec1395734715.dir\objects1.rsp @C:\Users\David\AppData\Local\Temp\nm322A.tmp
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: C:/Users/David/Desktop/DASH3D/libdash-master/libdash/qtsampleplayer-build/CMakeFiles/CMakeTmp
+
+Run Build Command:"nmake" "/NOLOGO" "cmTryCompileExec114659334\fast"
+	"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\BIN\nmake.exe" -f CMakeFiles\cmTryCompileExec114659334.dir\build.make /nologo -L                  CMakeFiles\cmTryCompileExec114659334.dir\build
+	"C:\Program Files (x86)\CMake\bin\cmake.exe" -E cmake_progress_report C:\Users\David\Desktop\DASH3D\libdash-master\libdash\qtsampleplayer-build\CMakeFiles\CMakeTmp\CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec114659334.dir/CMakeCCompilerABI.c.obj
+	C:\PROGRA~2\MICROS~1.0\VC\bin\X86_AM~1\cl.exe  @C:\Users\David\AppData\Local\Temp\nm34F7.tmp
+CMakeCCompilerABI.c
+Linking C executable cmTryCompileExec114659334.exe
+	"C:\Program Files (x86)\CMake\bin\cmake.exe" -E vs_link_exe C:\PROGRA~2\MICROS~1.0\VC\bin\X86_AM~1\link.exe /nologo @CMakeFiles\cmTryCompileExec114659334.dir\objects1.rsp @C:\Users\David\AppData\Local\Temp\nm3555.tmp
+
+
+Determining if the CXX compiler works passed with the following output:
+Change Dir: C:/Users/David/Desktop/DASH3D/libdash-master/libdash/qtsampleplayer-build/CMakeFiles/CMakeTmp
+
+Run Build Command:"nmake" "/NOLOGO" "cmTryCompileExec3028373741\fast"
+	"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\BIN\nmake.exe" -f CMakeFiles\cmTryCompileExec3028373741.dir\build.make /nologo -L                  CMakeFiles\cmTryCompileExec3028373741.dir\build
+	"C:\Program Files (x86)\CMake\bin\cmake.exe" -E cmake_progress_report C:\Users\David\Desktop\DASH3D\libdash-master\libdash\qtsampleplayer-build\CMakeFiles\CMakeTmp\CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec3028373741.dir/testCXXCompiler.cxx.obj
+	C:\PROGRA~2\MICROS~1.0\VC\bin\X86_AM~1\cl.exe  @C:\Users\David\AppData\Local\Temp\nm37D4.tmp
+testCXXCompiler.cxx
+Linking CXX executable cmTryCompileExec3028373741.exe
+	"C:\Program Files (x86)\CMake\bin\cmake.exe" -E vs_link_exe C:\PROGRA~2\MICROS~1.0\VC\bin\X86_AM~1\link.exe /nologo @CMakeFiles\cmTryCompileExec3028373741.dir\objects1.rsp @C:\Users\David\AppData\Local\Temp\nm3852.tmp
+
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: C:/Users/David/Desktop/DASH3D/libdash-master/libdash/qtsampleplayer-build/CMakeFiles/CMakeTmp
+
+Run Build Command:"nmake" "/NOLOGO" "cmTryCompileExec1615703791\fast"
+	"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\BIN\nmake.exe" -f CMakeFiles\cmTryCompileExec1615703791.dir\build.make /nologo -L                  CMakeFiles\cmTryCompileExec1615703791.dir\build
+	"C:\Program Files (x86)\CMake\bin\cmake.exe" -E cmake_progress_report C:\Users\David\Desktop\DASH3D\libdash-master\libdash\qtsampleplayer-build\CMakeFiles\CMakeTmp\CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec1615703791.dir/CMakeCXXCompilerABI.cpp.obj
+	C:\PROGRA~2\MICROS~1.0\VC\bin\X86_AM~1\cl.exe  @C:\Users\David\AppData\Local\Temp\nm3A92.tmp
+CMakeCXXCompilerABI.cpp
+Linking CXX executable cmTryCompileExec1615703791.exe
+	"C:\Program Files (x86)\CMake\bin\cmake.exe" -E vs_link_exe C:\PROGRA~2\MICROS~1.0\VC\bin\X86_AM~1\link.exe /nologo @CMakeFiles\cmTryCompileExec1615703791.dir\objects1.rsp @C:\Users\David\AppData\Local\Temp\nm3AE1.tmp
+
+
