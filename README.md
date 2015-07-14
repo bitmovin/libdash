@@ -111,5 +111,3 @@ Furthermore we want to thank the [Netidee](http://www.netidee.at) initiative fro
 We kindly ask you to refer the following paper in any publication mentioning libdash:
 
 Christopher Mueller, Stefan Lederer, Joerg Poecher, and Christian Timmerer, “libdash – An Open Source Software Library for the MPEG-DASH Standard”, in Proceedings of the IEEE International Conference on Multimedia and Expo 2013, San Jose, USA, July, 2013
-
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/4a93fd520bd266c98e04e03b8463a154 "githalytics.com")](http://githalytics.com/bitmovin/libdash)
