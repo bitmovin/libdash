@@ -47,14 +47,6 @@ In a typical deployment, a DASH server provides segments in several bitrates and
 
 The doxygen documentation is online available at [bitmovin](http://www.bitmovin.net/libdash_OpenSource/libdash_2_1_doxygen/index.html).
 
-## Mailinglist
-
-We offer a public accessible mailing list for discussions, questions, announcements, bug-reports, etc. around libdash. Everybody is invited to join, you can find the registration at:
-
-[libdash-dev] (http://vicky.bitmovin.net/mailman/listinfo/libdash-dev)
-
-There are a lot of things to do! So everybody is invited to contribute, to get involved in and exited about DASH!
-
 ## Sources and Binaries
 
 You can find the latest sources and binaries in our [download section] (http://www.bitmovin.net) and on github.
