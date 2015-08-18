@@ -40,9 +40,6 @@ Please do not heasitate and contact sales@bitmovin.net to get further informatio
 In a typical deployment, a DASH server provides segments in several bitrates and resolutions. The client initially receives the MPD through libdash which provides a convenient object orient interface to that MPD. The MPD contains the temporal relationships for the various qualities and segments. Based on that information the client can download individual media segments through libdash at any point in time. Therefore varying bandwidth conditions can be handled by switching to the corresponding quality level at segment boundaries in order to provide a smooth streaming experience. This adaptation is not part of libdash and the MPEG-DASH standard and will be left to the application which is using libdash.
 </p>
 
-
-![libdash architecture](http://www.bitmovin.net/files/bitmovin/img/libdash_arch.png "libdash architecture")
-
 ## Documentation
 
 The doxygen documentation is online available at [bitmovin](http://www.bitmovin.net/libdash_OpenSource/libdash_2_1_doxygen/index.html).
