@@ -3,9 +3,20 @@
 
 libdash is the **official reference software of the ISO/IEC MPEG-DASH standard** and is an open-source library that provides an object orient (OO) interface to the MPEG-DASH standard, developed by [bitmovin](http://www.bitmovin.net).
 
-MPEG-DASH content could be generated with the cloud based transcoding service [bitcodin](http://www.bitcodin.com). Visit [www.bitcodin.com](http://www.bitcodin.com) and experience the fastest way of MPEG-DASH and Apple HLS video transcoding with $ 25 transcoding credit's for free.
+## by bitmovin
+<a href="https://www.bitmovin.com"><img src="https://cloudfront.bitmovin.com/wp-content/uploads/2014/11/Logo-bitmovin.jpg" width="400px"/></a>
 
-[![bitcodin](http://www.bitmovin.net/wp-content/uploads/2015/03/General-Try-Now-1024x538.jpg)](http://www.bitcodin.com)
+Video encoding 100x faster than any other encoding service
+Your videos play everywhere with low startup delay, no buffering and in the highest quality
+
+### NETFLIX GRADE QUALITY
+Encode your content with the same technology as Netflix and YouTube in a way that it plays everywhere with low startup delay and no buffering. bitcodin encodes your content 100x faster than any other competitor while providing such a high quality output.
+
+### API & DOCUMENTATION
+bitcodin is a powerful cloud encoding tool for developers built by developers. The bitcodin API is available in our developer section including comprehensive documentation and API client for different programming languages such as Java, JavaScript, Ruby, Python, PHP, NodeJS, etc.
+
+### HTML5 ADAPTIVE STREAMING
+bitcodin enables HTML5 adaptive streaming with MPEG-DASH native in your browser with no need for plugins like Flash or Silverlight. Due to the native integration with the browser it is possible to play back very high resolutions such as 4K or very high framrates like 60fps.
 
 ## Features
 
