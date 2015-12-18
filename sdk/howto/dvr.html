@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!--
+*
+* Copyright (C) 2015, bitmovin GmbH, All Rights Reserved
+*
+* Created on: 2015-06-12 14:00:00
+* Author:     bitmovin GmbH <dash-player@bitmovin.net>
+*
+* This source code and its use and distribution, is subject to the terms
+* and conditions of the applicable license agreement.
+*
+-->
+<html lang="en">
+<head>
+  <title>libdash SDK</title>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../style/demo.css"/>
+  <link rel="stylesheet" type="text/css" href="../style/style.css"/>
+  <link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'/>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+
+  <script type="text/javascript" src="libdash/settings.js"></script>
+
+  <!-- player -->
+  <script type="text/javascript" src="https://bitmovin-a.akamaihd.net/bitdash/latest/bitdash.min.js"></script>
+
+  <style type="text/css" media="screen">
+    #version {
+      color: red;
+      text-decoration: underline;
+      padding-left: 10px;
+    }
+  </style>
+</head>
+<body>
+<a href="index.html"><button id="back-button">Back to the Menu</button></a>
+<div class="container">
+  <h1>Live Stream DVR <span>Time Shift built-in</span></h1>
+
+  <div class="content">
+    <div class="player-wrapper">
+      <div id="player"></div>
+    </div>
+    <div class="description">
+      <h2 class="ca-main">DVR in MPEG-DASH and HLS</h2>
+      <p>Using DVR is easy: simply pause the player, take a break, and resume the live stream. If you were distracted and missed the last field goal, just go back a few minutes or seconds.</p>
+      <p>The scrub bar (progress slider) can be used to go back in time, to have an immediate feedback about whether the player is playing at the live edge or not. And of course, jumping back to the live edge is supported as well.</p>
+      <p>The player also offers an API for developers to control DVR (currently HTML5 player only), as shown in the following examples:</p>
+      <pre><code class="language-javascript">
+        bitdash('player').getMaxTimeShift(); // Returns the size of the DVR window in seconds
+        bitdash('player').timeShift(-120);   // Sets the playback offset in seconds within the DVR window from the live edge
+        bitdash('player').getTimeShift();    // Returns the current playback offset to the live edge
+      </code></pre>
+      <p></p>
+    </div>
+  </div>
+
+</div>
+<script type="text/javascript" src="js/ErrorMsgHelper.js"></script>
+<script type="text/javascript">
+  (function() {
+    var createPlayer = function () {
+      var conf = {
+        key: window.libdashSettings.credentials.key,
+        source: {
+          dash: 'http://bitlivedemo-a.akamaihd.net/mpds/stream-exo-liveedge.php?streamkey=bitcodin&inputType=dash',
+          hls: 'http://bitlivedemo-a.akamaihd.net/m3u8s/bitcodin.m3u8',
+          poster: 'http://bitdash-a.akamaihd.net/webpages/dash-player/images/poster.png'
+        },
+        style: {
+          width: '100%'
+        },
+        events: {
+          onError: function (data) {
+            console.error("error: " + data.code + ": " + data.message);
+          },
+          onReady: function (data) {
+            console.log(this.getVersion() + ' onReady: ', data);
+          }
+        }
+      };
+
+      var player = bitdash('player');
+      player.setup(conf);
+    };
+    createPlayer();
+  }());
+</script>
+</body>
+</html>

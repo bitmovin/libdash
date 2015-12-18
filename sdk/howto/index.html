@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!--
+*
+* Copyright (C) 2015, bitmovin GmbH, All Rights Reserved
+*
+* Created on: 2015-06-12 14:00:00
+* Author:     bitmovin GmbH <dash-player@bitmovin.net>
+*
+* This source code and its use and distribution, is subject to the terms
+* and conditions of the applicable license agreement.
+*
+-->
+<html lang="en">
+<head>
+  <title>libdash SDK</title>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../style/demo.css"/>
+  <link rel="stylesheet" type="text/css" href="../style/style.css"/>
+  <link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'/>
+</head>
+<body>
+<div id="dimmed-fullscreen-container" onclick="hideErrorMessage()">
+  <div class="error-container" onclick="hideErrorMessage()">
+    <span class="ca-icon">&#xf00d;</span>
+    <div class="ca-content">
+      <h2 class="ca-main" style="color:white;">Feature not supported</h2>
+      <h3 id="error-message" style="color:white;">The player does not support this feature in this version.</h3>
+    </div>
+  </div>
+</div>
+<a href="../index.html"><button id="back-button">Back to the Menu</button></a>
+<div class="container">
+  <h1>libdash SDK</h1>
+  <div class="content">
+    <ul class="ca-menu">
+      <li id="webserver-warning" style="height: 150px; background-color: rgba(255,0,0,0.6); display: none;">
+        <span class="ca-icon">&#xf00d;</span>
+        <div class="ca-content">
+          <h2 class="ca-main" style="color:white;">Unsupported Protocol</h2>
+          <h3 style="color:white;">This file has been loaded using the unsupported "file" protocol. Please use a web server and open this page using http or https.</h3>
+        </div>
+      </li>
+      <li style="height: 150px;">
+        <a href="simpleConfiguration.html">
+          <span class="ca-icon">&#xf008;</span>
+          <div class="ca-content">
+            <h2 class="ca-main">A Simple Configuration <span>simpleConfiguration.html</span></h2>
+            <h3 class="ca-sub">This demonstrations shows a simple and lightweight player configuration and how to embed it into your website using HTML.</h3>
+          </div>
+        </a>
+      </li>
+      <li style="height: 250px;">
+        <a href="technologySelection.html">
+          <span class="ca-icon">&#xf085;</span>
+          <div class="ca-content">
+            <h2 class="ca-main">Smart Choices<br><span>technologySelection.html</span></h2>
+            <h3 class="ca-sub">The player chooses from different streaming technologies, ranging from MPEG-DASH and HLS to progressive streaming based on browser capabilities, to
+              provided the best platform independent streaming experience. Furthermore different quality representations of the video and audio streams are selected automatically,
+              based on bitmovin’s advanced and US-patented adaptation & streaming algorithms.</h3>
+          </div>
+        </a>
+      </li>
+      <li style="height: 200px;">
+        <a href="dvr.html">
+          <span class="ca-icon">&#xf017;</span>
+          <div class="ca-content">
+            <h2 class="ca-main">Live DVR<br><span>dvr.html</span></h2>
+            <h3 class="ca-sub">The player supports DVR in live streams of both, HLS and MPEG-DASH. The available DVR window depends on the Manifest file.</h3>
+          </div>
+        </a>
+      </li>
+    <li style="height: 180px;">
+        <a href="startupQuality.html">
+          <span class="ca-icon">&#xf012;</span>
+          <div class="ca-content">
+            <h2 class="ca-main">Custom Quality Adaptation<br><span>startupQuality.html</span></h2>
+            <h3 class="ca-sub">The player provides you the ability to freely decide which quality to use for every single segment! Although it gives you a suggestion, you can adapt the quality based on your own
+              metrics and experience.</h3>
+          </div>
+        </a>
+      </li>
+     <li style="height: 200px;">
+        <a href="keyboard.html">
+          <span class="ca-icon">&#xf11c;</span>
+          <div class="ca-content">
+            <h2 class="ca-main">Using Keyboard Shortcuts<br><span>keyboard.html</span></h2>
+            <h3 class="ca-sub">We all know how handy it can be to press space to pause a video, or increasing the volume by using the up-key. This are only two examples of keys which can be used for control.</h3>
+          </div>
+        </a>
+      </li>
+      <li style="height: 150px;">
+        <a href="subtitles.html">
+          <span class="ca-icon">&#xf27b;</span>
+          <div class="ca-content">
+            <h2 class="ca-main">Subtitles and Closed Captions <span>subtitles.html</span></h2>
+            <h3 class="ca-sub">Using the player, one can use different kinds of subtitles or closed captions, either specified in the Manifest or set via an API Command.</h3>
+          </div>
+        </a>
+      </li>
+      <li style="height: 200px;">
+        <a href="javascriptAPI.html">
+          <span class="ca-icon">&#xf121;</span>
+          <div class="ca-content">
+            <h2 class="ca-main">Developing <span>javascriptAPI.html</span></h2>
+            <h3 class="ca-sub">The player can be controlled using a JavaScript API. Furthermore, several callback functions for different types of events can be added. The demo
+              shows the usage of such events and API call to get playback information about the player and user interaction, which can for instance be used for analytic purposes.</h3>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <!-- content -->
+</div>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script type="text/javascript" src="libdash/settings.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!--
+*
+* Copyright (C) 2015, bitmovin GmbH, All Rights Reserved
+*
+* Created on: 2015-06-12 14:00:00
+* Author:     bitmovin GmbH <dash-player@bitmovin.net>
+*
+* This source code and its use and distribution, is subject to the terms
+* and conditions of the applicable license agreement.
+*
+-->
+<html lang="en">
+<head>
+  <title>libdash SDK</title>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../style/demo.css"/>
+  <link rel="stylesheet" type="text/css" href="../style/style.css"/>
+  <link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'/>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+
+  <script type="text/javascript" src="libdash/settings.js"></script>
+
+  <!-- player -->
+  <script type="text/javascript" src="https://bitmovin-a.akamaihd.net/bitdash/latest/bitdash.min.js"></script>
+
+  <style type="text/css" media="screen">
+    #version {
+      color: red;
+      text-decoration: underline;
+      padding-left: 10px;
+    }
+  </style>
+</head>
+<body>
+<a href="index.html"><button id="back-button">Back to the Menu</button></a>
+<div class="container">
+  <h1>Platform Independent Playout <span>Automatic Technology Selection</span></h1>
+
+  <div class="content">
+    <div class="player-wrapper">
+      <div id="player"></div>
+    </div>
+    <div class="description">
+      <h2 class="ca-main">The player finds a Playback Option for Every Platform</h2>
+      <p>It chooses between three different streaming technologies, namely:
+        <ul class="demo-description">
+          <li>MPEG-DASH</li>
+          <li>HLS</li>
+          <li>Progressive</li>
+        </ul>
+        As well as three different player options:
+        <ul class="demo-description">
+          <li>HTML5/MSE based</li>
+          <li>Flash based</li>
+          <li>Native Support</li>
+        </ul>
+      </p>
+      <p>Open this page in different browser with or without Flash and see how the underlying technology changes:</p>
+      <p>Version:<span id="version">unkown version</span></p>
+    </div>
+    <div class="description">
+      <h2 class="ca-main">How to Achieve the Optimal Platform Coverage</h2>
+      <p>To achieve the optimal platform coverage, simple add different streaming technologies to the configuration. The player will automatically choose what's best for the
+        underlying platform. The source section of the config option for this demo looks like the following:</p>
+      <pre><code class="language-javascript">
+        source: {
+          dash                    : "http://bitdash-a.akamaihd.net/content/sintel/sintel.mpd",
+          hls                     : "http://bitdash-a.akamaihd.net/content/sintel/hls/sintel.m3u8",
+          progressive             : [
+            "http://bitdash-a.akamaihd.net/content/sintel/Sintel.mp4",
+            "http://bitdash-a.akamaihd.net/content/sintel/Sintel.webm"
+          ],
+          poster                  : "http://bitdash-a.akamaihd.net/content/sintel/poster.png"
+        }
+      </code></pre>
+      <p>A detailed overview of supported technologies can be found in our <a href="http://developer.dash-player.com/supported-formats-devices" target="_blank">device coverage documentation</a>.</p>
+      <p>For more information about the configuration using different streaming technologies, please have a look at the
+        <a href="http://developer.dash-player.com/player-configuration" target="_blank">related document</a>.</p>
+    </div>
+  </div>
+
+</div>
+<script type="text/javascript" src="js/ErrorMsgHelper.js"></script>
+<script type="text/javascript">
+  (function() {
+    var createPlayer = function () {
+      var conf = {
+        key: window.libdashSettings.credentials.key,
+        source: {
+          dash: 'http://bitdash-a.akamaihd.net/content/sintel/sintel.mpd',
+          hls: 'http://bitdash-a.akamaihd.net/content/sintel/hls/sintel.m3u8',
+          progressive: [
+            'http://bitdash-a.akamaihd.net/content/sintel/Sintel.mp4',
+            'http://bitdash-a.akamaihd.net/content/sintel/Sintel.webm'
+          ],
+          poster: 'http://bitdash-a.akamaihd.net/content/sintel/poster.png'
+        },
+        style: {
+          width: '100%'
+        },
+        events: {
+          onError: function (data) {
+            console.error("error: " + data.code + ": " + data.message);
+          },
+          onReady: function (data) {
+            console.log(this.getVersion() + ' onReady: ', data);
+            document.getElementById('version').innerHTML = this.getVersion(true);
+          }
+        }
+      };
+
+      var player = bitdash('player');
+      player.setup(conf);
+    };
+    createPlayer();
+  }());
+</script>
+</body>
+</html>

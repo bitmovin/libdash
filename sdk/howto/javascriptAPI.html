@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<!--
+*
+* Copyright (C) 2015, bitmovin GmbH, All Rights Reserved
+*
+* Created on: 2015-06-12 14:00:00
+* Author:     bitmovin GmbH <dash-player@bitmovin.net>
+*
+* This source code and its use and distribution, is subject to the terms
+* and conditions of the applicable license agreement.
+*
+-->
+<html lang="en">
+<head>
+  <title>libdash SDK</title>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../style/demo.css"/>
+  <link rel="stylesheet" type="text/css" href="../style/style.css"/>
+  <link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'/>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+
+  <script type="text/javascript" src="libdash/settings.js"></script>
+
+  <!-- player -->
+  <script type="text/javascript" src="https://bitmovin-a.akamaihd.net/bitdash/latest/bitdash.min.js"></script>
+
+  <!-- chart library -->
+  <script type="text/javascript" src="js/smoothie.js"></script>
+
+  <style type="text/css" media="screen">
+    div#debugData h1 {
+      font:           16px/26px 'PT Sans', sans-serif;
+      font-weight:    bold;
+    }
+    p#version {
+      text-align:     center;
+    }
+    div#videoData {
+      width:          7em;
+      margin-right:   20px;
+      float:          right;
+    }
+    div#videoDataLabels {
+      width:          12em;
+      float:          left;
+    }
+    div#debugData {
+      font:           16px/26px 'PT Sans', sans-serif;
+      float:          left;
+      margin-bottom:  20px;
+    }
+  </style>
+</head>
+<body>
+<a href="index.html"><button id="back-button">Back to the Menu</button></a>
+<div class="container">
+  <h1>Player interaction<span>Using the JavaScript API and Event Callbacks</span></h1>
+
+  <div class="content">
+    <div class="player-wrapper">
+      <div id="player"></div>
+    </div>
+    <div class="description">
+      <h2 class="ca-main">Video Bitrate Graph</h2>
+      <div id="graphWrapper">
+        <canvas id="graph"></canvas>
+      </div>
+    </div>
+    <div class="description">
+      <h2 class="ca-main">Data Monitoring</h2>
+      <div id="debugData">
+        <p id="version">unkown version</p>
+        <div id="videoData">
+          <p>
+            <br>
+            <span id='audioBuffer'>0.0</span> [sec]<br>
+            <span id='videoBuffer'>0.0</span> [sec]<br>
+            <br>
+            <br>
+            <span id='dlVideoBitrate'>0.0</span> [kbps]<br>
+            <span id='dlResolution'>000 x 000</span><br>
+          </p>
+        </div>
+        <div id="videoDataLabels">
+          <p>
+            <strong>Playback Data</strong><br>
+            Audio Buffer Length:<br>
+            Video Buffer Length:<br>
+            <br>
+            <strong>Download Data</strong><br>
+            Video Bitrate:<br>
+            Resolution:<br>
+          </p>
+        </div>
+      </div>
+      <p style="clear:both;">For more information about how to interact with the player, please have a look at the <a href="http://developer.dash-player.com/javascript-api" target="_blank">related document</a>.</p>
+    </div>
+  </div>
+
+</div>
+<script type="text/javascript" src="js/ErrorMsgHelper.js"></script>
+<script type="text/javascript">
+  (function() {
+    var createPlayer = function () {
+      window.graphTimeSeries = new TimeSeries();
+
+      var conf = {
+        key: window.libdashSettings.credentials.key,
+        source: {
+          dash: 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd',
+          hls: 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
+          poster: 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/poster.jpg'
+        },
+        style: {
+          width: '50vw',
+          aspectratio: '16/9'
+        },
+        events: {
+          onError: function (data) {
+            console.error("error: " + data.code + ": " + data.message);
+          },
+          onReady: function (data) {
+            console.log(this.getVersion() + ' onReady: ', data);
+            document.getElementById('version').innerHTML = this.getVersion();
+            startGraph();
+          }
+        }
+      };
+
+      var player = bitdash('player');
+      player.setup(conf);
+
+      setInterval(function () {
+        var downloadedVideoData = player.getDownloadedVideoData();
+
+        var videoBitrateKbps = Math.round(downloadedVideoData.bitrate / 10.24) / 100;
+
+        document.getElementById('audioBuffer').innerHTML = player.getAudioBufferLength();
+        document.getElementById('videoBuffer').innerHTML = player.getVideoBufferLength();
+        document.getElementById('dlResolution').innerHTML = downloadedVideoData.width + ' x ' + downloadedVideoData.height;
+        document.getElementById('dlVideoBitrate').innerHTML = videoBitrateKbps;
+
+        window.graphTimeSeries.append(new Date().getTime(), videoBitrateKbps);
+      }, 500);
+
+      var startGraph = function () {
+        var graph = document.getElementById('graph');
+
+        graph.width = graph.parentNode.offsetWidth;
+        if (graph.width < 300) {
+          graph.width = 300;
+        }
+        graph.height = 306;
+
+        var smoothie = new SmoothieChart({
+          interpolation: 'step',
+          labels: {
+            precision: 0,
+            fillStyle: '#000'
+          },
+          maxValue: 6400,
+          minValue: 0,
+          millisPerPixel: 100,
+          grid: {
+            millisPerLine: 10000,
+            borderVisible: false,
+            fillStyle: 'transparent'
+          }
+        });
+        smoothie.streamTo(graph, 500);
+
+        smoothie.addTimeSeries(window.graphTimeSeries, {
+          strokeStyle: 'rgb(0, 0, 0)',
+          lineWidth: 3
+        });
+      };
+    };
+    createPlayer();
+  }());
+</script>
+</body>
+</html>
