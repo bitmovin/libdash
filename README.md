@@ -1,7 +1,7 @@
 # libdash
 
 
-libdash is the **official reference software of the ISO/IEC MPEG-DASH standard** and is an open-source library that provides an object orient (OO) interface to the MPEG-DASH standard, developed by [bitmovin](http://www.bitmovin.net).
+libdash is the **official reference software of the ISO/IEC MPEG-DASH standard** and is an open-source library that provides an object orient (OO) interface to the MPEG-DASH standard, developed by [bitmovin](http://www.bitmovin.com).
 
 ## by bitmovin
 <a href="https://www.bitmovin.com"><img src="https://cloudfront.bitmovin.com/wp-content/uploads/2014/11/Logo-bitmovin.jpg" width="400px"/></a>
@@ -22,7 +22,7 @@ bitcodin enables HTML5 adaptive streaming with MPEG-DASH native in your browser 
 
 * Cross platform build system based on cmake that includes Windows, Linux and Mac.
 * Open source available and licensed under the LGPL.
-* Comprehensive doxygen documentation of the library availalbe at [bitmovin](http://www.bitmovin.net/files/bitmovin/content/documentation/libdash/3_0/index.html).
+* Comprehensive doxygen documentation
 * Implements the full MPEG-DASH standard according to ISO/IEC 23009-1, Information Technology Dynamic Adaptive Streaming over HTTP (DASH) Part 1: Media Presentation Description and Segment Formats
 * Handles the download and xml parsing of the MPD. Based on that it provides an OO based interface to the MPD.
 * Media elements, e.g., SegmentURL, SegmentTemplate, etc., are downloadable in that OO based structure and can be downloaded through libdash, which internally uses libcurl.
@@ -39,9 +39,9 @@ In addition to the public available open source resources and the mailing list s
 ## bitdash - Advanced MPEG-DASH Clients
 
 
-On top of libdash, we provide our [bitdash adaptation framework] (http://www.bitmovin.net), which significantely boosts the streaming performance of MPEG-DASH. It enables up to 100 % higher media throughput than Apple HLS, and 50 % more than Microsoft Smooth Streaming. Additionally it comes together with streaming management functionalities, oscillation prevention mechanisms, DRM key management, multi-source (multi-CDN) support, and much more. It targets embedded platforms such as smartphones, TV-Sets, Set-Top Boxes, etc. and is available on any platform, including Windows, Linux, Mac, Android, etc. Furthermore, we've implementations for HTML5 (MSE) as well as Adobe Flash
+On top of libdash, we provide our [bitdash adaptation framework] (http://www.bitmovin.com), which significantely boosts the streaming performance of MPEG-DASH. It enables up to 100 % higher media throughput than Apple HLS, and 50 % more than Microsoft Smooth Streaming. Additionally it comes together with streaming management functionalities, oscillation prevention mechanisms, DRM key management, multi-source (multi-CDN) support, and much more. It targets embedded platforms such as smartphones, TV-Sets, Set-Top Boxes, etc. and is available on any platform, including Windows, Linux, Mac, Android, etc. Furthermore, we've implementations for HTML5 (MSE) as well as Adobe Flash
 
-Please do not heasitate and contact sales@bitmovin.net to get further information on [bitdash] (http://www.bitmovin.net/)!
+Please do not heasitate and contact sales@bitmovin.net to get further information on [bitdash] (http://www.bitmovin.com/)!
 
 
 ## Architecture
@@ -53,16 +53,16 @@ In a typical deployment, a DASH server provides segments in several bitrates and
 
 ## Documentation
 
-The doxygen documentation is online available at [bitmovin](http://www.bitmovin.net/libdash_OpenSource/libdash_2_1_doxygen/index.html).
+The doxygen documentation availalbe in the repo.
 
 ## Sources and Binaries
 
-You can find the latest sources and binaries in our [download section] (http://www.bitmovin.net) and on github.
+You can find the latest sources and binaries on github.
 
 ## How to use
 
 ### Windows
-1. Download the tarball or clone the repository from gitlab (git://github.com/bitmovin/libdash.git)
+1. Download the tarball or clone the repository from github (git://github.com/bitmovin/libdash.git)
 2. Open the libdash.sln with Visual Studio 2010
 3. Build the solution
 4. After that all files will be provided in the bin folder
@@ -109,11 +109,11 @@ As libdash is licensed under LGPL, changes to the library have to be published a
 
 ## Acknowledgements
 
-We specially want to thank our passionate developers at [bitmovin](http://www.bitmovin.net/) as well as the researchers at the [Institute of Information Technology](http://www-itec.aau.at/dash/) (ITEC) from the Alpen Adria Universitaet Klagenfurt (AAU)!
+We specially want to thank our passionate developers at [bitmovin](http://www.bitmovin.com) as well as the researchers at the [Institute of Information Technology](http://www-itec.aau.at/dash/) (ITEC) from the Alpen Adria Universitaet Klagenfurt (AAU)!
 
 Furthermore we want to thank the [Netidee](http://www.netidee.at) initiative from the [Internet Foundation Austria](http://www.nic.at/ipa) for partially funding the open source development of libdash.
 
-![netidee logo](http://www.bitmovin.net/files/bitmovin/img/logos/netidee.png "netidee")
+![netidee logo](http://www.bitmovin.com/files/bitmovin/img/logos/netidee.png "netidee")
 
 ## Citation of libdash
 We kindly ask you to refer the following paper in any publication mentioning libdash:
