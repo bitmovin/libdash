@@ -78,7 +78,7 @@ You can find the latest sources and binaries on github.
 7. make
 8. cd bin
 9. The library and a simple test of the network part of the library should be available now. You can test the network part of the library with
-10. ./libdash_networpart_test
+10. ./libdash_networkpart_test
 
 #### QTSamplePlayer
 Prerequisite: libdash must be built as described in the previous section.
