@@ -21,12 +21,12 @@ void    String::Split   (const std::string &s, char delim, std::vector<std::stri
     while(std::getline(ss, item, delim))
         vector.push_back(item);
 }
-void    String::Split   (const std::string &s, char delim, std::vector<uint32_t>& vector)
+void    String::Split   (const std::string &s, char delim, std::vector<uint64_t>& vector)
 {
     size_t lengthOfString = s.length();
     size_t pos = 0;
     size_t i = 0;
-    uint32_t level = 0;
+    uint64_t level = 0;
 
     while (pos != std::string::npos)
     {
@@ -34,7 +34,7 @@ void    String::Split   (const std::string &s, char delim, std::vector<uint32_t>
 
         if (i < lengthOfString)
         {
-            level = strtoul(s.substr(i, pos-i).c_str(), NULL, 10);
+            level = strtoull(s.substr(i, pos-i).c_str(), NULL, 10);
             vector.push_back(level);
             i = pos + 1;
         }

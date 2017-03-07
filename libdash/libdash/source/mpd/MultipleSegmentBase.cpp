@@ -42,11 +42,11 @@ void                        MultipleSegmentBase::SetBitstreamSwitching  (URLType
 {
     this->bitstreamSwitching = bitstreamSwitching;
 }
-uint32_t                    MultipleSegmentBase::GetDuration            ()  const
+uint64_t                    MultipleSegmentBase::GetDuration            ()  const
 {
     return this->duration;
 }
-void                        MultipleSegmentBase::SetDuration            (uint32_t duration)
+void                        MultipleSegmentBase::SetDuration            (uint64_t duration)
 {
     this->duration = duration;
 }

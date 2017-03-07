@@ -209,11 +209,11 @@ dash::mpd::Timeline*                        Node::ToTimeline            ()  cons
 
     if (this->HasAttribute("t"))
     {
-        timeline->SetStartTime(strtoul(this->GetAttributeValue("t").c_str(), NULL, 10));
+        timeline->SetStartTime(strtoull(this->GetAttributeValue("t").c_str(), NULL, 10));
     }
     if (this->HasAttribute("d"))
     {
-        timeline->SetDuration(strtoul(this->GetAttributeValue("d").c_str(), NULL, 10));
+        timeline->SetDuration(strtoull(this->GetAttributeValue("d").c_str(), NULL, 10));
     }
     if (this->HasAttribute("r"))
     {
@@ -344,7 +344,7 @@ dash::mpd::SubRepresentation*               Node::ToSubRepresentation   ()  cons
 
     if (this->HasAttribute("level"))
     {
-        subRepresentation->SetLevel(strtoul(this->GetAttributeValue("level").c_str(), NULL, 10));
+        subRepresentation->SetLevel(strtoull(this->GetAttributeValue("level").c_str(), NULL, 10));
     }
     if (this->HasAttribute("dependencyLevel"))
     {
@@ -1001,7 +1001,7 @@ void                                        Node::SetCommonValuesForMSeg(dash::m
 
     if (this->HasAttribute("duration"))
     {
-        object.SetDuration(strtoul(this->GetAttributeValue("duration").c_str(), NULL, 10));
+        object.SetDuration(strtoull(this->GetAttributeValue("duration").c_str(), NULL, 10));
     }
     if (this->HasAttribute("startNumber"))
     {

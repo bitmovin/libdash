@@ -21,15 +21,15 @@ SubRepresentation::SubRepresentation    () :
 SubRepresentation::~SubRepresentation   () 
 {
 }
-uint32_t                        SubRepresentation::GetLevel             ()  const 
+uint64_t                        SubRepresentation::GetLevel             ()  const
 {
     return this->level;
 }
-void                            SubRepresentation::SetLevel             (uint32_t level) 
+void                            SubRepresentation::SetLevel             (uint64_t level)
 {
     this->level = level;
 }
-const std::vector<uint32_t>&    SubRepresentation::GetDependencyLevel   ()  const
+const std::vector<uint64_t>&    SubRepresentation::GetDependencyLevel   ()  const
 {
     return this->dependencyLevel;
 }

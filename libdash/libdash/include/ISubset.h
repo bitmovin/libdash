@@ -46,7 +46,7 @@ namespace dash
                  *  the \c \@id values of the contained Adaptation Sets.
                  *  @return     a reference to a vector of unsigned integers
                  */
-                virtual const std::vector<uint32_t>& Contains () const = 0;
+                virtual const std::vector<uint64_t>& Contains () const = 0;
         };
     }
 }

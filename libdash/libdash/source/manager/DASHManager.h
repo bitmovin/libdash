@@ -27,7 +27,8 @@ namespace dash
             DASHManager             ();
             virtual ~DASHManager    ();
 
-            mpd::IMPD*  Open    (char *path);
+            mpd::IMPD*  Open    (const char *path) const;
+            mpd::IMPD*  OpenLocalFile(const char *baseUrl, const char *filePath) const;
             void        Delete  ();
     };
 }

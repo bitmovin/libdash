@@ -31,18 +31,18 @@ namespace dash
 
                 const ISegmentTimeline*                 GetSegmentTimeline      ()  const;
                 const IURLType*                         GetBitstreamSwitching   ()  const;
-                uint32_t                                GetDuration             ()  const;
+                uint64_t                                GetDuration             ()  const;
                 uint32_t                                GetStartNumber          ()  const;
 
                 void    SetSegmentTimeline      (SegmentTimeline *segmentTimeline);
                 void    SetBitstreamSwitching   (URLType *bitstreamSwitching);
-                void    SetDuration             (uint32_t duration);
+                void    SetDuration             (uint64_t duration);
                 void    SetStartNumber          (uint32_t startNumber);
 
             protected:
                 SegmentTimeline                 *segmentTimeline;
                 URLType                         *bitstreamSwitching;
-                uint32_t                        duration;
+                uint64_t                        duration;
                 uint32_t                        startNumber;
         };
     }

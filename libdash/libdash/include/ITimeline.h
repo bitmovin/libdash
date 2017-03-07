@@ -43,14 +43,14 @@ namespace dash
                  *  \em StartTime corresponds to the \c \@t attribute.
                  *  @return     an unsigned integer
                  */
-                virtual uint32_t    GetStartTime    ()  const = 0;
+                virtual uint64_t    GetStartTime    ()  const = 0;
 
                 /**
                  *  Returns the integer that specifies the Segment duration, in units of the value of the \c \@timescale. \n\n
                  *  \em Duration corresponds to the \c \@d attribute.
                  *  @return     an unsigned integer
                  */
-                virtual uint32_t    GetDuration     ()  const = 0;
+                virtual uint64_t    GetDuration     ()  const = 0;
 
                 /**
                  *  Returns an integer that specifies the repeat count of the number of following contiguous Segments with the same duration expressed by the value of \c \@d.
