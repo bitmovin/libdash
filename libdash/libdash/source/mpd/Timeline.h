@@ -27,16 +27,16 @@ namespace dash
                 Timeline             ();
                 virtual ~Timeline    ();
 
-                uint32_t    GetStartTime    ()  const;
+                uint64_t    GetStartTime    ()  const;
                 uint32_t    GetDuration     ()  const;
                 uint32_t    GetRepeatCount  ()  const;
 
-                void    SetStartTime    (uint32_t startTime);
+                void    SetStartTime    (uint64_t startTime);
                 void    SetDuration     (uint32_t duration);
                 void    SetRepeatCount  (uint32_t repeatCount);
 
             private:
-                uint32_t    startTime;
+                uint64_t    startTime;
                 uint32_t    duration;
                 uint32_t    repeatCount;
         };

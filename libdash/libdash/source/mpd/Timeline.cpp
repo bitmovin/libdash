@@ -23,11 +23,11 @@ Timeline::~Timeline   ()
 {
 }
 
-uint32_t    Timeline::GetStartTime     ()  const
+uint64_t    Timeline::GetStartTime     ()  const
 {
     return this->startTime;
 }
-void        Timeline::SetStartTime     (uint32_t startTime) 
+void        Timeline::SetStartTime     (uint64_t startTime) 
 {
     this->startTime = startTime;
 }
