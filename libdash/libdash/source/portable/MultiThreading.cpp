@@ -13,7 +13,12 @@ THREAD_HANDLE   CreateThreadPortable    (void *(*start_routine) (void *), void *
             return NULL;
         }
 
-        if(int err = pthread_create(th, NULL, start_routine, arg))
+        // Create pthread as detached so it'll free its resources at exit
+        pthread_attr_t attr;
+        pthread_attr_init(&attr);
+        pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
+
+        if(int err = pthread_create(th, &attr, start_routine, arg))
         {
             std::cerr << strerror(err) << std::endl;
             return NULL;
