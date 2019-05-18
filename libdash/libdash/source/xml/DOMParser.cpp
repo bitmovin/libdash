@@ -41,10 +41,10 @@ bool    DOMParser::Parse                    ()
     if(xmlTextReaderRead(this->reader)) 
         this->root = this->ProcessNode();
 
+    xmlFreeTextReader(this->reader);
+
     if(this->root == NULL)
         return false;
-
-    xmlFreeTextReader(this->reader);
 
     return true;
 }
@@ -108,6 +108,7 @@ Node*   DOMParser::ProcessNode              ()
            Node *node = new Node();
            node->SetType(type);
            node->SetText(text);
+           delete text;
            return node;
        }
     }

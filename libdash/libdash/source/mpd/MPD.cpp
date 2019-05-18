@@ -27,6 +27,7 @@ MPD::MPD    () :
         maxSegmentDuration(""),
         maxSubsegmentDuration("")
 {
+    this->mpdPathBaseUrl = NULL;
 }
 MPD::~MPD   ()
 {
@@ -38,6 +39,8 @@ MPD::~MPD   ()
         delete(this->periods.at(i));
     for(size_t i = 0; i < this->baseUrls.size(); i++)
         delete(this->baseUrls.at(i));
+    if (this->mpdPathBaseUrl)
+        delete(this->mpdPathBaseUrl);
 }
 
 const std::vector<IProgramInformation *>&   MPD::GetProgramInformations             () const 
