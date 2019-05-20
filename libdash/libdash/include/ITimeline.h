@@ -43,7 +43,7 @@ namespace dash
                  *  \em StartTime corresponds to the \c \@t attribute.
                  *  @return     an unsigned integer
                  */
-                virtual uint32_t    GetStartTime    ()  const = 0;
+                virtual uint64_t    GetStartTime    ()  const = 0;
 
                 /**
                  *  Returns the integer that specifies the Segment duration, in units of the value of the \c \@timescale. \n\n
