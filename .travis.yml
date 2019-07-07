@@ -73,11 +73,13 @@ matrix:
 
 script:
   - |
+      set -us
+
       mkdir -p libdash/cmake-build-${BUILD_TYPE}
       cd libdash/cmake-build-${BUILD_TYPE}
       cmake -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ..
 
       make
 
-      export LD_LIBRARY_PATH=$(realpath ./bin)
+      export LD_LIBRARY_PATH=$(pwd)/bin
       ./bin/libdash_networkpart_test
