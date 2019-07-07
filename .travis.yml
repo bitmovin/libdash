@@ -1,21 +1,9 @@
 language: c++
 
-env:
-  global:
-    - LD_LIBRARY_PATH=/usr/local/lib
-
-#addons:
-#  apt:
-#    sources: &common_sources
-#      - ubuntu-toolchain-r-test
-#    packages: &common_packages
-#      - build-essential
-#      - clang++
-#      - cmake
-#      - g++
-
 matrix:
   include:
+
+    # UBUNTU - DEBUG - GCC
     - os: linux
       compiler: gcc
       dist: bionic
@@ -32,6 +20,7 @@ matrix:
       env:
         - BUILD_TYPE=Debug
 
+    # UBUNTU - DEBUG - CLANG
     - os: linux
       compiler: clang
       dist: bionic
@@ -48,6 +37,7 @@ matrix:
       env:
         - BUILD_TYPE=Debug
 
+    # UBUNTU - RELEASE - GCC
     - os: linux
       compiler: gcc
       dist: bionic
@@ -64,6 +54,7 @@ matrix:
       env:
         - BUILD_TYPE=Release
 
+    # UBUNTU - RELEASE - CLANG
     - os: linux
       compiler: clang
       dist: bionic
@@ -82,7 +73,11 @@ matrix:
 
 script:
   - |
-      mkdir -p libdash/cmake-build-release
-      cd libdash/cmake-build-release
+      mkdir -p libdash/cmake-build-${BUILD_TYPE}
+      cd libdash/cmake-build-${BUILD_TYPE}
       cmake -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ..
+
       make
+
+      export LD_LIBRARY_PATH=$(realpath ./bin)
+      ./bin/libdash_networkpart_test
