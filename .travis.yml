@@ -1,0 +1,88 @@
+language: c++
+
+env:
+  global:
+    - LD_LIBRARY_PATH=/usr/local/lib
+
+#addons:
+#  apt:
+#    sources: &common_sources
+#      - ubuntu-toolchain-r-test
+#    packages: &common_packages
+#      - build-essential
+#      - clang++
+#      - cmake
+#      - g++
+
+matrix:
+  include:
+    - os: linux
+      compiler: gcc
+      dist: bionic
+      env:
+        - BUILD_TYPE=Debug
+    - os: linux
+      compiler: gcc
+      dist: xenial
+      env:
+        - BUILD_TYPE=Debug
+    - os: linux
+      compiler: gcc
+      dist: trusty
+      env:
+        - BUILD_TYPE=Debug
+
+    - os: linux
+      compiler: clang
+      dist: bionic
+      env:
+        - BUILD_TYPE=Debug
+    - os: linux
+      compiler: clang
+      dist: xenial
+      env:
+        - BUILD_TYPE=Debug
+    - os: linux
+      compiler: clang
+      dist: trusty
+      env:
+        - BUILD_TYPE=Debug
+
+    - os: linux
+      compiler: gcc
+      dist: bionic
+      env:
+        - BUILD_TYPE=Release
+    - os: linux
+      compiler: gcc
+      dist: xenial
+      env:
+        - BUILD_TYPE=Release
+    - os: linux
+      compiler: gcc
+      dist: trusty
+      env:
+        - BUILD_TYPE=Release
+
+    - os: linux
+      compiler: clang
+      dist: bionic
+      env:
+        - BUILD_TYPE=Release
+    - os: linux
+      compiler: clang
+      dist: xenial
+      env:
+        - BUILD_TYPE=Release
+    - os: linux
+      compiler: clang
+      dist: trusty
+      env:
+        - BUILD_TYPE=Release
+
+script:
+  - |
+      mkdir -p libdash/cmake-build-release
+      cd libdash/cmake-build-release
+      cmake -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ..
+      make
