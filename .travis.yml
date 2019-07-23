@@ -71,6 +71,18 @@ matrix:
       env:
         - BUILD_TYPE=Release
 
+    # OSX
+    - os: osx
+      osx_image: xcode10.2
+      compiler: clang
+      env:
+        - BUILD_TYPE=Debug
+    - os: osx
+      osx_image: xcode10.2
+      compiler: clang
+      env:
+        - BUILD_TYPE=Release
+
 script:
   - |
       set -us
