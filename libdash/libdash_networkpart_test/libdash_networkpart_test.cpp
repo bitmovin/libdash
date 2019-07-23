@@ -91,6 +91,4 @@ int main()
     std::cout << "finished!" << std::endl << std::endl;
 
     delete(peristenthttpconnection);
-
-    getchar();
 }

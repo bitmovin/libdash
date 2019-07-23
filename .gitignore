@@ -43,3 +43,6 @@
 
 .metadata
 build
+
+.idea
+cmake-build-*

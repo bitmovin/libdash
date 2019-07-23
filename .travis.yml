@@ -1,0 +1,85 @@
+language: c++
+
+matrix:
+  include:
+
+    # UBUNTU - DEBUG - GCC
+    - os: linux
+      compiler: gcc
+      dist: bionic
+      env:
+        - BUILD_TYPE=Debug
+    - os: linux
+      compiler: gcc
+      dist: xenial
+      env:
+        - BUILD_TYPE=Debug
+    - os: linux
+      compiler: gcc
+      dist: trusty
+      env:
+        - BUILD_TYPE=Debug
+
+    # UBUNTU - DEBUG - CLANG
+    - os: linux
+      compiler: clang
+      dist: bionic
+      env:
+        - BUILD_TYPE=Debug
+    - os: linux
+      compiler: clang
+      dist: xenial
+      env:
+        - BUILD_TYPE=Debug
+    - os: linux
+      compiler: clang
+      dist: trusty
+      env:
+        - BUILD_TYPE=Debug
+
+    # UBUNTU - RELEASE - GCC
+    - os: linux
+      compiler: gcc
+      dist: bionic
+      env:
+        - BUILD_TYPE=Release
+    - os: linux
+      compiler: gcc
+      dist: xenial
+      env:
+        - BUILD_TYPE=Release
+    - os: linux
+      compiler: gcc
+      dist: trusty
+      env:
+        - BUILD_TYPE=Release
+
+    # UBUNTU - RELEASE - CLANG
+    - os: linux
+      compiler: clang
+      dist: bionic
+      env:
+        - BUILD_TYPE=Release
+    - os: linux
+      compiler: clang
+      dist: xenial
+      env:
+        - BUILD_TYPE=Release
+    - os: linux
+      compiler: clang
+      dist: trusty
+      env:
+        - BUILD_TYPE=Release
+
+script:
+  - |
+      set -us
+
+      mkdir -p libdash/cmake-build-${BUILD_TYPE}
+      cd libdash/cmake-build-${BUILD_TYPE}
+      cmake -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ..
+
+      make
+
+      export LD_LIBRARY_PATH=$(pwd)/bin
+      ./bin/libdash_networkpart_test
