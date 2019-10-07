@@ -134,7 +134,7 @@ void                SegmentTemplate::FormatChunk                    (std::string
     std::string formatTag = "%01d";
 
     if ( (pos = uri.find("%0")) != std::string::npos)
-        formatTag = uri.substr(pos).append("d");
+        formatTag = uri.substr(pos);
 
     sprintf(formattedNumber, formatTag.c_str(), number);
     uri = formattedNumber;
