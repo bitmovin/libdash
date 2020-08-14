@@ -27,7 +27,7 @@ In a typical deployment, a DASH server provides segments in several bitrates and
 
 ## Documentation
 
-The doxygen documentation availalbe in the repo.
+The doxygen documentation available in the repo.
 
 ## Sources and Binaries
 
