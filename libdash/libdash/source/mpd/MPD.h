@@ -43,6 +43,7 @@ namespace dash
                 const std::string&                          GetType                         ()  const;
                 const std::string&                          GetAvailabilityStarttime        ()  const;
                 const std::string&                          GetAvailabilityEndtime          ()  const;
+                const std::string&                          GetPublishTime                  ()  const;
                 const std::string&                          GetMediaPresentationDuration    ()  const;
                 const std::string&                          GetMinimumUpdatePeriod          ()  const;
                 const std::string&                          GetMinBufferTime                ()  const;
@@ -68,6 +69,7 @@ namespace dash
                 void    SetType                         (const std::string& type);
                 void    SetAvailabilityStarttime        (const std::string& availabilityStarttime);
                 void    SetAvailabilityEndtime          (const std::string& availabilityEndtime);
+                void    SetPublishTime                  (const std::string& publishTime);
                 void    SetMediaPresentationDuration    (const std::string& mediaPresentationDuration);
                 void    SetMinimumUpdatePeriod          (const std::string& minimumUpdatePeriod);
                 void    SetMinBufferTime                (const std::string& minBufferTime);
@@ -89,6 +91,7 @@ namespace dash
                 std::string                         type;
                 std::string                         availabilityStarttime;
                 std::string                         availabilityEndtime;
+                std::string                         publishTime;
                 std::string                         mediaPresentationDuration;
                 std::string                         minimumUpdatePeriod;
                 std::string                         minBufferTime;

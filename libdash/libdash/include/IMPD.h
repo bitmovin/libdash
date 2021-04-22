@@ -126,6 +126,12 @@ namespace dash
                  *  @return     a reference to a string
                  */
                 virtual const std::string&                          GetAvailabilityEndtime          ()  const = 0;
+				
+				/**
+                 *  Returns a reference to a string that specifies the time at which the MPD file was published. When not present, the value is unknown.
+                 *  @return     a reference to a string
+                 */
+                virtual const std::string&                          GetPublishTime                  ()  const = 0;
 
                 /**
                  *  Returns a reference to a string that specifies the duration of the entire Media Presentation. If the attribute is not present, the duration of the Media Presentation is unknown.

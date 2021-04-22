@@ -20,6 +20,8 @@ AdaptationSet::AdaptationSet    () :
                 segmentTemplate(NULL),
                 xlinkHref(""),
                 xlinkActuate("onRequest"),
+				xlinkType(""),
+				xlinkShow(""),
                 id(0),
                 lang(""),
                 contentType(""),
@@ -38,7 +40,8 @@ AdaptationSet::AdaptationSet    () :
                 usesSubsegmentAlignment(false),
                 segmentAlignment(0),
                 subsegmentAlignment(0),
-                isBitstreamSwitching(false)
+                isBitstreamSwitching(false),
+				initializationSetRef("")
 {
 }
 AdaptationSet::~AdaptationSet   ()
@@ -158,6 +161,22 @@ const std::string&                      AdaptationSet::GetXlinkActuate          
 void                                    AdaptationSet::SetXlinkActuate                  (const std::string& xlinkActuate)
 {
     this->xlinkActuate = xlinkActuate;
+}
+const std::string&                      AdaptationSet::GetXlinkType                     ()  const
+{
+    return this->xlinkType;
+}
+void                                    AdaptationSet::SetXlinkType                     (const std::string& xlinkType)
+{
+    this->xlinkType = xlinkType;
+}
+const std::string&                      AdaptationSet::GetXlinkShow                     ()  const
+{
+    return this->xlinkShow;
+}
+void                                    AdaptationSet::SetXlinkShow                     (const std::string& xlinkShow)
+{
+    this->xlinkShow = xlinkShow;
 }
 uint32_t                                AdaptationSet::GetId                            ()  const
 {
@@ -340,4 +359,12 @@ bool                                    AdaptationSet::GetBitstreamSwitching    
 void                                    AdaptationSet::SetBitstreamSwitching            (bool value)
 {
     this->isBitstreamSwitching = value;
+}
+const std::string&                      AdaptationSet::GetInitializationSetRef          ()  const
+{
+    return this->initializationSetRef;
+}
+void                                    AdaptationSet::SetInitializationSetRef          (const std::string& initializationSetRef)
+{
+    this->initializationSetRef = initializationSetRef;
 }

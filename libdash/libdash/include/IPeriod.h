@@ -119,6 +119,18 @@ namespace dash
                  *  @return     a reference to a string
                  */
                 virtual const std::string&                      GetXlinkActuate         ()  const = 0;
+				
+				/**
+                 *  Returns a reference to a string that specifies the type of link.
+                 *  @return     a reference to a string
+                 */
+                virtual const std::string&                      GetXlinkType                    ()  const = 0;
+				
+				/**
+                 *  Returns a reference to a string that specifies where to open the link.
+                 *  @return     a reference to a string
+                 */
+                virtual const std::string&                      GetXlinkShow                    ()  const = 0;
 
                 /**
                  *  Returns an reference to a string that specifies an identifier for this Period.

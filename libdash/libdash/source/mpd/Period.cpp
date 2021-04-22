@@ -19,6 +19,8 @@ Period::Period  () :
         segmentTemplate(NULL),
         xlinkActuate("onRequest"),
         xlinkHref(""),
+		xlinkType(""),
+		xlinkShow(""),
         id(""),
         start(""),
         duration(""),
@@ -102,6 +104,22 @@ const std::string&                  Period::GetXlinkActuate         ()  const
 void                                Period::SetXlinkActuate         (const std::string& xlinkActuate)
 {
     this->xlinkActuate = xlinkActuate;
+}
+const std::string&                  Period::GetXlinkType            ()  const
+{
+    return this->xlinkType;
+}
+void                                Period::SetXlinkType            (const std::string& xlinkType)
+{
+    this->xlinkType = xlinkType;
+}
+const std::string&                  Period::GetXlinkShow            ()  const
+{
+    return this->xlinkShow;
+}
+void                                Period::SetXlinkShow            (const std::string& xlinkShow)
+{
+    this->xlinkShow = xlinkShow;
 }
 const std::string&                  Period::GetId                   ()  const
 {

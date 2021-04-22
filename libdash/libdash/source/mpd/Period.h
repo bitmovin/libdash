@@ -41,6 +41,8 @@ namespace dash
                 const std::vector<ISubset *>&           GetSubsets              ()  const;
                 const std::string&                      GetXlinkHref            ()  const;
                 const std::string&                      GetXlinkActuate         ()  const;
+				const std::string&                      GetXlinkType            ()  const;
+				const std::string&                      GetXlinkShow         ()  const;
                 const std::string&                      GetId                   ()  const;
                 const std::string&                      GetStart                ()  const;
                 const std::string&                      GetDuration             ()  const;
@@ -54,6 +56,8 @@ namespace dash
                 void    AddSubset                   (Subset *subset);
                 void    SetXlinkHref                (const std::string& xlinkHref);
                 void    SetXlinkActuate             (const std::string& xlinkActuate);
+				void    SetXlinkType                (const std::string& xlinkType);
+				void    SetXlinkShow                (const std::string& xlinkShow);
                 void    SetId                       (const std::string& id);
                 void    SetStart                    (const std::string& start);
                 void    SetDuration                 (const std::string& duration);
@@ -68,6 +72,8 @@ namespace dash
                 std::vector<Subset *>           subsets;
                 std::string                     xlinkHref;
                 std::string                     xlinkActuate;
+				std::string                     xlinkType;
+				std::string                     xlinkShow;
                 std::string                     id;
                 std::string                     start;
                 std::string                     duration;

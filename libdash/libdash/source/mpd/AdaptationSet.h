@@ -45,6 +45,8 @@ namespace dash
                 const std::vector<IRepresentation *>&   GetRepresentation               ()  const;
                 const std::string&                      GetXlinkHref                    ()  const;
                 const std::string&                      GetXlinkActuate                 ()  const;
+				const std::string&                      GetXlinkType                    ()  const;
+				const std::string&                      GetXlinkShow                    ()  const;
                 uint32_t                                GetId                           ()  const;
                 uint32_t                                GetGroup                        ()  const;
                 const std::string&                      GetLang                         ()  const;
@@ -66,6 +68,7 @@ namespace dash
                 uint32_t                                GetSubsegmentAlignment          ()  const;
                 uint8_t                                 GetSubsegmentStartsWithSAP      ()  const;
                 bool                                    GetBitstreamSwitching           ()  const;
+				const std::string&                      GetInitializationSetRef         ()  const;
 
                 void    AddAccessibity              (Descriptor *accessibility);
                 void    AddRole                     (Descriptor *role);
@@ -79,6 +82,8 @@ namespace dash
                 void    AddRepresentation           (Representation* representation);
                 void    SetXlinkHref                (const std::string& xlinkHref);
                 void    SetXlinkActuate             (const std::string& xlinkActuate);
+				void    SetXlinkType                (const std::string& xlinkType);
+                void    SetXlinkShow                (const std::string& xlinkShow);
                 void    SetId                       (uint32_t id);
                 void    SetGroup                    (uint32_t group);
                 void    SetLang                     (const std::string& lang);
@@ -96,6 +101,7 @@ namespace dash
                 void    SetSubsegmentAlignment      (const std::string& subsegmentAlignment);
                 void    SetSubsegmentStartsWithSAP  (uint8_t subsegmentStartsWithSAP);
                 void    SetBitstreamSwitching       (bool value);
+				void    SetInitializationSetRef     (const std::string& initializationSetRef);
 
             private:
                 std::vector<Descriptor *>       accessibility;
@@ -110,6 +116,8 @@ namespace dash
                 std::vector<Representation *>   representation;
                 std::string                     xlinkHref;
                 std::string                     xlinkActuate;
+				std::string                     xlinkType;
+                std::string                     xlinkShow;
                 uint32_t                        id;
                 uint32_t                        group;
                 std::string                     lang;
@@ -131,6 +139,7 @@ namespace dash
                 uint32_t                        subsegmentAlignment;
                 uint8_t                         subsegmentStartsWithSAP;
                 bool                            isBitstreamSwitching;
+				std::string                     initializationSetRef;
         };
     }
 }

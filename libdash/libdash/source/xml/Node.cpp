@@ -81,6 +81,18 @@ dash::mpd::BaseUrl*                         Node::ToBaseUrl             ()  cons
     {
         baseUrl->SetByteRange(this->GetAttributeValue("byteRange"));
     }
+	if(this->HasAttribute("availabilityTimeOffset"))
+    {
+        baseUrl->SetAvailabilityTimeOffset(this->GetAttributeValue("availabilityTimeOffset"));
+    }
+	if(this->HasAttribute("availabilityTimeComplete"))
+    {
+        baseUrl->SetAvailabilityTimeComplete(this->GetAttributeValue("availabilityTimeComplete"));
+    }
+	if(this->HasAttribute("timeShiftBufferDepth"))
+    {
+        baseUrl->SetTimeShiftBufferDepth(this->GetAttributeValue("timeShiftBufferDepth"));
+    }
     if (this->GetText() == "./")
     {
         baseUrl->SetUrl(this->mpdPath);
@@ -444,6 +456,14 @@ dash::mpd::AdaptationSet*                   Node::ToAdaptationSet       ()  cons
     {
         adaptationSet->SetXlinkActuate(this->GetAttributeValue("xlink:actuate"));
     }
+	if (this->HasAttribute("xlink:type"))
+    {
+        adaptationSet->SetXlinkType(this->GetAttributeValue("xlink:type"));
+    }
+	if (this->HasAttribute("xlink:show"))
+    {
+        adaptationSet->SetXlinkShow(this->GetAttributeValue("xlink:show"));
+    }
     if (this->HasAttribute("id"))
     {
         adaptationSet->SetId(strtoul(this->GetAttributeValue("id").c_str(), NULL, 10));
@@ -511,6 +531,10 @@ dash::mpd::AdaptationSet*                   Node::ToAdaptationSet       ()  cons
     if (this->HasAttribute("bitstreamSwitching"))
     {
         adaptationSet->SetBitstreamSwitching(dash::helpers::String::ToBool(this->GetAttributeValue("bitstreamSwitching")));
+    }
+	if (this->HasAttribute("initializationSetRef"))
+    {
+        adaptationSet->SetInitializationSetRef(this->GetAttributeValue("initializationSetRef"));
     }
 
     for(size_t i = 0; i < subNodes.size(); i++)
@@ -596,6 +620,14 @@ dash::mpd::Period*                          Node::ToPeriod              ()  cons
     if (this->HasAttribute("xlink:actuate"))
     {
         period->SetXlinkActuate(this->GetAttributeValue("xlink:actuate"));
+    }
+	if (this->HasAttribute("xlink:type"))
+    {
+        period->SetXlinkType(this->GetAttributeValue("xlink:type"));
+    }
+	if (this->HasAttribute("xlink:show"))
+    {
+        period->SetXlinkShow(this->GetAttributeValue("xlink:show"));
     }
     if (this->HasAttribute("id"))
     {
@@ -718,6 +750,10 @@ dash::mpd::MPD*                             Node::ToMPD                 ()  cons
     if (this->HasAttribute("availabilityEndTime"))
     {
         mpd->SetAvailabilityEndtime(this->GetAttributeValue("availabilityEndTime"));
+    }
+	if (this->HasAttribute("publishTime"))
+    {
+        mpd->SetPublishTime(this->GetAttributeValue("publishTime"));
     }
     if (this->HasAttribute("mediaPresentationDuration"))
     {

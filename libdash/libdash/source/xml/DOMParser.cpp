@@ -108,6 +108,7 @@ Node*   DOMParser::ProcessNode              ()
            Node *node = new Node();
            node->SetType(type);
            node->SetText(text);
+           std::cout << "   " << text << std::endl;
            delete text;
            return node;
        }
@@ -116,6 +117,8 @@ Node*   DOMParser::ProcessNode              ()
 }
 void    DOMParser::AddAttributesToNode      (Node *node)
 {
+    std::stringstream ss; // Parsed values
+    ss << node->GetName() << ":" << std::endl;
     if(xmlTextReaderHasAttributes(this->reader))
     {
         while(xmlTextReaderMoveToNextAttribute(this->reader))
@@ -123,8 +126,10 @@ void    DOMParser::AddAttributesToNode      (Node *node)
             std::string key      = (const char *) xmlTextReaderConstName(this->reader);
             std::string value    = (const char *) xmlTextReaderConstValue(this->reader);
             node->AddAttribute(key, value);
+            ss << "   " << key << "=" << value << std::endl;
         }
     }
+    std::cout << ss.str();
 }
 void    DOMParser::Print                    (Node *node, int offset)
 {
