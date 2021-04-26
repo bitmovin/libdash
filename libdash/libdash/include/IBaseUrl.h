@@ -67,7 +67,7 @@ namespace dash
 				 *  If the value is present in \c SegmentBase then this attribute should not be present. If present in \c SegmentBase and \c BaseURL, the value in \c BaseURL shall	be ignored.
                  *  @return     a boolean
                  */
-                virtual const std::string& GetAvailabilityTimeComplete ()  const = 0;
+                virtual bool 			   IsAvailabilityTimeComplete  ()  const = 0;
 				
 				/**
                  *  Returns the reference to a string that specifies the duration of the smallest time shifting buffer for any Representation in the MPD that is guaranteed to be available	for	a Media	Presentation with type 'dynamic'.

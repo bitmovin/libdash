@@ -32,7 +32,7 @@ namespace dash
                 const std::string& GetServiceLocation          ()  const;
                 const std::string& GetByteRange                ()  const;
 				double             GetAvailabilityTimeOffset   ()  const;
-				bool               GetAvailabilityTimeComplete ()  const;
+				bool               IsAvailabilityTimeComplete  ()  const;
 				const std::string& GetTimeShiftBufferDepth     ()  const;
 
                 void    SetUrl                          (const std::string& url);

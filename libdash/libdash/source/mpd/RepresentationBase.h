@@ -46,6 +46,8 @@ namespace dash
                 double                              GetMaxPlayoutRate               () const;
                 bool                                HasCodingDependency             () const;
                 std::string                         GetScanType                     () const;
+				uint32_t                            GetSelectionPriority            () const;
+                std::string                         GetTag                     		() const;
 
                 void    AddFramePacking                 (Descriptor *framePacking);
                 void    AddAudioChannelConfiguration    (Descriptor *audioChannelConfiguration);
@@ -64,6 +66,8 @@ namespace dash
                 void    SetMaxPlayoutRate               (double maxPlayoutRate);
                 void    SetCodingDependency             (bool codingDependency);
                 void    SetScanType                     (const std::string& scanType);
+				void    SetSelectionPriority            (uint32_t selectionPriority);
+                void    SetTag                     		(const std::string& tag);
 
             protected:
                 std::vector<Descriptor *>   framePacking;
@@ -83,6 +87,8 @@ namespace dash
                 double                      maxPlayoutRate;
                 bool                        codingDependency;
                 std::string                 scanType;
+				uint32_t                    selectionPriority;
+				std::string                 tag;
         };
     }
 }

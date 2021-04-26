@@ -15,7 +15,9 @@ using namespace dash::mpd;
 
 SegmentList::SegmentList    () :
                 xlinkHref(""),
-                xlinkActuate("onRequest")
+                xlinkActuate("onRequest"),
+				xlinkType("simple"),
+				xlinkShow("embed")
 {
 }
 SegmentList::~SegmentList   ()
@@ -47,4 +49,20 @@ const std::string&              SegmentList::GetXlinkActuate    ()  const
 void                            SegmentList::SetXlinkActuate    (const std::string& xlinkActuate)
 {
     this->xlinkActuate = xlinkActuate;
+}
+const std::string&              SegmentList::GetXlinkType 		()  const
+{
+    return this->xlinkType;
+}
+void                            SegmentList::SetXlinkType       (const std::string& xlinkType)
+{
+    this->xlinkType = xlinkType;
+}
+const std::string&              SegmentList::GetXlinkShow       ()  const
+{
+    return this->xlinkShow;
+}
+void                            SegmentList::SetXlinkShow       (const std::string& xlinkShow)
+{
+    this->xlinkShow = xlinkShow;
 }

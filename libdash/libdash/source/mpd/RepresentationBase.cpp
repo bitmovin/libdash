@@ -24,7 +24,8 @@ RepresentationBase::RepresentationBase  () :
                     startWithSAP(0),
                     maxPlayoutRate(0.0),
                     codingDependency(false),
-                    scanType("")
+                    scanType(""),
+					selectionPriority(1)
 {
 }
 RepresentationBase::~RepresentationBase ()
@@ -172,4 +173,20 @@ std::string                         RepresentationBase::GetScanType             
 void                                RepresentationBase::SetScanType                     (const std::string& scanType)
 {
     this->scanType = scanType;
+}
+uint32_t                         	RepresentationBase::GetSelectionPriority            () const
+{
+    return this->selectionPriority;
+}
+void                                RepresentationBase::SetSelectionPriority            (uint32_t selectionPriority)
+{
+    this->selectionPriority = selectionPriority;
+}
+std::string                         RepresentationBase::GetTag                     		() const
+{
+    return this->tag;
+}
+void                                RepresentationBase::SetTag                     		(const std::string& tag)
+{
+    this->tag = tag;
 }

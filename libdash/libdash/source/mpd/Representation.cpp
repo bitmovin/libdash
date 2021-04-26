@@ -106,6 +106,22 @@ void                                        Representation::SetDependencyId     
 {
     dash::helpers::String::Split(dependencyId, ' ', this->dependencyId);
 }
+const std::vector<std::string>&             Representation::GetAssociationId 			() const
+{
+    return this->associationId;
+}
+void                                        Representation::SetAssociationId   			(const std::string& associationId)
+{
+    dash::helpers::String::Split(associationId, ' ', this->associationId);
+}
+const std::string&                          Representation::GetAssociationType          () const
+{
+    return this->associationType;
+}
+void                                        Representation::SetAssociationType          (const std::string &associationType)
+{
+    this->associationType = associationType;
+}
 const std::vector<std::string>&             Representation::GetMediaStreamStructureId   () const
 {
     return this->mediaStreamStructureId;

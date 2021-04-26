@@ -83,11 +83,11 @@ dash::mpd::BaseUrl*                         Node::ToBaseUrl             ()  cons
     }
 	if(this->HasAttribute("availabilityTimeOffset"))
     {
-        baseUrl->SetAvailabilityTimeOffset(this->GetAttributeValue("availabilityTimeOffset"));
+        baseUrl->SetAvailabilityTimeOffset(strtod(this->GetAttributeValue("availabilityTimeOffset").c_str(), NULL));
     }
-	if(this->HasAttribute("availabilityTimeComplete"))
+	if (this->HasAttribute("availabilityTimeComplete"))
     {
-        baseUrl->SetAvailabilityTimeComplete(this->GetAttributeValue("availabilityTimeComplete"));
+        baseUrl->SetAvailabilityTimeComplete(dash::helpers::String::ToBool(this->GetAttributeValue("availabilityTimeComplete")));
     }
 	if(this->HasAttribute("timeShiftBufferDepth"))
     {
@@ -118,6 +118,10 @@ dash::mpd::Descriptor*                      Node::ToDescriptor          ()  cons
     {
         descriptor->SetValue(this->GetAttributeValue("value"));
     }
+	if (this->HasAttribute("id"))
+    {
+        descriptor->SetId(this->GetAttributeValue("id"));
+    }
     
     for(size_t i = 0; i < subNodes.size(); i++)
     {
@@ -147,6 +151,10 @@ dash::mpd::ContentComponent*                Node::ToContentComponent    ()  cons
     if (this->HasAttribute("par"))
     {
         contentComponent->SetPar(this->GetAttributeValue("par"));
+    }
+	if (this->HasAttribute("tag"))
+    {
+        contentComponent->SetTag(this->GetAttributeValue("tag"));
     }
 
     for(size_t i = 0; i < subNodes.size(); i++)
@@ -297,6 +305,14 @@ dash::mpd::SegmentList*                     Node::ToSegmentList         ()  cons
     {
         segmentList->SetXlinkActuate(this->GetAttributeValue("xlink:actuate"));
     }
+	if (this->HasAttribute("xlink:type"))
+    {
+        segmentList->SetXlinkType(this->GetAttributeValue("xlink:type"));
+    }
+	if (this->HasAttribute("xlink:show"))
+    {
+        segmentList->SetXlinkShow(this->GetAttributeValue("xlink:show"));
+    }
 
     for(size_t i = 0; i < subNodes.size(); i++)
     {
@@ -401,6 +417,14 @@ dash::mpd::Representation*                  Node::ToRepresentation      ()  cons
     if (this->HasAttribute("dependencyId"))
     {
         representation->SetDependencyId(this->GetAttributeValue("dependencyId"));
+    }
+	if (this->HasAttribute("associationId"))
+    {
+        representation->SetAssociationId(this->GetAttributeValue("associationId"));
+    }
+	if (this->HasAttribute("associationType"))
+    {
+        representation->SetAssociationType(this->GetAttributeValue("associationType"));
     }
     if (this->HasAttribute("mediaStreamStructureId"))
     {
@@ -603,6 +627,10 @@ dash::mpd::Subset*                          Node::ToSubset              ()  cons
     if (this->HasAttribute("contains"))
     {
         subset->SetSubset(this->GetAttributeValue("contains"));
+    }
+	if (this->HasAttribute("id"))
+    {
+        subset->SetId(this->GetAttributeValue("id"));
     }
 
     subset->AddRawAttributes(this->attributes);
@@ -974,6 +1002,14 @@ void                                        Node::SetCommonValuesForRep (dash::m
     {
         object.SetScanType(this->GetAttributeValue("scanType"));
     }
+	if (this->HasAttribute("selectionPriority"))
+    {
+        object.SetSelectionPriority(strtoul(this->GetAttributeValue("selectionPriority").c_str(), NULL, 10));
+    }
+	if (this->HasAttribute("tag"))
+    {
+        object.SetTag(this->GetAttributeValue("tag"));
+    }
 
     for(size_t i = 0; i < subNodes.size(); i++)
     {
@@ -1002,9 +1038,21 @@ void                                        Node::SetCommonValuesForSeg (dash::m
     {
         object.SetTimescale(strtoul(this->GetAttributeValue("timescale").c_str(), NULL, 10));
     }
+	if (this->HasAttribute("eptDelta"))
+    {
+        object.SetEptDelta((int) strtol(this->GetAttributeValue("eptDelta").c_str(), NULL, 10));
+    }
     if (this->HasAttribute("presentationTimeOffset"))
     {
         object.SetPresentationTimeOffset(strtoul(this->GetAttributeValue("presentationTimeOffset").c_str(), NULL, 10));
+    }
+	if (this->HasAttribute("presentationDuration"))
+    {
+        object.SetPresentationDuration(strtoul(this->GetAttributeValue("presentationDuration").c_str(), NULL, 10));
+    }
+	if (this->HasAttribute("timeShiftBufferDepth"))
+    {
+        object.SetTimeShiftBufferDepth(this->GetAttributeValue("timeShiftBufferDepth"));
     }
     if (this->HasAttribute("indexRange"))
     {
@@ -1013,6 +1061,14 @@ void                                        Node::SetCommonValuesForSeg (dash::m
     if (this->HasAttribute("indexRangeExact"))
     {
         object.SetIndexRangeExact(dash::helpers::String::ToBool(this->GetAttributeValue("indexRangeExact")));
+    }
+	if (this->HasAttribute("availabilityTimeOffset"))
+    {
+        object.SetAvailabilityTimeOffset(strtod(this->GetAttributeValue("availabilityTimeOffset").c_str(), NULL));
+    }
+	if (this->HasAttribute("availabilityTimeComplete"))
+    {
+        object.SetAvailabilityTimeComplete(dash::helpers::String::ToBool(this->GetAttributeValue("availabilityTimeComplete")));
     }
 
     for(size_t i = 0; i < subNodes.size(); i++)
@@ -1040,6 +1096,10 @@ void                                        Node::SetCommonValuesForMSeg(dash::m
         object.SetDuration(strtoul(this->GetAttributeValue("duration").c_str(), NULL, 10));
     }
     if (this->HasAttribute("startNumber"))
+    {
+        object.SetStartNumber(strtoul(this->GetAttributeValue("startNumber").c_str(), NULL, 10));
+    }
+	if (this->HasAttribute("endNumber"))
     {
         object.SetStartNumber(strtoul(this->GetAttributeValue("startNumber").c_str(), NULL, 10));
     }

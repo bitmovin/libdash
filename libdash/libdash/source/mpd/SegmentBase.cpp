@@ -17,6 +17,7 @@ SegmentBase::SegmentBase    ()  :
                 initialization(NULL),
                 representationIndex(NULL),
                 timescale(1),
+				eptDelta(0),
                 presentationTimeOffset(0),
                 indexRange(""),
                 indexRangeExact(false)
@@ -52,6 +53,14 @@ void                SegmentBase::SetTimescale               (uint32_t timescale)
 {
     this->timescale = timescale;
 }
+int            		SegmentBase::GetEptDelta               	()  const
+{
+    return this->eptDelta;
+}
+void                SegmentBase::SetEptDelta               	(int eptDelta)
+{
+    this->eptDelta = eptDelta;
+}
 uint32_t            SegmentBase::GetPresentationTimeOffset  ()  const
 {
     return this->presentationTimeOffset;
@@ -59,6 +68,22 @@ uint32_t            SegmentBase::GetPresentationTimeOffset  ()  const
 void                SegmentBase::SetPresentationTimeOffset  (uint32_t presentationTimeOffset)
 {
     this->presentationTimeOffset = presentationTimeOffset;
+}
+uint32_t            SegmentBase::GetPresentationDuration    ()  const
+{
+    return this->presentationDuration;
+}
+void                SegmentBase::SetPresentationDuration    (uint32_t presentationDuration)
+{
+    this->presentationDuration = presentationDuration;
+}
+const std::string&  SegmentBase::GetTimeShiftBufferDepth	()  const
+{
+    return this->timeShiftBufferDepth;
+}
+void                SegmentBase::SetTimeShiftBufferDepth 	(const std::string& timeShiftBufferDepth)
+{
+    this->timeShiftBufferDepth = timeShiftBufferDepth;
 }
 const std::string&  SegmentBase::GetIndexRange              ()  const
 {
@@ -75,4 +100,20 @@ bool                SegmentBase::HasIndexRangeExact         ()  const
 void                SegmentBase::SetIndexRangeExact         (bool indexRangeExact)
 {
     this->indexRangeExact = indexRangeExact;
+}
+double            	SegmentBase::GetAvailabilityTimeOffset  ()  const
+{
+    return this->availabilityTimeOffset;
+}
+void                SegmentBase::SetAvailabilityTimeOffset  (double availabilityTimeOffset)
+{
+    this->availabilityTimeOffset = availabilityTimeOffset;
+}
+bool                SegmentBase::IsAvailabilityTimeComplete	()  const
+{
+    return this->availabilityTimeComplete;
+}
+void                SegmentBase::SetAvailabilityTimeComplete(bool availabilityTimeComplete)
+{
+    this->availabilityTimeComplete = availabilityTimeComplete;
 }

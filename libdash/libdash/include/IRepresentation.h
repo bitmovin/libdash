@@ -126,6 +126,24 @@ namespace dash
                  *  @return     a reference to a vector of strings
                  */
                 virtual const std::vector<std::string>&             GetDependencyId             ()  const = 0;
+				
+				/**
+                 *  Returns a reference to a vector of strings that specifies all Representations.
+				 *  The Representation is associated with in the decoding and/or presentation
+				 *  process	as a whitespace-separated list of values of \c Representation@id attributes.
+                 *  @return     a reference to a vector of strings
+                 */
+                virtual const std::vector<std::string>&             GetAssociationId             ()  const = 0;
+				
+				/**
+                 *  Returns a reference to a string that specifies, as a whitespace-separated list of values,
+				 *  the kind of association for each Representation the Representation has been	associated with through	the	\c @associationId attribute.
+				 *  Values taken by this attribute are 4 character codes (4CCs) for track reference types registered in MP4 registration authority. \n
+				 *  This attribute shall not be present when \c @associationId is not present.	\n
+				 *  When present, this attribute shall have as many values as the number of identifiers declared in the \c @associationId attribute.	
+                 *  @return     a reference to a string
+                 */
+                virtual const std::string&             				GetAssociationType           ()  const = 0;
 
                 /**
                  *  Returns a reference to a vector of strings that specifies media stream structure identifier values.\n

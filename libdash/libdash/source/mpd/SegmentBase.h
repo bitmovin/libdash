@@ -31,24 +31,39 @@ namespace dash
                 const IURLType*     GetInitialization           ()  const;
                 const IURLType*     GetRepresentationIndex      ()  const;
                 uint32_t            GetTimescale                ()  const;
+				int            		GetEptDelta                 ()  const;
                 uint32_t            GetPresentationTimeOffset   ()  const;
+				uint32_t            GetPresentationDuration   	()  const;
+				const std::string&  GetTimeShiftBufferDepth     ()  const;
                 const std::string&  GetIndexRange               ()  const;
                 bool                HasIndexRangeExact          ()  const;
+				double				GetAvailabilityTimeOffset   ()  const;
+				bool				IsAvailabilityTimeComplete	()  const;
 
                 void    SetInitialization           (URLType *initialization);
                 void    SetRepresentationIndex      (URLType *representationIndex);
                 void    SetTimescale                (uint32_t timescale);
+				void    SetEptDelta                 (int eptDelta);
                 void    SetPresentationTimeOffset   (uint32_t presentationTimeOffset);
+				void    SetPresentationDuration 	(uint32_t presentationDuration);
+				void    SetTimeShiftBufferDepth     (const std::string& timeShiftBufferDepth);
                 void    SetIndexRange               (const std::string& indexRange);
                 void    SetIndexRangeExact          (bool indexRangeExact);
+				void    SetAvailabilityTimeOffset   (double availabilityTimeOffset);
+				void    SetAvailabilityTimeComplete (bool availabilityTimeComplete);
 
             protected:
                 URLType     *initialization;
                 URLType     *representationIndex;
                 uint32_t    timescale;
+				int			eptDelta;
                 uint32_t    presentationTimeOffset;
+				uint32_t    presentationDuration;
+				std::string timeShiftBufferDepth;
                 std::string indexRange;
                 bool        indexRangeExact;
+				double		availabilityTimeOffset;
+				bool		availabilityTimeComplete;
         };
     }
 }

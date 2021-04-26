@@ -31,15 +31,21 @@ namespace dash
                 const std::vector<ISegmentURL *>&   GetSegmentURLs  ()  const;
                 const std::string&                  GetXlinkHref    ()  const;
                 const std::string&                  GetXlinkActuate ()  const;
+				const std::string&                  GetXlinkType   	()  const;
+				const std::string&                  GetXlinkShow 	()  const;
 
                 void    AddSegmentURL   (SegmentURL *segmetURL);
                 void    SetXlinkHref    (const std::string& xlinkHref);
                 void    SetXlinkActuate (const std::string& xlinkActuate);
+				void    SetXlinkType	(const std::string& xlinkType);
+				void    SetXlinkShow	(const std::string& xlinkShow);
 
             private:
                 std::vector<SegmentURL *> segmentURLs;
                 std::string xlinkHref;
                 std::string xlinkActuate;
+				std::string xlinkType;
+				std::string xlinkShow;
         };
     }
 }

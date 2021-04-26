@@ -17,7 +17,8 @@ ContentComponent::ContentComponent  ()  :
                     id(0),
                     lang(""),
                     contentType(""),
-                    par("")
+                    par(""),
+					tag("")
 {
 }
 ContentComponent::~ContentComponent ()
@@ -95,4 +96,12 @@ const std::string&                  ContentComponent::GetPar            ()  cons
 void                                ContentComponent::SetPar            (const std::string& par)
 {
     this->par = par;
+}
+const std::string&                  ContentComponent::GetTag            ()  const
+{
+    return this->tag;
+}
+void                                ContentComponent::SetTag            (const std::string& tag)
+{
+    this->tag = tag;
 }

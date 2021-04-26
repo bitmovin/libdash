@@ -173,6 +173,20 @@ namespace dash
                  *  @return     a string
                  */
                 virtual std::string                         GetScanType                     () const = 0;
+				
+				/**
+                 *  Returns a string that specifies	the	selection priority for the described data structures, i.e. the one described by the containing element.	
+				 *  In the absence of other information, higher numbers	are	the	preferred selection	over lower numbers.
+                 *  @return     an unsigned integer
+                 */
+                virtual uint32_t                         	GetSelectionPriority            () const = 0;
+				
+				/**
+                 *  Returns a string that specifies	the	tag	of the Representation, Adaptation Set or Preselection which may be used for selection purposes towards the decoder.	\n
+				 *  NOTE This attribute is primarily introduced for the usage of Pre-Selections and Adaptation Sets, but future	use	for	Representation and Sub-Representations is not precluded.	
+                 *  @return     a string
+                 */
+                virtual std::string                         GetTag                     		() const = 0;
 
         };
     }

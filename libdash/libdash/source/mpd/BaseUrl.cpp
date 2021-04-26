@@ -17,8 +17,6 @@ BaseUrl::BaseUrl    () :
             url(""),
             serviceLocation(""),
             byteRange(""),
-			availabilityTimeOffset(0),
-			availabilityTimeComplete(false),
 			timeShiftBufferDepth("")
 {
 }
@@ -58,7 +56,7 @@ void               BaseUrl::SetAvailabilityTimeOffset       (double availability
 {
     this->availabilityTimeOffset = availabilityTimeOffset;
 }
-bool               BaseUrl::GetAvailabilityTimeComplete     ()  const
+bool               BaseUrl::IsAvailabilityTimeComplete     ()  const
 {
     return this->availabilityTimeComplete;
 }
