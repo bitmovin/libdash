@@ -16,7 +16,7 @@ using namespace dash::mpd;
 Descriptor::Descriptor  () :
             schemeIdUri (""),
             value       (""),
-			id(0)
+			id			("")
 {
 }
 Descriptor::~Descriptor ()

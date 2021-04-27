@@ -47,7 +47,7 @@ namespace dash
                 bool                                HasCodingDependency             () const;
                 std::string                         GetScanType                     () const;
 				uint32_t                            GetSelectionPriority            () const;
-                std::string                         GetTag                     		() const;
+                std::string                  		GetTag                     		() const;
 
                 void    AddFramePacking                 (Descriptor *framePacking);
                 void    AddAudioChannelConfiguration    (Descriptor *audioChannelConfiguration);

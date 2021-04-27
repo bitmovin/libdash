@@ -182,7 +182,7 @@ void                                RepresentationBase::SetSelectionPriority    
 {
     this->selectionPriority = selectionPriority;
 }
-std::string                         RepresentationBase::GetTag                     		() const
+std::string                  		RepresentationBase::GetTag                     		() const
 {
     return this->tag;
 }
