@@ -1101,7 +1101,7 @@ void                                        Node::SetCommonValuesForMSeg(dash::m
     }
 	if (this->HasAttribute("endNumber"))
     {
-        object.SetStartNumber(strtoul(this->GetAttributeValue("startNumber").c_str(), NULL, 10));
+        object.SetEndNumber(strtoul(this->GetAttributeValue("endNumber").c_str(), NULL, 10));
     }
 
     for(size_t i = 0; i < subNodes.size(); i++)
