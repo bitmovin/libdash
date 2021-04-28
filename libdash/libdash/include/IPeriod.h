@@ -37,6 +37,9 @@
  *  @copyright  bitmovin Softwareentwicklung OG, All Rights Reserved \n\n
  *              This source code and its use and distribution, is subject to the terms
  *              and conditions of the applicable license agreement.
+ *
+ * @contributor        Daniele Lorenzi
+ * @contributiondate   2021
  */
 
 #ifndef IPERIOD_H_

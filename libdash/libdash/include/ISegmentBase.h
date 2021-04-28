@@ -9,7 +9,7 @@
  *              If the Representation contains more than one Media Segment, then either the attribute \c \@duration or the element <tt><b>SegmentTimeline</b></tt> shall be present.
  *              The attribute \c \@duration and the element <tt><b>SegmentTimeline</b></tt> shall not be present at the same time.
  *              Segments described by the Segment base information are referenced by an HTTP-URL conforming to the type URLType as defined in Table 13.
- *  @see        dash::mpd::IURLType dash::mpd::IMPDElement
+ *  @see        dash::mpd::IURLType dash::mpd::FailoverContent dash::mpd::IMPDElement
  *
  *  @author     bitmovin Softwareentwicklung OG \n
  *              Email: libdash-dev@vicky.bitmovin.net
@@ -18,6 +18,9 @@
  *  @copyright  bitmovin Softwareentwicklung OG, All Rights Reserved \n\n
  *              This source code and its use and distribution, is subject to the terms
  *              and conditions of the applicable license agreement.
+ *
+ *  @contributor      Daniele Lorenzi
+ *  @contributiondate 2021
  */
 
 #ifndef ISEGMENTBASE_H_
@@ -27,6 +30,7 @@
 
 #include "IMPDElement.h"
 #include "IURLType.h"
+#include "IFailoverContent.h"
 
 namespace dash
 {
@@ -48,6 +52,12 @@ namespace dash
                  *  @return     a pointer to dash::mpd::IURLType object
                  */
                 virtual const IURLType*     GetRepresentationIndex      ()  const = 0;
+				
+				/**
+                 *  Returns a pointer to a dash::mpd::IFailoverContent object that specifies the sections that contain failover content.
+                 *  @return     a pointer to dash::mpd::IFailoverContent object
+                 */
+                virtual const IFailoverContent*     GetFailoverContent      ()  const = 0;
 
                 /**
                  *  Returns an integer representing a timescale that specifies the timescale in units per seconds 

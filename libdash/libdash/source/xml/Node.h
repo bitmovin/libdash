@@ -5,6 +5,9 @@
  *
  * Email: libdash-dev@vicky.bitmovin.net
  *
+ * @contributor        Daniele Lorenzi
+ * @contributiondate   2021
+ * 
  * This source code and its use and distribution, is subject to the terms
  * and conditions of the applicable license agreement.
  *****************************************************************************/
@@ -20,6 +23,8 @@
 #include "../mpd/BaseUrl.h"
 #include "../mpd/ContentComponent.h"
 #include "../mpd/Descriptor.h"
+#include "../mpd/FailoverContent.h"
+#include "../mpd/FCS.h"
 #include "../mpd/Metrics.h"
 #include "../mpd/MPD.h"
 #include "../mpd/MultipleSegmentBase.h"
@@ -76,6 +81,8 @@ namespace dash
                 dash::mpd::BaseUrl*                         ToBaseUrl               ()  const;
                 dash::mpd::ContentComponent*                ToContentComponent      ()  const;
                 dash::mpd::Descriptor*                      ToDescriptor            ()  const;
+				dash::mpd::FailoverContent*                 ToFailoverContent       ()  const;
+				dash::mpd::FCS*                             ToFCS                   ()  const;
                 dash::mpd::Metrics*                         ToMetrics               ()  const;
                 dash::mpd::Period*                          ToPeriod                ()  const;
                 dash::mpd::ProgramInformation*              ToProgramInformation    ()  const;

@@ -5,6 +5,9 @@
  *
  * Email: libdash-dev@vicky.bitmovin.net
  *
+ * @contributor        Daniele Lorenzi
+ * @contributiondate   2021
+ * 
  * This source code and its use and distribution, is subject to the terms
  * and conditions of the applicable license agreement.
  *****************************************************************************/
@@ -16,6 +19,7 @@
 
 #include "ISegmentBase.h"
 #include "URLType.h"
+#include "FailoverContent.h"
 #include "AbstractMPDElement.h"
 
 namespace dash
@@ -30,6 +34,7 @@ namespace dash
 
                 const IURLType*     GetInitialization           ()  const;
                 const IURLType*     GetRepresentationIndex      ()  const;
+				const IFailoverContent* GetFailoverContent      ()  const;
                 uint32_t            GetTimescale                ()  const;
 				int            		GetEptDelta                 ()  const;
                 uint32_t            GetPresentationTimeOffset   ()  const;
@@ -42,6 +47,7 @@ namespace dash
 
                 void    SetInitialization           (URLType *initialization);
                 void    SetRepresentationIndex      (URLType *representationIndex);
+				void    SetFailoverContent          (FailoverContent *failoverContent);
                 void    SetTimescale                (uint32_t timescale);
 				void    SetEptDelta                 (int eptDelta);
                 void    SetPresentationTimeOffset   (uint32_t presentationTimeOffset);
@@ -55,6 +61,7 @@ namespace dash
             protected:
                 URLType     *initialization;
                 URLType     *representationIndex;
+				FailoverContent *failoverContent;
                 uint32_t    timescale;
 				int			eptDelta;
                 uint32_t    presentationTimeOffset;

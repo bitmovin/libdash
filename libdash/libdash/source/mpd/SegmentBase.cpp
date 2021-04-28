@@ -5,6 +5,9 @@
  *
  * Email: libdash-dev@vicky.bitmovin.net
  *
+ * @contributor        Daniele Lorenzi
+ * @contributiondate   2021
+ * 
  * This source code and its use and distribution, is subject to the terms
  * and conditions of the applicable license agreement.
  *****************************************************************************/
@@ -16,6 +19,7 @@ using namespace dash::mpd;
 SegmentBase::SegmentBase    ()  :
                 initialization(NULL),
                 representationIndex(NULL),
+				failoverContent(NULL),
                 timescale(1),
 				eptDelta(0),
                 presentationTimeOffset(0),
@@ -44,6 +48,14 @@ const IURLType*     SegmentBase::GetRepresentationIndex     ()  const
 void                SegmentBase::SetRepresentationIndex     (URLType *representationIndex)
 {
     this->representationIndex = representationIndex;
+}
+const IFailoverContent*     SegmentBase::GetFailoverContent     ()  const
+{
+    return this->failoverContent;
+}
+void                        SegmentBase::SetFailoverContent     (FailoverContent *failoverContent)
+{
+    this->failoverContent = failoverContent;
 }
 uint32_t            SegmentBase::GetTimescale               ()  const
 {
