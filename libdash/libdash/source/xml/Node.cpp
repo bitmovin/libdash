@@ -683,6 +683,77 @@ dash::mpd::Subset*                          Node::ToSubset              ()  cons
     subset->AddRawAttributes(this->attributes);
     return subset;
 }
+dash::mpd::Event*                          Node::ToEvent                ()  const
+{
+    dash::mpd::Event *event = new dash::mpd::Event();
+
+	if (this->HasAttribute("presentationTime"))
+    {
+        event->SetPresentationTime(strtoul(this->GetAttributeValue("presentationTime").c_str(), NULL, 10));
+    }
+	    if (this->HasAttribute("duration"))
+    {
+        event->SetDuration(this->GetAttributeValue("duration"));
+    }
+	if (this->HasAttribute("id"))
+    {
+        event->SetId(strtoul(this->GetAttributeValue("id").c_str(), NULL, 10));
+    }
+    if (this->HasAttribute("contentEncoding"))
+    {
+        event->SetContentEncoding(this->GetAttributeValue("contentEncoding"));
+    }
+    if (this->HasAttribute("messageData"))
+    {
+        event->SetMessageData(this->GetAttributeValue("messageData"));
+    }
+
+    event->AddRawAttributes(this->attributes);
+    return event;
+}
+dash::mpd::EventStream*                    Node::ToEventStream           ()  const
+{
+    dash::mpd::EventStream *eventStream = new dash::mpd::EventStream();
+    std::vector<Node *> subNodes = this->GetSubNodes();
+
+    if (this->HasAttribute("xlink:href"))
+    {
+        eventStream->SetXlinkHref(this->GetAttributeValue("xlink:href"));
+    }
+    if (this->HasAttribute("xlink:actuate"))
+    {
+        eventStream->SetXlinkActuate(this->GetAttributeValue("xlink:actuate"));
+    }
+    if (this->HasAttribute("schemeIdUri"))
+    {
+        eventStream->SetSchemeIdUri(this->GetAttributeValue("schemeIdUri"));
+    }
+    if (this->HasAttribute("value"))
+    {
+        eventStream->SetValue(this->GetAttributeValue("value"));
+    }
+    if (this->HasAttribute("timescale"))
+    {
+        eventStream->SetTimescale(strtoul(this->GetAttributeValue("timescale").c_str(), NULL, 10));
+    }
+    if (this->HasAttribute("presentationTimeOffset"))
+    {
+        eventStream->SetPresentationTimeOffset(strtoul(this->GetAttributeValue("presentationTimeOffset").c_str(), NULL, 10));
+    }
+
+    for(size_t i = 0; i < subNodes.size(); i++)
+    {
+        if (subNodes.at(i)->GetName() == "Event")
+        {
+            eventStream->AddEvent(subNodes.at(i)->ToEvent());
+            continue;
+        }
+        eventStream->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
+    }    
+
+    eventStream->AddRawAttributes(this->attributes);
+    return eventStream;
+}
 dash::mpd::Period*                          Node::ToPeriod              ()  const
 {
     dash::mpd::Period *period = new dash::mpd::Period();
@@ -736,6 +807,11 @@ dash::mpd::Period*                          Node::ToPeriod              ()  cons
         if (subNodes.at(i)->GetName() == "Subset")
         {
             period->AddSubset(subNodes.at(i)->ToSubset());
+            continue;
+        }
+		if (subNodes.at(i)->GetName() == "EventStream")
+        {
+            period->AddEventStream(subNodes.at(i)->ToEventStream());
             continue;
         }
         if (subNodes.at(i)->GetName() == "SegmentBase")
@@ -1073,6 +1149,11 @@ void                                        Node::SetCommonValuesForRep (dash::m
         if (subNodes.at(i)->GetName() == "ContentProtection")
         {
             object.AddContentProtection(subNodes.at(i)->ToDescriptor());
+            continue;
+        }
+		if (subNodes.at(i)->GetName() == "InbandEventStream")
+        {
+            object.AddEventStream(subNodes.at(i)->ToEventStream());
             continue;
         }
     }

@@ -23,6 +23,9 @@
 #include "../mpd/BaseUrl.h"
 #include "../mpd/ContentComponent.h"
 #include "../mpd/Descriptor.h"
+#include "../mpd/Event.h"
+#include "../mpd/EventStream.h"
+#include "../mpd/FCS.h"
 #include "../mpd/FailoverContent.h"
 #include "../mpd/FCS.h"
 #include "../mpd/Metrics.h"
@@ -81,6 +84,8 @@ namespace dash
                 dash::mpd::BaseUrl*                         ToBaseUrl               ()  const;
                 dash::mpd::ContentComponent*                ToContentComponent      ()  const;
                 dash::mpd::Descriptor*                      ToDescriptor            ()  const;
+				dash::mpd::Event*                           ToEvent                 ()  const;
+				dash::mpd::EventStream*                     ToEventStream           ()  const;
 				dash::mpd::FailoverContent*                 ToFailoverContent       ()  const;
 				dash::mpd::FCS*                             ToFCS                   ()  const;
                 dash::mpd::Metrics*                         ToMetrics               ()  const;

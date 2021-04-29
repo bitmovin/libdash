@@ -38,6 +38,8 @@ Period::~Period ()
         delete(this->adaptationSets.at(i));
     for(size_t i = 0; i < this->subsets.size(); i++)
         delete(this->subsets.at(i));
+	for(size_t i = 0; i < this->eventStreams.size(); i++)
+        delete(this->eventStreams.at(i));
     delete(segmentBase);
     delete(segmentList);
     delete(segmentTemplate);
@@ -74,6 +76,14 @@ ISegmentTemplate*                   Period::GetSegmentTemplate      ()  const
 void                                Period::SetSegmentTemplate      (SegmentTemplate *segmentTemplate) 
 {
     this->segmentTemplate = segmentTemplate;
+}
+const std::vector<IEventStream *>&  Period::GetEventStreams         ()  const
+{
+    return (std::vector<IEventStream *> &) this->eventStreams;
+}
+void                                Period::AddEventStream          (EventStream *eventStream)
+{
+    this->eventStreams.push_back(eventStream);
 }
 const std::vector<IAdaptationSet*>& Period::GetAdaptationSets       () const
 {

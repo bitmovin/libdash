@@ -19,6 +19,7 @@
 
 #include "IRepresentationBase.h"
 #include "Descriptor.h"
+#include "EventStream.h"
 #include "../helpers/String.h"
 #include "AbstractMPDElement.h"
 
@@ -35,6 +36,7 @@ namespace dash
                 const std::vector<IDescriptor *>&   GetFramePacking                 () const;
                 const std::vector<IDescriptor *>&   GetAudioChannelConfiguration    () const;
                 const std::vector<IDescriptor *>&   GetContentProtection            () const;
+				const std::vector<IEventStream *>&  GetEventStreams                 () const;
                 const std::vector<std::string>&     GetProfiles                     () const;
                 uint32_t                            GetWidth                        () const;
                 uint32_t                            GetHeight                       () const;
@@ -55,6 +57,7 @@ namespace dash
                 void    AddFramePacking                 (Descriptor *framePacking);
                 void    AddAudioChannelConfiguration    (Descriptor *audioChannelConfiguration);
                 void    AddContentProtection            (Descriptor *contentProtection);
+				void    AddEventStream                  (EventStream *eventStream);
                 void    SetProfiles                     (const std::string& profiles);
                 void    SetWidth                        (uint32_t width);
                 void    SetHeight                       (uint32_t height);
@@ -76,6 +79,7 @@ namespace dash
                 std::vector<Descriptor *>   framePacking;
                 std::vector<Descriptor *>   audioChannelConfiguration;
                 std::vector<Descriptor *>   contentProtection;
+				std::vector<EventStream *>  eventStreams;
                 std::vector<std::string>    profiles;
                 uint32_t                    width;
                 uint32_t                    height;

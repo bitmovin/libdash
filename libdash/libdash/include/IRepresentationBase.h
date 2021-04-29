@@ -3,7 +3,7 @@
  *  @brief      This interface is needed for accessing the common attributes and elements of the certain MPD element as specified in <em>ISO/IEC 23009-1, Part 1, 2012</em>, section 5.3.7
  *  @details    The elements \c <b>AdaptationSet</b>, \c <b>Representation</b> and \c <b>SubRepresentation</b> have assigned common attributes and elements that are specified in 
  *              <em>ISO/IEC 23009-1, Part 1, 2012</em>, section 5.3.7.2, table 9
- *  @see        dash::mpd::IDescriptor dash::mpd::IMPDElement
+ *  @see        dash::mpd::IDescriptor dash::mpd::IEventStream dash::mpd::IMPDElement
  *
  *  @author     bitmovin Softwareentwicklung OG \n
  *              Email: libdash-dev@vicky.bitmovin.net
@@ -24,6 +24,7 @@
 
 #include "IMPDElement.h"
 #include "IDescriptor.h"
+#include "IEventStream.h"
 
 namespace dash
 {
@@ -55,6 +56,13 @@ namespace dash
                  *  @return     a reference to a vector of pointers to dash::mpd::IDescriptor objects
                  */
                 virtual const std::vector<IDescriptor *>&   GetContentProtection            () const = 0;
+				
+				/**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IEventStream objects, each of which specifies Event Stream information.\n
+                 *  For more details see section 5.10.2. of <em>ISO/IEC 23009-1</em>.
+                 *  @return     a reference to a vector of pointers to dash::mpd::IEventStream objects
+                 */
+                virtual const std::vector<IEventStream *>&  GetEventStreams                 ()  const = 0;
 
                 /**
                  *  Returns a reference to a vector of strings that specifies the profiles which the associated Representation(s) 

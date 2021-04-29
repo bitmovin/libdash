@@ -39,6 +39,8 @@ RepresentationBase::~RepresentationBase ()
         delete(this->audioChannelConfiguration.at(i));
     for(size_t i = 0; i < this->contentProtection.size(); i++)
         delete(this->contentProtection.at(i));
+	for(size_t i = 0; i < this->eventStreams.size(); i++)
+        delete(this->eventStreams.at(i));
 }
 
 const std::vector<IDescriptor*>&    RepresentationBase::GetFramePacking                 () const 
@@ -64,6 +66,14 @@ const std::vector<IDescriptor*>&    RepresentationBase::GetContentProtection    
 void                                RepresentationBase::AddContentProtection            (Descriptor *contentProtection)
 {
     this->contentProtection.push_back(contentProtection);
+}
+const std::vector<IEventStream *>&  RepresentationBase::GetEventStreams                 ()  const
+{
+    return (std::vector<IEventStream *> &) this->eventStreams;
+}
+void                                RepresentationBase::AddEventStream                  (EventStream *eventStream)
+{
+    this->eventStreams.push_back(eventStream);
 }
 const std::vector<std::string>&     RepresentationBase::GetProfiles                     () const
 {
