@@ -14,7 +14,6 @@
 
 #include "Node.h"
 #include <cstdlib>
-#include <algorithm>
 
 using namespace dash::xml;
 using namespace dash::metrics;
