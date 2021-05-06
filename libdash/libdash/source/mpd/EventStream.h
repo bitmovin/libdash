@@ -28,7 +28,7 @@ namespace dash
                 EventStream             ();
                 virtual ~EventStream    ();
 
-                std::vector<IEvent *>&       GetEvents                 ()  const;
+                const std::vector<IEvent *>&       GetEvents                 ()  const;
 				const std::string&           GetXlinkHref              ()  const;
 				const std::string&           GetXlinkActuate           ()  const;
 				const std::string&           GetSchemeIdUri            ()  const;

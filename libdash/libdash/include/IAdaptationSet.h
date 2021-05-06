@@ -377,10 +377,10 @@ namespace dash
                 virtual bool                                    GetBitstreamSwitching           ()  const = 0;
 				
 				/**
-                 *  Returns a reference to a string that specifies the reference initialization set defined as a whitespace-separated list of unsigned integers.
-                 *  @return     a reference to a string
+                 *  Returns a reference to a vector of unsigned integers that specifies the reference initialization set defined as a whitespace-separated list of unsigned integers.
+                 *  @return     a reference to a vector of unsigned integers
                  */
-                virtual const std::string&                      GetInitializationSetRef         ()  const = 0;
+                virtual const std::vector<uint32_t>&            GetInitializationSetRef         ()  const = 0;
 
         };
     }

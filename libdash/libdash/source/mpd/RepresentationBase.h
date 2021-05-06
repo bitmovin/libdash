@@ -20,6 +20,7 @@
 #include "IRepresentationBase.h"
 #include "Descriptor.h"
 #include "EventStream.h"
+#include "Label.h"
 #include "../helpers/String.h"
 #include "AbstractMPDElement.h"
 
@@ -36,7 +37,12 @@ namespace dash
                 const std::vector<IDescriptor *>&   GetFramePacking                 () const;
                 const std::vector<IDescriptor *>&   GetAudioChannelConfiguration    () const;
                 const std::vector<IDescriptor *>&   GetContentProtection            () const;
+				const IDescriptor *                 GetOutputProtection             () const;
+				const std::vector<IDescriptor *>&   GetEssentialProperties          () const;
+				const std::vector<IDescriptor *>&   GetSupplementalProperties       () const;
 				const std::vector<IEventStream *>&  GetEventStreams                 () const;
+				const std::vector<ILabel *>&        GetGroupLabels                  () const;
+				const std::vector<ILabel *>&        GetLabels                       () const;
                 const std::vector<std::string>&     GetProfiles                     () const;
                 uint32_t                            GetWidth                        () const;
                 uint32_t                            GetHeight                       () const;
@@ -57,7 +63,12 @@ namespace dash
                 void    AddFramePacking                 (Descriptor *framePacking);
                 void    AddAudioChannelConfiguration    (Descriptor *audioChannelConfiguration);
                 void    AddContentProtection            (Descriptor *contentProtection);
+				void    SetOutputProtection             (Descriptor *outputProtection);
+				void    AddEssentialProperty            (Descriptor *essentialProperty);
+				void    AddSupplementalProperty         (Descriptor *supplementalProperty);
 				void    AddEventStream                  (EventStream *eventStream);
+				void    AddGroupLabel                   (Label *groupLabel);
+				void    AddLabel                        (Label *label);
                 void    SetProfiles                     (const std::string& profiles);
                 void    SetWidth                        (uint32_t width);
                 void    SetHeight                       (uint32_t height);
@@ -79,7 +90,12 @@ namespace dash
                 std::vector<Descriptor *>   framePacking;
                 std::vector<Descriptor *>   audioChannelConfiguration;
                 std::vector<Descriptor *>   contentProtection;
+				Descriptor*                 outputProtection;
+				std::vector<Descriptor *>   essentialProperties;
+				std::vector<Descriptor *>   supplementalProperties;
 				std::vector<EventStream *>  eventStreams;
+				std::vector<Label *>        groupLabels;
+				std::vector<Label *>        labels;
                 std::vector<std::string>    profiles;
                 uint32_t                    width;
                 uint32_t                    height;

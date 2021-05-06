@@ -38,7 +38,7 @@ namespace dash
 				 *
                  *  @return     a pointer to a vector of dash::mpd::Event objects
                  */
-                virtual std::vector<IEvent *>&       GetEvents                 ()  const = 0;
+                virtual const std::vector<IEvent *>&       GetEvents                 ()  const = 0;
 				
 				/**
                  *  Returns a reference to a string that specifies a reference to an external <tt><b>EventStream</b></tt> element.

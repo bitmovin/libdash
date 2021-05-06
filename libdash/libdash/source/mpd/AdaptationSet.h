@@ -71,7 +71,7 @@ namespace dash
                 uint32_t                                GetSubsegmentAlignment          ()  const;
                 uint8_t                                 GetSubsegmentStartsWithSAP      ()  const;
                 bool                                    GetBitstreamSwitching           ()  const;
-				const std::string&                      GetInitializationSetRef         ()  const;
+				const std::vector<uint32_t>&            GetInitializationSetRef         ()  const;
 
                 void    AddAccessibity              (Descriptor *accessibility);
                 void    AddRole                     (Descriptor *role);
@@ -142,7 +142,7 @@ namespace dash
                 uint32_t                        subsegmentAlignment;
                 uint8_t                         subsegmentStartsWithSAP;
                 bool                            isBitstreamSwitching;
-				std::string                     initializationSetRef;
+				std::vector<uint32_t>           initializationSetRef;
         };
     }
 }

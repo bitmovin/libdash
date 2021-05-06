@@ -17,6 +17,7 @@
 using namespace dash::mpd;
 
 RepresentationBase::RepresentationBase  () :
+                    outputProtection(NULL),
                     width(0),
                     height(0),
                     sar(""),
@@ -38,9 +39,17 @@ RepresentationBase::~RepresentationBase ()
     for(size_t i = 0; i < this->audioChannelConfiguration.size(); i++)
         delete(this->audioChannelConfiguration.at(i));
     for(size_t i = 0; i < this->contentProtection.size(); i++)
-        delete(this->contentProtection.at(i));
+        delete(this->contentProtection.at(i));;
+	for(size_t i = 0; i < this->essentialProperties.size(); i++)
+        delete(this->essentialProperties.at(i));
+	for(size_t i = 0; i < this->supplementalProperties.size(); i++)
+        delete(this->supplementalProperties.at(i));
 	for(size_t i = 0; i < this->eventStreams.size(); i++)
         delete(this->eventStreams.at(i));
+	for(size_t i = 0; i < this->groupLabels.size(); i++)
+        delete(this->groupLabels.at(i));
+	for(size_t i = 0; i < this->labels.size(); i++)
+        delete(this->labels.at(i));
 }
 
 const std::vector<IDescriptor*>&    RepresentationBase::GetFramePacking                 () const 
@@ -67,6 +76,30 @@ void                                RepresentationBase::AddContentProtection    
 {
     this->contentProtection.push_back(contentProtection);
 }
+const IDescriptor*                  RepresentationBase::GetOutputProtection             () const
+{
+    return this->outputProtection;
+}
+void                                RepresentationBase::SetOutputProtection             (Descriptor *outputProtection)
+{
+    this->outputProtection = outputProtection;
+}
+const std::vector<IDescriptor *>&   RepresentationBase::GetEssentialProperties          () const 
+{
+    return (std::vector<IDescriptor *> &) this->essentialProperties;
+}
+void                                RepresentationBase::AddEssentialProperty            (Descriptor *essentialProperty)
+{
+    this->essentialProperties.push_back(essentialProperty);
+}
+const std::vector<IDescriptor *>&   RepresentationBase::GetSupplementalProperties       () const 
+{
+    return (std::vector<IDescriptor *> &) this->supplementalProperties;
+}
+void                                RepresentationBase::AddSupplementalProperty         (Descriptor *supplementalProperty)
+{
+    this->supplementalProperties.push_back(supplementalProperty);
+}
 const std::vector<IEventStream *>&  RepresentationBase::GetEventStreams                 ()  const
 {
     return (std::vector<IEventStream *> &) this->eventStreams;
@@ -74,6 +107,22 @@ const std::vector<IEventStream *>&  RepresentationBase::GetEventStreams         
 void                                RepresentationBase::AddEventStream                  (EventStream *eventStream)
 {
     this->eventStreams.push_back(eventStream);
+}
+const std::vector<ILabel *>&        RepresentationBase::GetGroupLabels                  ()  const
+{
+    return (std::vector<ILabel *> &) this->groupLabels;
+}
+void                                RepresentationBase::AddGroupLabel                   (Label *groupLabel)
+{
+    this->groupLabels.push_back(groupLabel);
+}
+const std::vector<ILabel *>&        RepresentationBase::GetLabels                       ()  const
+{
+    return (std::vector<ILabel *> &) this->labels;
+}
+void                                RepresentationBase::AddLabel                        (Label *label)
+{
+    this->labels.push_back(label);
 }
 const std::vector<std::string>&     RepresentationBase::GetProfiles                     () const
 {

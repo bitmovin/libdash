@@ -9,8 +9,8 @@
  * and conditions of the applicable license agreement.
  *****************************************************************************/
 
-#ifndef Event_H_
-#define Event_H_
+#ifndef EVENT_H_
+#define EVENT_H_
 
 #include "config.h"
 
@@ -50,4 +50,4 @@ namespace dash
     }
 }
 
-#endif /* IEvent_H_ */
+#endif /* IEVENT_H_ */

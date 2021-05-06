@@ -27,7 +27,7 @@ EventStream::~EventStream   ()
         delete(this->events.at(i));
 }
 
-std::vector<IEvent *>&   EventStream::GetEvents                   ()  const
+const std::vector<IEvent *>&   EventStream::GetEvents                   ()  const
 {
     return (std::vector<IEvent*> &) this->events;
 }

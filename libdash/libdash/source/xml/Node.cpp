@@ -14,6 +14,7 @@
 
 #include "Node.h"
 #include <cstdlib>
+#include <algorithm>
 
 using namespace dash::xml;
 using namespace dash::metrics;
@@ -754,6 +755,194 @@ dash::mpd::EventStream*                    Node::ToEventStream           ()  con
     eventStream->AddRawAttributes(this->attributes);
     return eventStream;
 }
+dash::mpd::UIntPairsWithID*                 Node::ToUIntPairsWithID                 ()  const
+{
+    dash::mpd::UIntPairsWithID* uIntPairsWithID = new dash::mpd::UIntPairsWithID();
+	
+	if (this->HasAttribute("type"))
+    {
+        uIntPairsWithID->SetType(this->GetAttributeValue("type"));
+    }
+	
+	if (this->GetText() != "")
+    {
+		std::vector<std::string> pairs;
+		dash::helpers::String::Split(this->GetText(), ',', pairs); // Get comma-separated pairs into the temporary vector
+		for(size_t i = 0; i < pairs.size(); i++)
+		{
+			uIntPairsWithID->AddQualityLatency(pairs.at(i));
+		}
+    }
+
+    uIntPairsWithID->AddRawAttributes(this->attributes);
+    return uIntPairsWithID;
+}
+dash::mpd::Latency*                          Node::ToLatency              ()  const
+{
+    dash::mpd::Latency *latency = new dash::mpd::Latency();
+    std::vector<Node *> subNodes = this->GetSubNodes();
+
+    if (this->HasAttribute("referenceId"))
+    {
+        latency->SetReferenceId(strtoul(this->GetAttributeValue("referenceId").c_str(), NULL, 10));
+    }
+    if (this->HasAttribute("target"))
+    {
+        latency->SetTarget(strtoul(this->GetAttributeValue("target").c_str(), NULL, 10));
+    }
+	if (this->HasAttribute("max"))
+    {
+        latency->SetMax(strtoul(this->GetAttributeValue("max").c_str(), NULL, 10));
+    }
+	if (this->HasAttribute("min"))
+    {
+        latency->SetMin(strtoul(this->GetAttributeValue("min").c_str(), NULL, 10));
+    }
+
+    for(size_t i = 0; i < subNodes.size(); i++)
+    {
+        if (subNodes.at(i)->GetName() == "QualityLatency")
+        {
+            latency->AddQualityLatencyType(subNodes.at(i)->ToUIntPairsWithID());
+            continue;
+        }
+        latency->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
+    }    
+
+    latency->AddRawAttributes(this->attributes);
+    return latency;
+}
+dash::mpd::OperatingBandwidth*                Node::ToOperatingBandwidth              ()  const
+{
+    dash::mpd::OperatingBandwidth *operatingBandwidth = new dash::mpd::OperatingBandwidth();
+
+    if (this->HasAttribute("mediaType"))
+    {
+        operatingBandwidth->SetMediaType(this->GetAttributeValue("mediaType"));
+    }
+    if (this->HasAttribute("target"))
+    {
+        operatingBandwidth->SetTarget(strtoul(this->GetAttributeValue("target").c_str(), NULL, 10));
+    }
+	if (this->HasAttribute("max"))
+    {
+        operatingBandwidth->SetMax(strtoul(this->GetAttributeValue("max").c_str(), NULL, 10));
+    }
+	if (this->HasAttribute("min"))
+    {
+        operatingBandwidth->SetMin(strtoul(this->GetAttributeValue("min").c_str(), NULL, 10));
+    } 
+
+    operatingBandwidth->AddRawAttributes(this->attributes);
+    return operatingBandwidth;
+}
+dash::mpd::OperatingQuality*                Node::ToOperatingQuality              ()  const
+{
+    dash::mpd::OperatingQuality *operatingQuality = new dash::mpd::OperatingQuality();
+
+    if (this->HasAttribute("mediaType"))
+    {
+        operatingQuality->SetMediaType(this->GetAttributeValue("mediaType"));
+    }
+    if (this->HasAttribute("target"))
+    {
+        operatingQuality->SetTarget(strtoul(this->GetAttributeValue("target").c_str(), NULL, 10));
+    }
+	if (this->HasAttribute("max"))
+    {
+        operatingQuality->SetMax(strtoul(this->GetAttributeValue("max").c_str(), NULL, 10));
+    }
+	if (this->HasAttribute("min"))
+    {
+        operatingQuality->SetMin(strtoul(this->GetAttributeValue("min").c_str(), NULL, 10));
+    } 
+	if (this->HasAttribute("type"))
+    {
+        operatingQuality->SetType(this->GetAttributeValue("type"));
+    }
+	if (this->HasAttribute("maxDifference"))
+    {
+        operatingQuality->SetMaxDifference(strtoul(this->GetAttributeValue("maxDifference").c_str(), NULL, 10));
+    } 
+
+    operatingQuality->AddRawAttributes(this->attributes);
+    return operatingQuality;
+}
+dash::mpd::PlaybackRate*                Node::ToPlaybackRate              ()  const
+{
+    dash::mpd::PlaybackRate *playbackRate = new dash::mpd::PlaybackRate();
+
+	if (this->HasAttribute("max"))
+    {
+        playbackRate->SetMax(strtoul(this->GetAttributeValue("max").c_str(), NULL, 10));
+    }
+	if (this->HasAttribute("min"))
+    {
+        playbackRate->SetMin(strtoul(this->GetAttributeValue("min").c_str(), NULL, 10));
+    } 
+
+    playbackRate->AddRawAttributes(this->attributes);
+    return playbackRate;
+}
+dash::mpd::ServiceDescription*            Node::ToServiceDescription       ()  const
+{
+    dash::mpd::ServiceDescription *serviceDescription = new dash::mpd::ServiceDescription();
+    std::vector<Node *> subNodes = this->GetSubNodes();
+
+    if (this->HasAttribute("id"))
+    {
+        serviceDescription->SetId(strtoul(this->GetAttributeValue("id").c_str(), NULL, 10));
+    }
+
+    for(size_t i = 0; i < subNodes.size(); i++)
+    {
+        if (subNodes.at(i)->GetName() == "Scope")
+        {
+            serviceDescription->AddScope(subNodes.at(i)->ToDescriptor());
+            continue;
+        }
+        if (subNodes.at(i)->GetName() == "Latency")
+        {
+            serviceDescription->AddLatency(subNodes.at(i)->ToLatency());
+            continue;
+        }
+        if (subNodes.at(i)->GetName() == "PlaybackRate")
+        {
+            serviceDescription->AddPlaybackRate(subNodes.at(i)->ToPlaybackRate());
+            continue;
+        }
+        if (subNodes.at(i)->GetName() == "OperatingQuality")
+        {
+            serviceDescription->AddOperatingQuality(subNodes.at(i)->ToOperatingQuality());
+            continue;
+        }
+		if (subNodes.at(i)->GetName() == "OperatingBandwidth")
+        {
+            serviceDescription->AddOperatingBandwidth(subNodes.at(i)->ToOperatingBandwidth());
+            continue;
+        }
+        serviceDescription->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
+    }    
+
+    serviceDescription->AddRawAttributes(this->attributes);
+    return serviceDescription;
+}
+dash::mpd::Label*                          Node::ToLabel              ()  const
+{
+    dash::mpd::Label *label = new dash::mpd::Label();
+
+    if (this->HasAttribute("lang"))
+    {
+        label->SetLang(this->GetAttributeValue("lang"));
+    }
+    if (this->HasAttribute("id"))
+    {
+        label->SetId(strtoul(this->GetAttributeValue("id").c_str(), NULL, 10));
+    }
+
+    label->AddRawAttributes(this->attributes);
+    return label;
+}
 dash::mpd::Period*                          Node::ToPeriod              ()  const
 {
     dash::mpd::Period *period = new dash::mpd::Period();
@@ -809,9 +998,24 @@ dash::mpd::Period*                          Node::ToPeriod              ()  cons
             period->AddSubset(subNodes.at(i)->ToSubset());
             continue;
         }
+		if (subNodes.at(i)->GetName() == "GroupLabel")
+        {
+            period->AddGroupLabel(subNodes.at(i)->ToLabel());
+            continue;
+        }
+		if (subNodes.at(i)->GetName() == "AssetIdentifier")
+        {
+            period->SetAssetIdentifier(subNodes.at(i)->ToDescriptor());
+            continue;
+        }
 		if (subNodes.at(i)->GetName() == "EventStream")
         {
             period->AddEventStream(subNodes.at(i)->ToEventStream());
+            continue;
+        }
+		if (subNodes.at(i)->GetName() == "ServiceDescription")
+        {
+            period->AddServiceDescription(subNodes.at(i)->ToServiceDescription());
             continue;
         }
         if (subNodes.at(i)->GetName() == "SegmentBase")
@@ -827,6 +1031,11 @@ dash::mpd::Period*                          Node::ToPeriod              ()  cons
         if (subNodes.at(i)->GetName() == "SegmentTemplate")
         {
             period->SetSegmentTemplate(subNodes.at(i)->ToSegmentTemplate());
+            continue;
+        }
+		if (subNodes.at(i)->GetName() == "SupplementalProperty")
+        {
+            period->AddSupplementalProperty(subNodes.at(i)->ToDescriptor());
             continue;
         }
         period->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
@@ -853,6 +1062,7 @@ dash::mpd::Range*                           Node::ToRange               ()  cons
 dash::mpd::Metrics*                         Node::ToMetrics             ()  const
 {
     dash::mpd::Metrics* metrics = new dash::mpd::Metrics();
+	std::vector<Node *> subNodes = this->GetSubNodes();
 
     if (this->HasAttribute("metrics"))
     {
@@ -876,6 +1086,52 @@ dash::mpd::Metrics*                         Node::ToMetrics             ()  cons
 
     metrics->AddRawAttributes(this->attributes);
     return metrics;
+}
+dash::mpd::LeapSecondInformation*           Node::ToLeapSecondInformation   ()  const
+{
+    dash::mpd::LeapSecondInformation* leapSecondInformation = new dash::mpd::LeapSecondInformation();
+	std::vector<Node *> subNodes = this->GetSubNodes();
+
+    if (this->HasAttribute("availabilityStartLeapOffset"))
+    {
+        leapSecondInformation->SetAvailabilityStartLeapOffset(strtol(this->GetAttributeValue("availabilityStartLeapOffset").c_str(), NULL, 10));
+    }
+	if (this->HasAttribute("nextAvailabilityStartLeapOffset"))
+    {
+        leapSecondInformation->SetNextAvailabilityStartLeapOffset(strtol(this->GetAttributeValue("nextAvailabilityStartLeapOffset").c_str(), NULL, 10));
+    }
+	if (this->HasAttribute("nextLeapChangeTime"))
+    {
+        leapSecondInformation->SetNextLeapChangeTime(this->GetAttributeValue("nextLeapChangeTime"));
+    }
+
+    for(size_t i = 0; i < subNodes.size(); i++)
+    {
+        leapSecondInformation->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
+    }
+
+    leapSecondInformation->AddRawAttributes(this->attributes);
+    return leapSecondInformation;
+}
+dash::mpd::PatchLocation*                    Node::ToPatchLocation           ()  const
+{
+    dash::mpd::PatchLocation* patchLocation = new dash::mpd::PatchLocation();
+
+	if (this->GetText() == "./")
+    {
+        patchLocation->SetUrl(this->mpdPath);
+    }
+    else 
+    {
+        patchLocation->SetUrl(this->GetText());
+    }
+	if (this->HasAttribute("ttl"))
+    {
+        patchLocation->SetTtl(strtoul(this->GetAttributeValue("ttl").c_str(), NULL, 10));
+    }
+
+    patchLocation->AddRawAttributes(this->attributes);
+    return patchLocation;
 }
 dash::mpd::MPD*                             Node::ToMPD                 ()  const
 {
@@ -952,6 +1208,16 @@ dash::mpd::MPD*                             Node::ToMPD                 ()  cons
             mpd->AddLocation(subNodes.at(i)->GetText());
             continue;
         }
+		if (subNodes.at(i)->GetName() == "PatchLocation")
+        {
+            mpd->AddPatchLocation(subNodes.at(i)->ToPatchLocation());
+            continue;
+        }
+		if (subNodes.at(i)->GetName() == "ServiceDescription")
+        {
+            mpd->AddServiceDescription(subNodes.at(i)->ToServiceDescription());
+            continue;
+        }
         if (subNodes.at(i)->GetName() == "Period")
         {
             mpd->AddPeriod(subNodes.at(i)->ToPeriod());
@@ -960,6 +1226,26 @@ dash::mpd::MPD*                             Node::ToMPD                 ()  cons
         if (subNodes.at(i)->GetName() == "Metrics")
         {
             mpd->AddMetrics(subNodes.at(i)->ToMetrics());
+            continue;
+        }
+		if (subNodes.at(i)->GetName() == "EssentialProperty")
+        {
+            mpd->AddEssentialProperty(subNodes.at(i)->ToDescriptor());
+            continue;
+        }
+		if (subNodes.at(i)->GetName() == "SupplementalProperty")
+        {
+            mpd->AddSupplementalProperty(subNodes.at(i)->ToDescriptor());
+            continue;
+        }
+		if (subNodes.at(i)->GetName() == "UTCTiming")
+        {
+            mpd->AddUTCTiming(subNodes.at(i)->ToDescriptor());
+            continue;
+        }
+		if (subNodes.at(i)->GetName() == "LeapSecondInformation")
+        {
+            mpd->SetLeapSecondInformation(subNodes.at(i)->ToLeapSecondInformation());
             continue;
         }
         mpd->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
@@ -1151,9 +1437,34 @@ void                                        Node::SetCommonValuesForRep (dash::m
             object.AddContentProtection(subNodes.at(i)->ToDescriptor());
             continue;
         }
+		if (subNodes.at(i)->GetName() == "OutputProtection")
+        {
+            object.SetOutputProtection(subNodes.at(i)->ToDescriptor());
+            continue;
+        }
+		if (subNodes.at(i)->GetName() == "EssentialProperty")
+        {
+            object.AddEssentialProperty(subNodes.at(i)->ToDescriptor());
+            continue;
+        }
+		if (subNodes.at(i)->GetName() == "SupplementalProperty")
+        {
+            object.AddSupplementalProperty(subNodes.at(i)->ToDescriptor());
+            continue;
+        }
 		if (subNodes.at(i)->GetName() == "InbandEventStream")
         {
             object.AddEventStream(subNodes.at(i)->ToEventStream());
+            continue;
+        }
+		if (subNodes.at(i)->GetName() == "GroupLabel")
+        {
+            object.AddGroupLabel(subNodes.at(i)->ToLabel());
+            continue;
+        }
+		if (subNodes.at(i)->GetName() == "Label")
+        {
+            object.AddLabel(subNodes.at(i)->ToLabel());
             continue;
         }
     }

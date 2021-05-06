@@ -20,6 +20,7 @@ Period::Period  () :
         segmentBase(NULL),
         segmentList(NULL),
         segmentTemplate(NULL),
+		assetIdentifier(NULL),
         xlinkActuate("onRequest"),
         xlinkHref(""),
 		xlinkType("simple"),
@@ -38,11 +39,18 @@ Period::~Period ()
         delete(this->adaptationSets.at(i));
     for(size_t i = 0; i < this->subsets.size(); i++)
         delete(this->subsets.at(i));
+	for(size_t i = 0; i < this->supplementalProperties.size(); i++)
+        delete(this->supplementalProperties.at(i));
+	for(size_t i = 0; i < this->groupLabels.size(); i++)
+        delete(this->groupLabels.at(i));
 	for(size_t i = 0; i < this->eventStreams.size(); i++)
         delete(this->eventStreams.at(i));
+	for(size_t i = 0; i < this->serviceDescriptions.size(); i++)
+        delete(this->serviceDescriptions.at(i));
     delete(segmentBase);
     delete(segmentList);
     delete(segmentTemplate);
+	delete(assetIdentifier);
 }
 
 const std::vector<IBaseUrl *>&      Period::GetBaseURLs             ()  const
@@ -77,6 +85,14 @@ void                                Period::SetSegmentTemplate      (SegmentTemp
 {
     this->segmentTemplate = segmentTemplate;
 }
+const IDescriptor*                  Period::GetAssetIdentifier      ()  const
+{
+    return this->assetIdentifier;
+}
+void                                Period::SetAssetIdentifier      (Descriptor *assetIdentifier) 
+{
+    this->assetIdentifier = assetIdentifier;
+}
 const std::vector<IEventStream *>&  Period::GetEventStreams         ()  const
 {
     return (std::vector<IEventStream *> &) this->eventStreams;
@@ -84,6 +100,14 @@ const std::vector<IEventStream *>&  Period::GetEventStreams         ()  const
 void                                Period::AddEventStream          (EventStream *eventStream)
 {
     this->eventStreams.push_back(eventStream);
+}
+const std::vector<IServiceDescription *>&   Period::GetServiceDescriptions             () const 
+{
+    return (std::vector<IServiceDescription *> &) this->serviceDescriptions;
+}
+void                                        Period::AddServiceDescription              (ServiceDescription *serviceDescription)
+{
+    this->serviceDescriptions.push_back(serviceDescription);
 }
 const std::vector<IAdaptationSet*>& Period::GetAdaptationSets       () const
 {
@@ -101,6 +125,22 @@ const std::vector<ISubset *>&       Period::GetSubsets              () const
 void                                Period::AddSubset               (Subset *subset)
 {
     this->subsets.push_back(subset);
+}
+const std::vector<IDescriptor *>&   Period::GetSupplementalProperties    () const 
+{
+    return (std::vector<IDescriptor *> &) this->supplementalProperties;
+}
+void                                Period::AddSupplementalProperty      (Descriptor *supplementalProperty)
+{
+    this->supplementalProperties.push_back(supplementalProperty);
+}
+const std::vector<ILabel *>&        Period::GetGroupLabels               () const 
+{
+    return (std::vector<ILabel *> &) this->groupLabels;
+}
+void                                Period::AddGroupLabel                (Label *groupLabel)
+{
+    this->groupLabels.push_back(groupLabel);
 }
 const std::string&                  Period::GetXlinkHref            ()  const
 {

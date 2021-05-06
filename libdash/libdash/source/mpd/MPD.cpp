@@ -18,6 +18,7 @@ using namespace dash::mpd;
 using namespace dash::metrics;
 
 MPD::MPD    () :
+        leapSecondInformation(NULL),
         id(""),
         type("static"),
         availabilityStarttime(""),
@@ -39,12 +40,22 @@ MPD::~MPD   ()
         delete(this->programInformations.at(i));
     for(size_t i = 0; i < this->metrics.size(); i++)
         delete(this->metrics.at(i));
+	for(size_t i = 0; i < this->essentialProperties.size(); i++)
+        delete(this->essentialProperties.at(i));
+	for(size_t i = 0; i < this->supplementalProperties.size(); i++)
+        delete(this->supplementalProperties.at(i));
+	for(size_t i = 0; i < this->utcTimings.size(); i++)
+        delete(this->utcTimings.at(i));
     for(size_t i = 0; i < this->periods.size(); i++)
         delete(this->periods.at(i));
     for(size_t i = 0; i < this->baseUrls.size(); i++)
         delete(this->baseUrls.at(i));
+	for(size_t i = 0; i < this->serviceDescriptions.size(); i++)
+        delete(this->serviceDescriptions.at(i));
     if (this->mpdPathBaseUrl)
         delete(this->mpdPathBaseUrl);
+	
+	delete(leapSecondInformation);
 }
 
 const std::vector<IProgramInformation *>&   MPD::GetProgramInformations             () const 
@@ -71,6 +82,22 @@ void                                        MPD::AddLocation                    
 {
     this->locations.push_back(location);
 }
+const std::vector<IPatchLocation*>&         MPD::GetPatchLocations                  () const
+{
+    return (std::vector<IPatchLocation*> &) this->patchLocations;
+}
+void                                        MPD::AddPatchLocation                   (PatchLocation *patchLocation)
+{
+    this->patchLocations.push_back(patchLocation);
+}
+const std::vector<IServiceDescription *>&   MPD::GetServiceDescriptions             () const 
+{
+    return (std::vector<IServiceDescription *> &) this->serviceDescriptions;
+}
+void                                        MPD::AddServiceDescription              (ServiceDescription *serviceDescription)
+{
+    this->serviceDescriptions.push_back(serviceDescription);
+}
 const std::vector<IPeriod*>&                MPD::GetPeriods                         () const 
 {
     return (std::vector<IPeriod*> &) this->periods;
@@ -86,6 +113,38 @@ const std::vector<IMetrics *>&              MPD::GetMetrics                     
 void                                        MPD::AddMetrics                         (Metrics *metrics)
 {
     this->metrics.push_back(metrics);
+}
+const std::vector<IDescriptor *>&           MPD::GetEssentialProperties             () const 
+{
+    return (std::vector<IDescriptor *> &) this->essentialProperties;
+}
+void                                        MPD::AddEssentialProperty               (Descriptor *essentialProperty)
+{
+    this->essentialProperties.push_back(essentialProperty);
+}
+const std::vector<IDescriptor *>&           MPD::GetSupplementalProperties          () const 
+{
+    return (std::vector<IDescriptor *> &) this->supplementalProperties;
+}
+void                                        MPD::AddSupplementalProperty            (Descriptor *supplementalProperty)
+{
+    this->supplementalProperties.push_back(supplementalProperty);
+}
+const std::vector<IDescriptor *>&           MPD::GetUTCTimings                      () const 
+{
+    return (std::vector<IDescriptor *> &) this->utcTimings;
+}
+void                                        MPD::AddUTCTiming                       (Descriptor *utcTiming)
+{
+    this->utcTimings.push_back(utcTiming);
+}
+const ILeapSecondInformation *              MPD::GetLeapSecondInformation           ()  const
+{
+    return this->leapSecondInformation;
+}
+void                                        MPD::SetLeapSecondInformation           (LeapSecondInformation *leapSecondInformation)
+{
+    this->leapSecondInformation = leapSecondInformation;
 }
 const std::string&                          MPD::GetId                              ()  const
 {

@@ -43,8 +43,7 @@ AdaptationSet::AdaptationSet    () :
                 usesSubsegmentAlignment(false),
                 segmentAlignment(0),
                 subsegmentAlignment(0),
-                isBitstreamSwitching(false),
-				initializationSetRef("")
+                isBitstreamSwitching(false)
 {
 }
 AdaptationSet::~AdaptationSet   ()
@@ -363,11 +362,11 @@ void                                    AdaptationSet::SetBitstreamSwitching    
 {
     this->isBitstreamSwitching = value;
 }
-const std::string&                      AdaptationSet::GetInitializationSetRef          ()  const
+const std::vector<uint32_t>&            AdaptationSet::GetInitializationSetRef          ()  const
 {
     return this->initializationSetRef;
 }
 void                                    AdaptationSet::SetInitializationSetRef          (const std::string& initializationSetRef)
 {
-    this->initializationSetRef = initializationSetRef;
+    dash::helpers::String::Split(initializationSetRef, ' ', this->initializationSetRef);
 }

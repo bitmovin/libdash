@@ -20,9 +20,13 @@
 #include "IMPD.h"
 #include "ProgramInformation.h"
 #include "BaseUrl.h"
+#include "Descriptor.h"
 #include "Period.h"
 #include "Metrics.h"
 #include "AbstractMPDElement.h"
+#include "ServiceDescription.h"
+#include "LeapSecondInformation.h"
+#include "PatchLocation.h"
 #include "../metrics/HTTPTransaction.h"
 #include "../metrics/TCPConnection.h"
 
@@ -39,8 +43,14 @@ namespace dash
                 const std::vector<IProgramInformation *>&   GetProgramInformations          ()  const;
                 const std::vector<IBaseUrl *>&              GetBaseUrls                     ()  const;
                 const std::vector<std::string>&             GetLocations                    ()  const;
+				const std::vector<IPatchLocation *>&        GetPatchLocations               ()  const;
+				const std::vector<IServiceDescription *>&   GetServiceDescriptions          ()  const;
                 const std::vector<IPeriod *>&               GetPeriods                      ()  const;
                 const std::vector<IMetrics *>&              GetMetrics                      ()  const;
+				const std::vector<IDescriptor *>&           GetEssentialProperties          ()  const;
+				const std::vector<IDescriptor *>&           GetSupplementalProperties       ()  const;
+				const std::vector<IDescriptor *>&           GetUTCTimings                   ()  const;
+				const ILeapSecondInformation *              GetLeapSecondInformation        ()  const;
                 const std::string&                          GetId                           ()  const;
                 const std::vector<std::string>&             GetProfiles                     ()  const;
                 const std::string&                          GetType                         ()  const;
@@ -65,8 +75,14 @@ namespace dash
                 void    AddProgramInformation           (ProgramInformation *programInformation);
                 void    AddBaseUrl                      (BaseUrl *url);
                 void    AddLocation                     (const std::string& location);
+				void    AddPatchLocation                (PatchLocation *patchLocation);
+				void    AddServiceDescription           (ServiceDescription* serviceDescription);
                 void    AddPeriod                       (Period *period);
                 void    AddMetrics                      (Metrics *metrics);
+				void    AddEssentialProperty            (Descriptor *essentialProperty);
+				void    AddSupplementalProperty         (Descriptor *supplementalProperty);
+				void    AddUTCTiming                    (Descriptor *utcTiming);
+				void    SetLeapSecondInformation        (LeapSecondInformation *leapSecondInformation);
                 void    SetId                           (const std::string& id);
                 void    SetProfiles                     (const std::string& profiles);
                 void    SetType                         (const std::string& type);
@@ -87,8 +103,14 @@ namespace dash
                 std::vector<ProgramInformation *>   programInformations;
                 std::vector<BaseUrl *>              baseUrls;
                 std::vector<std::string>            locations;
+				std::vector<PatchLocation *>        patchLocations;
+				std::vector<ServiceDescription *>   serviceDescriptions;
                 std::vector<Period *>               periods;
                 std::vector<Metrics *>              metrics;
+				std::vector<Descriptor *>           essentialProperties;
+				std::vector<Descriptor *>           supplementalProperties;
+				std::vector<Descriptor *>           utcTimings;
+				LeapSecondInformation               *leapSecondInformation;
                 std::string                         id;
                 std::vector<std::string>            profiles;
                 std::string                         type;

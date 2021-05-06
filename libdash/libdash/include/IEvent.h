@@ -18,8 +18,8 @@
  *  @date       2021
  */
  
-#ifndef IEvent_H_
-#define IEvent_H_
+#ifndef IEVENT_H_
+#define IEVENT_H_
 
 #include "config.h"
 
@@ -86,4 +86,4 @@ namespace dash
     }
 }
 
-#endif /* IEvent_H_ */
+#endif /* IEVENT_H_ */

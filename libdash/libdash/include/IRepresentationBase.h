@@ -3,7 +3,7 @@
  *  @brief      This interface is needed for accessing the common attributes and elements of the certain MPD element as specified in <em>ISO/IEC 23009-1, Part 1, 2012</em>, section 5.3.7
  *  @details    The elements \c <b>AdaptationSet</b>, \c <b>Representation</b> and \c <b>SubRepresentation</b> have assigned common attributes and elements that are specified in 
  *              <em>ISO/IEC 23009-1, Part 1, 2012</em>, section 5.3.7.2, table 9
- *  @see        dash::mpd::IDescriptor dash::mpd::IEventStream dash::mpd::IMPDElement
+ *  @see        dash::mpd::IDescriptor dash::mpd::IEventStream dash::mpd::ILabel dash::mpd::IMPDElement
  *
  *  @author     bitmovin Softwareentwicklung OG \n
  *              Email: libdash-dev@vicky.bitmovin.net
@@ -25,6 +25,7 @@
 #include "IMPDElement.h"
 #include "IDescriptor.h"
 #include "IEventStream.h"
+#include "ILabel.h"
 
 namespace dash
 {
@@ -58,11 +59,53 @@ namespace dash
                 virtual const std::vector<IDescriptor *>&   GetContentProtection            () const = 0;
 				
 				/**
+                 *  Returns a pointer to a dash::mpd::IDescriptor object that specifies information about the output protection schemes used for the associated Representations.\n
+                 *  For further details see sections 5.8.1 and 5.8.4.1 of <em>ISO/IEC 23009-1, Part 1, 2012</em>.
+				 *
+                 *  @return     a pointer to a dash::mpd::IDescriptor object
+                 */
+                virtual const IDescriptor *                 GetOutputProtection             () const = 0;
+				
+				/**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IDescriptor objects that specify information about the containing element that is considered 
+				 *  essential by the Media Presentation author for processing the containing element. \n	
+				 *  For details, see subclause 5.8.4.8. of <em>ISO/IEC 23009-1</em>.
+				 *
+                 *  @return     a reference to a vector of pointers to dash::mpd::IDescriptor objects
+                 */
+                virtual const std::vector<IDescriptor *>&   GetEssentialProperties          ()  const = 0;
+				
+				/**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IDescriptor objects that specify supplemental information about the containing element 
+				 *  that may be used by the DASH Client optimizing the processing. \n
+                 *  For details, see subclause 5.8.4.9. of <em>ISO/IEC 23009-1</em>.
+				 *
+                 *  @return     a reference to a vector of pointers to dash::mpd::IDescriptor objects
+                 */
+                virtual const std::vector<IDescriptor *>&   GetSupplementalProperties       ()  const = 0;
+				
+				/**
                  *  Returns a reference to a vector of pointers to dash::mpd::IEventStream objects, each of which specifies Event Stream information.\n
                  *  For more details see section 5.10.2. of <em>ISO/IEC 23009-1</em>.
                  *  @return     a reference to a vector of pointers to dash::mpd::IEventStream objects
                  */
                 virtual const std::vector<IEventStream *>&  GetEventStreams                 ()  const = 0;
+				
+				/**
+                 *  Returns a reference to a vector of pointers to dash::mpd::ILabel objects that specify summary labels for a group of Labels.
+                 *  For more details, refer to subclause 5.3.10. of <em>ISO/IEC 23009-1</em>.
+				 *
+                 *  @return     a reference to a vector of pointers to dash::mpd::ILabel objects
+                 */
+                virtual const std::vector<ILabel *>&            GetGroupLabels          ()  const = 0;
+				
+				/**
+                 *  Returns a reference to a vector of pointers to dash::mpd::ILabel objects that specify textual descriptions of the elements that may be used for annotation and selection purposes.
+				 *  For more details, refer to subclause 5.3.10. of <em>ISO/IEC 23009-1</em>.
+				 *
+                 *  @return     a reference to a vector of pointers to dash::mpd::ILabel objects
+                 */
+                virtual const std::vector<ILabel *>&            GetLabels               ()  const = 0;
 
                 /**
                  *  Returns a reference to a vector of strings that specifies the profiles which the associated Representation(s) 

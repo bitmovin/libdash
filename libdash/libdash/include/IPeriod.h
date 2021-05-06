@@ -28,7 +28,7 @@
  *              representing an Early Available Period in later updates of the MPD as long as no \em PeriodStart time is associated with the Period. \n\n
  *              To avoid dereferencing of a remote element containing a <tt><b>Period</b></tt> element solely to determine the Period timeline, e.g. in case of seeking, 
  *              <tt><b>Period</b>\@start</tt> or previous Period's <tt><b>Period</b>\@duration</tt> should be present in the MPD.
- *  @see        dash::mpd::IMPDElement dash::mpd::BaseUrl dash::mpd::IAdaptationSet dash::mpd::ISegmentBase dash::mpd::ISegmentList dash::mpd::ISegmentTemplate dash::mpd::ISegmentBase dash::mpd::IEventStream dash::mpd::ISubset
+ *  @see        dash::mpd::IMPDElement dash::mpd::BaseUrl dash::mpd::IAdaptationSet dash::mpd::ISegmentBase dash::mpd::ISegmentList dash::mpd::ISegmentTemplate dash::mpd::ISegmentBase dash::mpd::IDescriptor dash::mpd::ILabel dash::mpd::IEventStream dash::mpd::ISubset
  *
  *  @author     bitmovin Softwareentwicklung OG \n
  *              Email: libdash-dev@vicky.bitmovin.net
@@ -52,7 +52,10 @@
 #include "ISegmentBase.h"
 #include "ISegmentList.h"
 #include "ISegmentTemplate.h"
+#include "IDescriptor.h"
+#include "ILabel.h"
 #include "IEventStream.h"
+#include "IServiceDescription.h"
 #include "IAdaptationSet.h"
 #include "ISubset.h"
 
@@ -97,11 +100,27 @@ namespace dash
                 virtual ISegmentTemplate*                       GetSegmentTemplate      ()  const = 0;
 				
 				/**
+                 *  Returns a pointer to a dash::mpd::IDescriptor object that specifies that this Period belongs to a certain asset. \n
+                 *  For more details, see subclause 5.8.5.7. of <em>ISO/IEC 23009-1</em>.
+				 *
+                 *  @return     a pointer to a dash::mpd::IDescriptor object
+                 */
+                virtual const IDescriptor *                     GetAssetIdentifier      ()  const = 0;
+				
+				/**
                  *  Returns a reference to a vector of pointers to dash::mpd::IEventStream objects, each of which specifies Event Stream information.\n
                  *  For more details see section 5.10.2. of <em>ISO/IEC 23009-1</em>.
                  *  @return     a reference to a vector of pointers to dash::mpd::IEventStream objects
                  */
                 virtual const std::vector<IEventStream *>&      GetEventStreams         ()  const = 0;
+				
+				/**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IServiceDescription objects that specify the service descriptions.
+				 *  For more details refer to the description in section K.4.1 of <em>ISO/IEC 23009-1</em>.
+				 *
+                 *  @return     a reference to a vector of pointers to dash::mpd::IServiceDescription objects
+                 */
+                virtual const std::vector<IServiceDescription *>&   GetServiceDescriptions          ()  const = 0;
 
                 /**
                  *  Returns a reference to a vector of pointers to dash::mpd::IAdaptationSet objects that specify Adapatation Sets.\n
@@ -117,6 +136,23 @@ namespace dash
                  *  @return     a reference to a vector of pointers to dash::mpd::ISubset objects
                  */
                 virtual const std::vector<ISubset *>&           GetSubsets              ()  const = 0;
+				
+				/**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IDescriptor objects that specify supplemental information about the containing element 
+				 *  that may be used by the DASH Client optimizing the processing. \n
+                 *  For details, see subclause 5.8.4.9. of <em>ISO/IEC 23009-1</em>.
+				 *
+                 *  @return     a reference to a vector of pointers to dash::mpd::IDescriptor objects
+                 */
+                virtual const std::vector<IDescriptor *>&       GetSupplementalProperties  ()  const = 0;
+				
+				/**
+                 *  Returns a reference to a vector of pointers to dash::mpd::ILabel objects that specify summary labels for a group of Labels.
+                 *  For more details, refer to subclause 5.3.10. of <em>ISO/IEC 23009-1</em>.
+				 *
+                 *  @return     a reference to a vector of pointers to dash::mpd::ILabel objects
+                 */
+                virtual const std::vector<ILabel *>&            GetGroupLabels          ()  const = 0;
 
                 /**
                  *  Returns a reference to a string that specifies a reference to an external <tt><b>Period</b></tt> element.

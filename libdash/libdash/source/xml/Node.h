@@ -28,10 +28,17 @@
 #include "../mpd/FCS.h"
 #include "../mpd/FailoverContent.h"
 #include "../mpd/FCS.h"
+#include "../mpd/Label.h"
+#include "../mpd/Latency.h"
+#include "../mpd/LeapSecondInformation.h"
 #include "../mpd/Metrics.h"
 #include "../mpd/MPD.h"
 #include "../mpd/MultipleSegmentBase.h"
+#include "../mpd/OperatingQuality.h"
+#include "../mpd/OperatingBandwidth.h"
+#include "../mpd/PatchLocation.h"
 #include "../mpd/Period.h"
+#include "../mpd/PlaybackRate.h"
 #include "../mpd/ProgramInformation.h"
 #include "../mpd/Range.h"
 #include "../mpd/Representation.h"
@@ -41,9 +48,12 @@
 #include "../mpd/SegmentTemplate.h"
 #include "../mpd/SegmentTimeline.h"
 #include "../mpd/SegmentURL.h"
+#include "../mpd/ServiceDescription.h"
 #include "../mpd/SubRepresentation.h"
 #include "../mpd/Subset.h"
 #include "../mpd/URLType.h"
+#include "../mpd/UIntPairs.h"
+#include "../mpd/UIntPairsWithID.h"
 #include "IHTTPTransaction.h"
 
 namespace dash
@@ -88,19 +98,28 @@ namespace dash
 				dash::mpd::EventStream*                     ToEventStream           ()  const;
 				dash::mpd::FailoverContent*                 ToFailoverContent       ()  const;
 				dash::mpd::FCS*                             ToFCS                   ()  const;
+				dash::mpd::Label*                           ToLabel                 ()  const;
+				dash::mpd::LeapSecondInformation*           ToLeapSecondInformation ()  const;
+				dash::mpd::Latency*                         ToLatency               ()  const;
                 dash::mpd::Metrics*                         ToMetrics               ()  const;
+				dash::mpd::OperatingBandwidth*              ToOperatingBandwidth    ()  const;
+				dash::mpd::OperatingQuality*                ToOperatingQuality      ()  const;
+				dash::mpd::PatchLocation*                   ToPatchLocation         ()  const;
                 dash::mpd::Period*                          ToPeriod                ()  const;
+				dash::mpd::PlaybackRate*                    ToPlaybackRate          ()  const;
                 dash::mpd::ProgramInformation*              ToProgramInformation    ()  const;
                 dash::mpd::Range*                           ToRange                 ()  const;
                 dash::mpd::Representation*                  ToRepresentation        ()  const;
                 dash::mpd::SegmentBase*                     ToSegmentBase           ()  const;
                 dash::mpd::SegmentList*                     ToSegmentList           ()  const;
                 dash::mpd::SegmentTemplate*                 ToSegmentTemplate       ()  const;
+				dash::mpd::ServiceDescription*              ToServiceDescription    ()  const;
                 dash::mpd::Timeline*                        ToTimeline              ()  const;
                 dash::mpd::SegmentTimeline*                 ToSegmentTimeline       ()  const;
                 dash::mpd::SegmentURL*                      ToSegmentURL            ()  const;
                 dash::mpd::SubRepresentation*               ToSubRepresentation     ()  const;
                 dash::mpd::Subset*                          ToSubset                ()  const;
+				dash::mpd::UIntPairsWithID*                 ToUIntPairsWithID       ()  const;
                 dash::mpd::URLType*                         ToURLType               (dash::metrics::HTTPTransactionType transActType)  const;
 
                 std::vector<Node *>                 subNodes;

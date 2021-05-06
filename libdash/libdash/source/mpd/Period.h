@@ -24,7 +24,10 @@
 #include "SegmentBase.h"
 #include "SegmentList.h"
 #include "SegmentTemplate.h"
+#include "Descriptor.h"
+#include "Label.h"
 #include "EventStream.h"
+#include "ServiceDescription.h"
 #include "AbstractMPDElement.h"
 
 namespace dash
@@ -41,9 +44,13 @@ namespace dash
                 ISegmentBase*                           GetSegmentBase          ()  const;
                 ISegmentList*                           GetSegmentList          ()  const;
                 ISegmentTemplate*                       GetSegmentTemplate      ()  const;
+				const IDescriptor *                     GetAssetIdentifier      ()  const;
 				const std::vector<IEventStream *>&      GetEventStreams         ()  const;
+				const std::vector<IServiceDescription *>&   GetServiceDescriptions          ()  const;
                 const std::vector<IAdaptationSet *>&    GetAdaptationSets       ()  const;
                 const std::vector<ISubset *>&           GetSubsets              ()  const;
+				const std::vector<IDescriptor *>&       GetSupplementalProperties  ()  const;
+				const std::vector<ILabel *>&            GetGroupLabels          ()  const;
                 const std::string&                      GetXlinkHref            ()  const;
                 const std::string&                      GetXlinkActuate         ()  const;
 				const std::string&                      GetXlinkType            ()  const;
@@ -57,9 +64,13 @@ namespace dash
                 void    SetSegmentBase              (SegmentBase *segmentBase);
                 void    SetSegmentList              (SegmentList *segmentList);
                 void    SetSegmentTemplate          (SegmentTemplate *segmentTemplate);
+				void    SetAssetIdentifier          (Descriptor *assetIdentifier);
 				void    AddEventStream              (EventStream *eventStream);
+				void    AddServiceDescription       (ServiceDescription* serviceDescription);
                 void    AddAdaptationSet            (AdaptationSet *AdaptationSet);
                 void    AddSubset                   (Subset *subset);
+				void    AddSupplementalProperty     (Descriptor *supplementalProperty);
+				void    AddGroupLabel               (Label *groupLabel);
                 void    SetXlinkHref                (const std::string& xlinkHref);
                 void    SetXlinkActuate             (const std::string& xlinkActuate);
 				void    SetXlinkType                (const std::string& xlinkType);
@@ -74,9 +85,13 @@ namespace dash
                 SegmentBase                     *segmentBase;
                 SegmentList                     *segmentList;
                 SegmentTemplate                 *segmentTemplate;
+				Descriptor                      *assetIdentifier;
 				std::vector<EventStream *>      eventStreams;
+				std::vector<ServiceDescription *>   serviceDescriptions;
                 std::vector<AdaptationSet *>    adaptationSets;
                 std::vector<Subset *>           subsets;
+				std::vector<Descriptor *>       supplementalProperties;
+				std::vector<Label *>            groupLabels;
                 std::string                     xlinkHref;
                 std::string                     xlinkActuate;
 				std::string                     xlinkType;
