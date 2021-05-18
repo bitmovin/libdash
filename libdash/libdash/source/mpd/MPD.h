@@ -27,6 +27,8 @@
 #include "ServiceDescription.h"
 #include "LeapSecondInformation.h"
 #include "PatchLocation.h"
+#include "InitializationSet.h"
+#include "UIntVWithID.h"
 #include "../metrics/HTTPTransaction.h"
 #include "../metrics/TCPConnection.h"
 
@@ -45,7 +47,11 @@ namespace dash
                 const std::vector<std::string>&             GetLocations                    ()  const;
 				const std::vector<IPatchLocation *>&        GetPatchLocations               ()  const;
 				const std::vector<IServiceDescription *>&   GetServiceDescriptions          ()  const;
+				const std::vector<IInitializationSet *>&    GetInitializationSets           ()  const;
+				const std::vector<IUIntVWithID *>&          GetInitializationGroups         ()  const;
+				const std::vector<IUIntVWithID *>&          GetInitializationPresentations  ()  const;
                 const std::vector<IPeriod *>&               GetPeriods                      ()  const;
+				const std::vector<IPeriod *>&               GetPrerolls                     ()  const;
                 const std::vector<IMetrics *>&              GetMetrics                      ()  const;
 				const std::vector<IDescriptor *>&           GetEssentialProperties          ()  const;
 				const std::vector<IDescriptor *>&           GetSupplementalProperties       ()  const;
@@ -77,7 +83,11 @@ namespace dash
                 void    AddLocation                     (const std::string& location);
 				void    AddPatchLocation                (PatchLocation *patchLocation);
 				void    AddServiceDescription           (ServiceDescription* serviceDescription);
+				void    AddInitializationSet            (InitializationSet* initializationSet);
+				void    AddInitializationGroup          (UIntVWithID* initializationGroup);
+				void    AddInitializationPresentation   (UIntVWithID* initializationPresentation);
                 void    AddPeriod                       (Period *period);
+				void    AddPreroll                      (Period *preroll);
                 void    AddMetrics                      (Metrics *metrics);
 				void    AddEssentialProperty            (Descriptor *essentialProperty);
 				void    AddSupplementalProperty         (Descriptor *supplementalProperty);
@@ -105,7 +115,11 @@ namespace dash
                 std::vector<std::string>            locations;
 				std::vector<PatchLocation *>        patchLocations;
 				std::vector<ServiceDescription *>   serviceDescriptions;
+				std::vector<InitializationSet *>    initializationSets;
+				std::vector<UIntVWithID *>          initializationGroups;
+				std::vector<UIntVWithID *>          initializationPresentations;
                 std::vector<Period *>               periods;
+				std::vector<Period *>               prerolls;
                 std::vector<Metrics *>              metrics;
 				std::vector<Descriptor *>           essentialProperties;
 				std::vector<Descriptor *>           supplementalProperties;

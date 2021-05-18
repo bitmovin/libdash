@@ -28,7 +28,8 @@
  *              representing an Early Available Period in later updates of the MPD as long as no \em PeriodStart time is associated with the Period. \n\n
  *              To avoid dereferencing of a remote element containing a <tt><b>Period</b></tt> element solely to determine the Period timeline, e.g. in case of seeking, 
  *              <tt><b>Period</b>\@start</tt> or previous Period's <tt><b>Period</b>\@duration</tt> should be present in the MPD.
- *  @see        dash::mpd::IMPDElement dash::mpd::BaseUrl dash::mpd::IAdaptationSet dash::mpd::ISegmentBase dash::mpd::ISegmentList dash::mpd::ISegmentTemplate dash::mpd::ISegmentBase dash::mpd::IDescriptor dash::mpd::ILabel dash::mpd::IEventStream dash::mpd::ISubset
+ *  @see        dash::mpd::IMPDElement dash::mpd::BaseUrl dash::mpd::IAdaptationSet dash::mpd::ISegmentBase dash::mpd::ISegmentList dash::mpd::ISegmentTemplate dash::mpd::ISegmentBase 
+ *              dash::mpd::IDescriptor dash::mpd::ILabel dash::mpd::IEventStream dash::mpd::ISubset dash::mpd::IPreselection
  *
  *  @author     bitmovin Softwareentwicklung OG \n
  *              Email: libdash-dev@vicky.bitmovin.net
@@ -58,6 +59,7 @@
 #include "IServiceDescription.h"
 #include "IAdaptationSet.h"
 #include "ISubset.h"
+#include "IPreselection.h"
 
 namespace dash
 {
@@ -153,6 +155,15 @@ namespace dash
                  *  @return     a reference to a vector of pointers to dash::mpd::ILabel objects
                  */
                 virtual const std::vector<ILabel *>&            GetGroupLabels          ()  const = 0;
+				
+				/**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IPreselection objects that specify preselections, 
+				 *  i.e. combinations of Adaptation Sets that form a specific experience and can be selected for joint decoding and rendering.\n
+                 *  For more details, refer to subclause 5.3.11. of <em>ISO/IEC 23009-1</em>.
+				 *
+                 *  @return     a reference to a vector of pointers to dash::mpd::IPreselection objects
+                 */
+                virtual const std::vector<IPreselection *>&     GetPreselections        ()  const = 0;
 
                 /**
                  *  Returns a reference to a string that specifies a reference to an external <tt><b>Period</b></tt> element.

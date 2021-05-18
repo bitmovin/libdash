@@ -46,10 +46,21 @@ RepresentationBase::~RepresentationBase ()
         delete(this->supplementalProperties.at(i));
 	for(size_t i = 0; i < this->eventStreams.size(); i++)
         delete(this->eventStreams.at(i));
+	for(size_t i = 0; i < this->switchings.size(); i++)
+        delete(this->switchings.at(i));
+	for(size_t i = 0; i < this->randomAccesses.size(); i++)
+        delete(this->randomAccesses.at(i));
 	for(size_t i = 0; i < this->groupLabels.size(); i++)
         delete(this->groupLabels.at(i));
 	for(size_t i = 0; i < this->labels.size(); i++)
         delete(this->labels.at(i));
+	for(size_t i = 0; i < this->contentPopularityRates.size(); i++)
+        delete(this->contentPopularityRates.at(i));
+	for(size_t i = 0; i < this->producerReferenceTimes.size(); i++)
+        delete(this->producerReferenceTimes.at(i));
+	for(size_t i = 0; i < this->resyncs.size(); i++)
+        delete(this->resyncs.at(i));
+	delete(outputProtection);
 }
 
 const std::vector<IDescriptor*>&    RepresentationBase::GetFramePacking                 () const 
@@ -108,6 +119,22 @@ void                                RepresentationBase::AddEventStream          
 {
     this->eventStreams.push_back(eventStream);
 }
+const std::vector<ISwitching *>&    RepresentationBase::GetSwitchings                   ()  const
+{
+    return (std::vector<ISwitching *> &) this->switchings;
+}
+void                                RepresentationBase::AddSwitching                    (Switching *switching)
+{
+    this->switchings.push_back(switching);
+}
+const std::vector<IRandomAccess *>&    RepresentationBase::GetRandomAccesses            ()  const
+{
+    return (std::vector<IRandomAccess *> &) this->randomAccesses;
+}
+void                                   RepresentationBase::AddRandomAccess              (RandomAccess *randomAccess)
+{
+    this->randomAccesses.push_back(randomAccess);
+}
 const std::vector<ILabel *>&        RepresentationBase::GetGroupLabels                  ()  const
 {
     return (std::vector<ILabel *> &) this->groupLabels;
@@ -123,6 +150,30 @@ const std::vector<ILabel *>&        RepresentationBase::GetLabels               
 void                                RepresentationBase::AddLabel                        (Label *label)
 {
     this->labels.push_back(label);
+}
+const std::vector<IContentPopularityRate *>&   RepresentationBase::GetContentPopularityRates   ()  const
+{
+    return (std::vector<IContentPopularityRate *> &) this->contentPopularityRates;
+}
+void                                           RepresentationBase::AddContentPopularityRate    (ContentPopularityRate *contentPopularityRate)
+{
+    this->contentPopularityRates.push_back(contentPopularityRate);
+}
+const std::vector<IProducerReferenceTime *>&   RepresentationBase::GetProducerReferenceTimes   ()  const
+{
+    return (std::vector<IProducerReferenceTime *> &) this->producerReferenceTimes;
+}
+void                                           RepresentationBase::AddProducerReferenceTime    (ProducerReferenceTime *producerReferenceTime)
+{
+    this->producerReferenceTimes.push_back(producerReferenceTime);
+}
+const std::vector<IResync *>&                  RepresentationBase::GetResyncs                  ()  const
+{
+    return (std::vector<IResync *> &) this->resyncs;
+}
+void                                           RepresentationBase::AddResync                   (Resync *resync)
+{
+    this->resyncs.push_back(resync);
 }
 const std::vector<std::string>&     RepresentationBase::GetProfiles                     () const
 {

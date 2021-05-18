@@ -21,6 +21,11 @@
 #include "Descriptor.h"
 #include "EventStream.h"
 #include "Label.h"
+#include "Switching.h"
+#include "ContentPopularityRate.h"
+#include "ProducerReferenceTime.h"
+#include "RandomAccess.h"
+#include "Resync.h"
 #include "../helpers/String.h"
 #include "AbstractMPDElement.h"
 
@@ -41,8 +46,13 @@ namespace dash
 				const std::vector<IDescriptor *>&   GetEssentialProperties          () const;
 				const std::vector<IDescriptor *>&   GetSupplementalProperties       () const;
 				const std::vector<IEventStream *>&  GetEventStreams                 () const;
+				const std::vector<ISwitching *>&    GetSwitchings                   () const;
+				const std::vector<IRandomAccess *>& GetRandomAccesses               () const;
 				const std::vector<ILabel *>&        GetGroupLabels                  () const;
 				const std::vector<ILabel *>&        GetLabels                       () const;
+				const std::vector<IContentPopularityRate *>&   GetContentPopularityRates   () const;
+				const std::vector<IProducerReferenceTime *>&   GetProducerReferenceTimes   () const;
+				const std::vector<IResync *>&                  GetResyncs                  () const;
                 const std::vector<std::string>&     GetProfiles                     () const;
                 uint32_t                            GetWidth                        () const;
                 uint32_t                            GetHeight                       () const;
@@ -67,8 +77,13 @@ namespace dash
 				void    AddEssentialProperty            (Descriptor *essentialProperty);
 				void    AddSupplementalProperty         (Descriptor *supplementalProperty);
 				void    AddEventStream                  (EventStream *eventStream);
+				void    AddSwitching                    (Switching *switching);
+				void    AddRandomAccess                 (RandomAccess *randomAccess);
 				void    AddGroupLabel                   (Label *groupLabel);
 				void    AddLabel                        (Label *label);
+				void    AddContentPopularityRate        (ContentPopularityRate *contentPopularityRate);
+				void    AddProducerReferenceTime        (ProducerReferenceTime *producerReferenceTime);
+				void    AddResync                       (Resync *resync);
                 void    SetProfiles                     (const std::string& profiles);
                 void    SetWidth                        (uint32_t width);
                 void    SetHeight                       (uint32_t height);
@@ -94,8 +109,13 @@ namespace dash
 				std::vector<Descriptor *>   essentialProperties;
 				std::vector<Descriptor *>   supplementalProperties;
 				std::vector<EventStream *>  eventStreams;
+				std::vector<Switching *>    switchings;
+				std::vector<RandomAccess *> randomAccesses;
 				std::vector<Label *>        groupLabels;
 				std::vector<Label *>        labels;
+				std::vector<ContentPopularityRate *>   contentPopularityRates;
+				std::vector<ProducerReferenceTime *>   producerReferenceTimes;
+				std::vector<Resync *>       resyncs;
                 std::vector<std::string>    profiles;
                 uint32_t                    width;
                 uint32_t                    height;

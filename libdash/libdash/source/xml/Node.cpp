@@ -942,6 +942,56 @@ dash::mpd::Label*                          Node::ToLabel              ()  const
     label->AddRawAttributes(this->attributes);
     return label;
 }
+dash::mpd::Preselection*                   Node::ToPreselection       ()  const
+{
+    dash::mpd::Preselection *preselection = new dash::mpd::Preselection();
+    std::vector<Node *> subNodes = this->GetSubNodes();
+	
+	SetCommonValuesForRep(*preselection);
+
+    if (this->HasAttribute("id"))
+    {
+        preselection->SetId(this->GetAttributeValue("id"));
+    }
+	if (this->HasAttribute("preselectionComponents"))
+    {
+        preselection->SetPreselectionComponents(this->GetAttributeValue("preselectionComponents"));
+    }
+	if (this->HasAttribute("lang"))
+    {
+        preselection->SetLang(this->GetAttributeValue("lang"));
+    }
+	if (this->HasAttribute("order"))
+    {
+        preselection->SetOrder(this->GetAttributeValue("order"));
+    }
+
+    for(size_t i = 0; i < subNodes.size(); i++)
+    {
+		if (subNodes.at(i)->GetName() == "Accessibility")
+        {
+            preselection->AddAccessibity(subNodes.at(i)->ToDescriptor());
+            continue;
+        }
+        if (subNodes.at(i)->GetName() == "Role")
+        {
+            preselection->AddRole(subNodes.at(i)->ToDescriptor());
+            continue;
+        }
+        if (subNodes.at(i)->GetName() == "Rating")
+        {
+            preselection->AddRating(subNodes.at(i)->ToDescriptor());
+            continue;
+        }
+        if (subNodes.at(i)->GetName() == "Viewpoint")
+        {
+            preselection->AddViewpoint(subNodes.at(i)->ToDescriptor());
+            continue;
+        }
+    } 
+
+    return preselection;
+}
 dash::mpd::Period*                          Node::ToPeriod              ()  const
 {
     dash::mpd::Period *period = new dash::mpd::Period();
@@ -1000,6 +1050,11 @@ dash::mpd::Period*                          Node::ToPeriod              ()  cons
 		if (subNodes.at(i)->GetName() == "GroupLabel")
         {
             period->AddGroupLabel(subNodes.at(i)->ToLabel());
+            continue;
+        }
+		if (subNodes.at(i)->GetName() == "Preselection")
+        {
+            period->AddPreselection(subNodes.at(i)->ToPreselection());
             continue;
         }
 		if (subNodes.at(i)->GetName() == "AssetIdentifier")
@@ -1132,6 +1187,276 @@ dash::mpd::PatchLocation*                    Node::ToPatchLocation           () 
     patchLocation->AddRawAttributes(this->attributes);
     return patchLocation;
 }
+dash::mpd::InitializationSet*              Node::ToInitializationSet          ()  const
+{
+    dash::mpd::InitializationSet* initializationSet = new dash::mpd::InitializationSet();
+	std::vector<Node *> subNodes = this->GetSubNodes();
+	
+	SetCommonValuesForRep(*initializationSet);
+	
+	if (this->HasAttribute("xlink:href"))
+    {
+        initializationSet->SetXlinkHref(this->GetAttributeValue("xlink:href"));
+    }
+	if (this->HasAttribute("xlink:actuate"))
+    {
+        initializationSet->SetXlinkActuate(this->GetAttributeValue("xlink:actuate"));
+    }
+	if (this->HasAttribute("xlink:type"))
+    {
+        initializationSet->SetXlinkType(this->GetAttributeValue("xlink:type"));
+    }
+    if (this->HasAttribute("id"))
+    {
+        initializationSet->SetId(strtoul(this->GetAttributeValue("id").c_str(), NULL, 10));
+    }
+	if (this->HasAttribute("inAllPeriods"))
+    {
+        initializationSet->SetInAllPeriods(dash::helpers::String::ToBool(this->GetAttributeValue("inAllPeriods")));
+    }
+	if (this->HasAttribute("contentType"))
+    {
+        initializationSet->SetContentType(this->GetAttributeValue("contentType"));
+    }
+	if (this->HasAttribute("par"))
+    {
+        initializationSet->SetPar(this->GetAttributeValue("par"));
+    }
+	if (this->HasAttribute("maxWidth"))
+    {
+        initializationSet->SetMaxWidth(strtoul(this->GetAttributeValue("maxWidth").c_str(), NULL, 10));
+    }
+	if (this->HasAttribute("maxHeight"))
+    {
+        initializationSet->SetMaxHeight(strtoul(this->GetAttributeValue("maxHeight").c_str(), NULL, 10));
+    }
+	if (this->HasAttribute("maxFrameRate"))
+    {
+        initializationSet->SetMaxFrameRate(this->GetAttributeValue("maxFrameRate"));
+    }
+	if (this->HasAttribute("initialization"))
+    {
+        initializationSet->SetInitialization(this->GetAttributeValue("initialization"));
+    }
+
+    for(size_t i = 0; i < subNodes.size(); i++)
+    {
+		if (subNodes.at(i)->GetName() == "Accessibility")
+        {
+            initializationSet->AddAccessibity(subNodes.at(i)->ToDescriptor());
+            continue;
+        }
+        if (subNodes.at(i)->GetName() == "Role")
+        {
+            initializationSet->AddRole(subNodes.at(i)->ToDescriptor());
+            continue;
+        }
+        if (subNodes.at(i)->GetName() == "Rating")
+        {
+            initializationSet->AddRating(subNodes.at(i)->ToDescriptor());
+            continue;
+        }
+        if (subNodes.at(i)->GetName() == "Viewpoint")
+        {
+            initializationSet->AddViewpoint(subNodes.at(i)->ToDescriptor());
+            continue;
+        }
+        initializationSet->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
+    }
+
+    initializationSet->AddRawAttributes(this->attributes);
+    return initializationSet;
+}
+dash::mpd::UIntVWithID*              Node::ToUIntVWithID          ()  const
+{
+    dash::mpd::UIntVWithID* uIntVWithID = new dash::mpd::UIntVWithID();
+	
+	if (this->HasAttribute("id"))
+    {
+        uIntVWithID->SetId(strtoul(this->GetAttributeValue("id").c_str(), NULL, 10));
+    }
+	if (this->HasAttribute("profiles"))
+    {
+        uIntVWithID->SetProfiles(this->GetAttributeValue("profiles"));
+    }
+	if (this->HasAttribute("contentType"))
+    {
+        uIntVWithID->SetContentType(this->GetAttributeValue("contentType"));
+    }
+	if (this->GetText() != "")
+    {
+		uIntVWithID->SetList(this->GetText());
+    }
+
+    uIntVWithID->AddRawAttributes(this->attributes);
+    return uIntVWithID;
+}
+dash::mpd::Switching*               Node::ToSwitching             ()  const
+{
+    dash::mpd::Switching* switching = new dash::mpd::Switching();
+	
+	if (this->HasAttribute("interval"))
+    {
+        switching->SetInterval(strtoul(this->GetAttributeValue("interval").c_str(), NULL, 10));
+    }
+	if (this->HasAttribute("type"))
+    {
+        switching->SetType(this->GetAttributeValue("type"));
+    }
+
+    switching->AddRawAttributes(this->attributes);
+    return switching;
+}
+dash::mpd::PopularityRate*              Node::ToPopularityRate          ()  const
+{
+    dash::mpd::PopularityRate* popularityRate = new dash::mpd::PopularityRate();
+	
+    if (this->HasAttribute("popularityRate"))
+    {
+        popularityRate->SetPopularityRate(strtoul(this->GetAttributeValue("popularityRate").c_str(), NULL, 10));
+    }
+	if (this->HasAttribute("start"))
+    {
+        popularityRate->SetStart(strtoul(this->GetAttributeValue("start").c_str(), NULL, 10));
+    }
+	if (this->HasAttribute("r"))
+    {
+        popularityRate->SetR(strtol(this->GetAttributeValue("r").c_str(), NULL, 10));
+    }
+
+    popularityRate->AddRawAttributes(this->attributes);
+    return popularityRate;
+}
+dash::mpd::ContentPopularityRate*              Node::ToContentPopularityRate          ()  const
+{
+    dash::mpd::ContentPopularityRate* contentPopularityRate = new dash::mpd::ContentPopularityRate();
+	std::vector<Node *> subNodes = this->GetSubNodes();
+	
+	if (this->HasAttribute("source"))
+    {
+        contentPopularityRate->SetSource(this->GetAttributeValue("source"));
+    }
+	if (this->HasAttribute("source_description"))
+    {
+        contentPopularityRate->SetSourceDescription(this->GetAttributeValue("source_description"));
+    }
+
+    for(size_t i = 0; i < subNodes.size(); i++)
+    {
+		if (subNodes.at(i)->GetName() == "PR")
+        {
+            contentPopularityRate->AddPopularityRate(subNodes.at(i)->ToPopularityRate());
+            continue;
+        }
+        contentPopularityRate->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
+    }
+
+    contentPopularityRate->AddRawAttributes(this->attributes);
+    return contentPopularityRate;
+}
+dash::mpd::ProducerReferenceTime*              Node::ToProducerReferenceTime          ()  const
+{
+    dash::mpd::ProducerReferenceTime* producerReferenceTime = new dash::mpd::ProducerReferenceTime();
+	std::vector<Node *> subNodes = this->GetSubNodes();
+	
+	if (this->HasAttribute("id"))
+    {
+        producerReferenceTime->SetId(strtoul(this->GetAttributeValue("id").c_str(), NULL, 10));
+    }
+	if (this->HasAttribute("inband"))
+    {
+        producerReferenceTime->SetInband(dash::helpers::String::ToBool(this->GetAttributeValue("inband")));
+    }
+	if (this->HasAttribute("type"))
+    {
+        producerReferenceTime->SetType(this->GetAttributeValue("type"));
+    }
+	if (this->HasAttribute("applicationScheme"))
+    {
+        producerReferenceTime->SetApplicationScheme(this->GetAttributeValue("applicationScheme"));
+    }
+	if (this->HasAttribute("wallClockTime"))
+    {
+        producerReferenceTime->SetWallClockTime(this->GetAttributeValue("wallClockTime"));
+    }
+	if (this->HasAttribute("presentationTime"))
+    {
+        producerReferenceTime->SetPresentationTime(strtoul(this->GetAttributeValue("presentationTime").c_str(), NULL, 10));
+    }
+
+    for(size_t i = 0; i < subNodes.size(); i++)
+    {
+		if (subNodes.at(i)->GetName() == "UTCTiming")
+        {
+            producerReferenceTime->SetUTCTiming(subNodes.at(i)->ToDescriptor());
+            continue;
+        }
+        producerReferenceTime->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
+    }
+
+    producerReferenceTime->AddRawAttributes(this->attributes);
+    return producerReferenceTime;
+}
+dash::mpd::RandomAccess*              Node::ToRandomAccess          ()  const
+{
+    dash::mpd::RandomAccess* randomAccess = new dash::mpd::RandomAccess();
+	
+	if (this->HasAttribute("interval"))
+    {
+        randomAccess->SetInterval(strtoul(this->GetAttributeValue("interval").c_str(), NULL, 10));
+    }
+	if (this->HasAttribute("type"))
+    {
+        randomAccess->SetType(this->GetAttributeValue("type"));
+    }
+	if (this->HasAttribute("minBufferTime"))
+    {
+        randomAccess->SetMinBufferTime(this->GetAttributeValue("minBufferTime"));
+    }
+	if (this->HasAttribute("bandwidth"))
+    {
+        randomAccess->SetBandwidth(strtoul(this->GetAttributeValue("bandwidth").c_str(), NULL, 10));
+    }
+
+    randomAccess->AddRawAttributes(this->attributes);
+    return randomAccess;
+}
+dash::mpd::Resync*              Node::ToResync          ()  const
+{
+    dash::mpd::Resync* resync = new dash::mpd::Resync();
+	
+	if (this->HasAttribute("type"))
+    {
+        resync->SetType(strtoul(this->GetAttributeValue("type").c_str(), NULL, 10));
+    }
+	if (this->HasAttribute("dT"))
+    {
+        resync->SetDT(strtoul(this->GetAttributeValue("dT").c_str(), NULL, 10));
+    }
+	if (this->HasAttribute("dImax"))
+    {
+        resync->SetDIMax(strtof(this->GetAttributeValue("dImax").c_str(), NULL));
+    }
+	if (this->HasAttribute("dImin"))
+    {
+        resync->SetDIMin(strtof(this->GetAttributeValue("dImin").c_str(), NULL));
+    }
+	if (this->HasAttribute("marker"))
+    {
+        resync->SetMarker(dash::helpers::String::ToBool(this->GetAttributeValue("marker")));
+    }
+	if (this->HasAttribute("rangeAccess"))
+    {
+        resync->SetRangeAccess(dash::helpers::String::ToBool(this->GetAttributeValue("rangeAccess")));
+    }
+	if (this->HasAttribute("index"))
+    {
+        resync->SetIndex(this->GetAttributeValue("index"));
+    }
+	
+    resync->AddRawAttributes(this->attributes);
+    return resync;
+}
 dash::mpd::MPD*                             Node::ToMPD                 ()  const
 {
     dash::mpd::MPD *mpd = new dash::mpd::MPD();
@@ -1217,9 +1542,29 @@ dash::mpd::MPD*                             Node::ToMPD                 ()  cons
             mpd->AddServiceDescription(subNodes.at(i)->ToServiceDescription());
             continue;
         }
+		if (subNodes.at(i)->GetName() == "InitializationSet")
+        {
+            mpd->AddInitializationSet(subNodes.at(i)->ToInitializationSet());
+            continue;
+        }
+		if (subNodes.at(i)->GetName() == "InitializationGroup")
+        {
+            mpd->AddInitializationGroup(subNodes.at(i)->ToUIntVWithID());
+            continue;
+        }
+		if (subNodes.at(i)->GetName() == "InitializationPresentation")
+        {
+            mpd->AddInitializationPresentation(subNodes.at(i)->ToUIntVWithID());
+            continue;
+        }
         if (subNodes.at(i)->GetName() == "Period")
         {
             mpd->AddPeriod(subNodes.at(i)->ToPeriod());
+            continue;
+        }
+		if (subNodes.at(i)->GetName() == "Preroll")
+        {
+            mpd->AddPreroll(subNodes.at(i)->ToPeriod());
             continue;
         }
         if (subNodes.at(i)->GetName() == "Metrics")
@@ -1456,6 +1801,16 @@ void                                        Node::SetCommonValuesForRep (dash::m
             object.AddEventStream(subNodes.at(i)->ToEventStream());
             continue;
         }
+		if (subNodes.at(i)->GetName() == "Switching")
+        {
+            object.AddSwitching(subNodes.at(i)->ToSwitching());
+            continue;
+        }
+		if (subNodes.at(i)->GetName() == "RandomAccess")
+        {
+            object.AddRandomAccess(subNodes.at(i)->ToRandomAccess());
+            continue;
+        }
 		if (subNodes.at(i)->GetName() == "GroupLabel")
         {
             object.AddGroupLabel(subNodes.at(i)->ToLabel());
@@ -1464,6 +1819,21 @@ void                                        Node::SetCommonValuesForRep (dash::m
 		if (subNodes.at(i)->GetName() == "Label")
         {
             object.AddLabel(subNodes.at(i)->ToLabel());
+            continue;
+        }
+		if (subNodes.at(i)->GetName() == "ContentPopularityRate")
+        {
+            object.AddContentPopularityRate(subNodes.at(i)->ToContentPopularityRate());
+            continue;
+        }
+		if (subNodes.at(i)->GetName() == "ProducerReferenceTime")
+        {
+            object.AddProducerReferenceTime(subNodes.at(i)->ToProducerReferenceTime());
+            continue;
+        }
+		if (subNodes.at(i)->GetName() == "Resync")
+        {
+            object.AddResync(subNodes.at(i)->ToResync());
             continue;
         }
     }

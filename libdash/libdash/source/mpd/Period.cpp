@@ -47,6 +47,8 @@ Period::~Period ()
         delete(this->eventStreams.at(i));
 	for(size_t i = 0; i < this->serviceDescriptions.size(); i++)
         delete(this->serviceDescriptions.at(i));
+	for(size_t i = 0; i < this->preselections.size(); i++)
+        delete(this->preselections.at(i));
     delete(segmentBase);
     delete(segmentList);
     delete(segmentTemplate);
@@ -141,6 +143,14 @@ const std::vector<ILabel *>&        Period::GetGroupLabels               () cons
 void                                Period::AddGroupLabel                (Label *groupLabel)
 {
     this->groupLabels.push_back(groupLabel);
+}
+const std::vector<IPreselection *>& Period::GetPreselections             () const 
+{
+    return (std::vector<IPreselection *> &) this->preselections;
+}
+void                                Period::AddPreselection              (Preselection *preselection)
+{
+    this->preselections.push_back(preselection);
 }
 const std::string&                  Period::GetXlinkHref            ()  const
 {

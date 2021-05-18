@@ -28,6 +28,7 @@
 #include "Label.h"
 #include "EventStream.h"
 #include "ServiceDescription.h"
+#include "Preselection.h"
 #include "AbstractMPDElement.h"
 
 namespace dash
@@ -51,6 +52,7 @@ namespace dash
                 const std::vector<ISubset *>&           GetSubsets              ()  const;
 				const std::vector<IDescriptor *>&       GetSupplementalProperties  ()  const;
 				const std::vector<ILabel *>&            GetGroupLabels          ()  const;
+				const std::vector<IPreselection *>&     GetPreselections        ()  const;
                 const std::string&                      GetXlinkHref            ()  const;
                 const std::string&                      GetXlinkActuate         ()  const;
 				const std::string&                      GetXlinkType            ()  const;
@@ -71,6 +73,7 @@ namespace dash
                 void    AddSubset                   (Subset *subset);
 				void    AddSupplementalProperty     (Descriptor *supplementalProperty);
 				void    AddGroupLabel               (Label *groupLabel);
+				void    AddPreselection             (Preselection *preselection);
                 void    SetXlinkHref                (const std::string& xlinkHref);
                 void    SetXlinkActuate             (const std::string& xlinkActuate);
 				void    SetXlinkType                (const std::string& xlinkType);
@@ -92,6 +95,7 @@ namespace dash
                 std::vector<Subset *>           subsets;
 				std::vector<Descriptor *>       supplementalProperties;
 				std::vector<Label *>            groupLabels;
+				std::vector<Preselection *>     preselections;
                 std::string                     xlinkHref;
                 std::string                     xlinkActuate;
 				std::string                     xlinkType;

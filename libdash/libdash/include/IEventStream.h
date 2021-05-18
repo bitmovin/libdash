@@ -7,7 +7,7 @@
  *              A Period shall contain at most one \b EventStream element with the same value of the \c @schemeIdUri attribute and the value of the \c @value attribute, i.e. all Events of one type shall be clustered in one Event Stream. \n
  *              As Event Streams contain timed events, also a time scale attribute \c @timescale is provided to assign events to a specific media presentation time within the Period. The timed events	themselves are described by the \b Event element.
  *              ìThe XML syntax of the Event Stream is provided in subclause 5.10.2.3.
- *  @see        dash::mpd::IEventStream dash::mpd::IMPDElement
+ *  @see        dash::mpd::IEvent dash::mpd::IMPDElement
  *
  *  @author     Daniele Lorenzi \n
  *              Email: lorenzidaniele.97@gmail.com

@@ -3,7 +3,8 @@
  *  @brief      This interface is needed for accessing the common attributes and elements of the certain MPD element as specified in <em>ISO/IEC 23009-1, Part 1, 2012</em>, section 5.3.7
  *  @details    The elements \c <b>AdaptationSet</b>, \c <b>Representation</b> and \c <b>SubRepresentation</b> have assigned common attributes and elements that are specified in 
  *              <em>ISO/IEC 23009-1, Part 1, 2012</em>, section 5.3.7.2, table 9
- *  @see        dash::mpd::IDescriptor dash::mpd::IEventStream dash::mpd::ILabel dash::mpd::IMPDElement
+ *  @see        dash::mpd::IDescriptor dash::mpd::IEventStream dash::mpd::ILabel dash::mpd::ISwitching dash::mpd::IContentPopularityRate 
+ *              dash::mpd::IProducerReferenceTime dash::mpd::IRandomAccess dash::mpd::IResync dash::mpd::IMPDElement
  *
  *  @author     bitmovin Softwareentwicklung OG \n
  *              Email: libdash-dev@vicky.bitmovin.net
@@ -26,6 +27,11 @@
 #include "IDescriptor.h"
 #include "IEventStream.h"
 #include "ILabel.h"
+#include "ISwitching.h"
+#include "IContentPopularityRate.h"
+#include "IProducerReferenceTime.h"
+#include "IRandomAccess.h"
+#include "IResync.h"
 
 namespace dash
 {
@@ -87,9 +93,28 @@ namespace dash
 				/**
                  *  Returns a reference to a vector of pointers to dash::mpd::IEventStream objects, each of which specifies Event Stream information.\n
                  *  For more details see section 5.10.2. of <em>ISO/IEC 23009-1</em>.
+				 *  
                  *  @return     a reference to a vector of pointers to dash::mpd::IEventStream objects
                  */
                 virtual const std::vector<IEventStream *>&  GetEventStreams                 ()  const = 0;
+				
+				/**
+                 *  Returns a reference to a vector of pointers to dash::mpd::ISwitching objects, each of which specifies a switch-to times and types for the associated Representations.\n
+                 *  For more details, refer to subclause 5.3.3.4. of <em>ISO/IEC 23009-1</em>.\n
+				 *  These elements shall only be present if the \c @timescale value is the same for all Representations in one Adaptation Set and if the Segment Timeline is used for segment duration signalling.
+				 *  
+                 *  @return     a reference to a vector of pointers to dash::mpd::ISwitching objects
+                 */
+                virtual const std::vector<ISwitching *>&  GetSwitchings                     ()  const = 0;
+				
+				/**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IRandomAccess objects, each of which specifies a random access times and types for the associated Representations.
+                 *  For more details, refer to subclause 5.3.5.5. of <em>ISO/IEC 23009-1</em>.\n
+                 *  These elements shall only be present if the \c @timescale value is the same for all Representations in one Adaptation Set and if the Segment Timeline is used for segment duration signalling.
+				 *  
+                 *  @return     a reference to a vector of pointers to dash::mpd::IRandomAccess objects
+                 */
+                virtual const std::vector<IRandomAccess *>&  GetRandomAccesses              ()  const = 0;
 				
 				/**
                  *  Returns a reference to a vector of pointers to dash::mpd::ILabel objects that specify summary labels for a group of Labels.
@@ -106,6 +131,32 @@ namespace dash
                  *  @return     a reference to a vector of pointers to dash::mpd::ILabel objects
                  */
                 virtual const std::vector<ILabel *>&            GetLabels               ()  const = 0;
+				
+				/**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IContentPopularityRate objects that indicates a level of popularity of the containing entity (i.e., the Adaptation Set, Representation or Preselection) within the Media Presentation.
+                 *  For	details, see subclause 5.14. of <em>ISO/IEC 23009-1</em>.\n
+				 *  \b NOTE	This element is primarily introduced for the usage of Pre-Selections and Adaptation Sets but use for Representation and Sub-Representations is not precluded.
+				 *
+                 *  @return     a reference to a vector of pointers to dash::mpd::IContentPopularityRate objects
+                 */
+                virtual const std::vector<IContentPopularityRate *>&   GetContentPopularityRates   () const = 0;
+				
+				/**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IProducerReferenceTime objects that specifies the presence and possibly values of producer reference time in the associated Representations.
+                 *  For details, refer to subclause 5.12. of <em>ISO/IEC 23009-1</em>.
+				 *
+                 *  @return     a reference to a vector of pointers to dash::mpd::IProducerReferenceTime objects
+                 */
+                virtual const std::vector<IProducerReferenceTime *>&   GetProducerReferenceTimes   () const = 0;
+				
+				/**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IResync objects that specifies information on Segments’ resynchronization points. \n
+				 *  For details refer to subclause 5.3.12. of <em>ISO/IEC 23009-1</em>.
+
+				 *
+                 *  @return     a reference to a vector of pointers to dash::mpd::IResync objects
+                 */
+                virtual const std::vector<IResync *>&                  GetResyncs                  () const = 0;
 
                 /**
                  *  Returns a reference to a vector of strings that specifies the profiles which the associated Representation(s) 

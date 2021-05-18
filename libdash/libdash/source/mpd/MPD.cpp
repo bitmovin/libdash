@@ -48,10 +48,18 @@ MPD::~MPD   ()
         delete(this->utcTimings.at(i));
     for(size_t i = 0; i < this->periods.size(); i++)
         delete(this->periods.at(i));
+	for(size_t i = 0; i < this->prerolls.size(); i++)
+        delete(this->prerolls.at(i));
     for(size_t i = 0; i < this->baseUrls.size(); i++)
         delete(this->baseUrls.at(i));
 	for(size_t i = 0; i < this->serviceDescriptions.size(); i++)
         delete(this->serviceDescriptions.at(i));
+	for(size_t i = 0; i < this->initializationSets.size(); i++)
+        delete(this->initializationSets.at(i));
+	for(size_t i = 0; i < this->initializationGroups.size(); i++)
+        delete(this->initializationGroups.at(i));
+	for(size_t i = 0; i < this->initializationPresentations.size(); i++)
+        delete(this->initializationPresentations.at(i));
     if (this->mpdPathBaseUrl)
         delete(this->mpdPathBaseUrl);
 	
@@ -98,6 +106,30 @@ void                                        MPD::AddServiceDescription          
 {
     this->serviceDescriptions.push_back(serviceDescription);
 }
+const std::vector<IInitializationSet *>&    MPD::GetInitializationSets              () const 
+{
+    return (std::vector<IInitializationSet *> &) this->initializationSets;
+}
+void                                        MPD::AddInitializationSet               (InitializationSet *initializationSet)
+{
+    this->initializationSets.push_back(initializationSet);
+}
+const std::vector<IUIntVWithID *>&          MPD::GetInitializationGroups            () const 
+{
+    return (std::vector<IUIntVWithID *> &) this->initializationGroups;
+}
+void                                        MPD::AddInitializationGroup             (UIntVWithID *initializationGroup)
+{
+    this->initializationGroups.push_back(initializationGroup);
+}
+const std::vector<IUIntVWithID *>&          MPD::GetInitializationPresentations     () const 
+{
+    return (std::vector<IUIntVWithID *> &) this->initializationPresentations;
+}
+void                                        MPD::AddInitializationPresentation      (UIntVWithID *initializationPresentation)
+{
+    this->initializationPresentations.push_back(initializationPresentation);
+}
 const std::vector<IPeriod*>&                MPD::GetPeriods                         () const 
 {
     return (std::vector<IPeriod*> &) this->periods;
@@ -105,6 +137,14 @@ const std::vector<IPeriod*>&                MPD::GetPeriods                     
 void                                        MPD::AddPeriod                          (Period *period)
 {
     this->periods.push_back(period);
+}
+const std::vector<IPeriod*>&                MPD::GetPrerolls                        () const 
+{
+    return (std::vector<IPeriod*> &) this->prerolls;
+}
+void                                        MPD::AddPreroll                         (Period *preroll)
+{
+    this->prerolls.push_back(preroll);
 }
 const std::vector<IMetrics *>&              MPD::GetMetrics                         () const 
 {
