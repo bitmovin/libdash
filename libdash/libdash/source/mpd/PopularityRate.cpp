@@ -29,11 +29,11 @@ void                    PopularityRate::SetPopularityRate             (uint8_t p
 {
     this->popularityRate = popularityRate;
 }
-uint32_t                PopularityRate::GetStart	                  ()  const
+uint64_t                PopularityRate::GetStart	                  ()  const
 {
     return this->start;
 }
-void                    PopularityRate::SetStart                      (uint32_t start)
+void                    PopularityRate::SetStart                      (uint64_t start)
 {
     this->start = start;
 }

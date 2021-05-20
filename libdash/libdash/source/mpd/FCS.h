@@ -27,15 +27,15 @@ namespace dash
                 FCS             ();
                 virtual ~FCS    ();
 
-                uint32_t    GetPresentationTime    ()  const;
-                uint32_t    GetDuration            ()  const;
+                uint64_t    GetPresentationTime    ()  const;
+                uint64_t    GetDuration            ()  const;
 
-                void    SetPresentationTime    (uint32_t presentationTime);
-                void    SetDuration            (uint32_t duration);
+                void    SetPresentationTime    (uint64_t presentationTime);
+                void    SetDuration            (uint64_t duration);
 
             private:
-                uint32_t    presentationTime;
-                uint32_t    duration;
+                uint64_t    presentationTime;
+                uint64_t    duration;
         };
     }
 }

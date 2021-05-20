@@ -88,7 +88,7 @@ namespace dash
 				 *  
                  *  @return     an unsigned integer
                  */
-                virtual uint32_t                     GetPresentationTimeOffset ()  const = 0;
+                virtual uint64_t                     GetPresentationTimeOffset ()  const = 0;
         };
     }
 }

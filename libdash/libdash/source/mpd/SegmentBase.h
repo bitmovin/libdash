@@ -37,8 +37,8 @@ namespace dash
 				const IFailoverContent* GetFailoverContent      ()  const;
                 uint32_t            GetTimescale                ()  const;
 				int            		GetEptDelta                 ()  const;
-                uint32_t            GetPresentationTimeOffset   ()  const;
-				uint32_t            GetPresentationDuration   	()  const;
+                uint64_t            GetPresentationTimeOffset   ()  const;
+				uint64_t            GetPresentationDuration   	()  const;
 				const std::string&  GetTimeShiftBufferDepth     ()  const;
                 const std::string&  GetIndexRange               ()  const;
                 bool                HasIndexRangeExact          ()  const;
@@ -50,8 +50,8 @@ namespace dash
 				void    SetFailoverContent          (FailoverContent *failoverContent);
                 void    SetTimescale                (uint32_t timescale);
 				void    SetEptDelta                 (int eptDelta);
-                void    SetPresentationTimeOffset   (uint32_t presentationTimeOffset);
-				void    SetPresentationDuration 	(uint32_t presentationDuration);
+                void    SetPresentationTimeOffset   (uint64_t presentationTimeOffset);
+				void    SetPresentationDuration 	(uint64_t presentationDuration);
 				void    SetTimeShiftBufferDepth     (const std::string& timeShiftBufferDepth);
                 void    SetIndexRange               (const std::string& indexRange);
                 void    SetIndexRangeExact          (bool indexRangeExact);
@@ -64,8 +64,8 @@ namespace dash
 				FailoverContent *failoverContent;
                 uint32_t    timescale;
 				int			eptDelta;
-                uint32_t    presentationTimeOffset;
-				uint32_t    presentationDuration;
+                uint64_t    presentationTimeOffset;
+				uint64_t    presentationDuration;
 				std::string timeShiftBufferDepth;
                 std::string indexRange;
                 bool        indexRangeExact;

@@ -83,7 +83,7 @@ namespace dash
                  *  If not present on any level, the value of the presentation time offset is 0. 
                  *  @return     an unsigned integer
                  */
-                virtual uint32_t            GetPresentationTimeOffset   ()  const = 0;
+                virtual uint64_t            GetPresentationTimeOffset   ()  const = 0;
 				
 				/**
                  *  Returns an integer that specifies the presentation duration of the Representation in the Period. \n
@@ -92,7 +92,7 @@ namespace dash
 				 *  If not present on any level, the value of this attribute is unknown and the Representation should be presented until the end of the Period, i.e. until the presentation is terminated or until the next Period starts.
                  *  @return     an unsigned integer
                  */
-                virtual uint32_t            GetPresentationDuration   	()  const = 0;
+                virtual uint64_t            GetPresentationDuration   	()  const = 0;
 				
 				/**
                  *  Returns a string that specifies the duration of the time shifting buffer for this Representation that is guaranteed to be available for a Media Presentation with type 'dynamic'. When not present, the value is of the \c @timeShiftBufferDepth

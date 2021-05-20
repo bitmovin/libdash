@@ -24,11 +24,11 @@ Event::~Event   ()
 {
 }
 
-uint32_t            Event::GetPresentationTime    ()  const
+uint64_t            Event::GetPresentationTime    ()  const
 {
     return this->presentationTime;
 }
-void                Event::SetPresentationTime    (uint32_t presentationTime) 
+void                Event::SetPresentationTime    (uint64_t presentationTime) 
 {
     this->presentationTime = presentationTime;
 }

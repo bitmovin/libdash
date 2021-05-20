@@ -24,7 +24,8 @@ SegmentBase::SegmentBase    ()  :
 				eptDelta(0),
                 presentationTimeOffset(0),
                 indexRange(""),
-                indexRangeExact(false)
+                indexRangeExact(false),
+				availabilityTimeOffset(0.0)
 {
 }
 SegmentBase::~SegmentBase   ()
@@ -73,19 +74,19 @@ void                SegmentBase::SetEptDelta               	(int eptDelta)
 {
     this->eptDelta = eptDelta;
 }
-uint32_t            SegmentBase::GetPresentationTimeOffset  ()  const
+uint64_t            SegmentBase::GetPresentationTimeOffset  ()  const
 {
     return this->presentationTimeOffset;
 }
-void                SegmentBase::SetPresentationTimeOffset  (uint32_t presentationTimeOffset)
+void                SegmentBase::SetPresentationTimeOffset  (uint64_t presentationTimeOffset)
 {
     this->presentationTimeOffset = presentationTimeOffset;
 }
-uint32_t            SegmentBase::GetPresentationDuration    ()  const
+uint64_t            SegmentBase::GetPresentationDuration    ()  const
 {
     return this->presentationDuration;
 }
-void                SegmentBase::SetPresentationDuration    (uint32_t presentationDuration)
+void                SegmentBase::SetPresentationDuration    (uint64_t presentationDuration)
 {
     this->presentationDuration = presentationDuration;
 }

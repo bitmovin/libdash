@@ -72,11 +72,11 @@ void                                    ProducerReferenceTime::SetWallClockTime 
 {
     this->wallClockTime = wallClockTime;
 }
-uint32_t                                ProducerReferenceTime::GetPresentationTime      ()  const
+uint64_t                                ProducerReferenceTime::GetPresentationTime      ()  const
 {
     return this->presentationTime;
 }
-void                                    ProducerReferenceTime::SetPresentationTime      (uint32_t presentationTime)
+void                                    ProducerReferenceTime::SetPresentationTime      (uint64_t presentationTime)
 {
     this->presentationTime = presentationTime;
 }

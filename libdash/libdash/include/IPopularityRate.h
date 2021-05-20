@@ -48,7 +48,7 @@ namespace dash
 				 *  
                  *  @return     an unsigned integer
                  */
-                virtual uint32_t                    GetStart             ()  const = 0;
+                virtual uint64_t                    GetStart             ()  const = 0;
 				
 				/**
                  *  Returns an integer that specifies the number of segments after the segment indicated by \c @start which are included in this \b PR entry (i.e. the repeat count).

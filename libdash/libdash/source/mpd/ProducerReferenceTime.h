@@ -34,7 +34,7 @@ namespace dash
 				const std::string&      GetType                 () const;
 				const std::string&      GetApplicationScheme    () const;
 				const std::string&      GetWallClockTime        () const;
-				uint32_t                GetPresentationTime     () const;
+				uint64_t                GetPresentationTime     () const;
 
 				void    SetUTCTiming             (Descriptor *utcTiming);
 				void    SetId                    (uint32_t id);
@@ -42,7 +42,7 @@ namespace dash
 				void    SetType                  (const std::string& type);
 				void    SetApplicationScheme     (const std::string& applicationScheme);
 				void    SetWallClockTime         (const std::string& wallClockTime);
-				void    SetPresentationTime      (uint32_t presentationTime);
+				void    SetPresentationTime      (uint64_t presentationTime);
 
             private:
 			    Descriptor      *utcTiming;
@@ -51,7 +51,7 @@ namespace dash
 				std::string     type;
 				std::string     applicationScheme;
 				std::string     wallClockTime;
-				uint32_t        presentationTime;
+				uint64_t        presentationTime;
         };
     }
 }

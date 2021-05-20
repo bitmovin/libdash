@@ -27,20 +27,20 @@ namespace dash
                 Event             ();
                 virtual ~Event    ();
 
-                uint32_t             GetPresentationTime    ()  const;
+                uint64_t             GetPresentationTime    ()  const;
                 const std::string&   GetDuration            ()  const;
 				uint32_t             GetId                  ()  const;
 				const std::string&   GetContentEncoding     ()  const;
 				const std::string&   GetMessageData         ()  const;
 
-                void    SetPresentationTime    (uint32_t presentationTime);
+                void    SetPresentationTime    (uint64_t presentationTime);
                 void    SetDuration            (const std::string& duration);
 				void    SetId                  (uint32_t  id);
 				void    SetContentEncoding     (const std::string&  contentEncoding);
 				void    SetMessageData         (const std::string&  messageData);
 
             private:
-                uint32_t    presentationTime;
+                uint64_t    presentationTime;
                 std::string duration;
 				uint32_t    id;
 				std::string contentEncoding;

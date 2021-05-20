@@ -18,7 +18,8 @@ EventStream::EventStream    ()  :
 				 xlinkActuate("onRequest"),
 				 schemeIdUri(""),
 				 value(""),
-				 presentationTimeOffset(0)
+				 presentationTimeOffset(0),
+				 timescale(1)
 {
 }
 EventStream::~EventStream   ()
@@ -75,11 +76,11 @@ void                     EventStream::SetTimescale                (uint32_t time
 {
     this->timescale = timescale;
 }
-uint32_t                 EventStream::GetPresentationTimeOffset	  ()  const
+uint64_t                 EventStream::GetPresentationTimeOffset	  ()  const
 {
     return this->presentationTimeOffset;
 }
-void                     EventStream::SetPresentationTimeOffset   (uint32_t presentationTimeOffset)
+void                     EventStream::SetPresentationTimeOffset   (uint64_t presentationTimeOffset)
 {
     this->presentationTimeOffset = presentationTimeOffset;
 }

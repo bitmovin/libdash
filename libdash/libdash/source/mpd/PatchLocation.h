@@ -28,14 +28,14 @@ namespace dash
                 virtual ~PatchLocation    ();
 				
 				const std::string&   GetUrl    ()  const;
-                uint32_t             GetTtl    ()  const;
+                double               GetTtl    ()  const;
 
                 void    SetUrl    (const std::string& url);
-				void    SetTtl    (uint32_t ttl);
+				void    SetTtl    (double ttl);
 				
             private:
 				std::string url;
-                uint32_t    ttl;
+                double      ttl;
 				
         };
     }

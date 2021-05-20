@@ -100,7 +100,7 @@ namespace dash
 				 *  
                  *  @return     an unsigned integer
                  */
-                virtual uint32_t                GetPresentationTime     () const = 0;
+                virtual uint64_t                GetPresentationTime     () const = 0;
 				
         };
     }

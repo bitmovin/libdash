@@ -873,11 +873,11 @@ dash::mpd::PlaybackRate*                Node::ToPlaybackRate              ()  co
 
 	if (this->HasAttribute("max"))
     {
-        playbackRate->SetMax(strtoul(this->GetAttributeValue("max").c_str(), NULL, 10));
+        playbackRate->SetMax(strtod(this->GetAttributeValue("max").c_str(), NULL));
     }
 	if (this->HasAttribute("min"))
     {
-        playbackRate->SetMin(strtoul(this->GetAttributeValue("min").c_str(), NULL, 10));
+        playbackRate->SetMin(strtod(this->GetAttributeValue("min").c_str(), NULL));
     } 
 
     playbackRate->AddRawAttributes(this->attributes);
@@ -1181,7 +1181,7 @@ dash::mpd::PatchLocation*                    Node::ToPatchLocation           () 
     }
 	if (this->HasAttribute("ttl"))
     {
-        patchLocation->SetTtl(strtoul(this->GetAttributeValue("ttl").c_str(), NULL, 10));
+        patchLocation->SetTtl(strtod(this->GetAttributeValue("ttl").c_str(), NULL));
     }
 
     patchLocation->AddRawAttributes(this->attributes);

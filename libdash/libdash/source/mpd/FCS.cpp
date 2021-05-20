@@ -22,19 +22,19 @@ FCS::~FCS   ()
 {
 }
 
-uint32_t    FCS::GetPresentationTime     ()  const
+uint64_t    FCS::GetPresentationTime     ()  const
 {
     return this->presentationTime;
 }
-void        FCS::SetPresentationTime     (uint32_t presentationTime) 
+void        FCS::SetPresentationTime     (uint64_t presentationTime) 
 {
     this->presentationTime = presentationTime;
 }
-uint32_t    FCS::GetDuration             ()  const
+uint64_t    FCS::GetDuration             ()  const
 {
     return this->duration;
 }
-void        FCS::SetDuration             (uint32_t duration) 
+void        FCS::SetDuration             (uint64_t duration) 
 {
     this->duration = duration;
 }

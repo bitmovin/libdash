@@ -28,16 +28,16 @@ namespace dash
                 virtual ~PopularityRate    ();
 
 				uint8_t                     GetPopularityRate    ()  const;
-				uint32_t                    GetStart             ()  const;
+				uint64_t                    GetStart             ()  const;
 				int32_t                     GetR                 ()  const;
 
 				void    SetPopularityRate   (uint8_t popularityRate);
-				void    SetStart            (uint32_t start);
+				void    SetStart            (uint64_t start);
 				void    SetR                (int32_t r);
 
             private:
 			    uint8_t   popularityRate;
-				uint32_t  start;
+				uint64_t  start;
 				int32_t   r;
         };
     }

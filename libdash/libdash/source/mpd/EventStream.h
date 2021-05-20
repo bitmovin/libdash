@@ -34,7 +34,7 @@ namespace dash
 				const std::string&           GetSchemeIdUri            ()  const;
 				const std::string&           GetValue                  ()  const;
 				uint32_t                     GetTimescale              ()  const;
-				uint32_t                     GetPresentationTimeOffset ()  const;
+				uint64_t                     GetPresentationTimeOffset ()  const;
 
                 void    AddEvent                    (Event *event);
 				void    SetXlinkHref                (const std::string& xlinkHref);
@@ -42,7 +42,7 @@ namespace dash
 				void    SetSchemeIdUri              (const std::string& schemeIdUri);
 				void    SetValue                    (const std::string& value);
 				void    SetTimescale                (uint32_t timescale);
-				void    SetPresentationTimeOffset   (uint32_t presentationTimeOffset);
+				void    SetPresentationTimeOffset   (uint64_t presentationTimeOffset);
 
             protected:
                 std::vector<IEvent *> events;
@@ -51,7 +51,7 @@ namespace dash
 				std::string          schemeIdUri;
 				std::string          value;
 				uint32_t             timescale;
-				uint32_t             presentationTimeOffset;
+				uint64_t             presentationTimeOffset;
         };
     }
 }

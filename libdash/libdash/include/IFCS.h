@@ -36,7 +36,7 @@ namespace dash
 				 *
                  *  @return     an unsigned integer
                  */
-                virtual uint32_t    GetPresentationTime    ()  const = 0;
+                virtual uint64_t    GetPresentationTime    ()  const = 0;
 
                 /**
                  *  Returns an integer that specifies the alternative content section duration in units of the value of the \c @timescale. \n
@@ -44,7 +44,7 @@ namespace dash
                  *  \em Duration corresponds to the \c \@d attribute.
                  *  @return     an unsigned integer
                  */
-                virtual uint32_t    GetDuration            ()  const = 0;
+                virtual uint64_t    GetDuration            ()  const = 0;
         };
     }
 }

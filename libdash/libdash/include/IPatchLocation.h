@@ -35,13 +35,13 @@ namespace dash
                 virtual const std::string&   GetUrl            ()  const = 0;
 
                 /**
-                 *  Returns an unsigned integer that specifies the time period duration (in seconds) starting from <b>MPD</b><em>@publishTime</em> until the MPD patch document is at least available at the indicated location above. For details refer to the processing model in subclause 5.14.4. of <em>ISO/IEC 23009-1</em>. \n
+                 *  Returns an double that specifies the time period duration (in seconds) starting from <b>MPD</b><em>@publishTime</em> until the MPD patch document is at least available at the indicated location above. For details refer to the processing model in subclause 5.14.4. of <em>ISO/IEC 23009-1</em>. \n
 				 *  If not present, the value is unknown.
 
 				 *
-                 *  @return     an unsigned integer
+                 *  @return     a double
                  */
-                virtual uint32_t             GetTtl            ()  const = 0;				
+                virtual double               GetTtl            ()  const = 0;				
         };
     }
 }
