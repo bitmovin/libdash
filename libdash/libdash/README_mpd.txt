@@ -1,0 +1,12 @@
+DASH-IF/Github repository - New Elements Test:
+- AssetIdentifier at https://dash.akamaized.net/dash264/TestCasesIOP33/multiplePeriods/2/manifest_multiple_Periods_Add_Remove_AdaptationSet.mpd: working;
+- Switching, SupplementalProperty at https://dash.akamaized.net/dash264/TestCasesIOP33/adapatationSetSwitching/5/manifest.mpd: working;
+- Label at https://dash.akamaized.net/dash264/TestCasesIOP41/MultiTrack/alternative_content/6/manifest_alternative_lang.mpd: working;
+- EssentialProperty at https://dash.akamaized.net/dash264/TestCasesIOP41/MultiTrack/alternative_content/4/manifest_alternative_Essentialproperty_live.mpd: working;
+- InbandEventStream at https://livesim.dashif.org/livesim/scte35_2/testpic_2s/Manifest.mpd: working;
+- InbandEventStream, EventStream, Event at https://github.com/MPEGGroup/DASHSchema/blob/5th-Ed/example_G9.mpd: working;
+- ProducerReferenceTime, ServiceDescription, Latency, PlaybackRate, UTCTiming at https://livesim.dashif.org/livesim/chunkdur_1/ato_7/testpic4_8s/Manifest300.mpd: working;
+- LeapSecondInformation at https://github.com/MPEGGroup/DASHSchema/blob/5th-Ed/example_G14.mpd: working;
+- Preselection at https://github.com/MPEGGroup/DASHSchema/blob/5th-Ed/example_G16.mpd: working;
+- Resync at https://github.com/MPEGGroup/DASHSchema/blob/5th-Ed/example_G20.mpd: working;
+- FailoverContent, FCS at https://github.com/MPEGGroup/DASHSchema/blob/5th-Ed/example_G22.mpd: working;
