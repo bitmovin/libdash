@@ -42,7 +42,7 @@ You can find the latest sources and binaries on github.
 4. After that all files will be provided in the bin folder
 5. You can test the library with the sampleplayer.exe. This application simply downloads the lowest representation of one of our dataset MPDs.
 
-### Ubuntu 12.04
+### Ubuntu 14.04 (Kernel 3.19.0-71-generic)
 1. sudo apt-get install git-core build-essential cmake libxml2-dev libcurl4-openssl-dev
 2. git clone git://github.com/bitmovin/libdash.git
 3. cd libdash/libdash
@@ -56,20 +56,20 @@ You can find the latest sources and binaries on github.
 
 #### QTSamplePlayer
 Prerequisite: libdash must be built as described in the previous section.
+Tested using **cmake** version **2.8.12.2**.
 
 1. sudo apt-add-repository ppa:ubuntu-sdk-team/ppa
 2. sudo apt-add-repository ppa:canonical-qt5-edgers/qt5-proper
 3. sudo apt-get update
-4. sudo apt-get install qtmultimedia5-dev qtbase5-dev libqt5widgets5 libqt5core5 libqt5gui5 libqt5multimedia5 libqt5multimediawidgets5 libqt5opengl5 libav-tools libavcodec-dev libavdevice-dev libavfilter-dev libavformat-dev libavutil-dev libpostproc-dev libswscale-dev
+4. sudo apt-get install qtmultimedia5-dev qtbase5-dev libqt5widgets5 libqt5core5a libqt5gui5 libqt5multimedia5 libqt5multimedia5-plugins libqt5multimediawidgets5 libqt5opengl5 libav-tools libavcodec-dev libavdevice-dev libavfilter-dev libavformat-dev libavutil-dev libpostproc-dev libswscale-dev
 5. cd libdash/libdash/qtsampleplayer
 6. mkdir build
 7. cd build
-8. wget http://www.cmake.org/files/v2.8/cmake-2.8.11.2-Linux-i386.sh
-9. chmod a+x cmake-2.8.11.2-Linux-i386.sh
-10. ./cmake-2.8.11.2-Linux-i386.sh
-11. ./cmake-2.8.11.2-Linux-i386/bin/cmake ../
-12. make
-13. ./qtsampleplayer
+8. cmake ../
+9. make
+10. ./qtsampleplayer
+
+If some issues arise regarding the *make* installation, please make sure to be using the right kernel and *cmake version*. It is important to run *cmake* with the appropriate version in order to avoid linking problems that can fail the *make* process.
 
 ## License
 

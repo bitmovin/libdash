@@ -2,8 +2,8 @@
  * UIntVWithID.cpp
  *****************************************************************************
  * Name: Daniele Lorenzi
- *
  * Email: lorenzidaniele.97@gmail.com
+ * Date: 2021
  *
  * This source code and its use and distribution, is subject to the terms
  * and conditions of the applicable license agreement.

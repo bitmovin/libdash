@@ -34,6 +34,7 @@
  *              and conditions of the applicable license agreement.
  *
  * @contributor        Daniele Lorenzi
+ * @contributoremail   lorenzidaniele.97@gmail.com
  * @contributiondate   2021
  */
 

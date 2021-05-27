@@ -19,8 +19,9 @@
  *              This source code and its use and distribution, is subject to the terms
  *              and conditions of the applicable license agreement.
  *
- *  @contributor      Daniele Lorenzi
- *  @contributiondate 2021
+ * @contributor        Daniele Lorenzi
+ * @contributoremail   lorenzidaniele.97@gmail.com
+ * @contributiondate   2021
  */
 
 #ifndef ISEGMENTBASE_H_
