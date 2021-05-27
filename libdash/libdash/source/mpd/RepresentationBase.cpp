@@ -40,7 +40,7 @@ RepresentationBase::~RepresentationBase ()
     for(size_t i = 0; i < this->audioChannelConfiguration.size(); i++)
         delete(this->audioChannelConfiguration.at(i));
     for(size_t i = 0; i < this->contentProtection.size(); i++)
-        delete(this->contentProtection.at(i));;
+        delete(this->contentProtection.at(i));
 	for(size_t i = 0; i < this->essentialProperties.size(); i++)
         delete(this->essentialProperties.at(i));
 	for(size_t i = 0; i < this->supplementalProperties.size(); i++)
