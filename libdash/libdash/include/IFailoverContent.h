@@ -41,7 +41,7 @@ namespace dash
                 
                 /**
                  *  Returns a boolean that specifies whether the corresponding data results in a valid HTTP request 
-                 *  or if the request is invalid and it is expected    that a 404 is received when requesting the associated Media Segment.    
+                 *  or if the request is invalid and it is expected that a 404 is received when requesting the associated Media Segment.    
                  *  @return     a bool value
                  */
                 virtual bool                          IsValid          ()  const = 0;

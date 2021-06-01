@@ -117,7 +117,7 @@ namespace dash
                  *  Returns a reference to a string that specifies the conformance rules for Representations in Adaptation Sets within the Preselection.\n
                  *  When set to '<b>undefined</b>', the Preselection follows the conformance rules for Multi-Segment Tracks in subclause 5.3.11.5.1.\n
                  *  When set to 'time-ordered', the Preselection follows the conformance rules for Time-Ordered Segment Tracks in subclause 5.3.11.5.2.\n
-                 *     When set to 'fully-ordered', the Preselection follows the conformance rules for Fully-Ordered Segment Tracks in subclause 5.3.11.5.3. 
+                 *  When set to 'fully-ordered', the Preselection follows the conformance rules for Fully-Ordered Segment Tracks in subclause 5.3.11.5.3. 
                  *  In this case, order in the \c @preselectionComponents attribute specifies the component order.    
                  *  
                  *  @return     a reference to a string

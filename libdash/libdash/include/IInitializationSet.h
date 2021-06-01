@@ -10,7 +10,7 @@
  *              An Adaptation Set referring to an Initialization Set that it conforms to may include additional information, for example:\n
  *              <ul>
  *                  <li> There may be an Initialization Set with media type audio and a \c @codecs parameter, but without a \c @lang attribute. 
- *                       Then each Period includes at least one Adaptation Set with the same media type, the same \c @codecs parameter, but each of the Adaptation Sets defines a different    language for each Period.
+ *                       Then each Period includes at least one Adaptation Set with the same media type, the same \c @codecs parameter, but each of the Adaptation Sets defines a different language for each Period.
  *                       This ensures that initialization of an audio playback decoder is possible, but over Period boundaries, the language may change, or additional languages may be added.
  *                  <li> There may be an Initialization Set with media type video and \c @maxWidth and \c @maxHeight parameter and a \c @codecs parameter. Then at least one Period includes at least one Adaptation Set with the same media type, 
  *                       but its actual codecs parameters and the \c @maxWidth and \c @maxHeight may be different than the ones in the Initialization Set, but can be decoded and displayed within the Initialization Set constraints. 
@@ -124,7 +124,7 @@ namespace dash
                 /**
                  *  Returns a reference to a string that specifies the picture aspect ratio of the video media component type, in the form of a string consisting of two integers separated by ':', e.g.,"16:9". 
                  *  When this attribute is present, and the attributes \c @width and \c @height for the Representations of Adaptation Sets conforming to this Initialization Set are also present, 
-                 *  the picture aspect ratio as specified by this attribute shall be the same as indicated by the values of \c @width, \c @height, and \c @sar, i.e. it shall express the same ratio as (\c@width * sarx):    (\c@height * sary), with sarx the first number in \c @sar and sary the second number. \n
+                 *  the picture aspect ratio as specified by this attribute shall be the same as indicated by the values of \c @width, \c @height, and \c @sar, i.e. it shall express the same ratio as (\c@width * sarx):(\c@height * sary), with sarx the first number in \c @sar and sary the second number. \n
                  *  If not present, the picture aspect ratio may be defined for each media component or it may be unknown.    
                  *  
                  *  @return     a reference to a string

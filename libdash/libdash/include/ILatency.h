@@ -33,14 +33,14 @@ namespace dash
                  *
                  *  @return     a reference to a vector of pointers to dash::mpd::IUIntPairsWithID objects
                  */
-                virtual const std::vector<IUIntPairsWithID *>&     GetQualityLatencyType         ()  const = 0;
+                virtual const std::vector<IUIntPairsWithID *>&     GetQualityLatencyType     ()  const = 0;
 
                 /**
                  *  Returns an unsigned integer that defines the ID of the Producer Reference Time element in the MPD against which the latency is measured, if more than one is present.                 
                  *  
                  *  @return     an unsigned integer
                  */
-                virtual uint32_t                             GetReferenceId            ()  const = 0;
+                virtual uint32_t                                   GetReferenceId            ()  const = 0;
                 
                 /**
                  *  Returns an unsigned integer that specifies the service provider’s preferred presentation latency in milliseconds compared to the producer reference time.
@@ -49,7 +49,7 @@ namespace dash
                  *  
                  *  @return     an unsigned integer
                  */
-                virtual uint32_t                             GetTarget                 ()  const = 0;
+                virtual uint32_t                                   GetTarget                 ()  const = 0;
                 
                 /**
                  *  Returns an unsigned integer that specifies the service provider’s indication about the maximum presentation latency in milliseconds. 
@@ -57,14 +57,14 @@ namespace dash
                  *  
                  *  @return     an unsigned integer
                  */
-                virtual uint32_t                             GetMax                    ()  const = 0;
+                virtual uint32_t                                   GetMax                    ()  const = 0;
                 
                 /**
-                 *  Returns an unsigned integer that specifies the service provider’s indication about minimum presentation latency in milliseconds for example to avoid inconsistencies with second screen    applications, overlays, etc.
+                 *  Returns an unsigned integer that specifies the service provider’s indication about minimum presentation latency in milliseconds for example to avoid inconsistencies with second screen applications, overlays, etc.
                  *  
                  *  @return     an unsigned integer
                  */
-                virtual uint32_t                             GetMin                    ()  const = 0;
+                virtual uint32_t                                   GetMin                    ()  const = 0;
         };
     }
 }

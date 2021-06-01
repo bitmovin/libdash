@@ -59,7 +59,7 @@ namespace dash
                  *  Returns a reference to a string that identifies the message scheme. The string may use URN or URL syntax. 
                  *  When a URL is used, it is recommended to also contain a month-date in the form mmyyyy;
                  *  the assignment of the URL must have been authorized by the owner of the domain name in that URL on or very close to that date. 
-                 *  A URL may resolve to an Internet location, and a    location that does resolve may store a specification of the message scheme.
+                 *  A URL may resolve to an Internet location, and a location that does resolve may store a specification of the message scheme.
                  *  
                  *  @return     a reference to a string
                  */

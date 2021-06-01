@@ -54,10 +54,10 @@ namespace dash
                 virtual const std::string&      GetMinBufferTime              () const = 0;
                 
                 /**
-                 *  Returns an unsigned integer that specifies a hypothetical constant bitrate channel of bandwidth with the value of this attribute in bits per second    (bps).
-                 *  If the Representation is continuously delivered at this bitrate, starting at any RAP indicated in this element a client can be assured of having enough data for continuous playout providing playout begins after \c @minBufferTime *    \c @bandwidth bits have been received 
+                 *  Returns an unsigned integer that specifies a hypothetical constant bitrate channel of bandwidth with the value of this attribute in bits per second (bps).
+                 *  If the Representation is continuously delivered at this bitrate, starting at any RAP indicated in this element a client can be assured of having enough data for continuous playout providing playout begins after \c @minBufferTime * \c @bandwidth bits have been received 
                  *  (i.e. at time \c @minBufferTime after the first bit is received). \n
-                 *  For dependent Representations, this value specifies the    bandwidth according to the above definition for the aggregation of this Representation and all complementary Representations.\n
+                 *  For dependent Representations, this value specifies the bandwidth according to the above definition for the aggregation of this Representation and all complementary Representations.\n
                  *  For details, see subclause 5.3.5.4. of <em>ISO/IEC 23009-1</em>.\n
                  *  If not present, the value of the Representation is inherited.
                  *  

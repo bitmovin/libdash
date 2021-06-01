@@ -35,7 +35,7 @@ namespace dash
                 virtual ~IEvent(){}
 
                 /**
-                 *  Returns an integer that specifies the presentation time of the event relative to the start of the Period taking into account the \c @presentationTimeOffset of the Event Stream, if    present. \n
+                 *  Returns an integer that specifies the presentation time of the event relative to the start of the Period taking into account the \c @presentationTimeOffset of the Event Stream, if present. \n
                  *  The value of the presentation time in seconds is the division of the value of this attribute and the value of the \c @timescale attribute. \n
                  *  If not present, the value of the presentation time is 0.
                  *

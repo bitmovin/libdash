@@ -71,7 +71,7 @@ namespace dash
                 
                 /**
                  *  Returns a reference to a vector of pointers to dash::mpd::IOperatingBandwidth objects that specify the operating bandwidth targets for the service.
-                 *  The details    are    provided in subclause K.4.2.5, Table K.9.    
+                 *  The details are provided in subclause K.4.2.5, Table K.9.    
                  *
                  *  @return     a reference to a vector of pointers to dash::mpd::IOperatingBandwidth objects
                  */

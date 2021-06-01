@@ -41,7 +41,7 @@ namespace dash
                 virtual uint32_t                     GetInterval          ()  const = 0;
                 
                 /**
-                 *  Returns a reference to a string that specifies the switching strategy for the switch points    identified in by the \c @interval attribute.\n
+                 *  Returns a reference to a string that specifies the switching strategy for the switch points identified in by the \c @interval attribute.\n
                  *  Switching strategies are defined in Table 7 of <em>ISO/IEC 23009-1</em>.    
                  *  
                  *  @return     a reference to a string

@@ -40,7 +40,7 @@ namespace dash
 
                 /**
                  *  Returns an integer that specifies the alternative content section duration in units of the value of the \c @timescale. \n
-                 *  If not present, the alternative content section lasts until the start of the next FCS element, or until the    end    of the Period or until the end of MPD duration, whichever occurs first in the timeline.     \n\n
+                 *  If not present, the alternative content section lasts until the start of the next FCS element, or until the end of the Period or until the end of MPD duration, whichever occurs first in the timeline. \n\n
                  *  \em Duration corresponds to the \c \@d attribute.
                  *  @return     an unsigned integer
                  */

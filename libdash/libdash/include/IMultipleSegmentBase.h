@@ -67,7 +67,7 @@ namespace dash
                 /**
                  *  Returns a integer specifying the number of the last Media Segment in this Representation in the Period. \n
                  *  If not present, the number is inferred from the duration of the Period.
-                 *  For    more details refer to 5.3.9.5.3. of <em>ISO/IEC 23009-1, Part 1, 2012</em>.
+                 *  For more details refer to 5.3.9.5.3. of <em>ISO/IEC 23009-1, Part 1, 2012</em>.
                  *  @return     an unsigned integer
                  */
                 virtual uint32_t                    GetEndNumber          ()  const = 0;

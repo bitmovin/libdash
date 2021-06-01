@@ -68,7 +68,7 @@ namespace dash
                 
                 /**
                  *  Returns a reference to a string that that specifies the identifier for the descriptor.
-                 *  Descriptors    with identical values for this attribute shall be synonymous, i.e. the processing
+                 *  Descriptors with identical values for this attribute shall be synonymous, i.e. the processing
                  *  of one of the descriptors with an identical value is sufficient.    
                  *  @return     a reference to a string
                  */

@@ -46,7 +46,7 @@ namespace dash
                  *  
                  *  @return     an unsigned integer
                  */
-                virtual uint32_t         GetMin                 ()  const = 0;
+                virtual uint32_t               GetMin                 ()  const = 0;
                 
                 /**
                  *  Returns an unsigned integer that specifies the maximum quality ranking value desired through this presentation for the above MediaType. 
@@ -54,7 +54,7 @@ namespace dash
                  *  
                  *  @return     an unsigned integer
                  */
-                virtual uint32_t         GetMax                 ()  const = 0;
+                virtual uint32_t               GetMax                 ()  const = 0;
                 
                 /**
                  *  Returns an unsigned integer that specifies the quality ranking value desired through this presentation for the above MediaType. 
@@ -62,7 +62,7 @@ namespace dash
                  *  
                  *  @return     an unsigned integer
                  */
-                virtual uint32_t         GetTarget              ()  const = 0;
+                virtual uint32_t               GetTarget              ()  const = 0;
                 
                 /**
                  *  Returns a reference to a string that defines the interpretation of the value of \c @qualityRanking attribute.
@@ -74,12 +74,12 @@ namespace dash
                 
                 /**
                  *  Returns an unsigned integer that specifies the maximum quality difference value recommended by the content author for the presentation for the above MediaType.
-                 *  This is    the recommended maximum difference between \c @qualityRanking attributes for Representations being played concurrently.
+                 *  This is the recommended maximum difference between \c @qualityRanking attributes for Representations being played concurrently.
                  *  This is typically applicable for Representations that are picked from Adaptation Sets within one Preselection.    
                  *  
                  *  @return     an unsigned integer
                  */
-                virtual uint32_t         GetMaxDifference       ()  const = 0;
+                virtual uint32_t               GetMaxDifference       ()  const = 0;
         };
     }
 }
