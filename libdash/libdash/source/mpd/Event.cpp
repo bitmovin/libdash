@@ -15,9 +15,9 @@ using namespace dash::mpd;
 
 Event::Event    ()  :
     presentationTime(0),
-	contentEncoding(""),
-	messageData("")
-	
+    contentEncoding(""),
+    messageData("")
+    
 {
 }
 Event::~Event   ()
@@ -40,7 +40,7 @@ void                Event::SetDuration            (const std::string& duration)
 {
     this->duration = duration;
 }
-uint32_t             Event::GetId                  ()  const
+uint32_t            Event::GetId                  ()  const
 {
     return this->id;
 }

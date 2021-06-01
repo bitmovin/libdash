@@ -46,8 +46,8 @@ namespace dash
                 uint32_t                                    GetBandwidth                ()  const;
                 uint32_t                                    GetQualityRanking           ()  const;
                 const std::vector<std::string>&             GetDependencyId             ()  const;
-				const std::vector<std::string>&             GetAssociationId            ()  const;
-				const std::string&             				GetAssociationType          ()  const;
+                const std::vector<std::string>&             GetAssociationId            ()  const;
+                const std::string&                          GetAssociationType          ()  const;
                 const std::vector<std::string>&             GetMediaStreamStructureId   ()  const;
 
                 void    AddBaseURL                  (BaseUrl *baseURL);
@@ -59,8 +59,8 @@ namespace dash
                 void    SetBandwidth                (uint32_t bandwidth);
                 void    SetQualityRanking           (uint32_t qualityRanking);
                 void    SetDependencyId             (const std::string &dependencyId);
-				void    SetAssociationId            (const std::string &associationId);
-				void    SetAssociationType          (const std::string &associationType);
+                void    SetAssociationId            (const std::string &associationId);
+                void    SetAssociationType          (const std::string &associationType);
                 void    SetMediaStreamStructureId   (const std::string &mediaStreamStructureId);
 
             private:
@@ -73,8 +73,8 @@ namespace dash
                 uint32_t                            bandwidth;
                 uint32_t                            qualityRanking;
                 std::vector<std::string>            dependencyId;
-				std::vector<std::string>            associationId;
-				std::string            				associationType;
+                std::vector<std::string>            associationId;
+                std::string                         associationType;
                 std::vector<std::string>            mediaStreamStructureId;
         };
     }

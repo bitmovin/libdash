@@ -30,52 +30,52 @@ namespace dash
 
                 /**
                  *  Returns a reference to a string that defines the media type for which these quality parameters apply. They type can be
-				 *  <ul>
-				 *      <li> \c video: applies to video
+                 *  <ul>
+                 *      <li> \c video: applies to video
                  *      <li> \c audio: applies to audio
                  *      <li> \c any: applies to any media type
-                 *  </ul>				 
-				 *
+                 *  </ul>                 
+                 *
                  *  @return     a reference to a string
                  */
                 virtual const std::string&     GetMediaType           ()  const = 0;
-				
-				/**
+                
+                /**
                  *  Returns an unsigned integer that specifies the minimum quality ranking value desired through this presentation for the above MediaType. 
-				 *  This is the largest desired value for the \c @qualityRanking attribute for the Representations to be played by the DASH Client during regular playback.
+                 *  This is the largest desired value for the \c @qualityRanking attribute for the Representations to be played by the DASH Client during regular playback.
                  *  
                  *  @return     an unsigned integer
                  */
                 virtual uint32_t         GetMin                 ()  const = 0;
-				
-				/**
+                
+                /**
                  *  Returns an unsigned integer that specifies the maximum quality ranking value desired through this presentation for the above MediaType. 
-				 *  This is the largest desired value for the \c @qualityRanking attribute for the Representations to be played by the DASH Client during regular playback.		
+                 *  This is the largest desired value for the \c @qualityRanking attribute for the Representations to be played by the DASH Client during regular playback.        
                  *  
                  *  @return     an unsigned integer
                  */
                 virtual uint32_t         GetMax                 ()  const = 0;
-				
-				/**
+                
+                /**
                  *  Returns an unsigned integer that specifies the quality ranking value desired through this presentation for the above MediaType. 
-				 *  This is the target value for the \c @qualityRanking attribute for the Representations to be played by the DASH Client during regular playback.	
+                 *  This is the target value for the \c @qualityRanking attribute for the Representations to be played by the DASH Client during regular playback.    
                  *  
                  *  @return     an unsigned integer
                  */
                 virtual uint32_t         GetTarget              ()  const = 0;
-				
-				/**
+                
+                /**
                  *  Returns a reference to a string that defines the interpretation of the value of \c @qualityRanking attribute.
                  *  If not present, the quality is considered in linear scale.
                  *  
                  *  @return     a reference to a string
                  */
                 virtual const std::string&     GetType                ()  const = 0;
-				
-				/**
+                
+                /**
                  *  Returns an unsigned integer that specifies the maximum quality difference value recommended by the content author for the presentation for the above MediaType.
-                 *  This is	the recommended maximum difference between \c @qualityRanking attributes for Representations being played concurrently.
-				 *  This is typically applicable for Representations that are picked from Adaptation Sets within one Preselection.	
+                 *  This is    the recommended maximum difference between \c @qualityRanking attributes for Representations being played concurrently.
+                 *  This is typically applicable for Representations that are picked from Adaptation Sets within one Preselection.    
                  *  
                  *  @return     an unsigned integer
                  */

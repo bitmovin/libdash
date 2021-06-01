@@ -29,7 +29,7 @@ void                                    RandomAccess::SetInterval               
 {
     this->interval = interval;
 }
-const std::string&                      RandomAccess::GetType	                ()  const
+const std::string&                      RandomAccess::GetType                   ()  const
 {
     return this->type;
 }
@@ -37,7 +37,7 @@ void                                    RandomAccess::SetType                   
 {
     this->type = type;
 }
-const std::string&                      RandomAccess::GetMinBufferTime	        ()  const
+const std::string&                      RandomAccess::GetMinBufferTime          ()  const
 {
     return this->minBufferTime;
 }

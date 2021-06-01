@@ -35,24 +35,24 @@ namespace dash
 
                 /**
                  *  For Label:
-				 *  Returns an integer that specifies an identifier for the label. Labels with the same value for this attribute belong to a label group.	
-				 *
-				 *  For GroupLabel:
-				 *  Returns an integer that specifies an identifier for the group label. The value for this attribute shall be unique for all group labels in the MPD.
+                 *  Returns an integer that specifies an identifier for the label. Labels with the same value for this attribute belong to a label group.    
+                 *
+                 *  For GroupLabel:
+                 *  Returns an integer that specifies an identifier for the group label. The value for this attribute shall be unique for all group labels in the MPD.
                  *  The value of this attribute shall be the same as the id attribute of all Label elements in the label group.
-				 *
+                 *
                  *  @return     an unsigned integer
                  */
                 virtual uint32_t             GetId       ()  const = 0;
 
                 /**
                  *  Returns a reference to a string that specifies the language of the label.
-                 *  If not present, the language of the label is unknown.	
+                 *  If not present, the language of the label is unknown.    
                  *
                  *  @return     a reference to a string
                  */
                 virtual const std::string&   GetLang     ()  const = 0;
-				
+                
         };
     }
 }

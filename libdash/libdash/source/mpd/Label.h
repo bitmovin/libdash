@@ -29,15 +29,15 @@ namespace dash
 
                 uint32_t             GetId        ()  const;
                 const std::string&   GetLang      ()  const;
-				
+                
 
                 void    SetId       (uint32_t  id);
                 void    SetLang     (const std::string& lang);
 
             private:
-				uint32_t    id;
+                uint32_t    id;
                 std::string lang;
-				
+                
         };
     }
 }

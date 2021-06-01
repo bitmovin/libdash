@@ -21,7 +21,7 @@ PopularityRate::~PopularityRate   ()
 {
 }
 
-uint8_t                 PopularityRate::GetPopularityRate	          ()  const
+uint8_t                 PopularityRate::GetPopularityRate             ()  const
 {
     return this->popularityRate;
 }
@@ -29,7 +29,7 @@ void                    PopularityRate::SetPopularityRate             (uint8_t p
 {
     this->popularityRate = popularityRate;
 }
-uint64_t                PopularityRate::GetStart	                  ()  const
+uint64_t                PopularityRate::GetStart                      ()  const
 {
     return this->start;
 }
@@ -37,7 +37,7 @@ void                    PopularityRate::SetStart                      (uint64_t 
 {
     this->start = start;
 }
-int32_t                 PopularityRate::GetR	                      ()  const
+int32_t                 PopularityRate::GetR                          ()  const
 {
     return this->r;
 }

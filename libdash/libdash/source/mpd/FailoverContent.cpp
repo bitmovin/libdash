@@ -31,7 +31,7 @@ void                   FailoverContent::AddFCS         (FCS *fcs_el)
 {
     this->fcs.push_back(fcs_el);
 }
-bool                   FailoverContent::IsValid	       ()  const
+bool                   FailoverContent::IsValid        ()  const
 {
     return this->valid;
 }

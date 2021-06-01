@@ -52,68 +52,68 @@ namespace dash
         {
             public:
                 virtual ~IResync(){}
-				
-				/**
+                
+                /**
                  *  Returns an unsigned integer that specifies the type of the Resync Point. \n
-				 *  If 0, specifies that on Segment format level the Resync Points present allow parsing and decryption to access the Segments, in combination with the Initialization Segment of the corresponding Representation (if present). \n
-				 *  For all Segment formats defined in this document, the following holds: \n
-				 *  If greater than 0, specifies that one or multiple Resync Points are present with the properties of \c @type=0 and the properties defined in the element in each corresponding Segment with SAP type being equal or smaller than the one indicated in the value. \n
-				 *  For details on SAP types, refer to subclause 4.5.2. of <em>ISO/IEC 23009-1</em>.
+                 *  If 0, specifies that on Segment format level the Resync Points present allow parsing and decryption to access the Segments, in combination with the Initialization Segment of the corresponding Representation (if present). \n
+                 *  For all Segment formats defined in this document, the following holds: \n
+                 *  If greater than 0, specifies that one or multiple Resync Points are present with the properties of \c @type=0 and the properties defined in the element in each corresponding Segment with SAP type being equal or smaller than the one indicated in the value. \n
+                 *  For details on SAP types, refer to subclause 4.5.2. of <em>ISO/IEC 23009-1</em>.
                  *  
-				 *  @return     an unsigned integer
+                 *  @return     an unsigned integer
                  */
                 virtual uint32_t                GetType                 () const = 0;
-				
-				/**
+                
+                /**
                  *  Returns an unsigned integer that specifies the maximum difference of the Time values of any two consecutive Resynchronization Points that are included in the @type definition above in any Media Segment for this Representation. \n
-				 *  The value is expressed in scale of the \c @timescale of the corresponding Representation. \n
-				 *  If not present, the value is unknown.
-				 *  
+                 *  The value is expressed in scale of the \c @timescale of the corresponding Representation. \n
+                 *  If not present, the value is unknown.
+                 *  
                  *  @return     an unsigned integer
                  */
                 virtual uint32_t                GetDT                   () const = 0;
-				
-				/**
+                
+                /**
                  *  Returns a float that specifies the maximum difference of the Index values of any two consecutive Resync Points that are included in the \c @type definition above in any Media Segment for this Representation normalized by the \c @bandwidth value of the Representation. \n
-				 *  To obtain the maximum difference in octets, the value of \c @dImax is multiplied with the \c @bandwidth value. \n
-				 *  If not present, the value is unknown.
-				 *  
+                 *  To obtain the maximum difference in octets, the value of \c @dImax is multiplied with the \c @bandwidth value. \n
+                 *  If not present, the value is unknown.
+                 *  
                  *  @return     a float
                  */
                 virtual float                   GetDIMax                () const = 0;
-				
-				/**
+                
+                /**
                  *  Returns a float that specifies the minimum difference of the Index values of any two consecutive Resynchronization Points that are included in the \c @type definition of this element in any Media Segment for this Representation normalized by the \c @bandwidth value of the Representation. \n
-				 *  To obtain the minimum difference in octets, the value of \c @dImin is multiplied with the \c @bandwidth value. \n
-				 *  If not present, the value is assumed to be 0.
-				 *  
+                 *  To obtain the minimum difference in octets, the value of \c @dImin is multiplied with the \c @bandwidth value. \n
+                 *  If not present, the value is assumed to be 0.
+                 *  
                  *  @return     a float
                  */
                 virtual float                   GetDIMin                () const = 0;
-				
-				/**
+                
+                /**
                  *  Returns a bool value that, if set to TRUE, specifies that every Resynchronization Point includes a specific marker for Resynchronization Point detection. \n
-				 *  If not present or FALSE, the presence of a marker for every signalled Resynchronization Point cannot be expected. \n
-				 *  Every Segment format making use of this functionality must specify a Resynchronization Marker. For details refer to the Segment formats in clause 5.15. of of <em>ISO/IEC 23009-1</em>.
-				 *  
+                 *  If not present or FALSE, the presence of a marker for every signalled Resynchronization Point cannot be expected. \n
+                 *  Every Segment format making use of this functionality must specify a Resynchronization Marker. For details refer to the Segment formats in clause 5.15. of of <em>ISO/IEC 23009-1</em>.
+                 *  
                  *  @return     a bool value
                  */
                 virtual bool                    HasMarker               () const = 0;
-				
-				/**
+                
+                /**
                  *  Returns a bool value that informs about the range access status.
-				 *  
+                 *  
                  *  @return     a bool value
                  */
                 virtual bool                    HasRangeAccess          () const = 0;
-				
-				/**
-                 *  Returns a reference to a string that specifies the index URI.	
+                
+                /**
+                 *  Returns a reference to a string that specifies the index URI.    
                  *  
-				 *  @return     a reference to a string
+                 *  @return     a reference to a string
                  */
                 virtual const std::string&      GetIndex                () const = 0;
-				
+                
         };
     }
 }

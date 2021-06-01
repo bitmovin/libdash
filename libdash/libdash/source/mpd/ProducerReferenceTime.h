@@ -28,30 +28,30 @@ namespace dash
                 ProducerReferenceTime             ();
                 virtual ~ProducerReferenceTime    ();
 
-				const IDescriptor*      GetUTCTiming            () const;
-				uint32_t                GetId                   () const;
-				bool                    IsInband                () const;
-				const std::string&      GetType                 () const;
-				const std::string&      GetApplicationScheme    () const;
-				const std::string&      GetWallClockTime        () const;
-				uint64_t                GetPresentationTime     () const;
+                const IDescriptor*      GetUTCTiming            () const;
+                uint32_t                GetId                   () const;
+                bool                    IsInband                () const;
+                const std::string&      GetType                 () const;
+                const std::string&      GetApplicationScheme    () const;
+                const std::string&      GetWallClockTime        () const;
+                uint64_t                GetPresentationTime     () const;
 
-				void    SetUTCTiming             (Descriptor *utcTiming);
-				void    SetId                    (uint32_t id);
-				void    SetInband                (bool inband);
-				void    SetType                  (const std::string& type);
-				void    SetApplicationScheme     (const std::string& applicationScheme);
-				void    SetWallClockTime         (const std::string& wallClockTime);
-				void    SetPresentationTime      (uint64_t presentationTime);
+                void    SetUTCTiming             (Descriptor *utcTiming);
+                void    SetId                    (uint32_t id);
+                void    SetInband                (bool inband);
+                void    SetType                  (const std::string& type);
+                void    SetApplicationScheme     (const std::string& applicationScheme);
+                void    SetWallClockTime         (const std::string& wallClockTime);
+                void    SetPresentationTime      (uint64_t presentationTime);
 
             private:
-			    Descriptor      *utcTiming;
-				uint32_t        id;
-				bool            inband;
-				std::string     type;
-				std::string     applicationScheme;
-				std::string     wallClockTime;
-				uint64_t        presentationTime;
+                Descriptor      *utcTiming;
+                uint32_t        id;
+                bool            inband;
+                std::string     type;
+                std::string     applicationScheme;
+                std::string     wallClockTime;
+                uint64_t        presentationTime;
         };
     }
 }

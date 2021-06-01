@@ -15,13 +15,13 @@ using namespace dash::mpd;
 
 ProducerReferenceTime::ProducerReferenceTime    ()  :
                  utcTiming(NULL),
-				 inband(false),
-				 type("encoder")
+                 inband(false),
+                 type("encoder")
 {
 }
 ProducerReferenceTime::~ProducerReferenceTime   ()
 {
-	delete(utcTiming);
+    delete(utcTiming);
 }
 
 const IDescriptor*                      ProducerReferenceTime::GetUTCTiming             () const 
@@ -48,7 +48,7 @@ void                                    ProducerReferenceTime::SetInband        
 {
     this->inband = inband;
 }
-const std::string&                      ProducerReferenceTime::GetType	                ()  const
+const std::string&                      ProducerReferenceTime::GetType                  ()  const
 {
     return this->type;
 }
@@ -56,7 +56,7 @@ void                                    ProducerReferenceTime::SetType          
 {
     this->type = type;
 }
-const std::string&                      ProducerReferenceTime::GetApplicationScheme	    ()  const
+const std::string&                      ProducerReferenceTime::GetApplicationScheme     ()  const
 {
     return this->applicationScheme;
 }
@@ -64,7 +64,7 @@ void                                    ProducerReferenceTime::SetApplicationSch
 {
     this->applicationScheme = applicationScheme;
 }
-const std::string&                      ProducerReferenceTime::GetWallClockTime	        ()  const
+const std::string&                      ProducerReferenceTime::GetWallClockTime         ()  const
 {
     return this->wallClockTime;
 }

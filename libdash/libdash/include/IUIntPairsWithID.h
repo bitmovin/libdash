@@ -29,19 +29,19 @@ namespace dash
 
                 /**
                  *  Returns a reference to a vector of pointers to dash::mpd::IUIntPairs objects that define a list of latency and quality pairs.
-				 *
+                 *
                  *  @return     a reference to a vector of pointers to dash::mpd::IUIntPairs objects
                  */
                 virtual const std::vector<IUIntPairs *>&     GetQualityLatency         ()  const = 0;
 
-				/**
+                /**
                  *  Returns a reference to a string that defines defines the interpretation of the value of Quality.
-                 *  If not present, the quality is considered in linear scale.		 
+                 *  If not present, the quality is considered in linear scale.         
                  *  
                  *  @return     a reference to a string
                  */
                 virtual const std::string&                   GetType                   ()  const = 0;
-				
+                
         };
     }
 }

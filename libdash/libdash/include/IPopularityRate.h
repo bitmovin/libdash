@@ -26,38 +26,38 @@ namespace dash
         {
             public:
                 virtual ~IPopularityRate(){}
-				
-				/**
+                
+                /**
                  *  Returns an unsigned integer that indicates the relative Popularity Rate of the segments of containing entity (i.e. the Preselection or Adaptation Set containing this \b ContentPopularityRate element),
                  *  within the same Media Presentation. No unit. The value shall be in the range of 1 to 100.
-				 *  A greater value means higher likelihood of the series of (Sub)Segments being consumed/requested.	
-				 *  
+                 *  A greater value means higher likelihood of the series of (Sub)Segments being consumed/requested.    
+                 *  
                  *  @return     an unsigned integer
                  */
                 virtual uint8_t                     GetPopularityRate    ()  const = 0;
-				
-				/**
+                
+                /**
                  *  Returns an unsigned integer that specifies the first Segment from which \c @popularityRate value of this \b PR element is relevant.
                  *  If the addressing scheme for the containing entity is using Segment template with \c $Number$, then \c @popularityRate applies from the earliest presentation time of the Segment with the segment number specified by this attribute.
                  *  For other addressing schemes, the value of \c @popularityRate applies from the Segment which contains the media sample whose presentation time specified by this attribute in unit of \c @timescale on Representation level.
                  *  If not present, then it shall be assumed that \c @popularityRate applies from:
                  *  <ul>
                  *      <li> the first Segment of the containing Period, for the first \b PR element,
-				 *      <li> the Segment after the last Segment of the previous \b PR element, for other PR elements.	
-				 *  </ul>
-				 *  
+                 *      <li> the Segment after the last Segment of the previous \b PR element, for other PR elements.    
+                 *  </ul>
+                 *  
                  *  @return     an unsigned integer
                  */
                 virtual uint64_t                    GetStart             ()  const = 0;
-				
-				/**
+                
+                /**
                  *  Returns an integer that specifies the number of segments after the segment indicated by \c @start which are included in this \b PR entry (i.e. the repeat count).
                  *  A negative value indicates that the series continues until the segment before the first segment of the next \b PR element, or if there are no further \b PR elements until the end of the Period or the next MPD update.
-				 *  
+                 *  
                  *  @return     an integer
                  */
                 virtual int32_t                     GetR                 ()  const = 0;
-				
+                
         };
     }
 }

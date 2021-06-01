@@ -58,24 +58,24 @@ namespace dash
                  *  @return     a reference to a string
                  */
                 virtual const std::string& GetByteRange                ()  const = 0;
-				
-				/**
+                
+                /**
                  *  Returns a number that specifies an offset to define the adjusted segment availability time.
-				 *  If the value is present in \c SegmentBase then this attribute is additive to the one in \c SegmentBase.
+                 *  If the value is present in \c SegmentBase then this attribute is additive to the one in \c SegmentBase.
                  *  @return     a double
                  */
                 virtual double             GetAvailabilityTimeOffset   ()  const = 0;
-				
-				/**
+                
+                /**
                  *  Returns a boolean that specifies if all Segments of all associated Representation are complete at the adjusted availability start time.
-				 *  If the value is present in \c SegmentBase then this attribute should not be present. If present in \c SegmentBase and \c BaseURL, the value in \c BaseURL shall	be ignored.
+                 *  If the value is present in \c SegmentBase then this attribute should not be present. If present in \c SegmentBase and \c BaseURL, the value in \c BaseURL shall    be ignored.
                  *  @return     a boolean
                  */
-                virtual bool 			   IsAvailabilityTimeComplete  ()  const = 0;
-				
-				/**
-                 *  Returns the reference to a string that specifies the duration of the smallest time shifting buffer for any Representation in the MPD that is guaranteed to be available	for	a Media	Presentation with type 'dynamic'.
-				 *  This value overrides \c MPD@timeShiftBufferDepth for the resources that use this \c BaseURL. This value of the attribute is undefined if the \c MPD@type attribute is equal to \c 'static'.
+                virtual bool                IsAvailabilityTimeComplete  ()  const = 0;
+                
+                /**
+                 *  Returns the reference to a string that specifies the duration of the smallest time shifting buffer for any Representation in the MPD that is guaranteed to be available    for    a Media    Presentation with type 'dynamic'.
+                 *  This value overrides \c MPD@timeShiftBufferDepth for the resources that use this \c BaseURL. This value of the attribute is undefined if the \c MPD@type attribute is equal to \c 'static'.
                  *  @return     a reference to a string
                  */
                 virtual const std::string& GetTimeShiftBufferDepth     ()  const = 0;

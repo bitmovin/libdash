@@ -29,14 +29,14 @@ const std::vector<IUIntPairs *>&     UIntPairsWithID::GetQualityLatency         
 }
 void                                 UIntPairsWithID::AddQualityLatency            (const std::string& ql)
 {
-	std::vector<std::string> temp;
-	dash::helpers::String::Split(ql, ' ', temp);
-	UIntPairs* pair = new UIntPairs();
-	pair->SetLatency(strtoul(temp[0].c_str(), NULL, 10));
-	pair->SetQuality(strtoul(temp[1].c_str(), NULL, 10));
-	this->qlpairs.push_back(pair);
+    std::vector<std::string> temp;
+    dash::helpers::String::Split(ql, ' ', temp);
+    UIntPairs* pair = new UIntPairs();
+    pair->SetLatency(strtoul(temp[0].c_str(), NULL, 10));
+    pair->SetQuality(strtoul(temp[1].c_str(), NULL, 10));
+    this->qlpairs.push_back(pair);
 }
-const std::string&                   UIntPairsWithID::GetType	                   ()  const
+const std::string&                   UIntPairsWithID::GetType                      ()  const
 {
     return this->type;
 }

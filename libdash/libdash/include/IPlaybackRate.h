@@ -27,18 +27,18 @@ namespace dash
         {
             public:
                 virtual ~IPlaybackRate(){}
-				
-				/**
+                
+                /**
                  *  Returns a double that specifies the maximum playback rate that the content provider indicates is appropriate for the purposes of automatically adjusting 
-				 *  playback latency and buffer occupancy during normal playback, where 1.0 is normal playback speed.			
+                 *  playback latency and buffer occupancy during normal playback, where 1.0 is normal playback speed.            
                  *  
                  *  @return     a double
                  */
                 virtual double                             GetMax                    ()  const = 0;
-				
-				/**
+                
+                /**
                  *  Returns a double that specifies the minimum playback rate that the content provider indicates is appropriate for the purposes of automatically adjusting 
-				 *  playback latency and buffer occupancy during normal playback, where 1.0 is normal playback speed.	
+                 *  playback latency and buffer occupancy during normal playback, where 1.0 is normal playback speed.    
                  *  
                  *  @return     a double
                  */

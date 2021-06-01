@@ -28,15 +28,15 @@ namespace dash
                 virtual ~UIntPairs    ();
 
                 uint32_t    GetLatency    ()  const;
-				uint32_t    GetQuality    ()  const;
+                uint32_t    GetQuality    ()  const;
 
                 void    SetLatency    (uint32_t latency);
-				void    SetQuality    (uint32_t quality);
+                void    SetQuality    (uint32_t quality);
 
             private:
                 uint32_t    latency;
-				uint32_t    quality;
-				
+                uint32_t    quality;
+                
         };
     }
 }

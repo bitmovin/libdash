@@ -26,17 +26,17 @@ namespace dash
             public:
                 PatchLocation             ();
                 virtual ~PatchLocation    ();
-				
-				const std::string&   GetUrl    ()  const;
+                
+                const std::string&   GetUrl    ()  const;
                 double               GetTtl    ()  const;
 
                 void    SetUrl    (const std::string& url);
-				void    SetTtl    (double ttl);
-				
+                void    SetTtl    (double ttl);
+                
             private:
-				std::string url;
+                std::string url;
                 double      ttl;
-				
+                
         };
     }
 }

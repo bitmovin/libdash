@@ -7,7 +7,7 @@
  *              Preselections can also be used to indicate a pre-defined experience at the elementary-stream level, i.e. the DASH Client can select a pre-defined experience and provides the selection to the media engine.\n
  *              Preselections may be uniquely identified by a Preselection Tag. Users/Codecs using this Tag functionality are encouraged to provide more information on how tags defined in the MPD map to functionality in the specific codec.\n
  *              Preselections have equivalent annotation parameters to Adaptation Sets and are always assigned exactly one media type.\n 
- *              Media components can be mapped to Adaptation Sets in multiple ways:	
+ *              Media components can be mapped to Adaptation Sets in multiple ways:    
  *              <ol>
  *                  <li> by a one-to-one mapping between media components and Adaptation Sets;
  *                  <li> by the inclusion of multiple media components in a single Adaptation Set where all encoded versions of the media components are multiplexed on the file-container level;
@@ -57,12 +57,12 @@ namespace dash
         {
             public:
                 virtual ~IPreselection(){}
-				
-				
-				/**
+                
+                
+                /**
                  *  Returns a reference to a vector of pointers to dash::mpd::IDescriptor objects that specify information about accessibility scheme.\n
                  *  For more details refer to sections 5.8.1 and 5.8.4.3. of <em>ISO/IEC 23009-1</em>.
-				 *  
+                 *  
                  *  @return     a reference to a vector of pointers to dash::mpd::IDescriptor objects
                  */
                 virtual const std::vector<IDescriptor *>&       GetAccessibility                ()  const = 0;
@@ -70,7 +70,7 @@ namespace dash
                 /**
                  *  Returns a reference to a vector of pointers to dash::mpd::IDescriptor objects that specify information on role annotation scheme.
                  *  For more details refer to sections 5.8.1 and 5.8.4.2. of <em>ISO/IEC 23009-1</em>.
-				 *  
+                 *  
                  *  @return     a reference to a vector of pointers to dash::mpd::IDescriptor objects
                  */
                 virtual const std::vector<IDescriptor *>&       GetRole                         ()  const = 0;
@@ -78,7 +78,7 @@ namespace dash
                 /**
                  *  Returns a reference to a vector of pointers to dash::mpd::IDescriptor objects that specify information on rating scheme.\n
                  *  For more details refer to sections 5.8.1 and 5.8.4.4. of <em>ISO/IEC 23009-1</em>.
-				 *  
+                 *  
                  *  @return     a reference to a vector of pointers to dash::mpd::IDescriptor objects
                  */
                 virtual const std::vector<IDescriptor *>&       GetRating                       ()  const = 0;
@@ -86,44 +86,44 @@ namespace dash
                 /**
                  *  Returns a reference to a vector of pointers to dash::mpd::IDescriptor objects that specify information on viewpoint annotation scheme.\n
                  *  For more details refer to sections 5.8.1 and 5.8.4.5. of <em>ISO/IEC 23009-1</em>.
-				 *  
+                 *  
                  *  @return     a reference to a vector of pointers to dash::mpd::IDescriptor objects
                  */
                 virtual const std::vector<IDescriptor *>&       GetViewpoint                    ()  const = 0;
-				
-				/**
+                
+                /**
                  *  Returns a reference to a string that specifies the id of the Preselection. This shall be unique within one Period.
-				 *  
+                 *  
                  *  @return     a reference to a string
                  */
                 virtual const std::string&                      GetId                           ()  const = 0;
 
                 /**
                  *  Returns a reference to a vector of strings that specifies the ids of the contained Adaptation Sets or Content Components that belong to this Preselection 
-				 *  as white space separated list in processing order. The first id defines the Main Adaptation Set.	
-				 *  
+                 *  as white space separated list in processing order. The first id defines the Main Adaptation Set.    
+                 *  
                  *  @return     a reference to a vector of strings
                  */
                 virtual const std::vector<std::string>&         GetPreselectionComponents       ()  const = 0;
-				
-				/**
+                
+                /**
                  *  Returns a reference to a string that specifies the language of the preselection as specified in in Table 5 for \c @lang attribute.
-				 *  
+                 *  
                  *  @return     a reference to a string
                  */
                 virtual const std::string&                      GetLang                         ()  const = 0;
-				
-				/**
+                
+                /**
                  *  Returns a reference to a string that specifies the conformance rules for Representations in Adaptation Sets within the Preselection.\n
                  *  When set to '<b>undefined</b>', the Preselection follows the conformance rules for Multi-Segment Tracks in subclause 5.3.11.5.1.\n
-				 *  When set to 'time-ordered', the Preselection follows the conformance rules for Time-Ordered Segment Tracks in subclause 5.3.11.5.2.\n
-                 * 	When set to 'fully-ordered', the Preselection follows the conformance rules for Fully-Ordered Segment Tracks in subclause 5.3.11.5.3. 
-				 *  In this case, order in the \c @preselectionComponents attribute specifies the component order.	
-				 *  
+                 *  When set to 'time-ordered', the Preselection follows the conformance rules for Time-Ordered Segment Tracks in subclause 5.3.11.5.2.\n
+                 *     When set to 'fully-ordered', the Preselection follows the conformance rules for Fully-Ordered Segment Tracks in subclause 5.3.11.5.3. 
+                 *  In this case, order in the \c @preselectionComponents attribute specifies the component order.    
+                 *  
                  *  @return     a reference to a string
                  */
                 virtual const std::string&                      GetOrder                        ()  const = 0;
-							
+                            
         };
     }
 }

@@ -16,14 +16,14 @@ using namespace dash::mpd;
 InitializationSet::InitializationSet    () :
                 xlinkHref(""),
                 xlinkActuate("onRequest"),
-				xlinkType("simple"),
+                xlinkType("simple"),
                 contentType(""),
                 par(""),
                 maxWidth(0),
                 maxHeight(0),
                 maxFrameRate(""),
                 inAllPeriods(true),
-				initialization("")
+                initialization("")
 {
 }
 InitializationSet::~InitializationSet   ()
@@ -108,7 +108,7 @@ bool                                    InitializationSet::IsInAllPeriods       
 }
 void                                    InitializationSet::SetInAllPeriods                  (bool inAllPeriods)
 {
-	this->inAllPeriods = inAllPeriods;
+    this->inAllPeriods = inAllPeriods;
 }
 const std::string&                      InitializationSet::GetContentType                   ()  const
 {

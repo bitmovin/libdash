@@ -22,7 +22,7 @@ ContentComponent::ContentComponent  ()  :
                     lang(""),
                     contentType(""),
                     par(""),
-					tag("")
+                    tag("")
 {
 }
 ContentComponent::~ContentComponent ()

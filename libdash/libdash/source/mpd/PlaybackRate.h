@@ -27,16 +27,16 @@ namespace dash
                 PlaybackRate             ();
                 virtual ~PlaybackRate    ();
 
-				double                                   GetMax                        ()  const;
-				double                                   GetMin                        ()  const;
+                double                                   GetMax                        ()  const;
+                double                                   GetMin                        ()  const;
 
-				void    SetMax                   (double max);
-				void    SetMin                   (double min);
+                void    SetMax                   (double max);
+                void    SetMin                   (double min);
 
             private:
-				double                          max;
-				double                          min;
-				
+                double                          max;
+                double                          min;
+                
         };
     }
 }

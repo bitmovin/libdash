@@ -28,18 +28,18 @@ namespace dash
                 ContentPopularityRate             ();
                 virtual ~ContentPopularityRate    ();
 
-				const std::vector<IPopularityRate *>&   GetPopularityRates                 () const;
-				const std::string&                      GetSource                          () const;
-				const std::string&                      GetSourceDescription               () const;
+                const std::vector<IPopularityRate *>&   GetPopularityRates                 () const;
+                const std::string&                      GetSource                          () const;
+                const std::string&                      GetSourceDescription               () const;
 
-				void    AddPopularityRate        (PopularityRate *popularityRate);
-				void    SetSource                (const std::string& source);
-				void    SetSourceDescription     (const std::string& sourceDescription);
+                void    AddPopularityRate        (PopularityRate *popularityRate);
+                void    SetSource                (const std::string& source);
+                void    SetSourceDescription     (const std::string& sourceDescription);
 
             private:
-			    std::vector<PopularityRate*>       popularityRates;
-				std::string                        source;
-				std::string                        sourceDescription;
+                std::vector<PopularityRate*>       popularityRates;
+                std::string                        source;
+                std::string                        sourceDescription;
         };
     }
 }

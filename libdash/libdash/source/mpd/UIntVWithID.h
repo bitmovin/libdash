@@ -31,7 +31,7 @@ namespace dash
                 const std::vector<uint32_t>&        GetList               ()  const;
                 uint32_t                            GetId                 ()  const;
                 const std::vector<std::string>&     GetProfiles           ()  const;
-				const std::string&                  GetContentType        ()  const;
+                const std::string&                  GetContentType        ()  const;
 
                 void    SetList          (const std::string& list);
                 void    SetId            (uint32_t id);
@@ -42,7 +42,7 @@ namespace dash
                 std::vector<uint32_t>       list;
                 uint32_t                    id;
                 std::vector<std::string>    profiles;
-				std::string                 contentType;
+                std::string                 contentType;
         };
     }
 }

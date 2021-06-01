@@ -30,15 +30,15 @@ namespace dash
                 virtual ~UIntPairsWithID    ();
 
                 const std::vector<IUIntPairs *>&     GetQualityLatency         ()  const;
-				const std::string&                   GetType                   ()  const;
+                const std::string&                   GetType                   ()  const;
 
                 void    AddQualityLatency    (const std::string& ql);
-				void    SetType              (const std::string& type);
+                void    SetType              (const std::string& type);
 
             private:
                 std::vector<IUIntPairs *>   qlpairs;
-				std::string                 type;
-				
+                std::string                 type;
+                
         };
     }
 }

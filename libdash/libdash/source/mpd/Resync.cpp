@@ -15,16 +15,16 @@ using namespace dash::mpd;
 
 Resync::Resync    ()  :
                  type(0),
-				 dIMin(0),
-				 marker(false),
-				 rangeAccess(false)
+                 dIMin(0),
+                 marker(false),
+                 rangeAccess(false)
 {
 }
 Resync::~Resync   ()
 {
 }
 
-uint32_t                                Resync::GetType	                ()  const
+uint32_t                                Resync::GetType                 ()  const
 {
     return this->type;
 }
@@ -32,7 +32,7 @@ void                                    Resync::SetType                 (uint32_
 {
     this->type = type;
 }
-uint32_t                                Resync::GetDT	                ()  const
+uint32_t                                Resync::GetDT                   ()  const
 {
     return this->dT;
 }
@@ -40,7 +40,7 @@ void                                    Resync::SetDT                   (uint32_
 {
     this->dT = dT;
 }
-float                                   Resync::GetDIMax	            ()  const
+float                                   Resync::GetDIMax                ()  const
 {
     return this->dIMax;
 }
@@ -48,7 +48,7 @@ void                                    Resync::SetDIMax                (float d
 {
     this->dIMax = dIMax;
 }
-float                                   Resync::GetDIMin	            ()  const
+float                                   Resync::GetDIMin                ()  const
 {
     return this->dIMin;
 }
@@ -56,7 +56,7 @@ void                                    Resync::SetDIMin                (float d
 {
     this->dIMin = dIMin;
 }
-bool                                    Resync::HasMarker	            ()  const
+bool                                    Resync::HasMarker               ()  const
 {
     return this->marker;
 }
@@ -64,7 +64,7 @@ void                                    Resync::SetMarker               (bool ma
 {
     this->marker = marker;
 }
-bool                                    Resync::HasRangeAccess	        ()  const
+bool                                    Resync::HasRangeAccess          ()  const
 {
     return this->rangeAccess;
 }
@@ -72,7 +72,7 @@ void                                    Resync::SetRangeAccess          (bool ra
 {
     this->rangeAccess = rangeAccess;
 }
-const std::string&                      Resync::GetIndex	            ()  const
+const std::string&                      Resync::GetIndex                ()  const
 {
     return this->index;
 }

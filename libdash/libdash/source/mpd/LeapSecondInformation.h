@@ -29,17 +29,17 @@ namespace dash
 
                 int32_t              GetAvailabilityStartLeapOffset        ()  const;
                 int32_t              GetNextAvailabilityStartLeapOffset    ()  const;
-				const std::string&   GetNextLeapChangeTime                 ()  const;
+                const std::string&   GetNextLeapChangeTime                 ()  const;
 
                 void    SetAvailabilityStartLeapOffset         (int32_t availabilityStartLeapOffset);
                 void    SetNextAvailabilityStartLeapOffset     (int32_t nextAvailabilityStartLeapOffset);
-				void    SetNextLeapChangeTime                  (const std::string&  nextLeapChangeTime);
+                void    SetNextLeapChangeTime                  (const std::string&  nextLeapChangeTime);
 
             private:
                 int32_t      availabilityStartLeapOffset;
-				int32_t      nextAvailabilityStartLeapOffset;
+                int32_t      nextAvailabilityStartLeapOffset;
                 std::string  nextLeapChangeTime;
-				
+                
         };
     }
 }

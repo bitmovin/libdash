@@ -29,7 +29,7 @@ void                                       OperatingBandwidth::SetMediaType     
 {
     this->mediaType = mediaType;
 }
-uint32_t                                   OperatingBandwidth::GetMin	                   ()  const
+uint32_t                                   OperatingBandwidth::GetMin                      ()  const
 {
     return this->min;
 }
@@ -37,7 +37,7 @@ void                                       OperatingBandwidth::SetMin           
 {
     this->min = min;
 }
-uint32_t                                   OperatingBandwidth::GetMax	                   ()  const
+uint32_t                                   OperatingBandwidth::GetMax                      ()  const
 {
     return this->max;
 }
@@ -45,7 +45,7 @@ void                                       OperatingBandwidth::SetMax           
 {
     this->max = max;
 }
-uint32_t                                   OperatingBandwidth::GetTarget	               ()  const
+uint32_t                                   OperatingBandwidth::GetTarget                   ()  const
 {
     return this->target;
 }

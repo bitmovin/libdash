@@ -20,7 +20,7 @@ PlaybackRate::~PlaybackRate   ()
 {
 }
 
-double                                     PlaybackRate::GetMax	                     ()  const
+double                                     PlaybackRate::GetMax                      ()  const
 {
     return this->max;
 }
@@ -28,7 +28,7 @@ void                                       PlaybackRate::SetMax                 
 {
     this->max = max;
 }
-double                                     PlaybackRate::GetMin	                     ()  const
+double                                     PlaybackRate::GetMin                      ()  const
 {
     return this->min;
 }

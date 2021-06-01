@@ -30,24 +30,24 @@ namespace dash
         {
             public:
                 virtual ~IUIntVWithID(){}
-				
-				
-				/**
+                
+                
+                /**
                  *  Returns a reference to a vector of unsigned integers that specifies the list of ids relative to the Initialization Set, Group or Presentation as specified in 5.3.12.4. of <em>ISO/IEC 23009-1</em>.
-				 *  
+                 *  
                  *  @return     a reference to a vector of unsigned integers
                  */
                 virtual const std::vector<uint32_t>&        GetList               ()  const = 0;
-				
-				/**
+                
+                /**
                  *  Returns an unsigned integer that specifies a unique identifier for this \b InitializationGroup or \b InitializationPresentation element. 
-				 *  The attribute shall be a unique unsigned integer value amongst all InitializationSet, InitializationGroup and InitializationPresentation ids in the scope of the MPD.
-				 *  
+                 *  The attribute shall be a unique unsigned integer value amongst all InitializationSet, InitializationGroup and InitializationPresentation ids in the scope of the MPD.
+                 *  
                  *  @return     an unsigned integer
                  */
                 virtual uint32_t                            GetId                 ()  const = 0;
-				
-				/**
+                
+                /**
                  *  Returns a reference to a vector of strings that specifies the profiles which the associated InitializationGroup(s) or InitializationPresentation(s) 
                  *  conform to of the list of Media Presentation profiles as described in section 8 of <em>ISO/IEC 23009-1</em>. 
                  *  The value shall be a subset of the respective value in any higher level of the document hierarchy and express conformance to DASH Profiles or Interoperability Points.\n
@@ -55,16 +55,16 @@ namespace dash
                  *  @return     a reference to a vector of strings
                  */
                 virtual const std::vector<std::string>&     GetProfiles           ()  const = 0;
-				
-				/**
+                
+                /**
                  *  Returns a reference to a string that specifies the media content component type for this Initialization Set. 
-				 *  A value of the top-level Content-type 'type' value as defined in IETF RFC 6838:2013, Clause 4 shall be taken. \n
-				 *  If not present, the media content component type may be defined for each media component or it may be unknown.
-				 *  
+                 *  A value of the top-level Content-type 'type' value as defined in IETF RFC 6838:2013, Clause 4 shall be taken. \n
+                 *  If not present, the media content component type may be defined for each media component or it may be unknown.
+                 *  
                  *  @return     a reference to a string
                  */
                 virtual const std::string&                  GetContentType        ()  const = 0;
-							
+                            
         };
     }
 }

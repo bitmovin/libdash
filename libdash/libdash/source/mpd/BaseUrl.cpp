@@ -21,7 +21,7 @@ BaseUrl::BaseUrl    () :
             url(""),
             serviceLocation(""),
             byteRange(""),
-			timeShiftBufferDepth("")
+            timeShiftBufferDepth("")
 {
 }
 BaseUrl::~BaseUrl   ()
@@ -60,11 +60,11 @@ void               BaseUrl::SetAvailabilityTimeOffset       (double availability
 {
     this->availabilityTimeOffset = availabilityTimeOffset;
 }
-bool               BaseUrl::IsAvailabilityTimeComplete     ()  const
+bool               BaseUrl::IsAvailabilityTimeComplete      ()  const
 {
     return this->availabilityTimeComplete;
 }
-void     		   BaseUrl::SetAvailabilityTimeComplete     (bool availabilityTimeComplete)
+void               BaseUrl::SetAvailabilityTimeComplete     (bool availabilityTimeComplete)
 {
     this->availabilityTimeComplete = availabilityTimeComplete;
 }
@@ -75,7 +75,7 @@ const std::string& BaseUrl::GetTimeShiftBufferDepth         ()  const
 void               BaseUrl::SetTimeShiftBufferDepth         (const std::string& timeShiftBufferDepth)
 {
     this->timeShiftBufferDepth = timeShiftBufferDepth;
-}				
+}                
 ISegment*          BaseUrl::ToMediaSegment                  (const std::vector<IBaseUrl *>& baseurls) const
 {
     Segment *seg = new Segment();

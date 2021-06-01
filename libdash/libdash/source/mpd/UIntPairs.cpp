@@ -13,7 +13,7 @@
 
 using namespace dash::mpd;
 
-UIntPairs::UIntPairs    ()	
+UIntPairs::UIntPairs    ()    
 {
 }
 UIntPairs::~UIntPairs   ()

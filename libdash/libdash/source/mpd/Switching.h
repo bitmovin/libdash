@@ -27,15 +27,15 @@ namespace dash
                 Switching             ();
                 virtual ~Switching    ();
 
-				uint32_t                     GetInterval          ()  const;
-				const std::string&           GetType              ()  const;
+                uint32_t                     GetInterval          ()  const;
+                const std::string&           GetType              ()  const;
 
-				void    SetInterval        (uint32_t interval);
-				void    SetType            (const std::string& type);
+                void    SetInterval        (uint32_t interval);
+                void    SetType            (const std::string& type);
 
             private:
-			    uint32_t        interval;
-				std::string     type;
+                uint32_t        interval;
+                std::string     type;
         };
     }
 }

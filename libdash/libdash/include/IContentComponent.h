@@ -79,10 +79,10 @@ namespace dash
                  *  @copydoc    dash::mpd::IAdaptationSet::GetPar()
                  */
                 virtual const std::string&                  GetPar              ()  const = 0;
-				
-				/**
+                
+                /**
                  *  Returns a reference to a string that specifies the tag of the Content Component 
-				 *  which may be used for selection purposes towards the decoder.
+                 *  which may be used for selection purposes towards the decoder.
                  *  @return     a reference to a string
                  */
                 virtual const std::string&                  GetTag              ()  const = 0;

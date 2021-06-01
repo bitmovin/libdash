@@ -29,7 +29,7 @@ void                                       OperatingQuality::SetMediaType       
 {
     this->mediaType = mediaType;
 }
-uint32_t                                   OperatingQuality::GetMin	                     ()  const
+uint32_t                                   OperatingQuality::GetMin                      ()  const
 {
     return this->min;
 }
@@ -37,7 +37,7 @@ void                                       OperatingQuality::SetMin             
 {
     this->min = min;
 }
-uint32_t                                   OperatingQuality::GetMax	                     ()  const
+uint32_t                                   OperatingQuality::GetMax                      ()  const
 {
     return this->max;
 }
@@ -45,7 +45,7 @@ void                                       OperatingQuality::SetMax             
 {
     this->max = max;
 }
-uint32_t                                   OperatingQuality::GetTarget	                 ()  const
+uint32_t                                   OperatingQuality::GetTarget                   ()  const
 {
     return this->target;
 }
@@ -61,7 +61,7 @@ void                                       OperatingQuality::SetType            
 {
     this->type = type;
 }
-uint32_t                                   OperatingQuality::GetMaxDifference	         ()  const
+uint32_t                                   OperatingQuality::GetMaxDifference            ()  const
 {
     return this->maxDifference;
 }

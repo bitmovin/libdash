@@ -20,13 +20,13 @@ ServiceDescription::~ServiceDescription   ()
 {
     for (size_t i=0; i < this->scope.size(); i++)
         delete(this->scope.at(i));
-	for (size_t i=0; i < this->latency.size(); i++)
+    for (size_t i=0; i < this->latency.size(); i++)
         delete(this->latency.at(i));
-	for (size_t i=0; i < this->playbackRate.size(); i++)
+    for (size_t i=0; i < this->playbackRate.size(); i++)
         delete(this->playbackRate.at(i));
-	for (size_t i=0; i < this->operatingQuality.size(); i++)
+    for (size_t i=0; i < this->operatingQuality.size(); i++)
         delete(this->operatingQuality.at(i));
-	for (size_t i=0; i < this->operatingBandwidth.size(); i++)
+    for (size_t i=0; i < this->operatingBandwidth.size(); i++)
         delete(this->operatingBandwidth.at(i));
 }
 
@@ -70,11 +70,11 @@ void                                       ServiceDescription::AddOperatingBandw
 {
     this->operatingBandwidth.push_back(operatingBandwidth);
 }
-uint32_t                                   ServiceDescription::GetId	            ()  const
+uint32_t                                   ServiceDescription::GetId                  ()  const
 {
     return this->id;
 }
-void                                       ServiceDescription::SetId                (uint32_t id)
+void                                       ServiceDescription::SetId                  (uint32_t id)
 {
     this->id = id;
 }

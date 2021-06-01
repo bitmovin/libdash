@@ -160,19 +160,19 @@ namespace dash
                  *  @return     a reference to a string
                  */
                 virtual const std::string&                      GetXlinkActuate                 ()  const = 0;
-				
-				/**
+                
+                /**
                  *  Returns a reference to a string that specifies the type of link.
                  *  @return     a reference to a string
                  */
                 virtual const std::string&                      GetXlinkType                    ()  const = 0;
-				
-				/**
+                
+                /**
                  *  Returns a reference to a string that specifies where to open the link.
                  *  @return     a reference to a string
                  */
                 virtual const std::string&                      GetXlinkShow                    ()  const = 0;
-				
+                
                 /**
                  *  Returns an unsigned integer that specifies an unique identifier for this Adaptation Set in the scope of the Period.
                  *  The attribute shall be unique in the scope of the containing Period. \n\n
@@ -376,8 +376,8 @@ namespace dash
                  *  @return     a bool value
                  */
                 virtual bool                                    GetBitstreamSwitching           ()  const = 0;
-				
-				/**
+                
+                /**
                  *  Returns a reference to a vector of unsigned integers that specifies the reference initialization set defined as a whitespace-separated list of unsigned integers.
                  *  @return     a reference to a vector of unsigned integers
                  */

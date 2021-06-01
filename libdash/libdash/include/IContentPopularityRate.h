@@ -14,7 +14,7 @@
  *              Expected-to-be-popular data can also be prefetched in higher quality in order to ensure that such data is available in good quality.\n
  *              To indicate the popularity of a Pre-selection or Adaptation Set, the \b ContentPopularityRate element may be present within that element. 
  *              The \b ContentPopularityRate element contains one or more \b PR elements giving the rating for different parts of the content. 
- *              The semantics of the \b ContentPopularityRate element are provided in 5.14.2, Table 43, the syntax is provided in 5.14.3 (of <em>ISO/IEC 23009-1</em>).	
+ *              The semantics of the \b ContentPopularityRate element are provided in 5.14.2, Table 43, the syntax is provided in 5.14.3 (of <em>ISO/IEC 23009-1</em>).    
  *  @see        dash::mpd::IPopularityRate dash::mpd::IMPDElement
  *
  *  @author     Daniele Lorenzi \n
@@ -39,36 +39,36 @@ namespace dash
         {
             public:
                 virtual ~IContentPopularityRate(){}
-				
-				/**
+                
+                /**
                  *  Returns a reference to a vector of pointers to dash::mpd::IPopularityRate objects that specifies 
-				 *  start time and number of segments for a contiguous sequence of segments assigned identical Popularity Rate value.
-				 *  
+                 *  start time and number of segments for a contiguous sequence of segments assigned identical Popularity Rate value.
+                 *  
                  *  @return     a reference to a vector of pointers to dash::mpd::IPopularityRate objects
                  */
                 virtual const std::vector<IPopularityRate *>&   GetPopularityRates                 () const = 0;
-				
-				/**
+                
+                /**
                  *  Returns a reference to a string that indicates the source of rating by this element.
                  *  The value can be one of the following:
                  *  <ul>
                  *      <li> \c content (when the value is specified by the content author or content provider);
-				 *      <li> \c statistics (when the value is specified based on viewing statistics);
-				 *      <li> \c other.
-				 *  </ul>
-				 *  When \c "other" is used, \c @source_description should be provided.			
+                 *      <li> \c statistics (when the value is specified based on viewing statistics);
+                 *      <li> \c other.
+                 *  </ul>
+                 *  When \c "other" is used, \c @source_description should be provided.            
                  *  
-				 *  @return     a reference to a string
+                 *  @return     a reference to a string
                  */
                 virtual const std::string&                      GetSource                          () const = 0;
-				
-				/**
-                 *  Returns a reference to a UTF-8 string that provides a textual description of the source of rating.		
+                
+                /**
+                 *  Returns a reference to a UTF-8 string that provides a textual description of the source of rating.        
                  *  
-				 *  @return     a reference to a string
+                 *  @return     a reference to a string
                  */
                 virtual const std::string&                      GetSourceDescription               () const = 0;
-				
+                
         };
     }
 }

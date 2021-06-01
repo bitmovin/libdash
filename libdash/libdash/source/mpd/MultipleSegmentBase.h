@@ -37,20 +37,20 @@ namespace dash
                 const IURLType*                         GetBitstreamSwitching   ()  const;
                 uint32_t                                GetDuration             ()  const;
                 uint32_t                                GetStartNumber          ()  const;
-				uint32_t                                GetEndNumber            ()  const;
+                uint32_t                                GetEndNumber            ()  const;
 
                 void    SetSegmentTimeline      (SegmentTimeline *segmentTimeline);
                 void    SetBitstreamSwitching   (URLType *bitstreamSwitching);
                 void    SetDuration             (uint32_t duration);
                 void    SetStartNumber          (uint32_t startNumber);
-				void    SetEndNumber            (uint32_t endNumber);
+                void    SetEndNumber            (uint32_t endNumber);
 
             protected:
                 SegmentTimeline                 *segmentTimeline;
                 URLType                         *bitstreamSwitching;
                 uint32_t                        duration;
                 uint32_t                        startNumber;
-				uint32_t                        endNumber;
+                uint32_t                        endNumber;
         };
     }
 }

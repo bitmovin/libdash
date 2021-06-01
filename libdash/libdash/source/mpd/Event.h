@@ -29,23 +29,23 @@ namespace dash
 
                 uint64_t             GetPresentationTime    ()  const;
                 const std::string&   GetDuration            ()  const;
-				uint32_t             GetId                  ()  const;
-				const std::string&   GetContentEncoding     ()  const;
-				const std::string&   GetMessageData         ()  const;
+                uint32_t             GetId                  ()  const;
+                const std::string&   GetContentEncoding     ()  const;
+                const std::string&   GetMessageData         ()  const;
 
                 void    SetPresentationTime    (uint64_t presentationTime);
                 void    SetDuration            (const std::string& duration);
-				void    SetId                  (uint32_t  id);
-				void    SetContentEncoding     (const std::string&  contentEncoding);
-				void    SetMessageData         (const std::string&  messageData);
+                void    SetId                  (uint32_t  id);
+                void    SetContentEncoding     (const std::string&  contentEncoding);
+                void    SetMessageData         (const std::string&  messageData);
 
             private:
                 uint64_t    presentationTime;
                 std::string duration;
-				uint32_t    id;
-				std::string contentEncoding;
-				std::string messageData;
-				
+                uint32_t    id;
+                std::string contentEncoding;
+                std::string messageData;
+                
         };
     }
 }

@@ -29,24 +29,24 @@ namespace dash
                 virtual ~Latency    ();
 
                 const std::vector<IUIntPairsWithID *>&     GetQualityLatencyType         ()  const;
-				uint32_t                                   GetReferenceId                ()  const;
-				uint32_t                                   GetTarget                     ()  const;
-				uint32_t                                   GetMax                        ()  const;
-				uint32_t                                   GetMin                        ()  const;
+                uint32_t                                   GetReferenceId                ()  const;
+                uint32_t                                   GetTarget                     ()  const;
+                uint32_t                                   GetMax                        ()  const;
+                uint32_t                                   GetMin                        ()  const;
 
                 void    AddQualityLatencyType    (UIntPairsWithID* qlt);
-				void    SetReferenceId           (uint32_t referenceId);
-				void    SetTarget                (uint32_t target);
-				void    SetMax                   (uint32_t max);
-				void    SetMin                   (uint32_t min);
+                void    SetReferenceId           (uint32_t referenceId);
+                void    SetTarget                (uint32_t target);
+                void    SetMax                   (uint32_t max);
+                void    SetMin                   (uint32_t min);
 
             private:
                 std::vector<IUIntPairsWithID *>   qltpairs;
-				uint32_t                          referenceId;
-				uint32_t                          target;
-				uint32_t                          max;
-				uint32_t                          min;
-				
+                uint32_t                          referenceId;
+                uint32_t                          target;
+                uint32_t                          max;
+                uint32_t                          min;
+                
         };
     }
 }

@@ -30,7 +30,7 @@ void                                       Latency::AddQualityLatencyType       
 {
     this->qltpairs.push_back(qlt);
 }
-uint32_t                                   Latency::GetReferenceId	             ()  const
+uint32_t                                   Latency::GetReferenceId               ()  const
 {
     return this->referenceId;
 }
@@ -38,7 +38,7 @@ void                                       Latency::SetReferenceId              
 {
     this->referenceId = referenceId;
 }
-uint32_t                                   Latency::GetTarget	                 ()  const
+uint32_t                                   Latency::GetTarget                    ()  const
 {
     return this->target;
 }
@@ -46,7 +46,7 @@ void                                       Latency::SetTarget                   
 {
     this->target = target;
 }
-uint32_t                                   Latency::GetMax	                     ()  const
+uint32_t                                   Latency::GetMax                       ()  const
 {
     return this->max;
 }
@@ -54,7 +54,7 @@ void                                       Latency::SetMax                      
 {
     this->max = max;
 }
-uint32_t                                   Latency::GetMin	                     ()  const
+uint32_t                                   Latency::GetMin                       ()  const
 {
     return this->min;
 }

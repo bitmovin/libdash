@@ -25,21 +25,21 @@ namespace dash
         {
             public:
                 virtual ~IUIntPairs(){}
-				
-				/**
-                 *  Returns an unsigned integer that specifies a latency value for the service in milliseconds.	 
+                
+                /**
+                 *  Returns an unsigned integer that specifies a latency value for the service in milliseconds.     
                  *  
                  *  @return     an unsigned integer
                  */
                 virtual uint32_t                       GetLatency                ()  const = 0;
-				
+                
                 /**
-                 *  Returns an unsigned integer that specifies the quality of the service at the above latency with 0 being the lowest and 100 being the highest.	 
+                 *  Returns an unsigned integer that specifies the quality of the service at the above latency with 0 being the lowest and 100 being the highest.     
                  *  
                  *  @return     an unsigned integer
                  */
                 virtual uint32_t                       GetQuality                ()  const = 0;
-				
+                
         };
     }
 }

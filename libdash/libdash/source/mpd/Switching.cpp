@@ -21,7 +21,7 @@ Switching::~Switching   ()
 {
 }
 
-uint32_t                 Switching::GetInterval	          ()  const
+uint32_t                 Switching::GetInterval           ()  const
 {
     return this->interval;
 }
@@ -29,7 +29,7 @@ void                     Switching::SetInterval           (uint32_t interval)
 {
     this->interval = interval;
 }
-const std::string&       Switching::GetType	              ()  const
+const std::string&       Switching::GetType               ()  const
 {
     return this->type;
 }

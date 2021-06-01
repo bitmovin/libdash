@@ -41,30 +41,30 @@ MPD::~MPD   ()
         delete(this->programInformations.at(i));
     for(size_t i = 0; i < this->metrics.size(); i++)
         delete(this->metrics.at(i));
-	for(size_t i = 0; i < this->essentialProperties.size(); i++)
+    for(size_t i = 0; i < this->essentialProperties.size(); i++)
         delete(this->essentialProperties.at(i));
-	for(size_t i = 0; i < this->supplementalProperties.size(); i++)
+    for(size_t i = 0; i < this->supplementalProperties.size(); i++)
         delete(this->supplementalProperties.at(i));
-	for(size_t i = 0; i < this->utcTimings.size(); i++)
+    for(size_t i = 0; i < this->utcTimings.size(); i++)
         delete(this->utcTimings.at(i));
     for(size_t i = 0; i < this->periods.size(); i++)
         delete(this->periods.at(i));
-	for(size_t i = 0; i < this->prerolls.size(); i++)
+    for(size_t i = 0; i < this->prerolls.size(); i++)
         delete(this->prerolls.at(i));
     for(size_t i = 0; i < this->baseUrls.size(); i++)
         delete(this->baseUrls.at(i));
-	for(size_t i = 0; i < this->serviceDescriptions.size(); i++)
+    for(size_t i = 0; i < this->serviceDescriptions.size(); i++)
         delete(this->serviceDescriptions.at(i));
-	for(size_t i = 0; i < this->initializationSets.size(); i++)
+    for(size_t i = 0; i < this->initializationSets.size(); i++)
         delete(this->initializationSets.at(i));
-	for(size_t i = 0; i < this->initializationGroups.size(); i++)
+    for(size_t i = 0; i < this->initializationGroups.size(); i++)
         delete(this->initializationGroups.at(i));
-	for(size_t i = 0; i < this->initializationPresentations.size(); i++)
+    for(size_t i = 0; i < this->initializationPresentations.size(); i++)
         delete(this->initializationPresentations.at(i));
     if (this->mpdPathBaseUrl)
         delete(this->mpdPathBaseUrl);
-	
-	delete(leapSecondInformation);
+    
+    delete(leapSecondInformation);
 }
 
 const std::vector<IProgramInformation *>&   MPD::GetProgramInformations             () const 
@@ -223,7 +223,7 @@ const std::string&                          MPD::GetPublishTime                 
 {
     return this->publishTime;
 }
-void                                        MPD::SetPublishTime           (const std::string& publishTime)
+void                                        MPD::SetPublishTime                     (const std::string& publishTime)
 {
     this->publishTime = publishTime;
 }

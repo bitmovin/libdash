@@ -22,7 +22,7 @@ MultipleSegmentBase::MultipleSegmentBase    () :
                         segmentTimeline(NULL),
                         duration(0),
                         startNumber(1),
-						endNumber(1)
+                        endNumber(1)
 {
 }
 MultipleSegmentBase::~MultipleSegmentBase   ()
@@ -67,7 +67,7 @@ uint32_t                    MultipleSegmentBase::GetEndNumber           ()  cons
 {
     return this->endNumber;
 }
-void                        MultipleSegmentBase::SetEndNumber         (uint32_t endNumber)
+void                        MultipleSegmentBase::SetEndNumber           (uint32_t endNumber)
 {
     this->endNumber = endNumber;
 }

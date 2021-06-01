@@ -110,11 +110,11 @@ void                                        Representation::SetDependencyId     
 {
     dash::helpers::String::Split(dependencyId, ' ', this->dependencyId);
 }
-const std::vector<std::string>&             Representation::GetAssociationId 			() const
+const std::vector<std::string>&             Representation::GetAssociationId            () const
 {
     return this->associationId;
 }
-void                                        Representation::SetAssociationId   			(const std::string& associationId)
+void                                        Representation::SetAssociationId            (const std::string& associationId)
 {
     dash::helpers::String::Split(associationId, ' ', this->associationId);
 }

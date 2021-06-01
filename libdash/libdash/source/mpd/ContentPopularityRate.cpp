@@ -15,12 +15,12 @@ using namespace dash::mpd;
 
 ContentPopularityRate::ContentPopularityRate    ()  :
                  source(""),
-				 sourceDescription("")
+                 sourceDescription("")
 {
 }
 ContentPopularityRate::~ContentPopularityRate   ()
 {
-	for(size_t i = 0; i < this->popularityRates.size(); i++)
+    for(size_t i = 0; i < this->popularityRates.size(); i++)
         delete(this->popularityRates.at(i));
 }
 
@@ -32,7 +32,7 @@ void                                    ContentPopularityRate::AddPopularityRate
 {
     this->popularityRates.push_back(popularityRate);
 }
-const std::string&                      ContentPopularityRate::GetSource	            ()  const
+const std::string&                      ContentPopularityRate::GetSource                ()  const
 {
     return this->source;
 }
@@ -40,7 +40,7 @@ void                                    ContentPopularityRate::SetSource        
 {
     this->source = source;
 }
-const std::string&                      ContentPopularityRate::GetSourceDescription	    ()  const
+const std::string&                      ContentPopularityRate::GetSourceDescription        ()  const
 {
     return this->sourceDescription;
 }

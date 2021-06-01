@@ -27,30 +27,30 @@ namespace dash
                 Resync             ();
                 virtual ~Resync    ();
 
-				uint32_t                GetType                 () const;
-				uint32_t                GetDT                   () const;
-				float                   GetDIMax                () const;
-				float                   GetDIMin                () const;
-				bool                    HasMarker               () const;
-				bool                    HasRangeAccess          () const;
-				const std::string&      GetIndex                () const;
+                uint32_t                GetType                 () const;
+                uint32_t                GetDT                   () const;
+                float                   GetDIMax                () const;
+                float                   GetDIMin                () const;
+                bool                    HasMarker               () const;
+                bool                    HasRangeAccess          () const;
+                const std::string&      GetIndex                () const;
 
-				void    SetType              (uint32_t type);
-				void    SetDT                (uint32_t dT);
-				void    SetDIMax             (float dIMax);
-				void    SetDIMin             (float dIMin);
-				void    SetMarker            (bool marker);
-				void    SetRangeAccess       (bool rangeAccess);
-				void    SetIndex             (const std::string& index);
+                void    SetType              (uint32_t type);
+                void    SetDT                (uint32_t dT);
+                void    SetDIMax             (float dIMax);
+                void    SetDIMin             (float dIMin);
+                void    SetMarker            (bool marker);
+                void    SetRangeAccess       (bool rangeAccess);
+                void    SetIndex             (const std::string& index);
 
             private:
-				uint32_t        type;
-				uint32_t        dT;
-				float           dIMax;
-				float           dIMin;
-				bool            marker;
-				bool            rangeAccess;
-				std::string     index;
+                uint32_t        type;
+                uint32_t        dT;
+                float           dIMax;
+                float           dIMin;
+                bool            marker;
+                bool            rangeAccess;
+                std::string     index;
         };
     }
 }

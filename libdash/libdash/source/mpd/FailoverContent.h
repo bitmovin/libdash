@@ -29,14 +29,14 @@ namespace dash
                 virtual ~FailoverContent    ();
 
                 std::vector<IFCS *>&          GetFCS           ()  const;
-				bool				          IsValid	       ()  const;
+                bool                          IsValid          ()  const;
 
                 void    AddFCS              (FCS *fcs_el);
-				void    SetValid            (bool valid);
+                void    SetValid            (bool valid);
 
             protected:
                 std::vector<IFCS *> fcs;
-				bool		        valid;
+                bool                valid;
         };
     }
 }

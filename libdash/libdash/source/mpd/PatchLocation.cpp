@@ -15,8 +15,8 @@ using namespace dash::mpd;
 
 PatchLocation::PatchLocation    ()  :
     url(""),
-	ttl(0.0)
-	
+    ttl(0.0)
+    
 {
 }
 PatchLocation::~PatchLocation   ()

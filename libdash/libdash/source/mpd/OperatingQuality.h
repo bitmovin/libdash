@@ -27,28 +27,28 @@ namespace dash
                 OperatingQuality             ();
                 virtual ~OperatingQuality    ();
 
-				const std::string&       GetMediaType                  ()  const;
-				uint32_t                 GetMin                        ()  const;
-				uint32_t                 GetMax                        ()  const;
-				uint32_t                 GetTarget                     ()  const;
-				const std::string&       GetType                       ()  const;
-				uint32_t                 GetMaxDifference              ()  const;
+                const std::string&       GetMediaType                  ()  const;
+                uint32_t                 GetMin                        ()  const;
+                uint32_t                 GetMax                        ()  const;
+                uint32_t                 GetTarget                     ()  const;
+                const std::string&       GetType                       ()  const;
+                uint32_t                 GetMaxDifference              ()  const;
 
-				void    SetMediaType     (const std::string& mediaType);
-				void    SetMin           (uint32_t min);
-				void    SetMax           (uint32_t max);
-				void    SetTarget        (uint32_t target);
-				void    SetType          (const std::string& type);
-				void    SetMaxDifference (uint32_t maxDifference);
+                void    SetMediaType     (const std::string& mediaType);
+                void    SetMin           (uint32_t min);
+                void    SetMax           (uint32_t max);
+                void    SetTarget        (uint32_t target);
+                void    SetType          (const std::string& type);
+                void    SetMaxDifference (uint32_t maxDifference);
 
             private:
-			    std::string      mediaType;
-				uint32_t         min;
-				uint32_t         max;
-				uint32_t         target;
-				std::string      type;
-				uint32_t         maxDifference;
-				
+                std::string      mediaType;
+                uint32_t         min;
+                uint32_t         max;
+                uint32_t         target;
+                std::string      type;
+                uint32_t         maxDifference;
+                
         };
     }
 }

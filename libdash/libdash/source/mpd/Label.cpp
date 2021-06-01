@@ -15,7 +15,7 @@ using namespace dash::mpd;
 
 Label::Label    ()  :
     id(0)
-	
+    
 {
 }
 Label::~Label   ()

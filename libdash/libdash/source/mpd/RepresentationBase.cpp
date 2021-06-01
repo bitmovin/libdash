@@ -30,7 +30,7 @@ RepresentationBase::RepresentationBase  () :
                     maxPlayoutRate(0.0),
                     codingDependency(false),
                     scanType(""),
-					selectionPriority(1)
+                    selectionPriority(1)
 {
 }
 RepresentationBase::~RepresentationBase ()
@@ -41,27 +41,27 @@ RepresentationBase::~RepresentationBase ()
         delete(this->audioChannelConfiguration.at(i));
     for(size_t i = 0; i < this->contentProtection.size(); i++)
         delete(this->contentProtection.at(i));
-	for(size_t i = 0; i < this->essentialProperties.size(); i++)
+    for(size_t i = 0; i < this->essentialProperties.size(); i++)
         delete(this->essentialProperties.at(i));
-	for(size_t i = 0; i < this->supplementalProperties.size(); i++)
+    for(size_t i = 0; i < this->supplementalProperties.size(); i++)
         delete(this->supplementalProperties.at(i));
-	for(size_t i = 0; i < this->eventStreams.size(); i++)
+    for(size_t i = 0; i < this->eventStreams.size(); i++)
         delete(this->eventStreams.at(i));
-	for(size_t i = 0; i < this->switchings.size(); i++)
+    for(size_t i = 0; i < this->switchings.size(); i++)
         delete(this->switchings.at(i));
-	for(size_t i = 0; i < this->randomAccesses.size(); i++)
+    for(size_t i = 0; i < this->randomAccesses.size(); i++)
         delete(this->randomAccesses.at(i));
-	for(size_t i = 0; i < this->groupLabels.size(); i++)
+    for(size_t i = 0; i < this->groupLabels.size(); i++)
         delete(this->groupLabels.at(i));
-	for(size_t i = 0; i < this->labels.size(); i++)
+    for(size_t i = 0; i < this->labels.size(); i++)
         delete(this->labels.at(i));
-	for(size_t i = 0; i < this->contentPopularityRates.size(); i++)
+    for(size_t i = 0; i < this->contentPopularityRates.size(); i++)
         delete(this->contentPopularityRates.at(i));
-	for(size_t i = 0; i < this->producerReferenceTimes.size(); i++)
+    for(size_t i = 0; i < this->producerReferenceTimes.size(); i++)
         delete(this->producerReferenceTimes.at(i));
-	for(size_t i = 0; i < this->resyncs.size(); i++)
+    for(size_t i = 0; i < this->resyncs.size(); i++)
         delete(this->resyncs.at(i));
-	delete(outputProtection);
+    delete(outputProtection);
 }
 
 const std::vector<IDescriptor*>&    RepresentationBase::GetFramePacking                 () const 
@@ -288,7 +288,7 @@ void                                RepresentationBase::SetScanType             
 {
     this->scanType = scanType;
 }
-uint32_t                         	RepresentationBase::GetSelectionPriority            () const
+uint32_t                             RepresentationBase::GetSelectionPriority            () const
 {
     return this->selectionPriority;
 }
@@ -296,11 +296,11 @@ void                                RepresentationBase::SetSelectionPriority    
 {
     this->selectionPriority = selectionPriority;
 }
-std::string                  		RepresentationBase::GetTag                     		() const
+std::string                          RepresentationBase::GetTag                             () const
 {
     return this->tag;
 }
-void                                RepresentationBase::SetTag                     		(const std::string& tag)
+void                                RepresentationBase::SetTag                             (const std::string& tag)
 {
     this->tag = tag;
 }
