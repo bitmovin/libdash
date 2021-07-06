@@ -21,6 +21,7 @@
 #include "IMPD.h"
 #include "ProgramInformation.h"
 #include "BaseUrl.h"
+#include "ContentProtection.h"
 #include "Descriptor.h"
 #include "Period.h"
 #include "Metrics.h"
@@ -51,8 +52,8 @@ namespace dash
                 const std::vector<IInitializationSet *>&    GetInitializationSets           ()  const;
                 const std::vector<IUIntVWithID *>&          GetInitializationGroups         ()  const;
                 const std::vector<IUIntVWithID *>&          GetInitializationPresentations  ()  const;
+				const std::vector<IContentProtection *>&    GetContentProtections           ()  const;
                 const std::vector<IPeriod *>&               GetPeriods                      ()  const;
-                const std::vector<IPeriod *>&               GetPrerolls                     ()  const;
                 const std::vector<IMetrics *>&              GetMetrics                      ()  const;
                 const std::vector<IDescriptor *>&           GetEssentialProperties          ()  const;
                 const std::vector<IDescriptor *>&           GetSupplementalProperties       ()  const;
@@ -87,8 +88,8 @@ namespace dash
                 void    AddInitializationSet            (InitializationSet* initializationSet);
                 void    AddInitializationGroup          (UIntVWithID* initializationGroup);
                 void    AddInitializationPresentation   (UIntVWithID* initializationPresentation);
+				void    AddContentProtection            (ContentProtection *contentProtection);
                 void    AddPeriod                       (Period *period);
-                void    AddPreroll                      (Period *preroll);
                 void    AddMetrics                      (Metrics *metrics);
                 void    AddEssentialProperty            (Descriptor *essentialProperty);
                 void    AddSupplementalProperty         (Descriptor *supplementalProperty);
@@ -119,8 +120,8 @@ namespace dash
                 std::vector<InitializationSet *>    initializationSets;
                 std::vector<UIntVWithID *>          initializationGroups;
                 std::vector<UIntVWithID *>          initializationPresentations;
+				std::vector<ContentProtection *>    contentProtections;
                 std::vector<Period *>               periods;
-                std::vector<Period *>               prerolls;
                 std::vector<Metrics *>              metrics;
                 std::vector<Descriptor *>           essentialProperties;
                 std::vector<Descriptor *>           supplementalProperties;

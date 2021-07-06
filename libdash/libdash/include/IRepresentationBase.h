@@ -3,7 +3,7 @@
  *  @brief      This interface is needed for accessing the common attributes and elements of the certain MPD element as specified in <em>ISO/IEC 23009-1, Part 1, 2012</em>, section 5.3.7
  *  @details    The elements \c <b>AdaptationSet</b>, \c <b>Representation</b> and \c <b>SubRepresentation</b> have assigned common attributes and elements that are specified in 
  *              <em>ISO/IEC 23009-1, Part 1, 2012</em>, section 5.3.7.2, table 9
- *  @see        dash::mpd::IDescriptor dash::mpd::IEventStream dash::mpd::ILabel dash::mpd::ISwitching dash::mpd::IContentPopularityRate 
+ *  @see        dash::mpd::IDescriptor dash::mpd::IContentProtection dash::mpd::IEventStream dash::mpd::ILabel dash::mpd::ISwitching dash::mpd::IContentPopularityRate 
  *              dash::mpd::IProducerReferenceTime dash::mpd::IRandomAccess dash::mpd::IResync dash::mpd::IMPDElement
  *
  *  @author     bitmovin Softwareentwicklung OG \n
@@ -25,6 +25,7 @@
 #include "config.h"
 
 #include "IMPDElement.h"
+#include "IContentProtection.h"
 #include "IDescriptor.h"
 #include "IEventStream.h"
 #include "ILabel.h"
@@ -59,11 +60,11 @@ namespace dash
                 virtual const std::vector<IDescriptor *>&              GetAudioChannelConfiguration     () const = 0;
 
                 /**
-                 *  Returns a reference to a vector of pointers to dash::mpd::IDescriptor objects that specifies information about content protection schemes used for the associated Representations.\n
+                 *  Returns a reference to a vector of pointers to dash::mpd::IContentProtection objects that specifies information about content protection schemes used for the associated Representations.\n
                  *  For further details see sections 5.8.1 and 5.8.4.1 of <em>ISO/IEC 23009-1, Part 1, 2012</em>.
-                 *  @return     a reference to a vector of pointers to dash::mpd::IDescriptor objects
+                 *  @return     a reference to a vector of pointers to dash::mpd::IContentProtection objects
                  */
-                virtual const std::vector<IDescriptor *>&              GetContentProtection             () const = 0;
+                virtual const std::vector<IContentProtection *>&       GetContentProtections            () const = 0;
                 
                 /**
                  *  Returns a pointer to a dash::mpd::IDescriptor object that specifies information about the output protection schemes used for the associated Representations.\n

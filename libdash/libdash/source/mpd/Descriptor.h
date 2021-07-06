@@ -25,7 +25,7 @@ namespace dash
 {
     namespace mpd
     {
-        class Descriptor : public IDescriptor, public AbstractMPDElement
+        class Descriptor : public virtual IDescriptor, public AbstractMPDElement
         {
             public:
                 Descriptor          ();
@@ -39,7 +39,7 @@ namespace dash
                 void    SetSchemeIdUri  (const std::string& schemeIdUri);
                 void    SetId           (const std::string& id);
 
-            private:
+            protected:
                 std::string  schemeIdUri;
                 std::string  value;
                 std::string  id;

@@ -272,15 +272,6 @@ namespace dash
                 virtual const std::string&                      GetMaxFramerate                 ()  const = 0;
 
                 /**
-                 *  Because of the fact that the type of the attribute \em segmentAlignment is a union of \c xs:unsignedInt and \c xs:boolean this method is needed to determine
-                 *  whether its value is of type bool or integer.\n
-                 *  If and only if \c 'true' is returned, an invocation of HasSegmentAlignment() is neccessary to retrieve the bool value.\n
-                 *  If and only if \c 'false' is returned, an invocation of GetSegmentAlignment() is neccessary to retrieve the integer value.
-                 *  @return     a bool value
-                 */
-                virtual bool                                    SegmentAlignmentIsBoolValue     ()  const = 0;
-
-                /**
                  *  If the return value of SegmentAlignmentIsBoolValue() equals \c 'true' the bool value returned by this method 
                  *  specifies whether Segment Alignment is used or not. This is only valid for Adaptation Sets containing Representations with multiple media content components.
                  *  If \c 'true' is returned, this specifies that for any two Representations, 
@@ -300,16 +291,7 @@ namespace dash
                  *  whenever \em m is not equal to \em n.
                  *  @return     an unsigned integer
                  */
-                virtual uint32_t                                GetSegmentAligment              ()  const = 0;
-
-                /**
-                 *  Because of the fact that the type of the attribute \em subsegmentAlignment is a union of \c xs:unsignedInt and \c xs:boolean this method is needed to determine
-                 *  whether its value is of type bool or integer.\n
-                 *  If and only if \c 'true' is returned, an invocation of HasSubsegmentAlignment() is neccessary to retrieve the bool value.\n
-                 *  If and only if \c 'false' is returned, an invocation of GetSubsegmentAlignment() is neccessary to retrieve the integer value.
-                 *  @return     a bool value
-                 */
-                virtual bool                                    SubsegmentAlignmentIsBoolValue  ()  const = 0;
+                virtual bool                                    GetSegmentAligment              ()  const = 0;
 
                 /**
                  *  If and only if the return value of SubsegmentAlignmentIsBoolValue() equals \c 'true' the bool value returned by this method 
@@ -335,9 +317,9 @@ namespace dash
                  *          within the union of the two Adaptation Sets, the <em>m</em>-th Subsegment of X and the <em>n</em>-th Subsegment of Y are non-overlapping 
                  *          (as defined in section 4.5.2 of <em>ISO/IEC 23009-1, Part 1, 2012</em>) whenever m is not equal to n.
                  *  </ul>
-                 *  @return     an unsigned integer
+                 *  @return     a bool value
                  */
-                virtual uint32_t                                GetSubsegmentAlignment          ()  const = 0;
+                virtual bool                                    GetSubsegmentAlignment          ()  const = 0;
 
                 /**
                  *  Returns a unsigned integer that when greater than 0, specifies that each Subsegment with \c SAP_type greater than 0 starts with a SAP of type 

@@ -29,7 +29,7 @@
  *              To avoid dereferencing of a remote element containing a <tt><b>Period</b></tt> element solely to determine the Period timeline, e.g. in case of seeking, 
  *              <tt><b>Period</b>\@start</tt> or previous Period's <tt><b>Period</b>\@duration</tt> should be present in the MPD.
  *  @see        dash::mpd::IMPDElement dash::mpd::BaseUrl dash::mpd::IAdaptationSet dash::mpd::ISegmentBase dash::mpd::ISegmentList dash::mpd::ISegmentTemplate dash::mpd::ISegmentBase 
- *              dash::mpd::IDescriptor dash::mpd::ILabel dash::mpd::IEventStream dash::mpd::ISubset dash::mpd::IPreselection
+ *              dash::mpd::IDescriptor dash::mpd::ILabel dash::mpd::IEventStream dash::mpd::ISubset dash::mpd::IPreselection dash::mpd::IContentProtection
  *
  *  @author     bitmovin Softwareentwicklung OG \n
  *              Email: libdash-dev@vicky.bitmovin.net
@@ -57,6 +57,7 @@
 #include "IDescriptor.h"
 #include "ILabel.h"
 #include "IEventStream.h"
+#include "IContentProtection.h"
 #include "IServiceDescription.h"
 #include "IAdaptationSet.h"
 #include "ISubset.h"
@@ -124,6 +125,15 @@ namespace dash
                  *  @return     a reference to a vector of pointers to dash::mpd::IServiceDescription objects
                  */
                 virtual const std::vector<IServiceDescription *>&   GetServiceDescriptions     ()  const = 0;
+				
+				/**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IContentProtection objects that specifies information about content protection
+                 *  and encryption schemes used in this Media Presentation. If present on this level, it shall include the \c @refId attribute. \n
+				 *  For details, see subclauses 5.8.1 and 5.8.4.1 of <em>ISO/IEC 23009-1</em>. \n
+                 *
+                 *  @return     a reference to a vector of pointers to dash::mpd::IContentProtection objects
+                 */
+                virtual const std::vector<IContentProtection *>&    GetContentProtections      ()  const = 0;
 
                 /**
                  *  Returns a reference to a vector of pointers to dash::mpd::IAdaptationSet objects that specify Adapatation Sets.\n

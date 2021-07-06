@@ -30,6 +30,8 @@ Representation::~Representation ()
 {
     for(size_t i = 0; i < this->baseURLs.size(); i++)
         delete(this->baseURLs.at(i));
+	for(size_t i = 0; i < this->extendedBandwidths.size(); i++)
+        delete(this->extendedBandwidths.at(i));
     for(size_t i = 0; i < this->subRepresentations.size(); i++)
         delete(this->subRepresentations.at(i));
 
@@ -45,6 +47,14 @@ const std::vector<IBaseUrl *>&              Representation::GetBaseURLs         
 void                                        Representation::AddBaseURL                  (BaseUrl *baseUrl)
 {
     this->baseURLs.push_back(baseUrl);
+}
+const std::vector<IExtendedBandwidth *>&    Representation::GetExtendedBandwidths       () const
+{
+    return (std::vector<IExtendedBandwidth *> &) this->extendedBandwidths;
+}
+void                                        Representation::AddExtendedBandwidth        (ExtendedBandwidth *extendedBandwidth)
+{
+    this->extendedBandwidths.push_back(extendedBandwidth);
 }
 const std::vector<ISubRepresentation *>&    Representation::GetSubRepresentations       () const
 {

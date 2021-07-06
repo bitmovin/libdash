@@ -39,8 +39,8 @@ RepresentationBase::~RepresentationBase ()
         delete(this->framePacking.at(i));
     for(size_t i = 0; i < this->audioChannelConfiguration.size(); i++)
         delete(this->audioChannelConfiguration.at(i));
-    for(size_t i = 0; i < this->contentProtection.size(); i++)
-        delete(this->contentProtection.at(i));
+    for(size_t i = 0; i < this->contentProtections.size(); i++)
+        delete(this->contentProtections.at(i));
     for(size_t i = 0; i < this->essentialProperties.size(); i++)
         delete(this->essentialProperties.at(i));
     for(size_t i = 0; i < this->supplementalProperties.size(); i++)
@@ -80,13 +80,13 @@ void                                RepresentationBase::AddAudioChannelConfigura
 {
     this->audioChannelConfiguration.push_back(audioChannelConfiguration);
 }
-const std::vector<IDescriptor*>&    RepresentationBase::GetContentProtection            () const
+const std::vector<IContentProtection*>&    RepresentationBase::GetContentProtections    () const
 {
-    return (std::vector<IDescriptor*> &) this->contentProtection;
+    return (std::vector<IContentProtection*> &) this->contentProtections;
 }
-void                                RepresentationBase::AddContentProtection            (Descriptor *contentProtection)
+void                                RepresentationBase::AddContentProtection            (ContentProtection *contentProtection)
 {
-    this->contentProtection.push_back(contentProtection);
+    this->contentProtections.push_back(contentProtection);
 }
 const IDescriptor*                  RepresentationBase::GetOutputProtection             () const
 {

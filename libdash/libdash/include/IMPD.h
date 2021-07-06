@@ -17,7 +17,7 @@
  *                      Representations may also include Sub-Representations as defined in 5.3.6 to describe and extract partial information from a Representation.
  *                  <li>Each Segment consists of one or more Subsegments. Subsegments are described in 6.2.3.2.
  *              </ul>
- *  @see        dash::mpd::IMPDElement dash::mpd::IProgramInformation dash::mpd::IBaseUrl dash::mpd::IDescriptor dash::mpd::IPeriod dash::mpd::IMetrics
+ *  @see        dash::mpd::IMPDElement dash::mpd::IProgramInformation dash::mpd::IBaseUrl dash::mpd::IDescriptor dash::mpd::IContentProtection dash::mpd::IPeriod dash::mpd::IMetrics
  *              dash::mpd::IRepresentationBase dash::mpd::IServiceDescription dash::mpd::ILeapSecondInformation dash::mpd::IPatchLocation dash::mpd::IInitializationSet
  *              dash::mpd::IUIntVWithID
  *
@@ -42,6 +42,7 @@
 #include "IMPDElement.h"
 #include "IProgramInformation.h"
 #include "IBaseUrl.h"
+#include "IContentProtection.h"
 #include "IDescriptor.h"
 #include "IPeriod.h"
 #include "IMetrics.h"
@@ -126,6 +127,15 @@ namespace dash
                  *  @return     a reference to a vector of pointers to dash::mpd::IUIntVWithID objects
                  */
                 virtual const std::vector<IUIntVWithID *>&          GetInitializationPresentations   ()  const = 0;
+				
+				/**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IContentProtection objects that specifies information about content protection
+                 *  and encryption schemes used in this Media Presentation. If present on this level, it shall include the \c @refId attribute. \n
+				 *  For details, see subclauses 5.8.1 and 5.8.4.1 of <em>ISO/IEC 23009-1</em>. \n
+                 *
+                 *  @return     a reference to a vector of pointers to dash::mpd::IContentProtection objects
+                 */
+                virtual const std::vector<IContentProtection *>&    GetContentProtections            ()  const = 0;
 
                 /**
                  *  Returns a reference to a vector of pointers to dash::mpd::IPeriod objects that specify the information of a Period.\n
@@ -133,14 +143,6 @@ namespace dash
                  *  @return     a reference to a vector of pointers to dash::mpd::IPeriod objects
                  */
                 virtual const std::vector<IPeriod *>&               GetPeriods                      ()  const = 0;
-                
-                /**
-                 *  Returns a reference to a vector of pointers to dash::mpd::IPeriod objects that specify the information of a Preroll.\n
-                 *  For more details refer to the description in section 5.3.2. of <em>ISO/IEC 23009-1, Part 1, 2012</em>.
-                 *  
-                 *  @return     a reference to a vector of pointers to dash::mpd::IPeriod objects
-                 */
-                virtual const std::vector<IPeriod *>&               GetPrerolls                     ()  const = 0;
 
                 /**
                  *  Returns a reference to a vector of pointers to dash::mpd::IDescriptor objects that specify information about the containing element that is considered 

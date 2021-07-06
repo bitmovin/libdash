@@ -24,10 +24,11 @@
 #include "../mpd/BaseUrl.h"
 #include "../mpd/ContentComponent.h"
 #include "../mpd/ContentPopularityRate.h"
+#include "../mpd/ContentProtection.h"
 #include "../mpd/Descriptor.h"
 #include "../mpd/Event.h"
 #include "../mpd/EventStream.h"
-#include "../mpd/FCS.h"
+#include "../mpd/ExtendedBandwidth.h"
 #include "../mpd/FailoverContent.h"
 #include "../mpd/FCS.h"
 #include "../mpd/InitializationSet.h"
@@ -35,6 +36,7 @@
 #include "../mpd/Latency.h"
 #include "../mpd/LeapSecondInformation.h"
 #include "../mpd/Metrics.h"
+#include "../mpd/ModelPair.h"
 #include "../mpd/MPD.h"
 #include "../mpd/MultipleSegmentBase.h"
 #include "../mpd/OperatingQuality.h"
@@ -97,16 +99,19 @@ namespace dash
                 void                                        SetMPDPath          (std::string path);
 
             private:
-                void                                        SetCommonValuesForRep   (dash::mpd::RepresentationBase& object) const;
+                void                                        SetCommonValuesForDesc  (dash::mpd::Descriptor& object) const;
+				void                                        SetCommonValuesForRep   (dash::mpd::RepresentationBase& object) const;
                 void                                        SetCommonValuesForSeg   (dash::mpd::SegmentBase& object) const;
                 void                                        SetCommonValuesForMSeg  (dash::mpd::MultipleSegmentBase& object) const;
                 dash::mpd::AdaptationSet*                   ToAdaptationSet         ()  const;
                 dash::mpd::BaseUrl*                         ToBaseUrl               ()  const;
                 dash::mpd::ContentComponent*                ToContentComponent      ()  const;
                 dash::mpd::ContentPopularityRate*           ToContentPopularityRate ()  const;
+				dash::mpd::ContentProtection*               ToContentProtection     ()  const;
                 dash::mpd::Descriptor*                      ToDescriptor            ()  const;
                 dash::mpd::Event*                           ToEvent                 ()  const;
                 dash::mpd::EventStream*                     ToEventStream           ()  const;
+				dash::mpd::ExtendedBandwidth*               ToExtendedBandwidth     ()  const;
                 dash::mpd::FailoverContent*                 ToFailoverContent       ()  const;
                 dash::mpd::FCS*                             ToFCS                   ()  const;
                 dash::mpd::InitializationSet*               ToInitializationSet     ()  const;
@@ -114,6 +119,7 @@ namespace dash
                 dash::mpd::LeapSecondInformation*           ToLeapSecondInformation ()  const;
                 dash::mpd::Latency*                         ToLatency               ()  const;
                 dash::mpd::Metrics*                         ToMetrics               ()  const;
+				dash::mpd::ModelPair*                       ToModelPair             ()  const;
                 dash::mpd::OperatingBandwidth*              ToOperatingBandwidth    ()  const;
                 dash::mpd::OperatingQuality*                ToOperatingQuality      ()  const;
                 dash::mpd::PatchLocation*                   ToPatchLocation         ()  const;

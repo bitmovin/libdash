@@ -135,6 +135,27 @@ dash::mpd::Descriptor*                      Node::ToDescriptor          ()  cons
     descriptor->AddRawAttributes(this->attributes);
     return descriptor;
 }
+dash::mpd::ContentProtection*               Node::ToContentProtection          ()  const
+{
+    dash::mpd::ContentProtection *contentProtection = new dash::mpd::ContentProtection();
+	
+	SetCommonValuesForDesc(*contentProtection);
+
+    if (this->HasAttribute("robustness"))
+    {
+        contentProtection->SetRobustness(this->GetAttributeValue("robustness"));
+    }
+    if (this->HasAttribute("refId"))
+    {
+        contentProtection->SetRefId(this->GetAttributeValue("refId"));
+    }
+    if (this->HasAttribute("ref"))
+    {
+        contentProtection->SetRef(this->GetAttributeValue("ref"));
+    }
+
+    return contentProtection;
+}
 dash::mpd::ContentComponent*                Node::ToContentComponent    ()  const
 {
     dash::mpd::ContentComponent *contentComponent = new dash::mpd::ContentComponent();
@@ -443,6 +464,51 @@ dash::mpd::SubRepresentation*               Node::ToSubRepresentation   ()  cons
     subRepresentation->AddRawAttributes(this->attributes);
     return subRepresentation;
 }
+dash::mpd::ModelPair*                  Node::ToModelPair      ()  const
+{
+    dash::mpd::ModelPair* modelPair = new dash::mpd::ModelPair();
+    std::vector<Node *> subNodes = this->GetSubNodes();
+
+    if (this->HasAttribute("bufferTime"))
+    {
+        modelPair->SetBufferTime(this->GetAttributeValue("bufferTime"));
+    }
+    if (this->HasAttribute("bandwidth"))
+    {
+        modelPair->SetBandwidth(strtoul(this->GetAttributeValue("bandwidth").c_str(), NULL, 10));
+    }
+
+    for(size_t i = 0; i < subNodes.size(); i++)
+    {
+        modelPair->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
+    }
+
+    modelPair->AddRawAttributes(this->attributes);
+    return modelPair;
+}
+dash::mpd::ExtendedBandwidth*                  Node::ToExtendedBandwidth      ()  const
+{
+    dash::mpd::ExtendedBandwidth* extendedBandwidth = new dash::mpd::ExtendedBandwidth();
+    std::vector<Node *> subNodes = this->GetSubNodes();
+
+    if (this->HasAttribute("vbr"))
+    {
+        extendedBandwidth->SetVbr(dash::helpers::String::ToBool(this->GetAttributeValue("vbr")));
+    }
+
+    for(size_t i = 0; i < subNodes.size(); i++)
+    {
+		if (subNodes.at(i)->GetName() == "ModelPair")
+        {
+            extendedBandwidth->AddModelPair(subNodes.at(i)->ToModelPair());
+            continue;
+        }
+        extendedBandwidth->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
+    }
+
+    extendedBandwidth->AddRawAttributes(this->attributes);
+    return extendedBandwidth;
+}
 dash::mpd::Representation*                  Node::ToRepresentation      ()  const
 {
     dash::mpd::Representation* representation = new dash::mpd::Representation();
@@ -484,6 +550,11 @@ dash::mpd::Representation*                  Node::ToRepresentation      ()  cons
         if (subNodes.at(i)->GetName() == "BaseURL")
         {
             representation->AddBaseURL(subNodes.at(i)->ToBaseUrl());
+            continue;
+        }
+		if (subNodes.at(i)->GetName() == "ExtendedBandwidth")
+        {
+            representation->AddExtendedBandwidth(subNodes.at(i)->ToExtendedBandwidth());
             continue;
         }
         if (subNodes.at(i)->GetName() == "SubRepresentation")
@@ -590,11 +661,11 @@ dash::mpd::AdaptationSet*                   Node::ToAdaptationSet       ()  cons
     }
     if (this->HasAttribute("segmentAlignment"))
     {
-        adaptationSet->SetSegmentAlignment(this->GetAttributeValue("segmentAlignment"));
+        adaptationSet->SetSegmentAlignment(dash::helpers::String::ToBool(this->GetAttributeValue("segmentAlignment")));
     }
     if (this->HasAttribute("subsegmentAlignment"))
     {
-        adaptationSet->SetSubsegmentAlignment(this->GetAttributeValue("subsegmentAlignment"));
+        adaptationSet->SetSubsegmentAlignment(dash::helpers::String::ToBool(this->GetAttributeValue("subsegmentAlignment")));
     }
     if (this->HasAttribute("subsegmentStartsWithSAP"))
     {
@@ -1071,6 +1142,11 @@ dash::mpd::Period*                          Node::ToPeriod              ()  cons
         if (subNodes.at(i)->GetName() == "ServiceDescription")
         {
             period->AddServiceDescription(subNodes.at(i)->ToServiceDescription());
+            continue;
+        }
+		if (subNodes.at(i)->GetName() == "ContentProtection")
+        {
+            period->AddContentProtection(subNodes.at(i)->ToContentProtection());
             continue;
         }
         if (subNodes.at(i)->GetName() == "SegmentBase")
@@ -1558,14 +1634,14 @@ dash::mpd::MPD*                             Node::ToMPD                 ()  cons
             mpd->AddInitializationPresentation(subNodes.at(i)->ToUIntVWithID());
             continue;
         }
+		if (subNodes.at(i)->GetName() == "ContentProtection")
+        {
+            mpd->AddContentProtection(subNodes.at(i)->ToContentProtection());
+            continue;
+        }
         if (subNodes.at(i)->GetName() == "Period")
         {
             mpd->AddPeriod(subNodes.at(i)->ToPeriod());
-            continue;
-        }
-        if (subNodes.at(i)->GetName() == "Preroll")
-        {
-            mpd->AddPreroll(subNodes.at(i)->ToPeriod());
             continue;
         }
         if (subNodes.at(i)->GetName() == "Metrics")
@@ -1779,7 +1855,7 @@ void                                        Node::SetCommonValuesForRep (dash::m
         }
         if (subNodes.at(i)->GetName() == "ContentProtection")
         {
-            object.AddContentProtection(subNodes.at(i)->ToDescriptor());
+            object.AddContentProtection(subNodes.at(i)->ToContentProtection());
             continue;
         }
         if (subNodes.at(i)->GetName() == "OutputProtection")
@@ -1838,6 +1914,30 @@ void                                        Node::SetCommonValuesForRep (dash::m
             continue;
         }
     }
+}
+void                                        Node::SetCommonValuesForDesc(dash::mpd::Descriptor& object) const
+{
+    std::vector<Node *> subNodes = this->GetSubNodes();
+
+    if (this->HasAttribute("schemeIdUri"))
+    {
+        object.SetSchemeIdUri(this->GetAttributeValue("schemeIdUri"));
+    }
+    if (this->HasAttribute("value"))
+    {
+        object.SetValue(this->GetAttributeValue("value"));
+    }
+	if (this->HasAttribute("id"))
+    {
+        object.SetId(this->GetAttributeValue("id"));
+    }
+
+    for(size_t i = 0; i < subNodes.size(); i++)
+    {
+        object.AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
+    }
+	
+	object.AddRawAttributes(this->attributes);
 }
 void                                        Node::SetCommonValuesForSeg (dash::mpd::SegmentBase& object) const
 {

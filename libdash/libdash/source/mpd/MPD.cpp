@@ -47,10 +47,10 @@ MPD::~MPD   ()
         delete(this->supplementalProperties.at(i));
     for(size_t i = 0; i < this->utcTimings.size(); i++)
         delete(this->utcTimings.at(i));
+	for(size_t i = 0; i < this->contentProtections.size(); i++)
+        delete(this->contentProtections.at(i));
     for(size_t i = 0; i < this->periods.size(); i++)
         delete(this->periods.at(i));
-    for(size_t i = 0; i < this->prerolls.size(); i++)
-        delete(this->prerolls.at(i));
     for(size_t i = 0; i < this->baseUrls.size(); i++)
         delete(this->baseUrls.at(i));
     for(size_t i = 0; i < this->serviceDescriptions.size(); i++)
@@ -131,6 +131,14 @@ void                                        MPD::AddInitializationPresentation  
 {
     this->initializationPresentations.push_back(initializationPresentation);
 }
+const std::vector<IContentProtection *>&    MPD::GetContentProtections              () const 
+{
+    return (std::vector<IContentProtection *> &) this->contentProtections;
+}
+void                                        MPD::AddContentProtection               (ContentProtection *contentProtection)
+{
+    this->contentProtections.push_back(contentProtection);
+}
 const std::vector<IPeriod*>&                MPD::GetPeriods                         () const 
 {
     return (std::vector<IPeriod*> &) this->periods;
@@ -138,14 +146,6 @@ const std::vector<IPeriod*>&                MPD::GetPeriods                     
 void                                        MPD::AddPeriod                          (Period *period)
 {
     this->periods.push_back(period);
-}
-const std::vector<IPeriod*>&                MPD::GetPrerolls                        () const 
-{
-    return (std::vector<IPeriod*> &) this->prerolls;
-}
-void                                        MPD::AddPreroll                         (Period *preroll)
-{
-    this->prerolls.push_back(preroll);
 }
 const std::vector<IMetrics *>&              MPD::GetMetrics                         () const 
 {

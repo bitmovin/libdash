@@ -22,6 +22,7 @@
 #include "SegmentTemplate.h"
 #include "RepresentationBase.h"
 #include "BaseUrl.h"
+#include "ExtendedBandwidth.h"
 #include "SubRepresentation.h"
 #include "SegmentBase.h"
 #include "SegmentList.h"
@@ -38,7 +39,8 @@ namespace dash
                 virtual ~Representation ();
 
                 const std::vector<IBaseUrl *>&              GetBaseURLs                 ()  const;
-                const std::vector<ISubRepresentation *>&    GetSubRepresentations       ()  const;
+				const std::vector<ISubRepresentation *>&    GetSubRepresentations       ()  const;
+                const std::vector<IExtendedBandwidth *>&    GetExtendedBandwidths       ()  const;
                 ISegmentBase*                               GetSegmentBase              ()  const;
                 ISegmentList*                               GetSegmentList              ()  const;
                 ISegmentTemplate*                           GetSegmentTemplate          ()  const;
@@ -51,6 +53,7 @@ namespace dash
                 const std::vector<std::string>&             GetMediaStreamStructureId   ()  const;
 
                 void    AddBaseURL                  (BaseUrl *baseURL);
+				void    AddExtendedBandwidth        (ExtendedBandwidth *extendedBandwidth);
                 void    AddSubRepresentation        (SubRepresentation *subRepresentation);
                 void    SetSegmentBase              (SegmentBase *segmentBase);
                 void    SetSegmentList              (SegmentList *segmentList);
@@ -65,6 +68,7 @@ namespace dash
 
             private:
                 std::vector<BaseUrl *>              baseURLs;
+				std::vector<ExtendedBandwidth *>    extendedBandwidths;
                 std::vector<SubRepresentation *>    subRepresentations;
                 SegmentBase                         *segmentBase;
                 SegmentList                         *segmentList;

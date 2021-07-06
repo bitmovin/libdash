@@ -48,6 +48,8 @@ Period::~Period ()
         delete(this->eventStreams.at(i));
     for(size_t i = 0; i < this->serviceDescriptions.size(); i++)
         delete(this->serviceDescriptions.at(i));
+	for(size_t i = 0; i < this->contentProtections.size(); i++)
+        delete(this->contentProtections.at(i));
     for(size_t i = 0; i < this->preselections.size(); i++)
         delete(this->preselections.at(i));
     delete(segmentBase);
@@ -111,6 +113,14 @@ const std::vector<IServiceDescription *>&   Period::GetServiceDescriptions      
 void                                        Period::AddServiceDescription        (ServiceDescription *serviceDescription)
 {
     this->serviceDescriptions.push_back(serviceDescription);
+}
+const std::vector<IContentProtection *>&    Period::GetContentProtections        () const 
+{
+    return (std::vector<IContentProtection *> &) this->contentProtections;
+}
+void                                        Period::AddContentProtection         (ContentProtection *contentProtection)
+{
+    this->contentProtections.push_back(contentProtection);
 }
 const std::vector<IAdaptationSet*>&         Period::GetAdaptationSets            () const
 {

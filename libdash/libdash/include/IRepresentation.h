@@ -24,6 +24,7 @@
  *              \b NOTE:    When decoding of a dependent Representation is started from a SAP in the (Sub)Segment with number \em i, the decoding process does not need to access 
  *                          data from the complementary Representation(s) from any earlier (sub)segments than (sub)Segment with number i of the complementary Representation(s).
  *  @see        dash::mpd::IRepresentationBase dash::mpd::ISegmentBase dash::mpd::ISegmentList dash::mpd::ISegmentTemplate dash::mpd::IBaseUrl dash::mpd::ISubRepresentation
+ *              dash::mpd::IExtendedBandwidth
  *
  *  @author     bitmovin Softwareentwicklung OG \n
  *              Email: libdash-dev@vicky.bitmovin.net
@@ -44,6 +45,7 @@
 #include "config.h"
 
 #include "IBaseUrl.h"
+#include "IExtendedBandwidth.h"
 #include "ISubRepresentation.h"
 #include "ISegmentBase.h"
 #include "ISegmentList.h"
@@ -65,6 +67,13 @@ namespace dash
                  *  @return     a reference to a vector of pointers to dash::mpd::IBaseUrl objects
                  */
                 virtual const std::vector<IBaseUrl *>&              GetBaseURLs                  ()  const = 0;
+				
+				/**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IExtendedBandwidth objects that specifies an extended bandwidth model with more detailed information on the characteristics of the Representation. \n
+                 *  For more details, see subclause 5.3.5.6 of <em>ISO/IEC 23009-1, Part 1, 2012</em>.
+                 *  @return     a reference to a vector of pointers to dash::mpd::IExtendedBandwidth objects
+                 */
+                virtual const std::vector<IExtendedBandwidth *>&    GetExtendedBandwidths        ()  const = 0;
 
                 /**
                  *  Returns a reference to a vector of pointers to dash::mpd::ISubRepresentation objects that specifies information about Sub-Representations 

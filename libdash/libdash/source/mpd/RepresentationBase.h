@@ -19,6 +19,7 @@
 #include "config.h"
 
 #include "IRepresentationBase.h"
+#include "ContentProtection.h"
 #include "Descriptor.h"
 #include "EventStream.h"
 #include "Label.h"
@@ -42,7 +43,7 @@ namespace dash
 
                 const std::vector<IDescriptor *>&              GetFramePacking                 () const;
                 const std::vector<IDescriptor *>&              GetAudioChannelConfiguration    () const;
-                const std::vector<IDescriptor *>&              GetContentProtection            () const;
+                const std::vector<IContentProtection *>&       GetContentProtections           () const;
                 const IDescriptor *                            GetOutputProtection             () const;
                 const std::vector<IDescriptor *>&              GetEssentialProperties          () const;
                 const std::vector<IDescriptor *>&              GetSupplementalProperties       () const;
@@ -73,7 +74,7 @@ namespace dash
 
                 void    AddFramePacking                 (Descriptor *framePacking);
                 void    AddAudioChannelConfiguration    (Descriptor *audioChannelConfiguration);
-                void    AddContentProtection            (Descriptor *contentProtection);
+                void    AddContentProtection            (ContentProtection *contentProtection);
                 void    SetOutputProtection             (Descriptor *outputProtection);
                 void    AddEssentialProperty            (Descriptor *essentialProperty);
                 void    AddSupplementalProperty         (Descriptor *supplementalProperty);
@@ -105,7 +106,7 @@ namespace dash
             protected:
                 std::vector<Descriptor *>              framePacking;
                 std::vector<Descriptor *>              audioChannelConfiguration;
-                std::vector<Descriptor *>              contentProtection;
+                std::vector<ContentProtection *>       contentProtections;
                 Descriptor*                            outputProtection;
                 std::vector<Descriptor *>              essentialProperties;
                 std::vector<Descriptor *>              supplementalProperties;

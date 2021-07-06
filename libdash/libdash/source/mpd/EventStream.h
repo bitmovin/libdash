@@ -45,7 +45,7 @@ namespace dash
                 void    SetPresentationTimeOffset   (uint64_t presentationTimeOffset);
 
             protected:
-                std::vector<IEvent *> events;
+                std::vector<Event *>  events;
                 std::string           xlinkHref;
                 std::string           xlinkActuate;
                 std::string           schemeIdUri;

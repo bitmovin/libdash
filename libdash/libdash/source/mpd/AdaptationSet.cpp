@@ -38,12 +38,10 @@ AdaptationSet::AdaptationSet    () :
                 maxHeight(0),
                 minFramerate(""),
                 maxFramerate(""),
-                segmentAlignmentIsBool(true),
-                subsegmentAlignmentIsBool(true),
                 usesSegmentAlignment(false),
                 usesSubsegmentAlignment(false),
-                segmentAlignment(0),
-                subsegmentAlignment(0),
+                segmentAlignment(false),
+                subsegmentAlignment(false),
                 isBitstreamSwitching(false)
 {
 }
@@ -285,14 +283,6 @@ void                                    AdaptationSet::SetMaxFramerate          
 {
     this->maxFramerate = maxFramerate;
 }
-bool                                    AdaptationSet::SegmentAlignmentIsBoolValue      () const
-{
-    return this->segmentAlignmentIsBool;
-}
-bool                                    AdaptationSet::SubsegmentAlignmentIsBoolValue   () const
-{
-    return this->subsegmentAlignmentIsBool;
-}
 bool                                    AdaptationSet::HasSegmentAlignment              () const
 {
     return this->usesSegmentAlignment;
@@ -301,51 +291,21 @@ bool                                    AdaptationSet::HasSubsegmentAlignment   
 {
     return this->usesSubsegmentAlignment;
 }
-uint32_t                                AdaptationSet::GetSegmentAligment               ()  const
+bool                                    AdaptationSet::GetSegmentAligment               ()  const
 {
     return this->segmentAlignment;
 }
-void                                    AdaptationSet::SetSegmentAlignment              (const std::string& segmentAlignment)
+void                                    AdaptationSet::SetSegmentAlignment              (bool segmentAlignment)
 {
-    if (segmentAlignment == "true" || segmentAlignment == "True" || segmentAlignment == "TRUE") 
-    {
-        this->segmentAlignmentIsBool = true;
-        this->usesSegmentAlignment = true;
-        return;
-    }
-    
-    if (segmentAlignment == "false" || segmentAlignment == "False" || segmentAlignment == "FALSE") 
-    {
-        this->segmentAlignmentIsBool = true;
-        this->usesSegmentAlignment = false;
-        return;
-    }
-
-    this->segmentAlignmentIsBool = false;
-    this->segmentAlignment = strtoul(segmentAlignment.c_str(), NULL, 10);
+    this->segmentAlignment = segmentAlignment;
 }
-void                                    AdaptationSet::SetSubsegmentAlignment           (const std::string& subsegmentAlignment)
-{
-    if (subsegmentAlignment == "true" || subsegmentAlignment == "True" || subsegmentAlignment == "TRUE") 
-    {
-        this->subsegmentAlignmentIsBool = true;
-        this->usesSubsegmentAlignment = true;
-        return;
-    }
-    
-    if (subsegmentAlignment == "false" || subsegmentAlignment == "False" || subsegmentAlignment == "FALSE") 
-    {
-        this->subsegmentAlignmentIsBool = true;
-        this->usesSubsegmentAlignment = false;
-        return;
-    }
-
-    this->subsegmentAlignmentIsBool = false;
-    this->subsegmentAlignment = strtoul(subsegmentAlignment.c_str(), NULL, 10);
-}
-uint32_t                                AdaptationSet::GetSubsegmentAlignment           ()  const
+bool                                    AdaptationSet::GetSubsegmentAlignment           ()  const
 {
     return this->subsegmentAlignment;
+}
+void                                    AdaptationSet::SetSubsegmentAlignment           (bool subsegmentAlignment)
+{
+    this->subsegmentAlignment = subsegmentAlignment;
 }
 uint8_t                                 AdaptationSet::GetSubsegmentStartsWithSAP       ()  const
 {

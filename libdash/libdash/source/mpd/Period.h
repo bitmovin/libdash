@@ -28,6 +28,7 @@
 #include "Descriptor.h"
 #include "Label.h"
 #include "EventStream.h"
+#include "ContentProtection.h"
 #include "ServiceDescription.h"
 #include "Preselection.h"
 #include "AbstractMPDElement.h"
@@ -49,6 +50,7 @@ namespace dash
                 const IDescriptor *                       GetAssetIdentifier        ()  const;
                 const std::vector<IEventStream *>&        GetEventStreams           ()  const;
                 const std::vector<IServiceDescription *>& GetServiceDescriptions    ()  const;
+				const std::vector<IContentProtection *>&  GetContentProtections     ()  const;
                 const std::vector<IAdaptationSet *>&      GetAdaptationSets         ()  const;
                 const std::vector<ISubset *>&             GetSubsets                ()  const;
                 const std::vector<IDescriptor *>&         GetSupplementalProperties ()  const;
@@ -70,6 +72,7 @@ namespace dash
                 void    SetAssetIdentifier          (Descriptor *assetIdentifier);
                 void    AddEventStream              (EventStream *eventStream);
                 void    AddServiceDescription       (ServiceDescription* serviceDescription);
+				void    AddContentProtection        (ContentProtection *contentProtection);
                 void    AddAdaptationSet            (AdaptationSet *AdaptationSet);
                 void    AddSubset                   (Subset *subset);
                 void    AddSupplementalProperty     (Descriptor *supplementalProperty);
@@ -92,6 +95,7 @@ namespace dash
                 Descriptor                          *assetIdentifier;
                 std::vector<EventStream *>          eventStreams;
                 std::vector<ServiceDescription *>   serviceDescriptions;
+				std::vector<ContentProtection *>    contentProtections;
                 std::vector<AdaptationSet *>        adaptationSets;
                 std::vector<Subset *>               subsets;
                 std::vector<Descriptor *>           supplementalProperties;
