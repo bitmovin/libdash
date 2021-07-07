@@ -52,7 +52,7 @@ namespace dash
                 const std::vector<IInitializationSet *>&    GetInitializationSets           ()  const;
                 const std::vector<IUIntVWithID *>&          GetInitializationGroups         ()  const;
                 const std::vector<IUIntVWithID *>&          GetInitializationPresentations  ()  const;
-				const std::vector<IContentProtection *>&    GetContentProtections           ()  const;
+                const std::vector<IContentProtection *>&    GetContentProtections           ()  const;
                 const std::vector<IPeriod *>&               GetPeriods                      ()  const;
                 const std::vector<IMetrics *>&              GetMetrics                      ()  const;
                 const std::vector<IDescriptor *>&           GetEssentialProperties          ()  const;
@@ -88,7 +88,7 @@ namespace dash
                 void    AddInitializationSet            (InitializationSet* initializationSet);
                 void    AddInitializationGroup          (UIntVWithID* initializationGroup);
                 void    AddInitializationPresentation   (UIntVWithID* initializationPresentation);
-				void    AddContentProtection            (ContentProtection *contentProtection);
+                void    AddContentProtection            (ContentProtection *contentProtection);
                 void    AddPeriod                       (Period *period);
                 void    AddMetrics                      (Metrics *metrics);
                 void    AddEssentialProperty            (Descriptor *essentialProperty);
@@ -120,7 +120,7 @@ namespace dash
                 std::vector<InitializationSet *>    initializationSets;
                 std::vector<UIntVWithID *>          initializationGroups;
                 std::vector<UIntVWithID *>          initializationPresentations;
-				std::vector<ContentProtection *>    contentProtections;
+                std::vector<ContentProtection *>    contentProtections;
                 std::vector<Period *>               periods;
                 std::vector<Metrics *>              metrics;
                 std::vector<Descriptor *>           essentialProperties;

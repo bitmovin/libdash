@@ -29,7 +29,7 @@ namespace dash
 
                 const std::string&                  GetRobustness          ()  const;
                 const std::string&                  GetRefId               ()  const;
-				const std::string&                  GetRef                 ()  const;
+                const std::string&                  GetRef                 ()  const;
 
                 void    SetRobustness         (const std::string& robustness);
                 void    SetRefId              (const std::string& refId);

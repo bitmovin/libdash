@@ -14,12 +14,12 @@
 using namespace dash::mpd;
 
 ExtendedBandwidth::ExtendedBandwidth    () :
-				vbr(false)
+                vbr(false)
 {
 }
 ExtendedBandwidth::~ExtendedBandwidth   ()
 {
-	for (size_t i=0; i < this->modelPairs.size(); i++)
+    for (size_t i=0; i < this->modelPairs.size(); i++)
         delete(this->modelPairs.at(i));
 }
 

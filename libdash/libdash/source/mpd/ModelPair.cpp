@@ -15,7 +15,7 @@ using namespace dash::mpd;
 
 ModelPair::ModelPair    () :
                 bufferTime(""),
-				bandwidth(0)
+                bandwidth(0)
 {
 }
 

@@ -47,7 +47,7 @@ MPD::~MPD   ()
         delete(this->supplementalProperties.at(i));
     for(size_t i = 0; i < this->utcTimings.size(); i++)
         delete(this->utcTimings.at(i));
-	for(size_t i = 0; i < this->contentProtections.size(); i++)
+    for(size_t i = 0; i < this->contentProtections.size(); i++)
         delete(this->contentProtections.at(i));
     for(size_t i = 0; i < this->periods.size(); i++)
         delete(this->periods.at(i));

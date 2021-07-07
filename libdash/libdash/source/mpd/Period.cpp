@@ -48,7 +48,7 @@ Period::~Period ()
         delete(this->eventStreams.at(i));
     for(size_t i = 0; i < this->serviceDescriptions.size(); i++)
         delete(this->serviceDescriptions.at(i));
-	for(size_t i = 0; i < this->contentProtections.size(); i++)
+    for(size_t i = 0; i < this->contentProtections.size(); i++)
         delete(this->contentProtections.at(i));
     for(size_t i = 0; i < this->preselections.size(); i++)
         delete(this->preselections.at(i));

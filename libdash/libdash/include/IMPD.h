@@ -127,11 +127,11 @@ namespace dash
                  *  @return     a reference to a vector of pointers to dash::mpd::IUIntVWithID objects
                  */
                 virtual const std::vector<IUIntVWithID *>&          GetInitializationPresentations   ()  const = 0;
-				
-				/**
+                
+                /**
                  *  Returns a reference to a vector of pointers to dash::mpd::IContentProtection objects that specifies information about content protection
                  *  and encryption schemes used in this Media Presentation. If present on this level, it shall include the \c @refId attribute. \n
-				 *  For details, see subclauses 5.8.1 and 5.8.4.1 of <em>ISO/IEC 23009-1</em>. \n
+                 *  For details, see subclauses 5.8.1 and 5.8.4.1 of <em>ISO/IEC 23009-1</em>. \n
                  *
                  *  @return     a reference to a vector of pointers to dash::mpd::IContentProtection objects
                  */

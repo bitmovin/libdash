@@ -138,8 +138,8 @@ dash::mpd::Descriptor*                      Node::ToDescriptor          ()  cons
 dash::mpd::ContentProtection*               Node::ToContentProtection          ()  const
 {
     dash::mpd::ContentProtection *contentProtection = new dash::mpd::ContentProtection();
-	
-	SetCommonValuesForDesc(*contentProtection);
+    
+    SetCommonValuesForDesc(*contentProtection);
 
     if (this->HasAttribute("robustness"))
     {
@@ -498,7 +498,7 @@ dash::mpd::ExtendedBandwidth*                  Node::ToExtendedBandwidth      ()
 
     for(size_t i = 0; i < subNodes.size(); i++)
     {
-		if (subNodes.at(i)->GetName() == "ModelPair")
+        if (subNodes.at(i)->GetName() == "ModelPair")
         {
             extendedBandwidth->AddModelPair(subNodes.at(i)->ToModelPair());
             continue;
@@ -552,7 +552,7 @@ dash::mpd::Representation*                  Node::ToRepresentation      ()  cons
             representation->AddBaseURL(subNodes.at(i)->ToBaseUrl());
             continue;
         }
-		if (subNodes.at(i)->GetName() == "ExtendedBandwidth")
+        if (subNodes.at(i)->GetName() == "ExtendedBandwidth")
         {
             representation->AddExtendedBandwidth(subNodes.at(i)->ToExtendedBandwidth());
             continue;
@@ -1144,7 +1144,7 @@ dash::mpd::Period*                          Node::ToPeriod              ()  cons
             period->AddServiceDescription(subNodes.at(i)->ToServiceDescription());
             continue;
         }
-		if (subNodes.at(i)->GetName() == "ContentProtection")
+        if (subNodes.at(i)->GetName() == "ContentProtection")
         {
             period->AddContentProtection(subNodes.at(i)->ToContentProtection());
             continue;
@@ -1634,7 +1634,7 @@ dash::mpd::MPD*                             Node::ToMPD                 ()  cons
             mpd->AddInitializationPresentation(subNodes.at(i)->ToUIntVWithID());
             continue;
         }
-		if (subNodes.at(i)->GetName() == "ContentProtection")
+        if (subNodes.at(i)->GetName() == "ContentProtection")
         {
             mpd->AddContentProtection(subNodes.at(i)->ToContentProtection());
             continue;
@@ -1927,7 +1927,7 @@ void                                        Node::SetCommonValuesForDesc(dash::m
     {
         object.SetValue(this->GetAttributeValue("value"));
     }
-	if (this->HasAttribute("id"))
+    if (this->HasAttribute("id"))
     {
         object.SetId(this->GetAttributeValue("id"));
     }
@@ -1936,8 +1936,8 @@ void                                        Node::SetCommonValuesForDesc(dash::m
     {
         object.AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
     }
-	
-	object.AddRawAttributes(this->attributes);
+    
+    object.AddRawAttributes(this->attributes);
 }
 void                                        Node::SetCommonValuesForSeg (dash::mpd::SegmentBase& object) const
 {

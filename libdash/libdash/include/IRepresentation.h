@@ -67,8 +67,8 @@ namespace dash
                  *  @return     a reference to a vector of pointers to dash::mpd::IBaseUrl objects
                  */
                 virtual const std::vector<IBaseUrl *>&              GetBaseURLs                  ()  const = 0;
-				
-				/**
+                
+                /**
                  *  Returns a reference to a vector of pointers to dash::mpd::IExtendedBandwidth objects that specifies an extended bandwidth model with more detailed information on the characteristics of the Representation. \n
                  *  For more details, see subclause 5.3.5.6 of <em>ISO/IEC 23009-1, Part 1, 2012</em>.
                  *  @return     a reference to a vector of pointers to dash::mpd::IExtendedBandwidth objects

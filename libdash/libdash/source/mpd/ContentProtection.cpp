@@ -15,8 +15,8 @@ using namespace dash::mpd;
 
 ContentProtection::ContentProtection    () :
                 robustness(""),
-				refId(""),
-				ref("")
+                refId(""),
+                ref("")
 {
 }
 ContentProtection::~ContentProtection   ()

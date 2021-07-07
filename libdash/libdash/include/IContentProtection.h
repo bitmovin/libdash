@@ -49,10 +49,10 @@ namespace dash
                  *  @return     a reference to a string
                  */
                 virtual const std::string&            GetRefId           ()  const = 0;
-				
-				/**
+                
+                /**
                  *  Returns the reference to a string that - if present - makes this a referencing content protection descriptor 
-				 *  that inherits from a “source” content protection descriptor which is identified by the equivalent value of \c @refId attribute. For details, refer to subclause 5.8.4.1.3. \n
+                 *  that inherits from a “source” content protection descriptor which is identified by the equivalent value of \c @refId attribute. For details, refer to subclause 5.8.4.1.3. \n
                  *  The attribute shall not be present if the \c @refId attribute is present.
                  *  @return     a reference to a string
                  */

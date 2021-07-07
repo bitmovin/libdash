@@ -30,7 +30,7 @@ Representation::~Representation ()
 {
     for(size_t i = 0; i < this->baseURLs.size(); i++)
         delete(this->baseURLs.at(i));
-	for(size_t i = 0; i < this->extendedBandwidths.size(); i++)
+    for(size_t i = 0; i < this->extendedBandwidths.size(); i++)
         delete(this->extendedBandwidths.at(i));
     for(size_t i = 0; i < this->subRepresentations.size(); i++)
         delete(this->subRepresentations.at(i));

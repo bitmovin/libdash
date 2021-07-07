@@ -37,9 +37,9 @@ namespace dash
                 
                 /**
                  *  Returns a boolean that - if set to <b>true</b> - assure that the content is encoded to primarily have a constant or consistent quality, while at the same time when the signal restrictions on <b>MPD</b>@minBufferTime and <b>Representation</b>@bandwidth attributes are reached, the quality of the content may drop. 
-				 *  In cases where is cap is not reached, the quality of the content is expected to be consistent. \n
-				 *  If set to <b>false</b> or not present, no information on the nature of the encoding is present. \n
-				 *  \t NOTE: the signalling set to true implies that the actual instantaneous bitrate can frequently be below the maximum. 
+                 *  In cases where is cap is not reached, the quality of the content is expected to be consistent. \n
+                 *  If set to <b>false</b> or not present, no information on the nature of the encoding is present. \n
+                 *  \t NOTE: the signalling set to true implies that the actual instantaneous bitrate can frequently be below the maximum. 
                  *  @return     a boolean
                  */
                 virtual bool                                   GetVbr             ()  const = 0;
