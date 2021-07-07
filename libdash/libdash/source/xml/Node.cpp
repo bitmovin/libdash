@@ -679,6 +679,10 @@ dash::mpd::AdaptationSet*                   Node::ToAdaptationSet       ()  cons
     {
         adaptationSet->SetInitializationSetRef(this->GetAttributeValue("initializationSetRef"));
     }
+    if (this->HasAttribute("initializationPrincipal"))
+    {
+        adaptationSet->SetInitializationPrincipal(this->GetAttributeValue("initializationPrincipal"));
+    }
 
     for(size_t i = 0; i < subNodes.size(); i++)
     {
@@ -1955,7 +1959,7 @@ void                                        Node::SetCommonValuesForSeg (dash::m
     {
         object.SetEptDelta((int) strtol(this->GetAttributeValue("eptDelta").c_str(), NULL, 10));
     }
-	if (this->HasAttribute("pdDelta"))
+    if (this->HasAttribute("pdDelta"))
     {
         object.SetPdDelta((int) strtol(this->GetAttributeValue("pdDelta").c_str(), NULL, 10));
     }

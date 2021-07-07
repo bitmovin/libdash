@@ -42,7 +42,8 @@ AdaptationSet::AdaptationSet    () :
                 usesSubsegmentAlignment(false),
                 segmentAlignment(false),
                 subsegmentAlignment(false),
-                isBitstreamSwitching(false)
+                isBitstreamSwitching(false),
+                initializationPrincipal("")
 {
 }
 AdaptationSet::~AdaptationSet   ()
@@ -330,4 +331,12 @@ const std::vector<uint32_t>&            AdaptationSet::GetInitializationSetRef  
 void                                    AdaptationSet::SetInitializationSetRef          (const std::string& initializationSetRef)
 {
     dash::helpers::String::Split(initializationSetRef, ' ', this->initializationSetRef);
+}
+const std::string&                      AdaptationSet::GetInitializationPrincipal       ()  const
+{
+    return this->initializationPrincipal;
+}
+void                                    AdaptationSet::SetInitializationPrincipal       (const std::string& initializationPrincipal)
+{
+    this->initializationPrincipal = initializationPrincipal;
 }
