@@ -97,6 +97,10 @@ dash::mpd::BaseUrl*                         Node::ToBaseUrl             ()  cons
     {
         baseUrl->SetTimeShiftBufferDepth(this->GetAttributeValue("timeShiftBufferDepth"));
     }
+    if (this->HasAttribute("rangeAccess"))
+    {
+        baseUrl->SetRangeAccess(dash::helpers::String::ToBool(this->GetAttributeValue("rangeAccess")));
+    }
     if (this->GetText() == "./")
     {
         baseUrl->SetUrl(this->mpdPath);

@@ -79,6 +79,13 @@ namespace dash
                  *  @return     a reference to a string
                  */
                 virtual const std::string& GetTimeShiftBufferDepth     ()  const = 0;
+                
+                /**
+                 *  Returns a boolean that specifies: if set to true, partially available may be accessed with byte range request. If a client is making a byte-range request against a partially available Segment and the first-byte position of that range request is non-zero and the client is expecting an aggregating response, then the client should signal that expectation by following the convention of IETF RFC 8673.  Specifically, it should use a last-byte value of 9007199254740991. This will signal the server to respond with a 206 aggregating response instead of waiting for the end of the segment and responding with a 200 response code and a content-length response header. \n
+                 *  If set to false, the client should not expect a response corresponding to the requested byte range. 
+                 *  @return     a boolean
+                 */
+                virtual bool                HasRangeAccess             ()  const = 0;
 
                  /**
                  *  Returns a pointer to a dash::mpd::ISegment object which represents a media segment that can be downloaded. Should be used for single base urls inside 

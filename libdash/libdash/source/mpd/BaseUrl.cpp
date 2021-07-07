@@ -21,7 +21,8 @@ BaseUrl::BaseUrl    () :
             url(""),
             serviceLocation(""),
             byteRange(""),
-            timeShiftBufferDepth("")
+            timeShiftBufferDepth(""),
+            rangeAccess(false)
 {
 }
 BaseUrl::~BaseUrl   ()
@@ -75,6 +76,14 @@ const std::string& BaseUrl::GetTimeShiftBufferDepth         ()  const
 void               BaseUrl::SetTimeShiftBufferDepth         (const std::string& timeShiftBufferDepth)
 {
     this->timeShiftBufferDepth = timeShiftBufferDepth;
+}
+bool               BaseUrl::HasRangeAccess                  ()  const
+{
+    return this->rangeAccess;
+}
+void               BaseUrl::SetRangeAccess                  (bool rangeAccess)
+{
+    this->rangeAccess = rangeAccess;
 }                
 ISegment*          BaseUrl::ToMediaSegment                  (const std::vector<IBaseUrl *>& baseurls) const
 {

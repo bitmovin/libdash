@@ -38,6 +38,7 @@ namespace dash
                 double             GetAvailabilityTimeOffset   ()  const;
                 bool               IsAvailabilityTimeComplete  ()  const;
                 const std::string& GetTimeShiftBufferDepth     ()  const;
+                bool               HasRangeAccess              ()  const;
 
                 void    SetUrl                          (const std::string& url);
                 void    SetServiceLocation              (const std::string& serviceLocation);
@@ -45,6 +46,7 @@ namespace dash
                 void    SetAvailabilityTimeOffset       (double availabilityTimeOffset);
                 void    SetAvailabilityTimeComplete     (bool availabilityTimeComplete);
                 void    SetTimeShiftBufferDepth         (const std::string& timeShiftBufferDepth);
+                void    SetRangeAccess                  (bool rangeAccess);
 
                 virtual ISegment* ToMediaSegment (const std::vector<IBaseUrl *>& baseurls) const;
 
@@ -55,6 +57,7 @@ namespace dash
                 double availabilityTimeOffset;
                 bool availabilityTimeComplete;
                 std::string timeShiftBufferDepth;
+                bool rangeAccess;
         };
     }
 }
