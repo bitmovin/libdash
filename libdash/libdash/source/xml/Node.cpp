@@ -1526,14 +1526,6 @@ dash::mpd::Resync*              Node::ToResync          ()  const
     {
         resync->SetMarker(dash::helpers::String::ToBool(this->GetAttributeValue("marker")));
     }
-    if (this->HasAttribute("rangeAccess"))
-    {
-        resync->SetRangeAccess(dash::helpers::String::ToBool(this->GetAttributeValue("rangeAccess")));
-    }
-    if (this->HasAttribute("index"))
-    {
-        resync->SetIndex(this->GetAttributeValue("index"));
-    }
     
     resync->AddRawAttributes(this->attributes);
     return resync;

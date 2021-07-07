@@ -32,16 +32,12 @@ namespace dash
                 float                   GetDIMax                () const;
                 float                   GetDIMin                () const;
                 bool                    HasMarker               () const;
-                bool                    HasRangeAccess          () const;
-                const std::string&      GetIndex                () const;
 
                 void    SetType              (uint32_t type);
                 void    SetDT                (uint32_t dT);
                 void    SetDIMax             (float dIMax);
                 void    SetDIMin             (float dIMin);
                 void    SetMarker            (bool marker);
-                void    SetRangeAccess       (bool rangeAccess);
-                void    SetIndex             (const std::string& index);
 
             private:
                 uint32_t        type;
@@ -49,8 +45,6 @@ namespace dash
                 float           dIMax;
                 float           dIMin;
                 bool            marker;
-                bool            rangeAccess;
-                std::string     index;
         };
     }
 }

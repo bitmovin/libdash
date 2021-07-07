@@ -100,20 +100,6 @@ namespace dash
                  */
                 virtual bool                    HasMarker               () const = 0;
                 
-                /**
-                 *  Returns a bool value that informs about the range access status.
-                 *  
-                 *  @return     a bool value
-                 */
-                virtual bool                    HasRangeAccess          () const = 0;
-                
-                /**
-                 *  Returns a reference to a string that specifies the index URI.    
-                 *  
-                 *  @return     a reference to a string
-                 */
-                virtual const std::string&      GetIndex                () const = 0;
-                
         };
     }
 }

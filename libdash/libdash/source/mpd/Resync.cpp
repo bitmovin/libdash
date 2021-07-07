@@ -16,8 +16,7 @@ using namespace dash::mpd;
 Resync::Resync    ()  :
                  type(0),
                  dIMin(0),
-                 marker(false),
-                 rangeAccess(false)
+                 marker(false)
 {
 }
 Resync::~Resync   ()
@@ -63,20 +62,4 @@ bool                                    Resync::HasMarker               ()  cons
 void                                    Resync::SetMarker               (bool marker)
 {
     this->marker = marker;
-}
-bool                                    Resync::HasRangeAccess          ()  const
-{
-    return this->rangeAccess;
-}
-void                                    Resync::SetRangeAccess          (bool rangeAccess)
-{
-    this->rangeAccess = rangeAccess;
-}
-const std::string&                      Resync::GetIndex                ()  const
-{
-    return this->index;
-}
-void                                    Resync::SetIndex                (const std::string& index)
-{
-    this->index = index;
 }
