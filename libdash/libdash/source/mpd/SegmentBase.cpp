@@ -23,6 +23,7 @@ SegmentBase::SegmentBase    ()  :
                 failoverContent(NULL),
                 timescale(1),
                 eptDelta(0),
+				pdDelta(0),
                 presentationTimeOffset(0),
                 indexRange(""),
                 indexRangeExact(false),
@@ -74,6 +75,14 @@ int                         SegmentBase::GetEptDelta                 ()  const
 void                        SegmentBase::SetEptDelta                 (int eptDelta)
 {
     this->eptDelta = eptDelta;
+}
+int                         SegmentBase::GetPdDelta                  ()  const
+{
+    return this->pdDelta;
+}
+void                        SegmentBase::SetPdDelta                  (int pdDelta)
+{
+    this->pdDelta = pdDelta;
 }
 uint64_t                    SegmentBase::GetPresentationTimeOffset   ()  const
 {

@@ -1955,6 +1955,10 @@ void                                        Node::SetCommonValuesForSeg (dash::m
     {
         object.SetEptDelta((int) strtol(this->GetAttributeValue("eptDelta").c_str(), NULL, 10));
     }
+	if (this->HasAttribute("pdDelta"))
+    {
+        object.SetPdDelta((int) strtol(this->GetAttributeValue("pdDelta").c_str(), NULL, 10));
+    }
     if (this->HasAttribute("presentationTimeOffset"))
     {
         object.SetPresentationTimeOffset(strtoul(this->GetAttributeValue("presentationTimeOffset").c_str(), NULL, 10));
