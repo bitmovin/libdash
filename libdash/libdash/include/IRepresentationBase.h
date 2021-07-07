@@ -242,6 +242,14 @@ namespace dash
                  *  @return     a reference to a vector of strings
                  */
                 virtual const std::vector<std::string>&                GetCodecs                        () const = 0;
+                
+                /**
+                 *  Returns a reference to a vector of strings that specifies the container profiles of Representations that are essential to process it. The detailed semantics depend on the value of the \c @mimeType attribute. \n
+                 *  The contents of this attribute shall conform to either the pro-simple or pro-fancy productions of IETF RFC 6381:2011, subclause 4.5, without the enclosing DQUOTE characters, i.e. including only the unencodedv or encodedv elements respectively. \n 
+                 *  4CC may contain characters that must be escaped in XML. 4CC strings shall be escaped according to W3C XML:2008, Section 2.4.
+                 *  @return     a reference to a vector of strings
+                 */
+                virtual const std::vector<std::string>&                GetContainerProfiles             () const = 0;
 
                 /**
                  *  Returns a double value specifying the maximum SAP interval in seconds of all contained media streams,

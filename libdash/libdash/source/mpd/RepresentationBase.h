@@ -64,6 +64,7 @@ namespace dash
                 std::string                                    GetMimeType                     () const;
                 const std::vector<std::string>&                GetSegmentProfiles              () const;
                 const std::vector<std::string>&                GetCodecs                       () const;
+                const std::vector<std::string>&                GetContainerProfiles            () const;
                 double                                         GetMaximumSAPPeriod             () const;
                 uint8_t                                        GetStartWithSAP                 () const;
                 double                                         GetMaxPlayoutRate               () const;
@@ -95,6 +96,7 @@ namespace dash
                 void    SetMimeType                     (const std::string& mimeType);
                 void    SetSegmentProfiles              (const std::string& segmentProfiles);
                 void    SetCodecs                       (const std::string& codecs);
+                void    SetContainerProfiles            (const std::string& containerProfiles);
                 void    SetMaximumSAPPeriod             (double maximumSAPPeroid);
                 void    SetStartWithSAP                 (uint8_t startWithSAP);
                 void    SetMaxPlayoutRate               (double maxPlayoutRate);
@@ -127,6 +129,7 @@ namespace dash
                 std::string                            mimeType;
                 std::vector<std::string>               segmentProfiles;
                 std::vector<std::string>               codecs;
+                std::vector<std::string>               containerProfiles;
                 double                                 maximumSAPPeriod;
                 uint8_t                                startWithSAP;
                 double                                 maxPlayoutRate;

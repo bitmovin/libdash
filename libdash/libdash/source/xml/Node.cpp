@@ -1812,6 +1812,10 @@ void                                        Node::SetCommonValuesForRep (dash::m
     {
         object.SetCodecs(this->GetAttributeValue("codecs"));
     }
+    if (this->HasAttribute("containerProfiles"))
+    {
+        object.SetContainerProfiles(this->GetAttributeValue("containerProfiles"));
+    }
     if (this->HasAttribute("maximumSAPPeriod"))
     {
         object.SetMaximumSAPPeriod(strtod(this->GetAttributeValue("maximumSAPPeriod").c_str(), NULL));

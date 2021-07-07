@@ -248,6 +248,14 @@ void                                RepresentationBase::SetCodecs               
 {
     dash::helpers::String::Split(codecs, ',', this->codecs);
 }
+const std::vector<std::string>&     RepresentationBase::GetContainerProfiles            () const
+{
+    return this->containerProfiles;
+}
+void                                RepresentationBase::SetContainerProfiles            (const std::string& containerProfiles)
+{
+    dash::helpers::String::Split(containerProfiles, ',', this->containerProfiles);
+}
 double                              RepresentationBase::GetMaximumSAPPeriod             () const
 {
     return this->maximumSAPPeriod;
