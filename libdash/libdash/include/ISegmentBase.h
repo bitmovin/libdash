@@ -77,12 +77,12 @@ namespace dash
                  *  @return     an integer
                  */
                 virtual int                          GetEptDelta                ()  const = 0;
-				
-				/**
+                
+                /**
                  *  Returns an integer that specifies the difference between the presentation duration of this Representation in units of \c @timescale and the Period duration. \n
-				 *  If the media is contained in a Self-Initializing Media Segment, the sum of the value of \c @presentationTimeOffset and the Period duration is used to identify the Subsegment, that is the last one of the Representation. In this case, \c @pdDelta shall be set according to the presentation duration of this last Subsegment. \n
-				 *  If not present, the value is unknown. \n
-				 *  \t Note: if the value if \c @pdDelta is smaller than zero then this results in a gap at the end of the Period. If the value is positive, it results in an overlap.
+                 *  If the media is contained in a Self-Initializing Media Segment, the sum of the value of \c @presentationTimeOffset and the Period duration is used to identify the Subsegment, that is the last one of the Representation. In this case, \c @pdDelta shall be set according to the presentation duration of this last Subsegment. \n
+                 *  If not present, the value is unknown. \n
+                 *  \t Note: if the value if \c @pdDelta is smaller than zero then this results in a gap at the end of the Period. If the value is positive, it results in an overlap.
                  *  @return     an integer
                  */
                 virtual int                          GetPdDelta                 ()  const = 0;

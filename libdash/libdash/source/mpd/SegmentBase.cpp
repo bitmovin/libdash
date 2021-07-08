@@ -23,7 +23,7 @@ SegmentBase::SegmentBase    ()  :
                 failoverContent(NULL),
                 timescale(1),
                 eptDelta(0),
-				pdDelta(0),
+                pdDelta(0),
                 presentationTimeOffset(0),
                 indexRange(""),
                 indexRangeExact(false),

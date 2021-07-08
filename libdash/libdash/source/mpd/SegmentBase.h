@@ -38,7 +38,7 @@ namespace dash
                 const IFailoverContent* GetFailoverContent          ()  const;
                 uint32_t                GetTimescale                ()  const;
                 int                     GetEptDelta                 ()  const;
-				int                     GetPdDelta                  ()  const;
+                int                     GetPdDelta                  ()  const;
                 uint64_t                GetPresentationTimeOffset   ()  const;
                 uint64_t                GetPresentationDuration     ()  const;
                 const std::string&      GetTimeShiftBufferDepth     ()  const;
@@ -52,7 +52,7 @@ namespace dash
                 void    SetFailoverContent          (FailoverContent *failoverContent);
                 void    SetTimescale                (uint32_t timescale);
                 void    SetEptDelta                 (int eptDelta);
-				void    SetPdDelta                  (int eptDelta);
+                void    SetPdDelta                  (int eptDelta);
                 void    SetPresentationTimeOffset   (uint64_t presentationTimeOffset);
                 void    SetPresentationDuration     (uint64_t presentationDuration);
                 void    SetTimeShiftBufferDepth     (const std::string& timeShiftBufferDepth);
@@ -67,7 +67,7 @@ namespace dash
                 FailoverContent *failoverContent;
                 uint32_t        timescale;
                 int             eptDelta;
-				int             pdDelta;
+                int             pdDelta;
                 uint64_t        presentationTimeOffset;
                 uint64_t        presentationDuration;
                 std::string     timeShiftBufferDepth;
