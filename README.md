@@ -89,11 +89,6 @@ Furthermore we want to thank the [Netidee](http://www.netidee.at) initiative fro
 
 ![netidee logo](http://www.bitmovin.com/files/bitmovin/img/logos/netidee.png "netidee")
 
-## Contributors
-
-Daniele Lorenzi, lorenzidaniele.97@gmail.com
-Minh Nguyen, minhnguyenkstn@gmail.com
-
 ## Citation of libdash
 We kindly ask you to refer the following paper in any publication mentioning libdash:
 
