@@ -83,3 +83,4 @@ script:
 
       export LD_LIBRARY_PATH=$(pwd)/bin
       ./bin/libdash_networkpart_test
+      ./bin/libdash_memoryleak_test
