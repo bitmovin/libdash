@@ -5,6 +5,10 @@
  *
  * Email: libdash-dev@vicky.bitmovin.net
  *
+ * @contributor        Daniele Lorenzi
+ * @contributoremail   lorenzidaniele.97@gmail.com
+ * @contributiondate   2021
+ * 
  * This source code and its use and distribution, is subject to the terms
  * and conditions of the applicable license agreement.
  *****************************************************************************/
@@ -36,6 +40,7 @@ namespace dash
                 const std::string&                  GetLang             ()  const;
                 const std::string&                  GetContentType      ()  const;
                 const std::string&                  GetPar              ()  const;
+                const std::string&                  GetTag              ()  const;
 
                 void    AddAccessibity  (Descriptor *accessibility);
                 void    AddRole         (Descriptor *role);
@@ -45,6 +50,7 @@ namespace dash
                 void    SetLang         (const std::string& lang);
                 void    SetContentType  (const std::string& contentType);
                 void    SetPar          (const std::string& par);
+                void    SetTag          (const std::string& tag);
 
             private:
                 std::vector<Descriptor *>   accessibility;
@@ -55,6 +61,7 @@ namespace dash
                 std::string                 lang;
                 std::string                 contentType;
                 std::string                 par;
+                std::string                 tag;
         };
     }
 }

@@ -5,6 +5,10 @@
  *
  * Email: libdash-dev@vicky.bitmovin.net
  *
+ * @contributor        Daniele Lorenzi
+ * @contributoremail   lorenzidaniele.97@gmail.com
+ * @contributiondate   2021
+ * 
  * This source code and its use and distribution, is subject to the terms
  * and conditions of the applicable license agreement.
  *****************************************************************************/
@@ -14,6 +18,7 @@
 using namespace dash::mpd;
 
 RepresentationBase::RepresentationBase  () :
+                    outputProtection(NULL),
                     width(0),
                     height(0),
                     sar(""),
@@ -24,7 +29,8 @@ RepresentationBase::RepresentationBase  () :
                     startWithSAP(0),
                     maxPlayoutRate(0.0),
                     codingDependency(false),
-                    scanType("")
+                    scanType(""),
+                    selectionPriority(1)
 {
 }
 RepresentationBase::~RepresentationBase ()
@@ -33,8 +39,29 @@ RepresentationBase::~RepresentationBase ()
         delete(this->framePacking.at(i));
     for(size_t i = 0; i < this->audioChannelConfiguration.size(); i++)
         delete(this->audioChannelConfiguration.at(i));
-    for(size_t i = 0; i < this->contentProtection.size(); i++)
-        delete(this->contentProtection.at(i));
+    for(size_t i = 0; i < this->contentProtections.size(); i++)
+        delete(this->contentProtections.at(i));
+    for(size_t i = 0; i < this->essentialProperties.size(); i++)
+        delete(this->essentialProperties.at(i));
+    for(size_t i = 0; i < this->supplementalProperties.size(); i++)
+        delete(this->supplementalProperties.at(i));
+    for(size_t i = 0; i < this->eventStreams.size(); i++)
+        delete(this->eventStreams.at(i));
+    for(size_t i = 0; i < this->switchings.size(); i++)
+        delete(this->switchings.at(i));
+    for(size_t i = 0; i < this->randomAccesses.size(); i++)
+        delete(this->randomAccesses.at(i));
+    for(size_t i = 0; i < this->groupLabels.size(); i++)
+        delete(this->groupLabels.at(i));
+    for(size_t i = 0; i < this->labels.size(); i++)
+        delete(this->labels.at(i));
+    for(size_t i = 0; i < this->contentPopularityRates.size(); i++)
+        delete(this->contentPopularityRates.at(i));
+    for(size_t i = 0; i < this->producerReferenceTimes.size(); i++)
+        delete(this->producerReferenceTimes.at(i));
+    for(size_t i = 0; i < this->resyncs.size(); i++)
+        delete(this->resyncs.at(i));
+    delete(outputProtection);
 }
 
 const std::vector<IDescriptor*>&    RepresentationBase::GetFramePacking                 () const 
@@ -53,13 +80,101 @@ void                                RepresentationBase::AddAudioChannelConfigura
 {
     this->audioChannelConfiguration.push_back(audioChannelConfiguration);
 }
-const std::vector<IDescriptor*>&    RepresentationBase::GetContentProtection            () const
+const std::vector<IContentProtection*>&    RepresentationBase::GetContentProtections    () const
 {
-    return (std::vector<IDescriptor*> &) this->contentProtection;
+    return (std::vector<IContentProtection*> &) this->contentProtections;
 }
-void                                RepresentationBase::AddContentProtection            (Descriptor *contentProtection)
+void                                RepresentationBase::AddContentProtection            (ContentProtection *contentProtection)
 {
-    this->contentProtection.push_back(contentProtection);
+    this->contentProtections.push_back(contentProtection);
+}
+const IDescriptor*                  RepresentationBase::GetOutputProtection             () const
+{
+    return this->outputProtection;
+}
+void                                RepresentationBase::SetOutputProtection             (Descriptor *outputProtection)
+{
+    this->outputProtection = outputProtection;
+}
+const std::vector<IDescriptor *>&   RepresentationBase::GetEssentialProperties          () const 
+{
+    return (std::vector<IDescriptor *> &) this->essentialProperties;
+}
+void                                RepresentationBase::AddEssentialProperty            (Descriptor *essentialProperty)
+{
+    this->essentialProperties.push_back(essentialProperty);
+}
+const std::vector<IDescriptor *>&   RepresentationBase::GetSupplementalProperties       () const 
+{
+    return (std::vector<IDescriptor *> &) this->supplementalProperties;
+}
+void                                RepresentationBase::AddSupplementalProperty         (Descriptor *supplementalProperty)
+{
+    this->supplementalProperties.push_back(supplementalProperty);
+}
+const std::vector<IEventStream *>&  RepresentationBase::GetEventStreams                 ()  const
+{
+    return (std::vector<IEventStream *> &) this->eventStreams;
+}
+void                                RepresentationBase::AddEventStream                  (EventStream *eventStream)
+{
+    this->eventStreams.push_back(eventStream);
+}
+const std::vector<ISwitching *>&    RepresentationBase::GetSwitchings                   ()  const
+{
+    return (std::vector<ISwitching *> &) this->switchings;
+}
+void                                RepresentationBase::AddSwitching                    (Switching *switching)
+{
+    this->switchings.push_back(switching);
+}
+const std::vector<IRandomAccess *>&    RepresentationBase::GetRandomAccesses            ()  const
+{
+    return (std::vector<IRandomAccess *> &) this->randomAccesses;
+}
+void                                   RepresentationBase::AddRandomAccess              (RandomAccess *randomAccess)
+{
+    this->randomAccesses.push_back(randomAccess);
+}
+const std::vector<ILabel *>&        RepresentationBase::GetGroupLabels                  ()  const
+{
+    return (std::vector<ILabel *> &) this->groupLabels;
+}
+void                                RepresentationBase::AddGroupLabel                   (Label *groupLabel)
+{
+    this->groupLabels.push_back(groupLabel);
+}
+const std::vector<ILabel *>&        RepresentationBase::GetLabels                       ()  const
+{
+    return (std::vector<ILabel *> &) this->labels;
+}
+void                                RepresentationBase::AddLabel                        (Label *label)
+{
+    this->labels.push_back(label);
+}
+const std::vector<IContentPopularityRate *>&   RepresentationBase::GetContentPopularityRates   ()  const
+{
+    return (std::vector<IContentPopularityRate *> &) this->contentPopularityRates;
+}
+void                                           RepresentationBase::AddContentPopularityRate    (ContentPopularityRate *contentPopularityRate)
+{
+    this->contentPopularityRates.push_back(contentPopularityRate);
+}
+const std::vector<IProducerReferenceTime *>&   RepresentationBase::GetProducerReferenceTimes   ()  const
+{
+    return (std::vector<IProducerReferenceTime *> &) this->producerReferenceTimes;
+}
+void                                           RepresentationBase::AddProducerReferenceTime    (ProducerReferenceTime *producerReferenceTime)
+{
+    this->producerReferenceTimes.push_back(producerReferenceTime);
+}
+const std::vector<IResync *>&                  RepresentationBase::GetResyncs                  ()  const
+{
+    return (std::vector<IResync *> &) this->resyncs;
+}
+void                                           RepresentationBase::AddResync                   (Resync *resync)
+{
+    this->resyncs.push_back(resync);
 }
 const std::vector<std::string>&     RepresentationBase::GetProfiles                     () const
 {
@@ -133,6 +248,14 @@ void                                RepresentationBase::SetCodecs               
 {
     dash::helpers::String::Split(codecs, ',', this->codecs);
 }
+const std::vector<std::string>&     RepresentationBase::GetContainerProfiles            () const
+{
+    return this->containerProfiles;
+}
+void                                RepresentationBase::SetContainerProfiles            (const std::string& containerProfiles)
+{
+    dash::helpers::String::Split(containerProfiles, ',', this->containerProfiles);
+}
 double                              RepresentationBase::GetMaximumSAPPeriod             () const
 {
     return this->maximumSAPPeriod;
@@ -172,4 +295,20 @@ std::string                         RepresentationBase::GetScanType             
 void                                RepresentationBase::SetScanType                     (const std::string& scanType)
 {
     this->scanType = scanType;
+}
+uint32_t                             RepresentationBase::GetSelectionPriority            () const
+{
+    return this->selectionPriority;
+}
+void                                RepresentationBase::SetSelectionPriority            (uint32_t selectionPriority)
+{
+    this->selectionPriority = selectionPriority;
+}
+std::string                          RepresentationBase::GetTag                             () const
+{
+    return this->tag;
+}
+void                                RepresentationBase::SetTag                             (const std::string& tag)
+{
+    this->tag = tag;
 }

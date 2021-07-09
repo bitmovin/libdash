@@ -24,6 +24,7 @@
  *              \b NOTE:    When decoding of a dependent Representation is started from a SAP in the (Sub)Segment with number \em i, the decoding process does not need to access 
  *                          data from the complementary Representation(s) from any earlier (sub)segments than (sub)Segment with number i of the complementary Representation(s).
  *  @see        dash::mpd::IRepresentationBase dash::mpd::ISegmentBase dash::mpd::ISegmentList dash::mpd::ISegmentTemplate dash::mpd::IBaseUrl dash::mpd::ISubRepresentation
+ *              dash::mpd::IExtendedBandwidth
  *
  *  @author     bitmovin Softwareentwicklung OG \n
  *              Email: libdash-dev@vicky.bitmovin.net
@@ -32,6 +33,10 @@
  *  @copyright  bitmovin Softwareentwicklung OG, All Rights Reserved \n\n
  *              This source code and its use and distribution, is subject to the terms
  *              and conditions of the applicable license agreement.
+ *
+ * @contributor        Daniele Lorenzi
+ * @contributoremail   lorenzidaniele.97@gmail.com
+ * @contributiondate   2021
  */
 
 #ifndef IREPRESENTATION_H_
@@ -40,6 +45,7 @@
 #include "config.h"
 
 #include "IBaseUrl.h"
+#include "IExtendedBandwidth.h"
 #include "ISubRepresentation.h"
 #include "ISegmentBase.h"
 #include "ISegmentList.h"
@@ -60,7 +66,14 @@ namespace dash
                  *   For more details refer to the description in section 5.6. of <em>ISO/IEC 23009-1, Part 1, 2012</em>.
                  *  @return     a reference to a vector of pointers to dash::mpd::IBaseUrl objects
                  */
-                virtual const std::vector<IBaseUrl *>&              GetBaseURLs                 ()  const = 0;
+                virtual const std::vector<IBaseUrl *>&              GetBaseURLs                  ()  const = 0;
+                
+                /**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IExtendedBandwidth objects that specifies an extended bandwidth model with more detailed information on the characteristics of the Representation. \n
+                 *  For more details, see subclause 5.3.5.6 of <em>ISO/IEC 23009-1, Part 1, 2012</em>.
+                 *  @return     a reference to a vector of pointers to dash::mpd::IExtendedBandwidth objects
+                 */
+                virtual const std::vector<IExtendedBandwidth *>&    GetExtendedBandwidths        ()  const = 0;
 
                 /**
                  *  Returns a reference to a vector of pointers to dash::mpd::ISubRepresentation objects that specifies information about Sub-Representations 
@@ -68,28 +81,28 @@ namespace dash
                  *  For more detail see section 5.3.6 of <em>ISO/IEC 23009-1, Part 1, 2012</em>.
                  *  @return     a reference to a vector of pointers to dash::mpd::ISubRepresentation objects
                  */
-                virtual const std::vector<ISubRepresentation *>&    GetSubRepresentations       ()  const = 0;
+                virtual const std::vector<ISubRepresentation *>&    GetSubRepresentations        ()  const = 0;
 
                 /**
                  *  Returns a pointer to a dash::mpd::ISegmentBase object that specifies default Segment Base information.
                  *  For more detail see section 5.3.9 of <em>ISO/IEC 23009-1, Part 1, 2012</em>.
                  *  @return     a pointer to a dash::mpd::ISegmentBase object
                  */
-                virtual ISegmentBase*                               GetSegmentBase              ()  const = 0;
+                virtual ISegmentBase*                               GetSegmentBase               ()  const = 0;
 
                 /**
                  *  Returns a pointer to a dash::mpd::ISegmentList object that specifies the Segment List information.
                  *  For more detail see section 5.3.9 of <em>ISO/IEC 23009-1, Part 1, 2012</em>.
                  *  @return     a pointer to a dash::mpd::ISegmentList object
                  */
-                virtual ISegmentList*                               GetSegmentList              ()  const = 0;
+                virtual ISegmentList*                               GetSegmentList               ()  const = 0;
 
                 /**
                  *  Returns a pointer to a dash::mpd::ISegmentTemplate object that specifies the Segment Template information.
                  *  For more detail see section 5.3.9 of <em>ISO/IEC 23009-1, Part 1, 2012</em>.
                  *  @return     a pointer to a dash::mpd::ISegmentTemplate object
                  */
-                virtual ISegmentTemplate*                           GetSegmentTemplate          ()  const = 0;
+                virtual ISegmentTemplate*                           GetSegmentTemplate           ()  const = 0;
 
                 /**
                  *  Returns a reference to a string that specifies an identifier for this Representation. The identifier shall be unique within a Period 
@@ -99,7 +112,7 @@ namespace dash
                  *  the string shall only contain characters that are permitted within an HTTP-URL according to RFC 1738.
                  *  @return     a reference to a string
                  */
-                virtual const std::string&                          GetId                       ()  const = 0;
+                virtual const std::string&                          GetId                        ()  const = 0;
 
                 /**
                  *  Returns an integer that specifies a bandwidth in bits per seconds (bps).\n
@@ -109,14 +122,14 @@ namespace dash
                  *  For dependent Representations this value shall specify the minimum bandwidth as defined above of this Representation and all complementary Representations.
                  *  @return     an unsigned integer
                  */
-                virtual uint32_t                                    GetBandwidth                ()  const = 0;
+                virtual uint32_t                                    GetBandwidth                 ()  const = 0;
 
                 /**
                  *  Returns an integer that specifies a quality ranking of the Representation relative to other Representations in the same Adaptation Set. 
                  *  Lower values represent higher quality content.
                  *  @return     an unsigned integer
                  */
-                virtual uint32_t                                    GetQualityRanking           ()  const = 0;
+                virtual uint32_t                                    GetQualityRanking            ()  const = 0;
 
                 /**
                  *  Returns a reference to a vector of strings that specifies all complementary Representations the Representation depends on in the decoding and/or 
@@ -125,7 +138,25 @@ namespace dash
                  *  This attribute shall not be present where there are no dependencies.
                  *  @return     a reference to a vector of strings
                  */
-                virtual const std::vector<std::string>&             GetDependencyId             ()  const = 0;
+                virtual const std::vector<std::string>&             GetDependencyId              ()  const = 0;
+                
+                /**
+                 *  Returns a reference to a vector of strings that specifies all Representations.
+                 *  The Representation is associated with in the decoding and/or presentation
+                 *  process as a whitespace-separated list of values of \c Representation@id attributes.
+                 *  @return     a reference to a vector of strings
+                 */
+                virtual const std::vector<std::string>&             GetAssociationId             ()  const = 0;
+                
+                /**
+                 *  Returns a reference to a string that specifies, as a whitespace-separated list of values,
+                 *  the kind of association for each Representation the Representation has been associated with through the \c @associationId attribute.
+                 *  Values taken by this attribute are 4 character codes (4CCs) for track reference types registered in MP4 registration authority. \n
+                 *  This attribute shall not be present when \c @associationId is not present. \n
+                 *  When present, this attribute shall have as many values as the number of identifiers declared in the \c @associationId attribute.    
+                 *  @return     a reference to a string
+                 */
+                virtual const std::string&                          GetAssociationType           ()  const = 0;
 
                 /**
                  *  Returns a reference to a vector of strings that specifies media stream structure identifier values.\n
@@ -151,7 +182,7 @@ namespace dash
                  *              and Representation C would contain \c \@mediaStreamStructureId equal to \"2\".
                  *  @return     a reference to a vector of strings
                  */
-                virtual const std::vector<std::string>&             GetMediaStreamStructureId   ()  const = 0;
+                virtual const std::vector<std::string>&             GetMediaStreamStructureId    ()  const = 0;
         };
     }
 }

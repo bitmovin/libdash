@@ -5,6 +5,10 @@
  *
  * Email: libdash-dev@vicky.bitmovin.net
  *
+ * @contributor        Daniele Lorenzi
+ * @contributoremail   lorenzidaniele.97@gmail.com
+ * @contributiondate   2021
+ * 
  * This source code and its use and distribution, is subject to the terms
  * and conditions of the applicable license agreement.
  *****************************************************************************/
@@ -17,7 +21,8 @@ MultipleSegmentBase::MultipleSegmentBase    () :
                         bitstreamSwitching(NULL),
                         segmentTimeline(NULL),
                         duration(0),
-                        startNumber(1)
+                        startNumber(1),
+                        endNumber(1)
 {
 }
 MultipleSegmentBase::~MultipleSegmentBase   ()
@@ -57,4 +62,12 @@ uint32_t                    MultipleSegmentBase::GetStartNumber         ()  cons
 void                        MultipleSegmentBase::SetStartNumber         (uint32_t startNumber)
 {
     this->startNumber = startNumber;
+}
+uint32_t                    MultipleSegmentBase::GetEndNumber           ()  const
+{
+    return this->endNumber;
+}
+void                        MultipleSegmentBase::SetEndNumber           (uint32_t endNumber)
+{
+    this->endNumber = endNumber;
 }

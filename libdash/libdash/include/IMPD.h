@@ -17,8 +17,9 @@
  *                      Representations may also include Sub-Representations as defined in 5.3.6 to describe and extract partial information from a Representation.
  *                  <li>Each Segment consists of one or more Subsegments. Subsegments are described in 6.2.3.2.
  *              </ul>
- *  @see        dash::mpd::IMPDElement dash::mpd::IProgramInformation dash::mpd::IBaseUrl dash::mpd::IPeriod dash::mpd::IMetrics
- *              dash::mpd::IRepresentationBase
+ *  @see        dash::mpd::IMPDElement dash::mpd::IProgramInformation dash::mpd::IBaseUrl dash::mpd::IDescriptor dash::mpd::IContentProtection dash::mpd::IPeriod dash::mpd::IMetrics
+ *              dash::mpd::IRepresentationBase dash::mpd::IServiceDescription dash::mpd::ILeapSecondInformation dash::mpd::IPatchLocation dash::mpd::IInitializationSet
+ *              dash::mpd::IUIntVWithID
  *
  *  @author     bitmovin Softwareentwicklung OG \n
  *              Email: libdash-dev@vicky.bitmovin.net
@@ -27,6 +28,10 @@
  *  @copyright  bitmovin Softwareentwicklung OG, All Rights Reserved \n\n
  *              This source code and its use and distribution, is subject to the terms
  *              and conditions of the applicable license agreement.
+ *
+ * @contributor        Daniele Lorenzi
+ * @contributoremail   lorenzidaniele.97@gmail.com
+ * @contributiondate   2021
  */
 
 #ifndef IMPD_H_
@@ -37,9 +42,16 @@
 #include "IMPDElement.h"
 #include "IProgramInformation.h"
 #include "IBaseUrl.h"
+#include "IContentProtection.h"
+#include "IDescriptor.h"
 #include "IPeriod.h"
 #include "IMetrics.h"
 #include "IDASHMetrics.h"
+#include "IServiceDescription.h"
+#include "ILeapSecondInformation.h"
+#include "IPatchLocation.h"
+#include "IInitializationSet.h"
+#include "IUIntVWithID.h"
 
 namespace dash
 {
@@ -70,6 +82,60 @@ namespace dash
                  *  @return     a reference to a vector of strings
                  */
                 virtual const std::vector<std::string>&             GetLocations                    ()  const = 0;
+                
+                /**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IPatchLocation objects that specify a location at which the MPD patch document is available. Details on the MPD patch document, this element, and expected processing models are available in subclause 5.15. of <em>ISO/IEC 23009-1</em>. \n
+                 *  If this element is present, the <b>MPD</b><em>@id</em> attribute and the <b>MPD</b><em>@publishTime</em> shall be present. \n
+                 *  When \c @type is 'static' or the \c @minimumUpdatePeriod attribute is not present, then value of the element is undefined and may be ignored. \n
+                 *  If this element is not present, no MPD patch document is available. \n
+                 *  If multiple elements are present, any <b>PatchLocation</b> element may be used.
+                 *  
+                 *  @return     a reference to a vector of pointers to dash::mpd::IPatchLocation objects
+                 */
+                virtual const std::vector<IPatchLocation *>&        GetPatchLocations               ()  const = 0;
+                
+                /**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IServiceDescription objects that specify the service descriptions.
+                 *  For more details refer to the description in section K.4.1 of <em>ISO/IEC 23009-1</em>.
+                 *
+                 *  @return     a reference to a vector of pointers to dash::mpd::IServiceDescription objects
+                 */
+                virtual const std::vector<IServiceDescription *>&   GetServiceDescriptions          ()  const = 0;
+                
+                /**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IInitializationSet objects that specify suitable initializations for specific media types for the presentation. 
+                 *  For more details refer to the description in section 5.3.12.2, of <em>ISO/IEC 23009-1</em>.
+                 *
+                 *  @return     a reference to a vector of pointers to dash::mpd::IInitializationSet objects
+                 */
+                virtual const std::vector<IInitializationSet *>&    GetInitializationSets            ()  const = 0;
+                
+                /**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IUIntVWithID objects that specify white space separated lists of ids of Initialization Sets of the same content type.
+                 *    This indicates that any Period in the Media Presentation has at least one Adaptation Set that conforms to one of the Initialization Sets referenced in this element.\n
+                 *  For details, see subclause 5.3.12, of <em>ISO/IEC 23009-1</em>.
+                 *
+                 *  @return     a reference to a vector of pointers to dash::mpd::IUIntVWithID objects
+                 */
+                virtual const std::vector<IUIntVWithID *>&          GetInitializationGroups          ()  const = 0;
+                
+                /**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IUIntVWithID objects that specify white space separated lists of ids of Initialization Sets and Initialization Groups to indicate a combination which creates a complete presentation.\n
+                 *  A client supporting all listed Initialization Sets and Initialization Groups of an Initialization Presentation is expected to be able to play the entire Media Presentation as intended by the service provider.\n
+                 *  For details, see subclause 5.3.12, of <em>ISO/IEC 23009-1</em>.
+                 *
+                 *  @return     a reference to a vector of pointers to dash::mpd::IUIntVWithID objects
+                 */
+                virtual const std::vector<IUIntVWithID *>&          GetInitializationPresentations   ()  const = 0;
+                
+                /**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IContentProtection objects that specifies information about content protection
+                 *  and encryption schemes used in this Media Presentation. If present on this level, it shall include the \c @refId attribute. \n
+                 *  For details, see subclauses 5.8.1 and 5.8.4.1 of <em>ISO/IEC 23009-1</em>. \n
+                 *
+                 *  @return     a reference to a vector of pointers to dash::mpd::IContentProtection objects
+                 */
+                virtual const std::vector<IContentProtection *>&    GetContentProtections            ()  const = 0;
 
                 /**
                  *  Returns a reference to a vector of pointers to dash::mpd::IPeriod objects that specify the information of a Period.\n
@@ -79,11 +145,46 @@ namespace dash
                 virtual const std::vector<IPeriod *>&               GetPeriods                      ()  const = 0;
 
                 /**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IDescriptor objects that specify information about the containing element that is considered 
+                 *  essential by the Media Presentation author for processing the containing element. \n    
+                 *  For details, see subclause 5.8.4.8. of <em>ISO/IEC 23009-1</em>.
+                 *
+                 *  @return     a reference to a vector of pointers to dash::mpd::IDescriptor objects
+                 */
+                virtual const std::vector<IDescriptor *>&           GetEssentialProperties          ()  const = 0;
+                
+                /**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IDescriptor objects that specify supplemental information about the containing element 
+                 *  that may be used by the DASH Client optimizing the processing. \n
+                 *  For details, see subclause 5.8.4.9. of <em>ISO/IEC 23009-1</em>.
+                 *
+                 *  @return     a reference to a vector of pointers to dash::mpd::IDescriptor objects
+                 */
+                virtual const std::vector<IDescriptor *>&           GetSupplementalProperties       ()  const = 0;
+                
+                /**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IDescriptor objects that specify information on ways to obtain a synchronization to wall-clock time
+                 *  as used in this Media Presentation. The order of the elements expresses a preference of choice by the Media Presentation author. \n
+                 *    For more details, refer to subclause 5.8.4.11. of <em>ISO/IEC 23009-1</em>.
+                 *
+                 *  @return     a reference to a vector of pointers to dash::mpd::IDescriptor objects
+                 */
+                virtual const std::vector<IDescriptor *>&           GetUTCTimings                   ()  const = 0;
+                
+                /**
                  *  Returns a reference to a vector of pointers to dash::mpd::IMetrics objects that specify the DASH Metrics.\n
                  *  For more details see section 5.9. of <em>ISO/IEC 23009-1, Part 1, 2012</em>.
                  *  @return     a reference to a vector of pointers to dash::mpd::IPeriod objects
                  */
                 virtual const std::vector<IMetrics *>&              GetMetrics                      ()  const = 0;
+                
+                /**
+                 *  Returns a reference to a dash::mpd::ILeapSecondInformation object that specifies leap second information affecting MPD timing calculations.\n
+                 *  For details, refer to clause 5.13. of <em>ISO/IEC 23009-1</em>.
+                 *  
+                 *  @return     a reference to a dash::mpd::ILeapSecondInformation object
+                 */
+                virtual const ILeapSecondInformation *              GetLeapSecondInformation        ()  const = 0;
 
                 /**
                  *  Returns a reference to a string that specifies an identifier for the Media Presentation. It is recommended to use an identifier that is unique within 
@@ -126,6 +227,12 @@ namespace dash
                  *  @return     a reference to a string
                  */
                 virtual const std::string&                          GetAvailabilityEndtime          ()  const = 0;
+                
+                /**
+                 *  Returns a reference to a string that specifies the time at which the MPD file was published. When not present, the value is unknown.
+                 *  @return     a reference to a string
+                 */
+                virtual const std::string&                          GetPublishTime                  ()  const = 0;
 
                 /**
                  *  Returns a reference to a string that specifies the duration of the entire Media Presentation. If the attribute is not present, the duration of the Media Presentation is unknown.

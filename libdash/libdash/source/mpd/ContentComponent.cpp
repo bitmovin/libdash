@@ -5,6 +5,10 @@
  *
  * Email: libdash-dev@vicky.bitmovin.net
  *
+ * @contributor        Daniele Lorenzi
+ * @contributoremail   lorenzidaniele.97@gmail.com
+ * @contributiondate   2021
+ * 
  * This source code and its use and distribution, is subject to the terms
  * and conditions of the applicable license agreement.
  *****************************************************************************/
@@ -17,7 +21,8 @@ ContentComponent::ContentComponent  ()  :
                     id(0),
                     lang(""),
                     contentType(""),
-                    par("")
+                    par(""),
+                    tag("")
 {
 }
 ContentComponent::~ContentComponent ()
@@ -95,4 +100,12 @@ const std::string&                  ContentComponent::GetPar            ()  cons
 void                                ContentComponent::SetPar            (const std::string& par)
 {
     this->par = par;
+}
+const std::string&                  ContentComponent::GetTag            ()  const
+{
+    return this->tag;
+}
+void                                ContentComponent::SetTag            (const std::string& tag)
+{
+    this->tag = tag;
 }

@@ -27,6 +27,10 @@
  *  @copyright  bitmovin Softwareentwicklung OG, All Rights Reserved \n\n
  *              This source code and its use and distribution, is subject to the terms
  *              and conditions of the applicable license agreement.
+ *
+ * @contributor        Daniele Lorenzi
+ * @contributoremail   lorenzidaniele.97@gmail.com
+ * @contributiondate   2021
  */
 
 #ifndef IDESCRIPTOR_H_
@@ -61,6 +65,14 @@ namespace dash
                  *  @return     a reference to a string
                  */
                 virtual const std::string&      GetValue        () const = 0;
+                
+                /**
+                 *  Returns a reference to a string that that specifies the identifier for the descriptor.
+                 *  Descriptors with identical values for this attribute shall be synonymous, i.e. the processing
+                 *  of one of the descriptors with an identical value is sufficient.    
+                 *  @return     a reference to a string
+                 */
+                virtual const std::string&      GetId           ()  const = 0;
         };
     }
 }
