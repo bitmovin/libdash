@@ -43,7 +43,7 @@ bool                Segment::Init               (const std::vector<IBaseUrl *>& 
 
     this->absoluteuri = Path::CombinePaths(this->absoluteuri, uri);
 
-    if (uri != "" && dash::helpers::Path::GetHostPortAndPath(this->absoluteuri, host, port, path))
+    if (this->absoluteuri != "" && dash::helpers::Path::GetHostPortAndPath(this->absoluteuri, host, port, path))
     {
         this->host = host;
         this->port = port;
