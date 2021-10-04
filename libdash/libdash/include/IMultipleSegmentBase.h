@@ -12,6 +12,10 @@
  *  @copyright  bitmovin Softwareentwicklung OG, All Rights Reserved \n\n
  *              This source code and its use and distribution, is subject to the terms
  *              and conditions of the applicable license agreement.
+ *
+ * @contributor        Daniele Lorenzi
+ * @contributoremail   lorenzidaniele.97@gmail.com
+ * @contributiondate   2021
  */
 
 #ifndef IMULTIPLESEGMENTBASE_H_
@@ -59,6 +63,14 @@ namespace dash
                  *  @return     an unsigned integer
                  */
                 virtual uint32_t                    GetStartNumber          ()  const = 0;
+                
+                /**
+                 *  Returns a integer specifying the number of the last Media Segment in this Representation in the Period. \n
+                 *  If not present, the number is inferred from the duration of the Period.
+                 *  For more details refer to 5.3.9.5.3. of <em>ISO/IEC 23009-1, Part 1, 2012</em>.
+                 *  @return     an unsigned integer
+                 */
+                virtual uint32_t                    GetEndNumber          ()  const = 0;
         };
     }
 }
