@@ -5,6 +5,10 @@
  *
  * Email: libdash-dev@vicky.bitmovin.net
  *
+ * @contributor        Daniele Lorenzi
+ * @contributoremail   lorenzidaniele.97@gmail.com
+ * @contributiondate   2021
+ * 
  * This source code and its use and distribution, is subject to the terms
  * and conditions of the applicable license agreement.
  *****************************************************************************/
@@ -21,7 +25,7 @@ namespace dash
 {
     namespace mpd
     {
-        class Descriptor : public IDescriptor, public AbstractMPDElement
+        class Descriptor : public virtual IDescriptor, public AbstractMPDElement
         {
             public:
                 Descriptor          ();
@@ -29,13 +33,16 @@ namespace dash
 
                 const std::string&      GetSchemeIdUri  () const;
                 const std::string&      GetValue        () const;
+                const std::string&      GetId           () const;
 
                 void    SetValue        (const std::string& value);
                 void    SetSchemeIdUri  (const std::string& schemeIdUri);
+                void    SetId           (const std::string& id);
 
-            private:
+            protected:
                 std::string  schemeIdUri;
                 std::string  value;
+                std::string  id;
         };
     }
 }

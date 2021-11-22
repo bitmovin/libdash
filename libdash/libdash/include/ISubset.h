@@ -23,6 +23,10 @@
  *  @copyright  bitmovin Softwareentwicklung OG, All Rights Reserved \n\n
  *              This source code and its use and distribution, is subject to the terms
  *              and conditions of the applicable license agreement.
+ *
+ * @contributor        Daniele Lorenzi
+ * @contributoremail   lorenzidaniele.97@gmail.com
+ * @contributiondate   2021
  */
 
 #ifndef ISUBSET_H_
@@ -47,6 +51,12 @@ namespace dash
                  *  @return     a reference to a vector of unsigned integers
                  */
                 virtual const std::vector<uint32_t>& Contains () const = 0;
+                
+                /**
+                 *  Returns a reference to a string that specifies a unique identifier for the Subset.
+                 *  @return     a reference to a string
+                 */
+                virtual const std::string&              GetId       () const = 0;
         };
     }
 }

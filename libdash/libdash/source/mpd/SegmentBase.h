@@ -5,6 +5,10 @@
  *
  * Email: libdash-dev@vicky.bitmovin.net
  *
+ * @contributor        Daniele Lorenzi
+ * @contributoremail   lorenzidaniele.97@gmail.com
+ * @contributiondate   2021
+ * 
  * This source code and its use and distribution, is subject to the terms
  * and conditions of the applicable license agreement.
  *****************************************************************************/
@@ -16,6 +20,7 @@
 
 #include "ISegmentBase.h"
 #include "URLType.h"
+#include "FailoverContent.h"
 #include "AbstractMPDElement.h"
 
 namespace dash
@@ -28,27 +33,48 @@ namespace dash
                 SegmentBase             ();
                 virtual ~SegmentBase    ();
 
-                const IURLType*     GetInitialization           ()  const;
-                const IURLType*     GetRepresentationIndex      ()  const;
-                uint32_t            GetTimescale                ()  const;
-                uint32_t            GetPresentationTimeOffset   ()  const;
-                const std::string&  GetIndexRange               ()  const;
-                bool                HasIndexRangeExact          ()  const;
+                const IURLType*         GetInitialization           ()  const;
+                const IURLType*         GetRepresentationIndex      ()  const;
+                const IFailoverContent* GetFailoverContent          ()  const;
+                uint32_t                GetTimescale                ()  const;
+                int                     GetEptDelta                 ()  const;
+                int                     GetPdDelta                  ()  const;
+                uint64_t                GetPresentationTimeOffset   ()  const;
+                uint64_t                GetPresentationDuration     ()  const;
+                const std::string&      GetTimeShiftBufferDepth     ()  const;
+                const std::string&      GetIndexRange               ()  const;
+                bool                    HasIndexRangeExact          ()  const;
+                double                  GetAvailabilityTimeOffset   ()  const;
+                bool                    IsAvailabilityTimeComplete  ()  const;
 
                 void    SetInitialization           (URLType *initialization);
                 void    SetRepresentationIndex      (URLType *representationIndex);
+                void    SetFailoverContent          (FailoverContent *failoverContent);
                 void    SetTimescale                (uint32_t timescale);
-                void    SetPresentationTimeOffset   (uint32_t presentationTimeOffset);
+                void    SetEptDelta                 (int eptDelta);
+                void    SetPdDelta                  (int eptDelta);
+                void    SetPresentationTimeOffset   (uint64_t presentationTimeOffset);
+                void    SetPresentationDuration     (uint64_t presentationDuration);
+                void    SetTimeShiftBufferDepth     (const std::string& timeShiftBufferDepth);
                 void    SetIndexRange               (const std::string& indexRange);
                 void    SetIndexRangeExact          (bool indexRangeExact);
+                void    SetAvailabilityTimeOffset   (double availabilityTimeOffset);
+                void    SetAvailabilityTimeComplete (bool availabilityTimeComplete);
 
             protected:
-                URLType     *initialization;
-                URLType     *representationIndex;
-                uint32_t    timescale;
-                uint32_t    presentationTimeOffset;
-                std::string indexRange;
-                bool        indexRangeExact;
+                URLType         *initialization;
+                URLType         *representationIndex;
+                FailoverContent *failoverContent;
+                uint32_t        timescale;
+                int             eptDelta;
+                int             pdDelta;
+                uint64_t        presentationTimeOffset;
+                uint64_t        presentationDuration;
+                std::string     timeShiftBufferDepth;
+                std::string     indexRange;
+                bool            indexRangeExact;
+                double          availabilityTimeOffset;
+                bool            availabilityTimeComplete;
         };
     }
 }

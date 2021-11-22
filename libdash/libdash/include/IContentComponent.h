@@ -14,6 +14,10 @@
  *  @copyright  bitmovin Softwareentwicklung OG, All Rights Reserved \n\n
  *              This source code and its use and distribution, is subject to the terms
  *              and conditions of the applicable license agreement.
+ *
+ * @contributor        Daniele Lorenzi
+ * @contributoremail   lorenzidaniele.97@gmail.com
+ * @contributiondate   2021
  */
 
 #ifndef ICONTENTCOMPONENT_H_
@@ -75,6 +79,13 @@ namespace dash
                  *  @copydoc    dash::mpd::IAdaptationSet::GetPar()
                  */
                 virtual const std::string&                  GetPar              ()  const = 0;
+                
+                /**
+                 *  Returns a reference to a string that specifies the tag of the Content Component 
+                 *  which may be used for selection purposes towards the decoder.
+                 *  @return     a reference to a string
+                 */
+                virtual const std::string&                  GetTag              ()  const = 0;
 
         };
     }

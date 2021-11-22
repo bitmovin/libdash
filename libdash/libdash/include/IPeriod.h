@@ -28,7 +28,8 @@
  *              representing an Early Available Period in later updates of the MPD as long as no \em PeriodStart time is associated with the Period. \n\n
  *              To avoid dereferencing of a remote element containing a <tt><b>Period</b></tt> element solely to determine the Period timeline, e.g. in case of seeking, 
  *              <tt><b>Period</b>\@start</tt> or previous Period's <tt><b>Period</b>\@duration</tt> should be present in the MPD.
- *  @see        dash::mpd::IMPDElement dash::mpd::BaseUrl dash::mpd::IAdaptationSet dash::mpd::ISegmentBase dash::mpd::ISegmentList dash::mpd::ISegmentTemplate dash::mpd::ISubset
+ *  @see        dash::mpd::IMPDElement dash::mpd::BaseUrl dash::mpd::IAdaptationSet dash::mpd::ISegmentBase dash::mpd::ISegmentList dash::mpd::ISegmentTemplate dash::mpd::ISegmentBase 
+ *              dash::mpd::IDescriptor dash::mpd::ILabel dash::mpd::IEventStream dash::mpd::ISubset dash::mpd::IPreselection dash::mpd::IContentProtection
  *
  *  @author     bitmovin Softwareentwicklung OG \n
  *              Email: libdash-dev@vicky.bitmovin.net
@@ -37,6 +38,10 @@
  *  @copyright  bitmovin Softwareentwicklung OG, All Rights Reserved \n\n
  *              This source code and its use and distribution, is subject to the terms
  *              and conditions of the applicable license agreement.
+ *
+ * @contributor        Daniele Lorenzi
+ * @contributoremail   lorenzidaniele.97@gmail.com
+ * @contributiondate   2021
  */
 
 #ifndef IPERIOD_H_
@@ -49,8 +54,14 @@
 #include "ISegmentBase.h"
 #include "ISegmentList.h"
 #include "ISegmentTemplate.h"
+#include "IDescriptor.h"
+#include "ILabel.h"
+#include "IEventStream.h"
+#include "IContentProtection.h"
+#include "IServiceDescription.h"
 #include "IAdaptationSet.h"
 #include "ISubset.h"
+#include "IPreselection.h"
 
 namespace dash
 {
@@ -66,7 +77,7 @@ namespace dash
                  *  For more details refer to the description in section 5.6. of <em>ISO/IEC 23009-1, Part 1, 2012</em>.
                  *  @return     a reference to a vector of pointers to dash::mpd::IBaseUrl objects
                  */
-                virtual const std::vector<IBaseUrl *>&          GetBaseURLs             ()  const = 0;
+                virtual const std::vector<IBaseUrl *>&              GetBaseURLs                ()  const = 0;
 
                 /**
                  *  Returns a pointer to a dash::mpd::ISegmentBase object that specifies default Segment Base information.\n
@@ -74,7 +85,7 @@ namespace dash
                  *  For more details see section 5.3.9. of <em>ISO/IEC 23009-1, Part 1, 2012</em>.
                  *  @return     a pointer to a dash::mpd::ISegmentBase object
                  */
-                virtual ISegmentBase*                           GetSegmentBase          ()  const = 0;
+                virtual ISegmentBase*                               GetSegmentBase             ()  const = 0;
 
                 /**
                  *  Returns a pointer to a dash::mpd::ISegmentList object that specifies default Segment List information.\n
@@ -82,7 +93,7 @@ namespace dash
                  *  For more details see section 5.3.9. of <em>ISO/IEC 23009-1, Part 1, 2012</em>.
                  *  @return     a pointer to a dash::mpd::ISegmentList object
                  */
-                virtual ISegmentList*                           GetSegmentList          ()  const = 0;
+                virtual ISegmentList*                               GetSegmentList             ()  const = 0;
 
                 /**
                  *  Returns a pointer to a dash::mpd::ISegmentTemplate object that specifies default Segment Template information.\n
@@ -90,7 +101,39 @@ namespace dash
                  *  For more details see section 5.3.9. of <em>ISO/IEC 23009-1, Part 1, 2012</em>.
                  *  @return     a pointer to a dash::mpd::ISegmentTemplate object
                  */
-                virtual ISegmentTemplate*                       GetSegmentTemplate      ()  const = 0;
+                virtual ISegmentTemplate*                           GetSegmentTemplate         ()  const = 0;
+                
+                /**
+                 *  Returns a pointer to a dash::mpd::IDescriptor object that specifies that this Period belongs to a certain asset. \n
+                 *  For more details, see subclause 5.8.5.7. of <em>ISO/IEC 23009-1</em>.
+                 *
+                 *  @return     a pointer to a dash::mpd::IDescriptor object
+                 */
+                virtual const IDescriptor *                         GetAssetIdentifier         ()  const = 0;
+                
+                /**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IEventStream objects, each of which specifies Event Stream information.\n
+                 *  For more details see section 5.10.2. of <em>ISO/IEC 23009-1</em>.
+                 *  @return     a reference to a vector of pointers to dash::mpd::IEventStream objects
+                 */
+                virtual const std::vector<IEventStream *>&          GetEventStreams            ()  const = 0;
+                
+                /**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IServiceDescription objects that specify the service descriptions.
+                 *  For more details refer to the description in section K.4.1 of <em>ISO/IEC 23009-1</em>.
+                 *
+                 *  @return     a reference to a vector of pointers to dash::mpd::IServiceDescription objects
+                 */
+                virtual const std::vector<IServiceDescription *>&   GetServiceDescriptions     ()  const = 0;
+                
+                /**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IContentProtection objects that specifies information about content protection
+                 *  and encryption schemes used in this Media Presentation. If present on this level, it shall include the \c @refId attribute. \n
+                 *  For details, see subclauses 5.8.1 and 5.8.4.1 of <em>ISO/IEC 23009-1</em>. \n
+                 *
+                 *  @return     a reference to a vector of pointers to dash::mpd::IContentProtection objects
+                 */
+                virtual const std::vector<IContentProtection *>&    GetContentProtections      ()  const = 0;
 
                 /**
                  *  Returns a reference to a vector of pointers to dash::mpd::IAdaptationSet objects that specify Adapatation Sets.\n
@@ -98,34 +141,75 @@ namespace dash
                  *  For more details see section 5.3.3. of <em>ISO/IEC 23009-1, Part 1, 2012</em>.
                  *  @return     a reference to a vector of pointers to dash::mpd::IAdaptationSet objects
                  */
-                virtual const std::vector<IAdaptationSet *>&    GetAdaptationSets       ()  const = 0;
+                virtual const std::vector<IAdaptationSet *>&        GetAdaptationSets          ()  const = 0;
 
                 /**
                  *  Returns a reference to a vector of pointers to dash::mpd::ISubset objects that specify Subsets.\n
                  *  For more details see section 5.3.8. of <em>ISO/IEC 23009-1, Part 1, 2012</em>.
                  *  @return     a reference to a vector of pointers to dash::mpd::ISubset objects
                  */
-                virtual const std::vector<ISubset *>&           GetSubsets              ()  const = 0;
+                virtual const std::vector<ISubset *>&               GetSubsets                 ()  const = 0;
+                
+                /**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IDescriptor objects that specify supplemental information about the containing element 
+                 *  that may be used by the DASH Client optimizing the processing. \n
+                 *  For details, see subclause 5.8.4.9. of <em>ISO/IEC 23009-1</em>.
+                 *
+                 *  @return     a reference to a vector of pointers to dash::mpd::IDescriptor objects
+                 */
+                virtual const std::vector<IDescriptor *>&           GetSupplementalProperties  ()  const = 0;
+                
+                /**
+                 *  Returns a reference to a vector of pointers to dash::mpd::ILabel objects that specify summary labels for a group of Labels.
+                 *  For more details, refer to subclause 5.3.10. of <em>ISO/IEC 23009-1</em>.
+                 *
+                 *  @return     a reference to a vector of pointers to dash::mpd::ILabel objects
+                 */
+                virtual const std::vector<ILabel *>&                GetGroupLabels             ()  const = 0;
+                
+                /**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IPreselection objects that specify preselections, 
+                 *  i.e. combinations of Adaptation Sets that form a specific experience and can be selected for joint decoding and rendering.\n
+                 *  For more details, refer to subclause 5.3.11. of <em>ISO/IEC 23009-1</em>.
+                 *
+                 *  @return     a reference to a vector of pointers to dash::mpd::IPreselection objects
+                 */
+                virtual const std::vector<IPreselection *>&         GetPreselections           ()  const = 0;
 
                 /**
                  *  Returns a reference to a string that specifies a reference to an external <tt><b>Period</b></tt> element.
                  *  @return     a reference to a string
                  */
-                virtual const std::string&                      GetXlinkHref            ()  const = 0;
+                virtual const std::string&                          GetXlinkHref               ()  const = 0;
 
                 /**
                  *  Returns a reference to a string that specifies the processing instructions, which can be either \c \"onLoad\" or \c \"onRequest\".\n
                  *  This attribute shall not be present if the \c \@xlink:href attribute is not present.
                  *  @return     a reference to a string
                  */
-                virtual const std::string&                      GetXlinkActuate         ()  const = 0;
+                virtual const std::string&                          GetXlinkActuate            ()  const = 0;
+                
+                /**
+                 *  Returns a reference to a string that specifies the type of W3C XLINK being used. \n
+                 *  In the context of this document, all references shall be W3C XLINK simple links. The attribute \c @xlink:type is optional with fixed setting \c @xlink:type="simple".
+                 *  @return     a reference to a string
+                 */
+                virtual const std::string&                          GetXlinkType               ()  const = 0;
+                
+                /**
+                 *  Returns a reference to a string that specifies the desired behaviour of the remote element entity once dereferenced from within an MPD as defined in W3C XLINK. \n
+                 *  In the context of this document, the attribute \c @xlink:show is optional with fixed setting \c @xlink:show="embed". \n    
+                 *  \b NOTE In W3C XLINK, the behaviour of conforming XLink applications when embedding as a remote element entity is not defined. Thus, the actual behaviour for this document is defined in subclause 5.5.3. of <em>ISO/IEC 23009-1</em>.    
+                 *  @return     a reference to a string
+                 */
+                virtual const std::string&                          GetXlinkShow               ()  const = 0;
 
                 /**
                  *  Returns an reference to a string that specifies an identifier for this Period.
                  *  The attribute shall be unique in the scope of the Media Presentation.
                  *  @return     a reference to a string
                  */
-                virtual const std::string&                      GetId                   ()  const = 0;
+                virtual const std::string&                          GetId                      ()  const = 0;
 
                 /**
                  *  Returns a reference to a string that specifies the \em PeriodStart time of the Period.The \em PeriodStart time is used as an anchor to determine the MPD start 
@@ -133,21 +217,21 @@ namespace dash
                  *  If not present, refer to the details in section 5.3.2.1. of <em>ISO/IEC 23009-1, Part 1, 2012</em>
                  *  @return     a reference to a string
                  */
-                virtual const std::string&                      GetStart                ()  const = 0;
+                virtual const std::string&                          GetStart                   ()  const = 0;
 
                 /**
-                 *  Returns a reference to a string that  specifies the duration of the Period to determine the \em PeriodStart time of the next Period.\n
+                 *  Returns a reference to a string that specifies the duration of the Period to determine the \em PeriodStart time of the next Period.\n
                  *  If not present, refer to the details in section 5.3.2.1. of <em>ISO/IEC 23009-1, Part 1, 2012</em>
                  *  @return     a reference to a string
                  */
-                virtual const std::string&                      GetDuration             ()  const = 0;
+                virtual const std::string&                          GetDuration                ()  const = 0;
 
                 /**
                  *  When set to \c 'true', this is equivalent as if the <tt><b>AdaptationSet</b>\@bitstreamSwitching</tt> for each Adaptation Set contained in this Period is set to \c 'true'.
                  *  In this case, the <tt><b>AdaptationSet</b>\@bitstreamSwitching</tt> attribute shall not be set to \c 'false' for any Adaptation Set in this Period.
                  *  @return     a bool value
                  */
-                virtual bool                                    GetBitstreamSwitching   ()  const = 0;
+                virtual bool                                        GetBitstreamSwitching      ()  const = 0;
 
         };
     }

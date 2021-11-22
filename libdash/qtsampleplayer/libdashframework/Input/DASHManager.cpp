@@ -101,13 +101,13 @@ void        DASHManager::OnVideoFrameDecoded    (const uint8_t **data, videoFram
     int w = props->width;
     int h = props->height;
 
-    AVFrame *rgbframe   = avcodec_alloc_frame();
-    int     numBytes    = avpicture_get_size(PIX_FMT_RGB24, w, h);
+    AVFrame *rgbframe = av_frame_alloc();
+    int     numBytes    = avpicture_get_size(AV_PIX_FMT_RGB24, w, h);
     uint8_t *buffer     = (uint8_t*)av_malloc(numBytes);
 
-    avpicture_fill((AVPicture*)rgbframe, buffer, PIX_FMT_RGB24, w, h);
+    avpicture_fill((AVPicture*)rgbframe, buffer, AV_PIX_FMT_RGB24, w, h);
 
-    SwsContext *imgConvertCtx = sws_getContext(props->width, props->height, (PixelFormat)props->pxlFmt, w, h, PIX_FMT_RGB24, SWS_BICUBIC, NULL, NULL, NULL);
+    SwsContext *imgConvertCtx = sws_getContext(props->width, props->height, (AVPixelFormat)props->pxlFmt, w, h, AV_PIX_FMT_RGB24, SWS_BICUBIC, NULL, NULL, NULL);
 
     sws_scale(imgConvertCtx, data, props->linesize, 0, h, rgbframe->data, rgbframe->linesize);
 

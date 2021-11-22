@@ -70,9 +70,9 @@ void                LibavDecoder::NotifyVideo             (AVFrame * avFrame, St
     props.linesize      = avFrame->linesize;
     props.streamIndex   = decoConf->stream->index;
 
-    if(decoConf->stream->codec->pix_fmt == PIX_FMT_YUV420P)
+    if(decoConf->stream->codec->pix_fmt == AV_PIX_FMT_YUV420P)
         props.pxlFmt = yuv420p;
-    if(decoConf->stream->codec->pix_fmt == PIX_FMT_YUV422P)
+    if(decoConf->stream->codec->pix_fmt == AV_PIX_FMT_YUV422P)
         props.pxlFmt = yuv422p;
 
     for(size_t i = 0; i < videoObservers.size(); i++)
@@ -254,7 +254,7 @@ bool                LibavDecoder::Init                    ()
     if (this->errorHappened)
         return false;
 
-    this->frame = avcodec_alloc_frame();
+    this->frame = av_frame_alloc();
 
     av_init_packet(&this->avpkt);
     this->InitStreams(avFormatContextPtr);
