@@ -157,15 +157,23 @@ bool            BlockStream::BlockQueuePeekBytes    (uint8_t *data, uint32_t len
     while(pos < len)
     {
         block = this->blockqueue.at(cnt);
-        if((offset + len - pos) < (block->len))
+        if (offset >= block->len)
         {
-            memcpy(data + pos, block->data + offset, len - pos - offset);
-            return true;
+          offset-= block->len;
         }
         else
         {
-            memcpy(data + pos, block->data + offset, block->len - offset);
-            pos += block->len;
+          if((offset + len - pos) < (block->len))
+          {
+            memcpy(data + pos, block->data + offset, len - pos - offset);
+            return true;
+          }
+          else
+          {
+              memcpy(data + pos, block->data + offset, block->len - offset);
+              pos += (block->len - offset);
+              offset = 0;
+          } 
         }
 
         cnt++;
