@@ -106,20 +106,20 @@ namespace dash
                 void    SetTag                          (const std::string& tag);
 
             protected:
-                std::vector<Descriptor *>              framePacking;
-                std::vector<Descriptor *>              audioChannelConfiguration;
-                std::vector<ContentProtection *>       contentProtections;
-                Descriptor*                            outputProtection;
-                std::vector<Descriptor *>              essentialProperties;
-                std::vector<Descriptor *>              supplementalProperties;
-                std::vector<EventStream *>             eventStreams;
-                std::vector<Switching *>               switchings;
-                std::vector<RandomAccess *>            randomAccesses;
-                std::vector<Label *>                   groupLabels;
-                std::vector<Label *>                   labels;
-                std::vector<ContentPopularityRate *>   contentPopularityRates;
-                std::vector<ProducerReferenceTime *>   producerReferenceTimes;
-                std::vector<Resync *>                  resyncs;
+                std::vector<IDescriptor *>             framePacking;
+                std::vector<IDescriptor *>             audioChannelConfiguration;
+                std::vector<IContentProtection *>      contentProtections;
+                IDescriptor*                           outputProtection;
+                std::vector<IDescriptor *>             essentialProperties;
+                std::vector<IDescriptor *>             supplementalProperties;
+                std::vector<IEventStream *>            eventStreams;
+                std::vector<ISwitching *>              switchings;
+                std::vector<IRandomAccess *>           randomAccesses;
+                std::vector<ILabel *>                  groupLabels;
+                std::vector<ILabel *>                  labels;
+                std::vector<IContentPopularityRate *>  contentPopularityRates;
+                std::vector<IProducerReferenceTime *>  producerReferenceTimes;
+                std::vector<IResync *>                 resyncs;
                 std::vector<std::string>               profiles;
                 uint32_t                               width;
                 uint32_t                               height;
