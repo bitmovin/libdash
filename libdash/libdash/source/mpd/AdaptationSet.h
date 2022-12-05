@@ -5,6 +5,10 @@
  *
  * Email: libdash-dev@vicky.bitmovin.net
  *
+ * @contributor        Daniele Lorenzi
+ * @contributoremail   lorenzidaniele.97@gmail.com
+ * @contributiondate   2021
+ * 
  * This source code and its use and distribution, is subject to the terms
  * and conditions of the applicable license agreement.
  *****************************************************************************/
@@ -45,6 +49,8 @@ namespace dash
                 const std::vector<IRepresentation *>&   GetRepresentation               ()  const;
                 const std::string&                      GetXlinkHref                    ()  const;
                 const std::string&                      GetXlinkActuate                 ()  const;
+                const std::string&                      GetXlinkType                    ()  const;
+                const std::string&                      GetXlinkShow                    ()  const;
                 uint32_t                                GetId                           ()  const;
                 uint32_t                                GetGroup                        ()  const;
                 const std::string&                      GetLang                         ()  const;
@@ -58,14 +64,14 @@ namespace dash
                 uint32_t                                GetMaxHeight                    ()  const;
                 const std::string&                      GetMinFramerate                 ()  const;
                 const std::string&                      GetMaxFramerate                 ()  const;
-                bool                                    SegmentAlignmentIsBoolValue     ()  const;
                 bool                                    HasSegmentAlignment             ()  const;
-                uint32_t                                GetSegmentAligment              ()  const;
-                bool                                    SubsegmentAlignmentIsBoolValue  ()  const;
+                bool                                    GetSegmentAligment              ()  const;
                 bool                                    HasSubsegmentAlignment          ()  const;
-                uint32_t                                GetSubsegmentAlignment          ()  const;
+                bool                                    GetSubsegmentAlignment          ()  const;
                 uint8_t                                 GetSubsegmentStartsWithSAP      ()  const;
                 bool                                    GetBitstreamSwitching           ()  const;
+                const std::vector<uint32_t>&            GetInitializationSetRef         ()  const;
+                const std::string&                      GetInitializationPrincipal      ()  const;
 
                 void    AddAccessibity              (Descriptor *accessibility);
                 void    AddRole                     (Descriptor *role);
@@ -79,6 +85,8 @@ namespace dash
                 void    AddRepresentation           (Representation* representation);
                 void    SetXlinkHref                (const std::string& xlinkHref);
                 void    SetXlinkActuate             (const std::string& xlinkActuate);
+                void    SetXlinkType                (const std::string& xlinkType);
+                void    SetXlinkShow                (const std::string& xlinkShow);
                 void    SetId                       (uint32_t id);
                 void    SetGroup                    (uint32_t group);
                 void    SetLang                     (const std::string& lang);
@@ -92,10 +100,12 @@ namespace dash
                 void    SetMaxHeight                (uint32_t maxHeight);
                 void    SetMinFramerate             (const std::string& minFramerate);
                 void    SetMaxFramerate             (const std::string& maxFramerate);
-                void    SetSegmentAlignment         (const std::string& segmentAlignment);
-                void    SetSubsegmentAlignment      (const std::string& subsegmentAlignment);
+                void    SetSegmentAlignment         (bool segmentAlignment);
+                void    SetSubsegmentAlignment      (bool subsegmentAlignment);
                 void    SetSubsegmentStartsWithSAP  (uint8_t subsegmentStartsWithSAP);
                 void    SetBitstreamSwitching       (bool value);
+                void    SetInitializationSetRef     (const std::string& initializationSetRef);
+                void    SetInitializationPrincipal  (const std::string& initializationPrincipal);
 
             private:
                 std::vector<Descriptor *>       accessibility;
@@ -110,6 +120,8 @@ namespace dash
                 std::vector<Representation *>   representation;
                 std::string                     xlinkHref;
                 std::string                     xlinkActuate;
+                std::string                     xlinkType;
+                std::string                     xlinkShow;
                 uint32_t                        id;
                 uint32_t                        group;
                 std::string                     lang;
@@ -123,14 +135,14 @@ namespace dash
                 uint32_t                        maxHeight;
                 std::string                     minFramerate;
                 std::string                     maxFramerate;
-                bool                            segmentAlignmentIsBool;
-                bool                            subsegmentAlignmentIsBool;
                 bool                            usesSegmentAlignment;
                 bool                            usesSubsegmentAlignment;
-                uint32_t                        segmentAlignment;
-                uint32_t                        subsegmentAlignment;
+                bool                            segmentAlignment;
+                bool                            subsegmentAlignment;
                 uint8_t                         subsegmentStartsWithSAP;
                 bool                            isBitstreamSwitching;
+                std::vector<uint32_t>           initializationSetRef;
+                std::string                     initializationPrincipal;
         };
     }
 }

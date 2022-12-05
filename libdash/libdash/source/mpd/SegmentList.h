@@ -5,6 +5,10 @@
  *
  * Email: libdash-dev@vicky.bitmovin.net
  *
+ * @contributor        Daniele Lorenzi
+ * @contributoremail   lorenzidaniele.97@gmail.com
+ * @contributiondate   2021
+ * 
  * This source code and its use and distribution, is subject to the terms
  * and conditions of the applicable license agreement.
  *****************************************************************************/
@@ -31,15 +35,21 @@ namespace dash
                 const std::vector<ISegmentURL *>&   GetSegmentURLs  ()  const;
                 const std::string&                  GetXlinkHref    ()  const;
                 const std::string&                  GetXlinkActuate ()  const;
+                const std::string&                  GetXlinkType    ()  const;
+                const std::string&                  GetXlinkShow    ()  const;
 
                 void    AddSegmentURL   (SegmentURL *segmetURL);
                 void    SetXlinkHref    (const std::string& xlinkHref);
                 void    SetXlinkActuate (const std::string& xlinkActuate);
+                void    SetXlinkType    (const std::string& xlinkType);
+                void    SetXlinkShow    (const std::string& xlinkShow);
 
             private:
                 std::vector<SegmentURL *> segmentURLs;
-                std::string xlinkHref;
-                std::string xlinkActuate;
+                std::string               xlinkHref;
+                std::string               xlinkActuate;
+                std::string               xlinkType;
+                std::string               xlinkShow;
         };
     }
 }

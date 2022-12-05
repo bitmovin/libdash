@@ -5,6 +5,10 @@
  *
  * Email: libdash-dev@vicky.bitmovin.net
  *
+ * @contributor        Daniele Lorenzi
+ * @contributoremail   lorenzidaniele.97@gmail.com
+ * @contributiondate   2021
+ * 
  * This source code and its use and distribution, is subject to the terms
  * and conditions of the applicable license agreement.
  *****************************************************************************/
@@ -26,6 +30,8 @@ Representation::~Representation ()
 {
     for(size_t i = 0; i < this->baseURLs.size(); i++)
         delete(this->baseURLs.at(i));
+    for(size_t i = 0; i < this->extendedBandwidths.size(); i++)
+        delete(this->extendedBandwidths.at(i));
     for(size_t i = 0; i < this->subRepresentations.size(); i++)
         delete(this->subRepresentations.at(i));
 
@@ -41,6 +47,14 @@ const std::vector<IBaseUrl *>&              Representation::GetBaseURLs         
 void                                        Representation::AddBaseURL                  (BaseUrl *baseUrl)
 {
     this->baseURLs.push_back(baseUrl);
+}
+const std::vector<IExtendedBandwidth *>&    Representation::GetExtendedBandwidths       () const
+{
+    return (std::vector<IExtendedBandwidth *> &) this->extendedBandwidths;
+}
+void                                        Representation::AddExtendedBandwidth        (ExtendedBandwidth *extendedBandwidth)
+{
+    this->extendedBandwidths.push_back(extendedBandwidth);
 }
 const std::vector<ISubRepresentation *>&    Representation::GetSubRepresentations       () const
 {
@@ -105,6 +119,22 @@ const std::vector<std::string>&             Representation::GetDependencyId     
 void                                        Representation::SetDependencyId             (const std::string &dependencyId)
 {
     dash::helpers::String::Split(dependencyId, ' ', this->dependencyId);
+}
+const std::vector<std::string>&             Representation::GetAssociationId            () const
+{
+    return this->associationId;
+}
+void                                        Representation::SetAssociationId            (const std::string& associationId)
+{
+    dash::helpers::String::Split(associationId, ' ', this->associationId);
+}
+const std::string&                          Representation::GetAssociationType          () const
+{
+    return this->associationType;
+}
+void                                        Representation::SetAssociationType          (const std::string &associationType)
+{
+    this->associationType = associationType;
 }
 const std::vector<std::string>&             Representation::GetMediaStreamStructureId   () const
 {
